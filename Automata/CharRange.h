@@ -66,8 +66,8 @@ public:
 	inline CharRange& intersection(const CharRange& r);
 
 	// Return the left and right excess of *this with r(respectively):
-	inline CharRange left_excess(const CharRange& r) const;
-	inline CharRange right_excess(const CharRange& r) const;
+	inline CharRange left_excess(const CharRange& r, CharRange& ret) const;
+	inline CharRange right_excess(const CharRange& r, CharRange& ret) const;
 	
 	//Define an ordering on CharRange's, used mainly in RE::ordering().
 	int ordering(const CharRange& r) const;
@@ -194,18 +194,20 @@ inline CharRange& CharRange::intersection(const CharRange& r)
 }
 
 // Return the left and right excess of *this with r(respectively):
-inline CharRange CharRange::left_excess(const CharRange& r) const
+inline CharRange CharRange::left_excess(const CharRange& r, CharRange& ret) const
 {
-	// 把一个局部变量返回，不应该吧！
-	//auto CharRange ret(std::min(lo, r.lo), std::max(lo, r.lo) - 1);
-	CharRange ret(std::min(lo, r.lo), std::max(lo, r.lo) - 1);
+	// 原文：把一个局部变量返回，不应该吧！
+	// auto CharRange ret(std::min(lo, r.lo), std::max(lo, r.lo) - 1);
+	// return(ret);
+	ret = CharRange(std::min(lo, r.lo), std::max(lo, r.lo) - 1);
 	return(ret);
 }
-inline CharRange CharRange::right_excess(const CharRange& r) const
+inline CharRange CharRange::right_excess(const CharRange& r, CharRange& ret) const
 {
-	// 把一个局部变量返回，不应该吧！
+	// 原文：把一个局部变量返回，不应该吧！
 	//auto CharRange ret(std::min(hi, r.hi) + 1, std::max(lo, r.lo));
-	CharRange ret(std::min(hi, r.hi) + 1, std::max(lo, r.lo));
+	// return(ret);
+	ret = CharRange(std::min(hi, r.hi) + 1, std::max(lo, r.lo));
 	return(ret);
 }
 
