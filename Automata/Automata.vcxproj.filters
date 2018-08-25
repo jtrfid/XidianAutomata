@@ -24,6 +24,12 @@
     <ClInclude Include="CharRange.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CRSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BitVec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -33,6 +39,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CharRange.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CRSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BitVec.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
