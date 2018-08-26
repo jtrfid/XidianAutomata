@@ -55,7 +55,6 @@ int CRSet::equivalent_cover(const CRSet& r) const
 	for (int i = 0; i < in_use && result; i++)
 	{
 		result = r.covered(data[i]);
-		if (!result) break;  // 原文无此语句
 	}
 	return result;
 }

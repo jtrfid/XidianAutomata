@@ -42,6 +42,15 @@
     <ClInclude Include="StateTo.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="tr-pair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Trans.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,7 +71,10 @@
     <ClCompile Include="StateSet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="StateTo.cpp">
+    <ClCompile Include="TransImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Trans.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
