@@ -80,14 +80,13 @@ int CRSet::covered(const CharRange& r) const
 			// Now,figure out if the excesses are also covered.
 			// This could be made more efficient!
 			int ret1 = 1, ret2 = 1;
-			CharRange ret;
 			if (r.low() != data[i].low()) {
 				// There actually is a left excess:
-				ret1 = covered(r.left_excess(data[i], ret));
+				ret1 = covered(r.left_excess(data[i]));
 			}
 			if (r.high() != data[i].high()) {
 				// There actually is a right excess:
-				ret2 = covered(r.right_excess(data[i], ret));
+				ret2 = covered(r.right_excess(data[i]));
 			}
 			return(ret1 && ret2);
 		}
@@ -118,7 +117,7 @@ void CRSet::ensure_min_size(int s)
 
 // Add a CharRange to this set, splitting it as required.
 // Adding begins at i.This is used in CRSet : add().
-void CRSet::add_at(CharRange& a, int i)
+void CRSet::add_at(const CharRange a, int i)
 {
 	assert(class_invariant());
 	assert(a.class_invariant());
@@ -155,14 +154,12 @@ void CRSet::add_at(CharRange& a, int i)
 			if (a.low() != old.low())
 			{
 				// Then there is left excess
-				CharRange ret;
-				add_at(a.left_excess(old,ret), i + 1);
+				add_at(a.left_excess(old), i + 1);
 			}
 			if (a.high() != old.high())
 			{
 				// Then there is right excess
-				CharRange ret;
-				add_at(a.right_excess(old, ret), i + 1);
+				add_at(a.right_excess(old), i + 1);
 			}
 		}
 	} 

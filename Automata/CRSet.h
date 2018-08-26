@@ -34,7 +34,7 @@ public:
 
 	// Add a CharRange to this set, splitting it as required.
 	// It's not possible to add the empty CharRange to a CRSet!
-	inline CRSet& add(CharRange& a);
+	inline CRSet& add(const CharRange a);
 
 	// Append a CharRange onto the end of this set, knowing that a is disjoint with
 	// any others in the set.
@@ -68,7 +68,7 @@ private:
 
 	// Add a CharRange to this set, splitting it as required.
 	// Adding begins at i.This is used in CRSet: add().
-	void add_at(CharRange& a, int i);
+	void add_at(const CharRange a, int i);
 	
 	// Is r covered by this set?
 	int covered(const CharRange& r) const;
@@ -100,7 +100,7 @@ inline CRSet::~CRSet()
 
 // Add a CharRange to this set, splitting it as required.
 // It's not possible to add the empty CharRange to a CRSet!
-inline CRSet& CRSet::add(CharRange& a)
+inline CRSet& CRSet::add(const CharRange a)
 {
 	assert(class_invariant());
 	add_at(a, 0);
