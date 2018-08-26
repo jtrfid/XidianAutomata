@@ -150,6 +150,10 @@
     <ClInclude Include="BitVec.h" />
     <ClInclude Include="CharRange.h" />
     <ClInclude Include="CRSet.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StatePool.h" />
+    <ClInclude Include="StateSet.h" />
+    <ClInclude Include="StateTo.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -158,6 +162,8 @@
     <ClCompile Include="BitVec.cpp" />
     <ClCompile Include="CharRange.cpp" />
     <ClCompile Include="CRSet.cpp" />
+    <ClCompile Include="StateSet.cpp" />
+    <ClCompile Include="StateTo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -30,6 +30,18 @@
     <ClInclude Include="BitVec.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StatePool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +57,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BitVec.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
