@@ -150,21 +150,29 @@
     <ClInclude Include="BitVec.h" />
     <ClInclude Include="CharRange.h" />
     <ClInclude Include="CRSet.h" />
+    <ClInclude Include="DTrans.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateEqRel.h" />
     <ClInclude Include="StatePool.h" />
+    <ClInclude Include="StateRel.h" />
     <ClInclude Include="StateSet.h" />
     <ClInclude Include="StateTo.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SymRel.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="tr-pair.h" />
     <ClInclude Include="Trans.h" />
     <ClInclude Include="TransImpl.h" />
+    <ClInclude Include="TransRel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="BitVec.cpp" />
     <ClCompile Include="CharRange.cpp" />
     <ClCompile Include="CRSet.cpp" />
+    <ClCompile Include="DTrans.cpp" />
+    <ClCompile Include="StateEqRel.cpp" />
+    <ClCompile Include="StateRel.cpp" />
     <ClCompile Include="StateSet.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -172,8 +180,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SymRel.cpp" />
     <ClCompile Include="Trans.cpp" />
     <ClCompile Include="TransImpl.cpp" />
+    <ClCompile Include="TransRel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

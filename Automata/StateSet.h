@@ -96,7 +96,7 @@ public:
 	inline void clear();
 
 	// What is the smallest element of *this?
-	inline State smaliest() const;
+	inline State smallest() const;
 
 	// Some domain related members:
 
@@ -248,7 +248,7 @@ inline void StateSet::clear()
 }
 
 // What is the smallest element of *this?
-inline State StateSet::smaliest() const
+inline State StateSet::smallest() const
 {
 	return(BitVec::smallest());
 }
@@ -277,12 +277,14 @@ inline void StateSet::reincarnate()
 inline StateSet& StateSet::st_rename(const int r)
 {
 	BitVec::left_shift(r);
+	return(*this);
 }
 
 // Include another State Set into this one, renaming all the States.
 inline StateSet& StateSet::disjointing_union(const StateSet& r)
 {
 	BitVec::append(r);
+	return(*this);
 }
 
 // Place the first State in the iteration in reference r.

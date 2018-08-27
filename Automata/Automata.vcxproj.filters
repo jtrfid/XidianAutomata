@@ -51,6 +51,21 @@
     <ClInclude Include="Trans.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DTrans.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SymRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateEqRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +90,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Trans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DTrans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SymRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateEqRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransRel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
