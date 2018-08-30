@@ -58,7 +58,8 @@ public:
 	
 	// Some special members:
 	
-	friend std::ostream& operator<<(std::ostream& os, const TransRel& r );
+	// 必须类内定义
+	friend std::ostream& operator<<(std::ostream& os, const TransRel& r);
 
 	inline int class_invariant() const;
 };
@@ -110,3 +111,12 @@ inline int TransRel::class_invariant() const
 	}
 	return(res);
 }
+
+// 修改为inline,否则连接器找不到StateTo<Trans>,但是std::cout<<出现同样的错误,再把StateTo<Trans>移入它所在的类内定义，ok
+inline std::ostream& operator<<(std::ostream& os, const TransRel& r)
+{
+	assert(r.class_invariant());
+	return(os << (const StateTo<Trans>&)r);
+	//return(os << r); // 引起递归
+}
+

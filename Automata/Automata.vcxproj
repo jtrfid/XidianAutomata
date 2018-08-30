@@ -150,7 +150,13 @@
     <ClInclude Include="BitVec.h" />
     <ClInclude Include="CharRange.h" />
     <ClInclude Include="CRSet.h" />
+    <ClInclude Include="DFA.h" />
     <ClInclude Include="DTrans.h" />
+    <ClInclude Include="DTransRel.h" />
+    <ClInclude Include="FAabs.h" />
+    <ClInclude Include="RE.h" />
+    <ClInclude Include="REops.h" />
+    <ClInclude Include="Sigma.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateEqRel.h" />
     <ClInclude Include="StatePool.h" />
@@ -170,7 +176,12 @@
     <ClCompile Include="BitVec.cpp" />
     <ClCompile Include="CharRange.cpp" />
     <ClCompile Include="CRSet.cpp" />
+    <ClCompile Include="Deriv.cpp" />
+    <ClCompile Include="DFA.cpp" />
     <ClCompile Include="DTrans.cpp" />
+    <ClCompile Include="DTransRel.cpp" />
+    <ClCompile Include="RE.cpp" />
+    <ClCompile Include="Sig-re.cpp" />
     <ClCompile Include="StateEqRel.cpp" />
     <ClCompile Include="StateRel.cpp" />
     <ClCompile Include="StateSet.cpp" />

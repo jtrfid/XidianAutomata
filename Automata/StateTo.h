@@ -76,7 +76,14 @@ public:
 
 	//Some extras:
 	
-	friend std::ostream& operator<<(std::ostream& os, const StateTo<T>& r);
+	// 必须类内定义，使其派生类可以使用inline，在.h文件的类外定义std::ostream& operator<<()
+	friend std::ostream& operator<<(std::ostream& os, const StateTo<T>& r)
+	{
+		assert(r.class_invariant());
+		for (int i = 0; i < r.in_use; i++)
+			os << i << "->" << r.data[i] << std::endl;
+		return(os);
+	}
 
 	// Assert that everything's okay.
 	inline int class_invariant() const;
@@ -215,6 +222,9 @@ StateTo<T>& StateTo<T>::disjointing_union(const StateTo<T>& r)
 
 //Some extras:
 
+// T is assumed to have an operator<<
+/*******************************************************************
+// 修改为inline,否则连接器找不到StateTo<Trans>,但是std::cout<<出现同样的错误，移入类内定义
 template<class T>
 inline std::ostream& operator<<(std::ostream& os, const StateTo<T>& r)
 {
@@ -223,6 +233,7 @@ inline std::ostream& operator<<(std::ostream& os, const StateTo<T>& r)
 		os << i << "->" << r.data[i] << endl;
 	return(os);
 }
+*********************************************************************/
 
 // Assert that everything's okay.
 template<class T>

@@ -90,10 +90,3 @@ TransRel& TransRel::disjointing_union(const TransRel& r)
 	assert(class_invariant());
 	return(*this);
 }
-
-// 修改为inline,否则连接器找不到StateTo<Trans>
-inline std::ostream& operator<<(std::ostream& os, const TransRel& r)
-{
-	assert(r.class_invariant());
-	return(os << (const StateTo<Trans>&)r);
-}

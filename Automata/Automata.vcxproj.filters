@@ -66,6 +66,24 @@
     <ClInclude Include="TransRel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DTransRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="REops.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RE.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sigma.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FAabs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -105,6 +123,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TransRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DTransRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Deriv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-re.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DFA.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
