@@ -63,7 +63,7 @@ public:
 	inline const RE& left_subexpr() const;
 
 	// What is the right RE of this RE operator (if it a binary operator).
-	inline const RE& righ_subexpr() const;
+	inline const RE& right_subexpr() const;
 
 	////////////////////////////////////////////// Those methd's implementation is in deriv.cpp
 	// Some derivatives(Brzozowski's) related member functions:
@@ -156,7 +156,7 @@ inline const RE& RE::left_subexpr() const
 }
 
 // What is the right RE of this RE operator (if it a binary operator).
-inline const RE& RE::righ_subexpr() const
+inline const RE& RE::right_subexpr() const
 {
 	assert(op == OR || op == CONCAT);
 	return(*right);
@@ -200,7 +200,7 @@ inline int RE::class_invariant() const
 	case OR:
 	case CONCAT:
 		return(left != 0 && right != 0 && left_subexpr().class_invariant()
-			&& righ_subexpr().class_invariant());
+			&& right_subexpr().class_invariant());
 	case STAR:
 	case PLUS:
 	case QUESTION:

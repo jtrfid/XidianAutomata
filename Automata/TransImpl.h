@@ -16,7 +16,7 @@
 #include "CRSet.h"
 #include "State.h"
 #include "StateSet.h"
-#include "tr-pair.h"
+#include "TransPair.h"
 
 // Implement the basics of a char to StateSet map (a set of TransPair's).
 // It is used by DTrans and Trans.

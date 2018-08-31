@@ -138,7 +138,7 @@ inline const CharRange& CRSet::iterator(const int it) const
 inline int CRSet::iter_end(const int it) const
 {
 	assert(class_invariant());
-	assert(!iter_end(it));
+	assert(0 <= it);
 	return(it >= in_use);
 }
 

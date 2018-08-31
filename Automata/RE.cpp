@@ -26,7 +26,7 @@ RE::RE(const RE& e) :op(e.op),right(0) // Only the right on purpose.
 		break;
 	case OR:
 	case CONCAT:
-		right = new RE(e.righ_subexpr());
+		right = new RE(e.right_subexpr());
 	case STAR:
 	case PLUS:
 	case QUESTION:
@@ -64,7 +64,7 @@ const RE& RE::operator = (const RE& e)
 	case OR:
 	case CONCAT:
 		delete right;
-		right = new RE(e.righ_subexpr());
+		right = new RE(e.right_subexpr());
 	case STAR:
 	case PLUS:
 	case QUESTION:
@@ -150,10 +150,10 @@ std::ostream& operator<<(std::ostream& os, const RE& r)
 	case SYMBOL:
 		os << r.symbol(); break;
 	case OR:
-		os << "| " << r.left_subexpr() << ' ' << r.righ_subexpr(); 
+		os << "| " << r.left_subexpr() << ' ' << r.right_subexpr(); 
 		break;
 	case CONCAT:
-		os << ". " << r.left_subexpr() << ' ' << r.righ_subexpr();
+		os << ". " << r.left_subexpr() << ' ' << r.right_subexpr();
 		break;
 	case STAR:
 		os << "* " << r.left_subexpr();

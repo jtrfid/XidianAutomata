@@ -18,7 +18,7 @@
 #include "CRSet.h"
 #include "State.h"
 #include "StateSet.h"
-#include "tr-pair.h"
+#include "TransPair.h"
 #include "TransImpl.h"
 
 // Map char to StateSet, using Translmpl.

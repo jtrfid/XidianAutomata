@@ -423,7 +423,7 @@ int RE::ordering(const RE& r) const
 			else
 			{
 				// Compare the right subexprs,since the left ones are equal.
-				ret = right->ordering(r.righ_subexpr());
+				ret = right->ordering(r.right_subexpr());
 			}
 			break;
 		case STAR:

@@ -22,6 +22,9 @@ the subset construction (see (Wat93a, p. 12-13] for the subset construction).
 #include "SymRel.h"
 #include "DTransRel.h"
 #include "StatePool.h"
+#include "DSDFARev.h"
+#include "DFA_components.h"
+#include "DFAseed.h"
 
 // Deterministic finite automata: 
 // can be constructed from non-det. finite automata, can be minimized.
@@ -61,10 +64,14 @@ public:
 
 	// Some member functions relating to useful State's.
 	
-	// Can all States reach a final State ?
-	int usefulf() const;
+	// Can all States reach a final State?
+	// Implement Definition 2.23
+	int Usefulf() const;
 	
 	// Remove any States that cannot reach a final State.
+	// (This is a last step in minimization, since some of the min. algorithms may yield 
+	// a DFA with a sink state.)
+	// Implement Remark 2.39
 	DFA& usefulf();
 
 	// Special member functions :

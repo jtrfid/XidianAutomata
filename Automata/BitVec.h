@@ -174,6 +174,7 @@ inline BitVec& BitVec::unset_bit(const int r)
 	assert(0 <= r && r < width());
 	assert(class_invariant());
 	data[word_index(r)] &= ~(1U << bit_index(r));
+	return(*this);
 }
 
 // Is a bit set?

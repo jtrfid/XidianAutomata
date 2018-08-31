@@ -21,7 +21,7 @@
 #include "CRSet.h"
 #include "State.h"
 #include "StateSet.h"
-#include "tr-pair.h"
+#include "TransPair.h"
 #include "TransImpl.h"
 
 // Implement a DFA's transition function for one State.
@@ -120,6 +120,7 @@ inline DTrans& DTrans::add_transition(const CharRange a, const State q)
 {
 	assert(class_invariant());
 	TransImpl::add_transition(a, q);
+	return(*this);
 }
 
 inline int DTrans::class_invariant() const

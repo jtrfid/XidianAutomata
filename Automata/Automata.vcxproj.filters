@@ -42,9 +42,6 @@
     <ClInclude Include="StateTo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="tr-pair.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="TransImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -82,6 +79,30 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DFA_components.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DFAseed.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSDFARev.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRE.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransPair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSREopt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ISImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSIS.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -138,6 +159,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSDFARev.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSREopt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ISImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSIS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
