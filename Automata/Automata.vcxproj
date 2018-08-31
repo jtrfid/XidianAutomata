@@ -153,8 +153,10 @@
     <ClInclude Include="DFA.h" />
     <ClInclude Include="DFAseed.h" />
     <ClInclude Include="DFA_components.h" />
+    <ClInclude Include="DSDeRemer.h" />
     <ClInclude Include="DSDFARev.h" />
     <ClInclude Include="DSIS.h" />
+    <ClInclude Include="DSISopt.h" />
     <ClInclude Include="DSRE.h" />
     <ClInclude Include="DSREopt.h" />
     <ClInclude Include="DTrans.h" />
@@ -185,8 +187,10 @@
     <ClCompile Include="CRSet.cpp" />
     <ClCompile Include="Deriv.cpp" />
     <ClCompile Include="DFA.cpp" />
+    <ClCompile Include="DSDeRemer.cpp" />
     <ClCompile Include="DSDFARev.cpp" />
     <ClCompile Include="DSIS.cpp" />
+    <ClCompile Include="DSISopt.cpp" />
     <ClCompile Include="DSRE.cpp" />
     <ClCompile Include="DSREopt.cpp" />
     <ClCompile Include="DTrans.cpp" />

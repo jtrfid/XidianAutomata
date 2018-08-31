@@ -18,7 +18,7 @@ function. It is used in the item set construction [Wat93a, Construction 5.69].
 #include "ISImpl.h"
 
 // This class is used to represent abstract States in a DFA that is still under
-// construction.It represents the item sets in the Jconstr construction.
+// construction.It represents the item sets in the DSIS construction.
 // See Construction [Wat93a, Construction 5.69].
 // DSIS inherits from ISImpl for implementation.
 class DSIS :protected ISImpl
@@ -58,7 +58,7 @@ inline DSIS::DSIS(const RE *r) :ISImpl(r)
 
 inline const DSIS& DSIS::operator=(const DSIS& r)
 {
-	assert(class_invariant());
+	assert(r.class_invariant());
 	ISImpl::operator=(r);
 	// *this may not satisfy the invariant until after the assignment.
 	assert(class_invariant());

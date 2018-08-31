@@ -105,6 +105,12 @@
     <ClInclude Include="DSIS.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DSDeRemer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSISopt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -174,6 +180,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DSIS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSDeRemer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSISopt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
