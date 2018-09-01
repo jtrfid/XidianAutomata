@@ -111,6 +111,12 @@
     <ClInclude Include="DSISopt.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -186,6 +192,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DSISopt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSFA.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
