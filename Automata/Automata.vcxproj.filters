@@ -117,6 +117,21 @@
     <ClInclude Include="DSFA.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="RFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRFA2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSLBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -167,9 +182,6 @@
     <ClCompile Include="Deriv.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sig-re.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="DFA.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -198,6 +210,30 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DSFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-FA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-RE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRFA2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-RFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSLBFA.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

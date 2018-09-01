@@ -1,7 +1,7 @@
 /************************************************************************
 	The ¦²-term algebra Reg<RE>
 	Implementation class: Reg<RE>
-	Files: Sig-re. cpp
+	Files: Sig-RE. cpp
 	Uses: CharRange, Reg, RE, REops
 	Description: The template instantiation Reg<RE> can be used to construct regular expressions
 	(see the documentation on template class Reg(in Sigma.h)).

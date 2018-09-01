@@ -11,6 +11,7 @@ takes a structure containing the essential components of a DFA, and uses those c
 to construct the automaton; this constructor is used in several DFA constructions involving
 the subset construction (see (Wat93a, p. 12-13] for the subset construction).
  ************************************************************************/
+#pragma once
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
