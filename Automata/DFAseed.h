@@ -42,6 +42,7 @@ state classes are to be written in such a way that there are only finitely many 
 thereby ensuring termination of the function. The useless state removal is hidden in the fact
 that, by starting with the start state, only reachable States are constructed.
  ************************************************************************/
+#pragma once
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
