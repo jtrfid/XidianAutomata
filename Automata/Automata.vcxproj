@@ -149,7 +149,9 @@
   <ItemGroup>
     <ClInclude Include="BitVec.h" />
     <ClInclude Include="CharRange.h" />
+    <ClInclude Include="Constrs.h" />
     <ClInclude Include="CRSet.h" />
+    <ClInclude Include="Dconstrs.h" />
     <ClInclude Include="DFA.h" />
     <ClInclude Include="DFAseed.h" />
     <ClInclude Include="DFA_components.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="DSIS.h" />
     <ClInclude Include="DSISopt.h" />
     <ClInclude Include="DSLBFA.h" />
+    <ClInclude Include="DSRBFA.h" />
     <ClInclude Include="DSRE.h" />
     <ClInclude Include="DSREopt.h" />
     <ClInclude Include="DSRFA.h" />
@@ -167,8 +170,10 @@
     <ClInclude Include="DTransRel.h" />
     <ClInclude Include="FA.h" />
     <ClInclude Include="FAabs.h" />
+    <ClInclude Include="Iconstrs.h" />
     <ClInclude Include="ISImpl.h" />
     <ClInclude Include="LBFA.h" />
+    <ClInclude Include="RBFA.h" />
     <ClInclude Include="RE.h" />
     <ClInclude Include="REops.h" />
     <ClInclude Include="RFA.h" />
@@ -191,7 +196,9 @@
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="BitVec.cpp" />
     <ClCompile Include="CharRange.cpp" />
+    <ClCompile Include="Constrs.cpp" />
     <ClCompile Include="CRSet.cpp" />
+    <ClCompile Include="Dconstrs.cpp" />
     <ClCompile Include="Deriv.cpp" />
     <ClCompile Include="DFA.cpp" />
     <ClCompile Include="DSDeRemer.cpp" />
@@ -200,6 +207,7 @@
     <ClCompile Include="DSIS.cpp" />
     <ClCompile Include="DSISopt.cpp" />
     <ClCompile Include="DSLBFA.cpp" />
+    <ClCompile Include="DSRBFA.cpp" />
     <ClCompile Include="DSRE.cpp" />
     <ClCompile Include="DSREopt.cpp" />
     <ClCompile Include="DSRFA.cpp" />
@@ -207,8 +215,10 @@
     <ClCompile Include="DTrans.cpp" />
     <ClCompile Include="DTransRel.cpp" />
     <ClCompile Include="FA.cpp" />
+    <ClCompile Include="Iconstrs.cpp" />
     <ClCompile Include="ISImpl.cpp" />
     <ClCompile Include="LBFA.cpp" />
+    <ClCompile Include="RBFA.cpp" />
     <ClCompile Include="RE.cpp" />
     <ClCompile Include="RFA.cpp" />
     <ClCompile Include="Sig-FA.cpp" />

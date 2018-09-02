@@ -60,7 +60,7 @@ public:
 	inline int class_invariant() const;
 
 protected:
-	//Implementation stuff, protected for Reg<LBFA>:
+	// Implementation stuff, protected for Reg<LBFA>:
 	StatePool Q;
 	// Single start state.
 	State s;

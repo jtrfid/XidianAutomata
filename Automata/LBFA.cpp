@@ -40,7 +40,7 @@ LBFA::LBFA(const RFA& r) :Q(r.Q), F(r.last), Qmap_inverse(r.Qmap_inverse), follo
 	fst.set_domain(Q.size());
 	follow.union_cross(s, fst);
 	//////////////////////////////////////////////////////////////////
-	assert(r.class_invariant());  // Why use r.class_invariant()
+	assert(class_invariant());  // т╜нд assert(r.class_invariant());
 }
 
 // Standard FAabs operators. Don't override acceptable():

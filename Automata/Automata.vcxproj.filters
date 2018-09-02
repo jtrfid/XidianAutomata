@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Constructions">
+      <UniqueIdentifier>{d7355ad6-b00b-47c1-b3c5-1ef0ac5d4b5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -132,6 +135,21 @@
     <ClInclude Include="DSLBFA.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="RBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dconstrs.h">
+      <Filter>Constructions</Filter>
+    </ClInclude>
+    <ClInclude Include="Constrs.h">
+      <Filter>Constructions</Filter>
+    </ClInclude>
+    <ClInclude Include="Iconstrs.h">
+      <Filter>Constructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -235,6 +253,21 @@
     </ClCompile>
     <ClCompile Include="DSLBFA.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Dconstrs.cpp">
+      <Filter>Constructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Constrs.cpp">
+      <Filter>Constructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Iconstrs.cpp">
+      <Filter>Constructions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

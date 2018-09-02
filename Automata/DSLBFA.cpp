@@ -27,7 +27,7 @@ CRSet DSLBFA::out_labels() const
 	// So, we take the image of which under follow to get which!s out-trans
 	return(Qmap_inverse->labels_into(follow->image(which)));
 }
-// Pretty much follow the stuff in lbfa.cpp
+// Pretty much follow the stuff in LBFA.cpp
 DSLBFA DSLBFA::out_transition(const CharRange a) const
 {
 	assert(class_invariant());

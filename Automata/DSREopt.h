@@ -68,6 +68,7 @@ inline const DSREopt& DSREopt::operator==(const DSREopt& r)
 {
 	assert(r.class_invariant());
 	RE::operator=(r);
+	//RE::operator=((const RE&)r);
 	assert(class_invariant());
 	return(*this);
 }
