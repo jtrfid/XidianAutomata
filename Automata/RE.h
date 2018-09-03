@@ -3,11 +3,11 @@
 	Files : RE.h, RE.cpp
 	Uses : CharRange, CRSet, REops
 	Description : An RE is a regular expression(see[Wat93a, Section 3] for the definition of regular
-		expressions).The argumentiess constructor constructs the regular expression ¦Õ(the regular
+		expressions).The argument-less constructor constructs the regular expression ¦Õ(the regular
 		expression denoting the empty language).It is not possible to construct more complex regular
 		expressions with the member functions(see the template class Reg<RE> for information
 		on constructing regular expressions).Class RE is the implementation of the carrier set of
-		the ¦²-term algebra(an RE is a term in the ¦²- term algebra).
+		the ¦²-term algebra(an RE is a term in the ¦²-term algebra).
 		A member function returns the operator type of the main(or root) operator of the regular
 		expression. (The operator types are enumerated in REops.) Other member functions can
 		be used to determine additional information about the main(root) operator of the regular
