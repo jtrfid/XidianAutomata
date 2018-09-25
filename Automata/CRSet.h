@@ -8,7 +8,7 @@
 /***********************************************************
  A data-structure to hold sets of CharRange's. The CharRange's are kept pair wise disjoint.
  These are generally used in the construction of DFA's, and in DFA minimization.
- Files: crset. h, crset. cpp
+ Files: crset.h, crset.cpp
  Uses: CharRange
  Description: A CRSet is a set of CharRanges, with a restriction: all CharRanges in a CRSet are
  pairwise disjoint. When a new CharRange is added to a CRSet, some CharRanges may be

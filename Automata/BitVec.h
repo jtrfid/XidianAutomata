@@ -9,8 +9,8 @@
  Implement a bit-vector. This class can be replaced with any standard library class that
  provides the same functionality. Many of the normal bit-wise operators are available on
  Bit Vec's.
- Bit Vee's clients are StateSet and the item set's (ISImpl).
- Files: bi tYee . h, bi tvec . cpp
+ Bit Vec's clients are StateSet and the item set's (ISImpl).
+ Files: bitVec.h, bitVec.cpp
  Uses: 
  Description: Bit vectors wider than a single word are used in implementing sets without a
  compiled-in size bound. In addition to many of the standard bit level operators, iterators

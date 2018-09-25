@@ -9,7 +9,7 @@
  Represent a set of characters (in the alphabet) in a subrange of char.
  Used by most classes as the basis of regular expressions and automata.
  User class: CharRange
- Files: charrang. h, charrang. cpp
+ Files: charrang.h, charrang.cpp
  Uses:
  Description: Sets of characters (denoted by a CharRange) can be used as automata transition
  labels and as regular expression atoms (unlike most other systems, which use single characters).
