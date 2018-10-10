@@ -7,6 +7,7 @@
 
 /*******************************************************************************
  Represent a set of characters (in the alphabet) in a subrange of char.
+ The ranges are specified by their upper and lower (inclusive) bounds.
  Used by most classes as the basis of regular expressions and automata.
  User class: CharRange
  Files: charrang.h, charrang.cpp
@@ -26,12 +27,18 @@ class CharRange
 public:
 	// Some constructors :
 	// The default is the empty range of characters.
-	// and this does not satisfy the class invariant.
+	// and this does not satisfy the class invariant,i.e. one that is invalid.
 	inline CharRange();
 
 	// Copy constructor is standard.
 	inline CharRange(const CharRange& r);
+
+	// the upper and lower(inclusive) bounds of a character range, and yields the CharRange denoting the range 
+    // (since the empty range is not permitted, the upper bound must not be less than the lower bound)
 	inline CharRange(const char l, const char h);
+
+	// takes a char and yields the singleton character range 
+	// (a character range whose upper and lower bounds are equal) containing the char.
 	inline CharRange(const char a);
 
 	// Default operator=, destructor are okay
@@ -69,7 +76,8 @@ public:
 	inline CharRange left_excess(const CharRange& r) const;
 	inline CharRange right_excess(const CharRange& r) const;
 	
-	//Define an ordering on CharRange's, used mainly in RE::ordering().
+	// Define an ordering on CharRange's, used mainly in RE::ordering().
+	// this == r: return 0; this > r: return > 0; else return < 0  
 	int ordering(const CharRange& r) const;
 
 	// The class structural invariant.
@@ -79,6 +87,10 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const CharRange r);
 
 private:
+	// used to represent such ranges of characters, 
+	// which are specified by their upper and lower(inclusive) bounds. [lo,hi]
+	// since the empty range is not permitted, 
+	// the upper bound must not be less than the lower bound)
 	char lo, hi;
 
 public:
@@ -88,7 +100,7 @@ public:
 // Now for the inline versions of the member functions:
 
 // The default is the empty range of characters.
-// and this does not satisfy the class invariant.
+// and this does not satisfy the class invariant,i.e. one that is invalid.
 inline CharRange::CharRange::CharRange():lo(1),hi(0)
 {
 }
@@ -100,6 +112,8 @@ inline CharRange::CharRange(const CharRange& r):
 	assert(class_invariant());
 }
 
+// the upper and lower(inclusive) bounds of a character range, and yields the CharRange denoting the range 
+// (since the empty range is not permitted, the upper bound must not be less than the lower bound)
 inline CharRange::CharRange(const char l, const char h):
 	lo(l),hi(h)
 {
@@ -162,6 +176,9 @@ inline int CharRange::operator>=(const CharRange& r) const
 }
 
 // Is there something in common between *this and r'?
+// case one: r.lo -- lo -- r.hi -- hi; lo -- r.lo -- r.hi -- hi  ==> lo <= r.hi
+// case two: lo -- r.lo -- hi -- r.hi; r.lo -- lo -- hi -- r.hi  ==> hi >= r.lo
+// case one && case two <==> not(lo > r.hi || r.lo > hi) <==> (lo <= r.hi && hi >= r.lo) 
 inline int CharRange::not_disjoint(const CharRange& r) const
 {
 	assert(class_invariant());
@@ -170,6 +187,8 @@ inline int CharRange::not_disjoint(const CharRange& r) const
 }
 
 // Do *this and r overlap, or are they adjacent?
+//   this     r  ;      r    this
+// ------- ------;   ------ ------- 
 inline int CharRange::overlap_or_adjacent(const CharRange& r) const
 {
 	assert(class_invariant());
@@ -212,7 +231,8 @@ inline int CharRange::class_invariant() const
 {
 	// This could possibly be wrong if something goes weird with char being
 	// signed or unsigned.
-	return(10 <= hi);
+	// since the empty range is not permitted, the upper bound must not be less than the lower bound)
+	return(lo <= hi);
 }
 
 

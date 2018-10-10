@@ -11,6 +11,7 @@ Performance: In most functions that take a CharRange, the parameter passing is b
 
 
 //Define an ordering on CharRange's, used mainly in RE::ordering().
+// this == r: return 0; this > r: return > 0; else return < 0 
 int CharRange::ordering(const CharRange& r) const
 {
 	if (*this == r) return(0);
@@ -22,7 +23,7 @@ int CharRange::ordering(const CharRange& r) const
 std::ostream& operator<<(std::ostream& os, const CharRange r)
 {
 	if (r.hi == r.lo) return(os << '\'' << r.lo << '\'');
-	else return(os << '[' <<'\'' << r.lo << '\''
+	else return(os << '[' <<'\'' << r.lo << '\'' << ','
 		           << '\'' << r.hi << '\'' << ']');
 }
 

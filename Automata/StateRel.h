@@ -87,7 +87,8 @@ public:
 	
 	// Some special members:
 
-	friend std::ostream& operator<<(std::ostream& os, const StateRel& r);
+	// 修改为inline, 并在.h文件中定义，否则连接器找不到StateTo<StateRel>
+	inline friend std::ostream& operator<<(std::ostream& os, const StateRel& r);
 	
 	inline int class_invariant() const;
 };
@@ -173,5 +174,12 @@ inline int StateRel::class_invariant() const
 		ret = ret && lookup(i).class_invariant() && (lookup(i).domain() == domain());
 	}
 	return ret;
+}
+
+// 修改为inline, 并在.h文件中定义，否则连接器找不到StateTo<StateRel>
+inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
+{
+	assert(r.class_invariant());
+	return(os << (const StateTo<StateSet>&)r);
 }
 

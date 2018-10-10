@@ -117,3 +117,4 @@ inline int TransImpl::class_invariant() const
 	ret = ret && in_use <= howmany;
 	return(ret);
 }
+

@@ -9,6 +9,8 @@
 	inherits from FAabs, and implements the interface defined there. A constructor taking an
 	RE is provided, implementing Thompson's top-down construction [Wat93a, Construction 4.5]. 
 	This constructor can be more efficient than using the ¦²- algebra Reg<FA>.
+
+	Definition 2.1 (Finite automaton): A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F)
  ***********************************************************************************/
 #pragma once
 #include <iostream>
@@ -47,17 +49,18 @@ public:
 	// Return the number of stales(or some reasonably close measure).
 	virtual int num_states() const;
 	
-	// Reset the current state before beginning to process a string.
+	// Reset the current state  (to start stsates) before beginning to process a string.
 	// This is not the default condition for most of the derived classes.
 	virtual void restart();
 
 	// Advance the current state by processing a character.
+	// advance the automaton by one char in the input string
 	virtual void advance(char a);
 
 	// Is the current state an accepting(final) one?
 	virtual int in_final() const;
 
-	// Is the automaton stuck?
+	// Is the automaton stuck(unable to make further transitions)?
 	virtual int stuck();
 	// Return a DFA accepting the same language as *this.
 	virtual DFA determinism() const;
@@ -70,17 +73,25 @@ public:
 
 protected:
 	// Functions states_reqd, td(see Construction 4.5) for use in the constructor from RE.
-	// The following follows directly from inspecting Thompson's 
-	// construction (Definition 4.1).
+	// The following follows directly from inspecting Thompson's construction (Definition 4.1).
+
+	// compute states_required in fa from RE
 	int states_reqd(const RE& e);
+
+	// Thompson's top-down construction [Wat93a, Construction 4.5]
 	void td(const State s, const RE& e, const State f);
 
 	// recycle this FA:
 	void reincarnate();
 
-	// Implementation details :
-	StatePool Q;
-	StateSet S, F;
+	// Implementation details:
+
+	// A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F)
+	// Q is a finite set of states
+	StatePool Q;    
+
+	// S is a set of start states, F is a set of final states
+	StateSet S, F;  
 	
 	// Transitions maps each State to its out-transitions.
 	TransRel Transitions;

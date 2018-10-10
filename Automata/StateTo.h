@@ -91,6 +91,7 @@ public:
 private:
 	// Represent the map as a dynamically allocated array of T's.
 	int howmany;
+	// in_use T
 	int in_use;
 	T *data;
 	

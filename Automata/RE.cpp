@@ -257,6 +257,8 @@ void RE::shallow_copy(RE *const r) const
 	r->sym = sym;
 }
 
+// recycle
+// op = EMPTY, left = right = 0
 void RE::reincarnate()
 {
 	if (left != 0)

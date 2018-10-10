@@ -12,9 +12,13 @@
 		expression. (The operator types are enumerated in REops.) Other member functions can
 		be used to determine additional information about the main(root) operator of the regular
 		expression: the associated CharRange (for a SYMBOL basis operator), and the subexpressions
-		(for non-basis, binary and unary, operators). A very basic istream extraction (input)
-		operator is provided, expecting the input to be a regular expression in prefix notation; the
-		operator does little error checking.
+		(for non-basis[epsilon,empty,symbol], binary[union(or),concat] and unary[star,plus,question] operators). 
+		A very basic istream extraction (input) operator is provided, expecting the input to be 
+		a regular expression in prefix notation; the operator does little error checking.
+
+		no-basis operator(epsilon,empty,symbol): this ==> left = right = 0
+		unary operator(star,plus,question): this ==> left = this, right = 0
+		binary operator(union(or),concat): this ==> left(this) operator right
 ******************************************************************************************/
 #pragma once
 #include<iostream>
@@ -54,20 +58,22 @@ public:
 	int num_operators() const;
 
 	// What is the main operator of this regular expression?
+	// op = r
 	inline REops root_operator() const;
 
 	// What is the CharRange of this RE, if it is a SYMBOL regular expression.
 	inline CharRange symbol() const;
 
 	// What is the left RE of this RE operator (if it is a higher operator).
+	// Assume that *this is higher(non-basis) regular operator.
 	inline const RE& left_subexpr() const;
 
 	// What is the right RE of this RE operator (if it a binary operator).
 	inline const RE& right_subexpr() const;
 
-	////////////////////////////////////////////// Those methd's implementation is in deriv.cpp
+	//////////////////////////////////////////////////  Those methd's implementation is in deriv.cpp
 	// Some derivatives(Brzozowski's) related member functions:
-	// Does * this accept epsilon?
+	// Does *this accept epsilon?
 	// This is from Definition 3.20 and Property 3.21
 	int Null() const;
 
@@ -105,13 +111,20 @@ public:
 	inline int class_invariant() const;
 
 protected:
-	// Some protected helpers, mainly for Reg<RE>:
+	//////////// Some protected helpers, mainly for Reg<RE>:
+
+	// set the main operator of this regular expression?
+	// op = r
 	inline void set_root_operator(REops r);
+
+	// set symbol (a1,...,an) of this regular expression?
 	inline void set_symbol(const CharRange r);
 
 	// Make a copy of *this into *r
 	void shallow_copy(RE *const r) const;
 
+	// recycle
+	// op = EMPTY, left = right = 0
 	void reincarnate();
 
 	////////////////////////////////////////////// Those methd's implementation is in deriv.cpp
@@ -123,8 +136,19 @@ protected:
 	////////////////////////////////////////////
 
 	// Some implementation details.
+
+	// a set of several constants: ¦Å,¦Õ,a1,...,an; Reg(where V = {al, ... ,an }),
+	// and five operators ¡¤ : Reg x Reg--> Reg(the dot operator), U : Reg x Reg--> Reg, *: Reg--> Reg,
+	//	+: Reg----> Reg, and ? : Reg----> Reg.
 	REops op;
+
+	// left RE and right RE of binary operator: union(or), dot operator
+	// left RE of unary operator: *,+,? operator, left = this
+	// Assume that *this is higher(non-basic operator) regular operator.
+	// non-basis operator: constants(epsilon,empty,symbol): left = 0,right = 0
 	RE *left, *right;
+
+	// symbol: a1,...,an in this RE
 	CharRange sym;
 };
 
@@ -149,6 +173,7 @@ inline CharRange RE::symbol() const
 
 // What is the left RE of this RE operator (if it is a higher operator).
 // Assume that *this is higher(non-basis) regular operator.
+// left RE of unary operator: *,+,? operator
 inline const RE& RE::left_subexpr() const
 {
 	assert(op != EMPTY && op != EPSILON && op != SYMBOL);

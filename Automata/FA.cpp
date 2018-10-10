@@ -71,7 +71,7 @@ int FA::num_states() const
 	return(Q.size());
 }
 
-// Reset the current state before beginning to process a string.
+// Reset the current state (to start stsates) before beginning to process a string.
 // This is not the default condition for most of the derived classes.
 void FA::restart()
 {
@@ -81,6 +81,7 @@ void FA::restart()
 }
 
 // Advance the current state by processing a character.
+// advance the automaton by one char in the input string
 void FA::advance(char a)
 {
 	assert(class_invariant());
@@ -97,7 +98,7 @@ int FA::in_final() const
 	return(current.not_disjoint(F));
 }
 
-// Is the automaton stuck?
+// Is the automaton stuck(unable to make further transitions)?
 int FA::stuck()
 {
 	assert(class_invariant());
@@ -114,25 +115,26 @@ DFA FA::determinism() const
 ///////////////////////////////////////////////////////
 
 // Functions states_reqd, td(see Construction 4.5) for use in the constructor from RE.
-// The following follows directly from inspecting Thompson's 
-// construction (Definition 4.1).
+// The following follows directly from inspecting Thompson's construction (Definition 4.1).
+
+// compute states_required in fa from RE
 int FA::states_reqd(const RE& e)
 {
 	assert(e.class_invariant());
 	int ret;
 	switch (e.root_operator()) {
-	case EPSILON:
-	case EMPTY:
-	case SYMBOL:
-		ret = 2;
+	case EPSILON: // new states: q0,q1
+	case EMPTY:   
+	case SYMBOL:  
+		ret = 2;  
 		break;
-	case OR:
+	case OR: // (new states: q0,q1) + left_subexpr and right_subxpr
 		ret = 2 + states_reqd(e.left_subexpr()) + states_reqd(e.right_subexpr());
 		break;
-	case CONCAT:
+	case CONCAT: // left_subexpr and right_subxpr
 		ret = states_reqd(e.left_subexpr()) + states_reqd(e.right_subexpr());
 		break;
-	case STAR:
+	case STAR:      // (new states: q0,q1) + left_subexpr
 	case PLUS:
 	case QUESTION:
 		ret = 2 + states_reqd(e.left_subexpr());
@@ -141,22 +143,24 @@ int FA::states_reqd(const RE& e)
 	return(ret);
 }
 
+// Thompson's top-down construction [Wat93a, Construction 4.5]
 void FA::td(const State s, const RE& e, const State f)
 {
 	assert(e.class_invariant());
 	// Implement function td(of Construction 4.5).
 	// Construct an FA to accept the language of e, between s and f.
+	// FA = (Q,V,T,E,S,T), td = Q x RE x Q ---> FA
 	switch (e.root_operator())
 	{
-	case EPSILON:
+	case EPSILON:  // td(s,epsilon,f) = {{s,f},V,empty,{(s,f)}},{s},{f}}
 		E.union_cross(s, f);
 		break;
-	case EMPTY:
+	case EMPTY: // td(s,empty,f) = {{s,f},V,empty,empty,{s},{f}}
 		break;
-	case SYMBOL:
+	case SYMBOL: // td(s,a,f) = {{s,f},V,{(s,a,f)},empty,{s},{f}} (for all a in V)
 		Transitions.add_transition(s, e.symbol(), f);
 		break;
-	case OR:
+	case OR:  // td(s,E0 union E1,f)
 	{
 		State p(Q.allocate());
 		State q(Q.allocate());
@@ -172,7 +176,7 @@ void FA::td(const State s, const RE& e, const State f)
 		E.union_cross(t, f);
 	}
 	break;
-	case CONCAT:
+	case CONCAT: // td(s,E0 concat E1,f)
 	{
 		State p(Q.allocate());
 		State q(Q.allocate());
@@ -182,7 +186,7 @@ void FA::td(const State s, const RE& e, const State f)
 		E.union_cross(p, q);
 	}
 	break;
-	case STAR:
+	case STAR: // td(s,star,f)
 	{
 		State p(Q.allocate());
 		State q(Q.allocate());
@@ -194,7 +198,7 @@ void FA::td(const State s, const RE& e, const State f)
 		E.union_cross(s, f);
 	}
 	break;
-	case PLUS:
+	case PLUS: // td(s,plus,f)
 	{
 		State p(Q.allocate());
 		State q(Q.allocate());
@@ -204,7 +208,7 @@ void FA::td(const State s, const RE& e, const State f)
 		E.union_cross(q, f);
 	}
 	break;
-	case QUESTION:
+	case QUESTION: // td(s,question,f)
 	{
 		State p(Q.allocate());
 		State q(Q.allocate());

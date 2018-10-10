@@ -93,7 +93,7 @@ BitVec& BitVec::bitwise_or(const BitVec& r)
 	assert(class_invariant() && r.class_invariant());
 	assert(width() == r.width());
 	// General-purpose counter
-	for (int i = 0; i < std::min(words, r.words); i++) data[i] = r.data[i];
+	for (int i = 0; i < std::min(words, r.words); i++) data[i] |= r.data[i];
 	return(*this);
 }
 

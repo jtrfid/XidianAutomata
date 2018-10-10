@@ -104,6 +104,8 @@ public:
 	// [O, domain()) can be contained in *this.
 	inline int domain() const;
 
+	// set How many States can this set contain.
+	// [O, domain()) can be contained in *this.
 	inline void set_domain(const int r);
 
 	// Recycle this StateSet.
@@ -260,6 +262,8 @@ inline int StateSet::domain() const
 	return(BitVec::width());
 }
 
+// set How many States can this set contain.
+// [O, domain()) can be contained in *this.
 inline void StateSet::set_domain(const int r)
 {
 	assert(r >= BitVec::width());

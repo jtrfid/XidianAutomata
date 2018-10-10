@@ -147,9 +147,9 @@ StateRel& StateRel::disjointing_union(const StateRel& r)
 	return(*this);
 }
 
-// 修改为inline, 否则连接器找不到StateTo<StateSet>
-inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
-{
-	assert(r.class_invariant());
-	return(os << (const StateTo<StateSet>&)r);
-}
+// 修改为inline, 并在.h文件中定义，否则连接器找不到StateTo<StateRel>
+//inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
+//{
+//	assert(r.class_invariant());
+//	return(os << (const StateTo<StateSet>&)r);
+//}

@@ -1,41 +1,19 @@
 #include "stdafx.h"
 #include "Dconstrs.h"
+//#include "Constrs.h"
+//#include "Dconstrs.h"
+#include "DSRE.h"
+#include "DSREopt.h"
+#include "DFAseed.h"
 
-LBFA BS_variation(const RE& r)
+DFA Brz(const RE& r)
 {
 	assert(r.class_invariant());
-
-	// Construct the homomorphic image of r.
-	RFA I(r);
-
-	// Construct the begin-marker.
-	Reg<RFA> m;
-	m.symbol('$');
-
-	// Attach the begin marker.
-	m.concat((const Reg<RFA>&)I);
-
-	// Construct the dummy LBFA, for use with the non-homomorphic mapping
-	// convert(Defn. 4.35 of the Taxonomy)
-	LBFA LB;
-
-	return(LB.convert(m));
+	return(construct_components(DSRE(r)));
 }
 
-RBFA BS_variation_dual(const RE& r)
-{
-	// See above.
-	assert(r.class_invariant());
-
-	RFA I(r);
-
-	//Construct the end-marker.
-	Reg<RFA> m;
-	m.symbol('$');
-
-	// Attach the end-marker.
-	((Reg<RFA>&)I).concat(m);
-
-	RBFA RB;
-	return(RB.convert(I));
-}
+//DFA Brz_optimized(const RE& r) {
+//	assert(r.class_invariant());
+//	return(construct_components(DSREopt(r)));  // ±àÒë³ö´í
+//	//return(construct_components<DSREopt>(r));  // µÈÐ§
+//}

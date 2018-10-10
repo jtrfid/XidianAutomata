@@ -18,6 +18,22 @@
  Binary operators on vectors must have operands of the same width, and such width management
  is left to the client. When a vector is widened, the newly allocated bits are assumed
  to be zero.
+ ============================================
+ // uesd max number bits in data, denote width
+ int bits_in_use;
+ // number of words
+ int words;
+ // save bytes of words
+ unsigned int *data;
+
+ bits_per_word = (sizeof(unsigned int) * 8) = 4B*8b = 32 bits 每个字可以表示32个状态,1个word是1个unsigend int(4Bytes,32bits)
+ int st;
+ words = st / bits_per_word + ((st % bits_per_word) != 0 ? 1 : 0));  // int words_required(const int st) const
+ word_index = r / bits_per_word;   // int word_index(const int r) const
+ bit_index = r % bits_per_word;    // int bit_index(const int r) const
+ BitVec::set_width(const int r) --> 调用words_required(r)，计算字数(words); 设置bits_in_use=r; data = new unsigned int[words]
+ BitVec& set_bit(const int r) --> data[word_index(r)] |= (1U << bit_index(r));
+ int width();  --> bits_in_use
  **********************************************************/
 class BitVec
 {
@@ -103,7 +119,7 @@ public:
 	inline int iter_start(int& r) const;
 	
 	// Is r the last set bit in an iteration sequence.
-	inline int iter_end(int& r) const;
+	inline int iter_end(int r) const;
 
 	// Place the next set bit, after r(in the iteration sequence), in reference r.
 	int iter_next(int& r) const;
@@ -128,8 +144,11 @@ private:
 	inline int bit_index(const int r) const;
 	
 	// Actual representation:
-	int bits_in_use;
-	int words;
+	// uesd max number bits in data, denote width
+	int bits_in_use; 
+	// number of words
+	int words; 
+	// save bytes of words
 	unsigned int *data;
 	
 	// A class constant, used for bit-vector width.
@@ -205,15 +224,13 @@ inline void BitVec::reincarnate()
 inline int BitVec::iter_start(int& r) const
 {
 	assert(class_invariant());
-	r = smallest();
-	return(r);
+	return(r = smallest());
 }
 
 // Is r the last set bit in an iteration sequence.
-inline int BitVec::iter_end(int& r) const
+inline int BitVec::iter_end(int r) const
 {
-	r = -1;
-	return(r);
+	return(r == -1);
 }
 
 // Structural invariant on the BitVec.
