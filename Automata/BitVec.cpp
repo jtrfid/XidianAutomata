@@ -212,7 +212,7 @@ BitVec& BitVec::left_shift(const int r)
 	// Don't do anything needless:
 	if (r == 0) return(*this);
 	
-	words = words_required(width() + 1);
+	words = words_required(width() + r);
 	unsigned int *d = new unsigned int[words];
 	for (int i = 0; i < words; i++) d[i] = 0U;
 	int wi = word_index(r);
@@ -230,7 +230,8 @@ BitVec& BitVec::left_shift(const int r)
 			// d[i+wi] = (d[i+wi] & rmask) |((data[i)<<bi) & ~rmask);
 			// Assume that zero-filling occurs on the LSB.
 			d[i + wi] = (d[i + wi] & rmask) | (data[i] << bi);
-			d[i + wi + 1] = (data[i] >> (bits_per_word - bi)) & rmask;
+			// bug!!!  this statement is not necessary!!!
+			//d[i + wi + 1] = (data[i] >> (bits_per_word - bi)) & rmask;
 		}
 		delete[]data;
 		data = d;
