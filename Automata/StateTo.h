@@ -89,10 +89,14 @@ public:
 	inline int class_invariant() const;
 
 private:
-	// Represent the map as a dynamically allocated array of T's.
+	// Represent the map as a dynamically allocated array of T's (include expansion_extra).
+	// indicating the size of the array
 	int howmany;
-	// in_use T
+
+	// indicating how many of the dynamically allocated array of T's elements are in use.
+	// [0,domain)
 	int in_use;
+	// dynamically allocated array of T's (include expansion_extra).
 	T *data;
 	
 	// When the array is grown by a certain amount, it also grows by an extra

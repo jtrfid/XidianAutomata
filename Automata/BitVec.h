@@ -14,19 +14,20 @@
  Uses: 
  Description: Bit vectors wider than a single word are used in implementing sets without a
  compiled-in size bound. In addition to many of the standard bit level operators, iterators
- are also provided. The vectors have a width that is adjustable through a member function.
- Binary operators on vectors must have operands of the same width, and such width management
- is left to the client. When a vector is widened, the newly allocated bits are assumed
- to be zero.
+ are also provided. The vectors have a width(domain) that is adjustable through a member function.
+ Binary operators on vectors must have operands操作数 of the same width, and such width management
+ is left to the client. When a vector is widened, the newly allocated bits are assumed to be zero.
  ============================================
- // uesd max number bits in data, denote width
+ // uesd max number bits in data, denote width(domain),[0,bits_in_use) == > [0,width)
+ // width = domain = bits_in_use
  int bits_in_use;
- // number of words
+ // number of words = 1,2,...
  int words;
- // save bytes of words
+ // save bytes of words,[0,1,2,...words)
  unsigned int *data;
 
  bits_per_word = (sizeof(unsigned int) * 8) = 4B*8b = 32 bits 每个字可以表示32个状态,1个word是1个unsigend int(4Bytes,32bits)
+ 2^n = 1,表示第n个状态，n = 0,1,2，...
  int st;
  words = st / bits_per_word + ((st % bits_per_word) != 0 ? 1 : 0));  // int words_required(const int st) const
  word_index = r / bits_per_word;   // int word_index(const int r) const
@@ -99,8 +100,11 @@ public:
 
 	// Some width related members:
 
+	// return domain(bit_in_use),[0,domain)
+	// domain = width = bit_in_use
 	inline int width() const;
 
+	// domain = with = bit_in_use, [0,domain)
 	void set_width(const int r);
 		
 	// Recycle this BitVec.
@@ -119,6 +123,7 @@ public:
 	inline int iter_start(int& r) const;
 	
 	// Is r the last set bit in an iteration sequence.
+	// if (r== -1) retrun 1; else return 0
 	inline int iter_end(int r) const;
 
 	// Place the next set bit, after r(in the iteration sequence), in reference r.
@@ -144,11 +149,12 @@ private:
 	inline int bit_index(const int r) const;
 	
 	// Actual representation:
-	// uesd max number bits in data, denote width
+
+	// uesd max number bits in data, denote width(domain),[0,bits_in_use) == > [0,width)
 	int bits_in_use; 
-	// number of words
+	// number of words，1,2,3,...
 	int words; 
-	// save bytes of words
+	// save bytes of words,[0,1,2,...width(domain)]
 	unsigned int *data;
 	
 	// A class constant, used for bit-vector width.
@@ -228,6 +234,7 @@ inline int BitVec::iter_start(int& r) const
 }
 
 // Is r the last set bit in an iteration sequence.
+// if (r== -1) retrun 1; else return 0
 inline int BitVec::iter_end(int r) const
 {
 	return(r == -1);

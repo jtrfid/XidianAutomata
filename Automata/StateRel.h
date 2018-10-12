@@ -46,7 +46,7 @@ public:
 	// Compute the image of r under *this.
 	StateSet image(const StateSet& r) const;
 	
-	// Or, compute the image of a single State.
+	// Compute the image of a single State.
 	inline const StateSet& image(const State r) const;
 
 	// Compute the reflexive and transitive closure of r under *this.

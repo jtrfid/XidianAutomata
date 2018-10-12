@@ -61,41 +61,45 @@ public:
 	inline int empty() const;
 
 	// What is the size of this set(cardinality) ?
+	// return number of states in this StateSet.
 	inline int size() const;
 
 	// Set operators(may affect *this):
 
-	// complement *this.
+	// complement *this. this = complement of this 
 	inline StateSet& complement();
 
-	// inserts a State.
+	// inserts a State. r = [0,domain())
 	inline StateSet& add(const State r);
 
 	// remove a State from the set.
 	inline StateSet& remove(const State r);
 	
-	// Set union.
+	// Set union, precondition: this.domain() == r.domain(). this will be modified. 
 	inline StateSet& set_union(const StateSet& r);
 
-	// Set intersection.
+	// Set intersection. precondition: this.domain() == r.domain(). this will be modified. 
 	inline StateSet& intersection(const StateSet& r);
 
-	// Set difference
+	// Set difference, precondition: this.domain() == r.domain(). this will be modified.
 	inline StateSet& remove(const StateSet& r);
 
-	// Set containment.
+	// Set containment. precondition: this.domain() == r.domain().
 	inline int contains(const StateSet& r) const;
 
-	// Is a State in the set?
+	// Is a State in the set? 
+	// r = [0,domain())
 	inline int contains(const State r) const;
 
 	// Does this set have something in common with r?
+	// precondition: this.domain() == r.domain().
 	inline int not_disjoint(const StateSet& r) const;
 
 	// Make this set the emptyset.
 	inline void clear();
 
 	// What is the smallest element of *this?
+	// return [0,domain())
 	inline State smallest() const;
 
 	// Some domain related members:
@@ -105,7 +109,7 @@ public:
 	inline int domain() const;
 
 	// set How many States can this set contain.
-	// [O, domain()) can be contained in *this.
+	// [O, r) can be contained in *this.
 	inline void set_domain(const int r);
 
 	// Recycle this StateSet.
@@ -176,12 +180,13 @@ inline int StateSet::empty() const
 }
 
 // What is the size of this set(cardinality) ?
+// return number of states in this StateSet.
 inline int StateSet::size() const
 {
 	return(BitVec::bits_set());
 }
 
-// complement *this.
+// complement *this. this = complement of this 
 inline StateSet& StateSet::complement()
 {
 	assert(class_invariant());
@@ -190,54 +195,56 @@ inline StateSet& StateSet::complement()
 	return(*this);
 }
 
-// inserts a State.
+// inserts a State.  r = [0,domain())
 inline StateSet& StateSet::add(const State r)
 {
 	BitVec::set_bit(r);
 	return(*this);
 }
 
-// remove a State from the set.
+// remove a State from the set. r = [0,domain())
 inline StateSet& StateSet::remove(const State r)
 {
 	BitVec::unset_bit(r);
 	return(*this);
 }
 
-// Set difference
+// Set difference, precondition: this.domain() == r.domain(). this will be modified.
 inline StateSet& StateSet::remove(const StateSet& r)
 {
 	BitVec::bitwise_unset(r);
 	return(*this);
 }
 
-// Set union.
+// Set union, precondition: this.domain() == r.domain(). this will be modified. 
 inline StateSet& StateSet::set_union(const StateSet& r)
 {
 	BitVec::bitwise_or(r);
 	return(*this);
 }
 
-// Set intersection.
+// Set intersection. precondition: this.domain() == r.domain(). this will be modified. 
 inline StateSet& StateSet::intersection(const StateSet& r)
 {
 	BitVec::bitwise_and(r);
 	return(*this);
 }
 
-// Set containment.
+// Set containment. precondition: this.domain() == r.domain().
 inline int StateSet::contains(const StateSet& r) const
 {
 	return(BitVec::contains(r));
 }
 
-// Is a State in the set?
+// Is a State in the set? 
+// r = [0,domain())
 inline int StateSet::contains(const State r) const
 {
 	return(BitVec::contains(r));
 }
 
 // Does this set have something in common with r?
+// precondition: this.domain() == r.domain().
 inline int StateSet::not_disjoint(const StateSet& r) const
 {
 	return(BitVec::something_common(r));
@@ -250,6 +257,7 @@ inline void StateSet::clear()
 }
 
 // What is the smallest element of *this?
+// return [0,domain())
 inline State StateSet::smallest() const
 {
 	return(BitVec::smallest());
@@ -263,7 +271,7 @@ inline int StateSet::domain() const
 }
 
 // set How many States can this set contain.
-// [O, domain()) can be contained in *this.
+// [O, r) can be contained in *this.
 inline void StateSet::set_domain(const int r)
 {
 	assert(r >= BitVec::width());
@@ -276,8 +284,7 @@ inline void StateSet::reincarnate()
 	BitVec::reincarnate();
 }
 
-// Rename the elements of this StateSet so that they don't fall within
-// StatePool r.
+// Rename the elements of this StateSet so that they don't fall within StatePool r.
 inline StateSet& StateSet::st_rename(const int r)
 {
 	BitVec::left_shift(r);
