@@ -76,7 +76,8 @@ int BitVec::something_set() const
 	return(result != 0U);
 }
 
-// Howmany bits are set?
+// Howmany bits are set? 
+// return (max index of bit is set to 1) + 1; [0,bits_in_use(width)]
 int BitVec::bits_set() const
 {
 	assert(class_invariant());

@@ -65,6 +65,7 @@ public:
 	int something_set() const;
 	
 	// Howmany bits are set ?
+	// return (max index of bit is set to 1) + 1; [0,bits_in_use(width)]
 	int bits_set() const;
 	
 	// Bit vector operators :
@@ -87,6 +88,7 @@ public:
 	int contains(const BitVec& r) const;
 
 	// Is a bit set?
+	// return true(1), if r index of bit is set to 1; else return false(0)  
 	inline int contains(const int r) const;
 		
 	// Does *this have a bit in common with r ?
@@ -203,6 +205,8 @@ inline BitVec& BitVec::unset_bit(const int r)
 }
 
 // Is a bit set?
+// r: [0,bits_in_use(width))
+// return true(1), if r index of bit is set to 1; else return false(0)  
 inline int BitVec::contains(const int r) const
 {
 	// Check if the r'th bit is set

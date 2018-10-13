@@ -31,6 +31,39 @@ with the disjointing_union member function.
 	is to interact with another (from a different StatePool), its States must be renamed
 	(to avoid a name clash). The capacity of a StateSet must be explicitly managed; many
 	set operations are not bounds-checked when assert() is turned off.
+	===================================================
+	set_domain(const int r)设置最大包含的状态数，state of index = [0,r)
+    int domain()return 上述函数设置的容量
+    int size() return 状态数，this StateSet中已经bit被设置的状态总和。 states index = [0,size())
+    add(const int r), r = [0,domain()),添加状态r
+    smallest(),返回最小状态的index[0,domain())
+	int constins(const State r); r = [0,domain()),r状态是否包含在this中。
+    int contains(const StateSet &r); r的【所有状态】是否包含在this中。precondition: this.domain() == r.domain
+
+	// Does this set have something in common with r?
+    // precondition: this.domain() == r.domain().
+    int not_disjoint(const StateSet& r) const;
+
+	// Set difference, precondition: this.domain() == r.domain(). this will be modified.
+    StateSet& remove(const StateSet& r); this = this - r
+
+	// complement() this的补集，this将被修改为它的补集
+	// Set intersection. precondition: this.domain() == r.domain(). this will be modified.
+
+	set_union()和disjointing_union()都是计算两个StateSet集合的并集
+    set_union(const State& r) 两个StateSet集合的容量(domain)必须不同，状态index交集部分被合并, 状态index不重命名。
+    disjointing_union(const State& r) 两个StateSet集合的容量(domain)可以不同，状态index可以有交集。交集部分不合并，并集后的状态index被重命名，状态数是二者的和。
+	
+	// Rename the elements of this StateSet so that they don't fall within StatePool r.
+    // all states index in this ==> + r ==> left shift r
+    // this.domain() += r
+    StateSet& st_rename(const int r);
+
+	// Make this set the emptyset.  Note: domain() not change. empty() = 1
+    void clear();
+
+	// Recycle this StateSet. domain()=0, empty() = 1
+    void reincarnate();
  ************************************************************************/
 class StateSet :protected BitVec
 {
@@ -61,7 +94,7 @@ public:
 	inline int empty() const;
 
 	// What is the size of this set(cardinality) ?
-	// return number of states in this StateSet.
+	// return number of states in this StateSet. states index = [0,size())
 	inline int size() const;
 
 	// Set operators(may affect *this):
@@ -81,7 +114,8 @@ public:
 	// Set intersection. precondition: this.domain() == r.domain(). this will be modified. 
 	inline StateSet& intersection(const StateSet& r);
 
-	// Set difference, precondition: this.domain() == r.domain(). this will be modified.
+	// Set difference, precondition: this.domain() == r.domain(). this will be modified. 
+	// this = this - r
 	inline StateSet& remove(const StateSet& r);
 
 	// Set containment. precondition: this.domain() == r.domain().
@@ -95,11 +129,11 @@ public:
 	// precondition: this.domain() == r.domain().
 	inline int not_disjoint(const StateSet& r) const;
 
-	// Make this set the emptyset.
+	// Make this set the emptyset. Note: domain() not change. empty() = 1
 	inline void clear();
 
-	// What is the smallest element of *this?
-	// return [0,domain())
+	// What is the smallest element(state) of *this?
+	// return [0,domain()) is smallest states index; none state return -1
 	inline State smallest() const;
 
 	// Some domain related members:
@@ -112,14 +146,16 @@ public:
 	// [O, r) can be contained in *this.
 	inline void set_domain(const int r);
 
-	// Recycle this StateSet.
+	// Recycle this StateSet. domain()=0, empty() = 1
 	inline void reincarnate();
 
-	// Rename the elements of this StateSet so that they don't fall within
-	// StatePool r.
+	// Rename the elements of this StateSet so that they don't fall within StatePool r.
+	// all states index in this ==> + r ==> left shift r
+    // this.domain() += r 
 	inline StateSet& st_rename(const int r);
 
 	// Include another State Set into this one, renaming all the States.
+	// this.domain() maybe != r.domain()
 	inline StateSet& disjointing_union(const StateSet& r);
 
 	// Iterators:
@@ -176,11 +212,11 @@ inline int StateSet::operator != (const StateSet& r) const
 // Is this set empty?
 inline int StateSet::empty() const
 {
-	return(BitVec::something_set());
+	return(!BitVec::something_set());
 }
 
 // What is the size of this set(cardinality) ?
-// return number of states in this StateSet.
+// return number of states in this StateSet. states index = [0,size())
 inline int StateSet::size() const
 {
 	return(BitVec::bits_set());
@@ -210,6 +246,7 @@ inline StateSet& StateSet::remove(const State r)
 }
 
 // Set difference, precondition: this.domain() == r.domain(). this will be modified.
+// this = this - r
 inline StateSet& StateSet::remove(const StateSet& r)
 {
 	BitVec::bitwise_unset(r);
@@ -250,14 +287,14 @@ inline int StateSet::not_disjoint(const StateSet& r) const
 	return(BitVec::something_common(r));
 }
 
-// Make this set the emptyset.
+// Make this set the emptyset. Note: domain() not change.
 inline void StateSet::clear()
 {
 	BitVec::clear();
 }
 
-// What is the smallest element of *this?
-// return [0,domain())
+// What is the smallest element(state) of *this?
+// return [0,domain()) is smallest states index; none state return -1
 inline State StateSet::smallest() const
 {
 	return(BitVec::smallest());
@@ -278,13 +315,15 @@ inline void StateSet::set_domain(const int r)
 	BitVec::set_width(r);
 }
 
-// Recycle this StateSet.
+// Recycle this StateSet. domain()=0, empty() = 1
 inline void StateSet::reincarnate()
 {
 	BitVec::reincarnate();
 }
 
 // Rename the elements of this StateSet so that they don't fall within StatePool r.
+// all states index in this ==> + r ==> left shift r
+// this.domain() += r 
 inline StateSet& StateSet::st_rename(const int r)
 {
 	BitVec::left_shift(r);
@@ -292,6 +331,7 @@ inline StateSet& StateSet::st_rename(const int r)
 }
 
 // Include another State Set into this one, renaming all the States.
+// this.domain() maybe != r.domain()
 inline StateSet& StateSet::disjointing_union(const StateSet& r)
 {
 	BitVec::append(r);

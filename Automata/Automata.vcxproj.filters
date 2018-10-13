@@ -16,6 +16,9 @@
     <Filter Include="Constructions">
       <UniqueIdentifier>{d7355ad6-b00b-47c1-b3c5-1ef0ac5d4b5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{e2193656-7c41-44d5-87e0-0fa5078e202b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -268,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="Iconstrs.cpp">
       <Filter>Constructions</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\StateSetTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\AutomataTest.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
