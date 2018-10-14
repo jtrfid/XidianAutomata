@@ -1,5 +1,5 @@
-//#include "../stdafx.h"  // fatal error C1010: ÔÚ²éÕÒÔ¤±àÒëÍ·Ê±Óöµ½ÒâÍâµÄÎÄ¼ş½áÎ²¡£ÊÇ·ñÍü¼ÇÁËÏòÔ´ÖĞÌí¼Ó¡°#include "stdafx.h"¡±?
-#include "stdafx.h"  // ËäÈ»ÔÚTestÄ¿Â¼ÏÂÎŞ´ËÎÄ¼ş£¬µ«ÊÇÈ´Æ­È¡ÁË±àÒëÆ÷£¬ÎŞÉÏÊö´íÎóÁË
+ï»¿//#include "../stdafx.h"  // fatal error C1010: åœ¨æŸ¥æ‰¾é¢„ç¼–è¯‘å¤´æ—¶é‡åˆ°æ„å¤–çš„æ–‡ä»¶ç»“å°¾ã€‚æ˜¯å¦å¿˜è®°äº†å‘æºä¸­æ·»åŠ â€œ#include "stdafx.h"â€?
+#include "stdafx.h"  // è™½ç„¶åœ¨Testç›®å½•ä¸‹æ— æ­¤æ–‡ä»¶ï¼Œä½†æ˜¯å´éª—å–äº†ç¼–è¯‘å™¨ï¼Œæ— ä¸Šè¿°é”™è¯¯äº†
 #include <iostream>
 #include "../StateSet.h"
 #include "../StateTo.h"
@@ -7,40 +7,40 @@
 using namespace std;
 
 /***************************************************************
-   StateTo<T> ÃèÊöstate to T(eg. StateSet)µÄÓ³Éä(map)¹ØÏµ¡£
-   T *data; ÄÚ²¿Ê¹ÓÃdata[state]±íÊ¾ÕâÖÖÓ³Éä¹ØÏµ¡£
-   set_domain(const int r)ÉèÖÃ¶¯Ì¬Êı×édataµÄ´óĞ¡£¬±íÊ¾´æ´¢ÕâÖÖ¹ØÏµµÄÈİÁ¿,¶Ô*data·ÖÅäÁË´æ´¢¿Õ¼ä¡£
-   int howmany; ±íÊ¾¶¯Ì¬Êı×édata´óĞ¡£¬°üº¬À©³ä²¿·Ö(expansion_extra³£Á¿)
-   int in_use; ±íÊ¾Êµ¼ÊÊ¹ÓÃµÄdata´óĞ¡¡£
-   ÒÔÏÂÁ½¸öº¯Êı¶¼ÊÇ·µ»Østate r to TµÄÓ³Éä(map),Ç°Õß·µ»ØNot const T&£¬ÓÃÓÚÉèÖÃ£»ºóÕß·µ»Øconst T&£¬ÓÃÓÚ²éÑ¯¡£
-   ¶şÕß¾ùÃ»ÓĞ¸ødata[r]¸³Öµ¡£Áô¸ø¼Ì³ĞÀàÍê³É¡£
-   T& map(const State r); retun data[r];  Not const£¬ÓÃÓÚÉèÖÃ£»
-   const T& lookup(const State r) return data[r]£¬ÓÃÓÚ²éÑ¯¡£ÔÚÅÉÉúÀàÖĞ¸ødata[r]¸³Öµºó²ÅÄÜÊ¹ÓÃ¡£
+   StateTo<T> æè¿°state to T(eg. StateSet)çš„æ˜ å°„(map)å…³ç³»ã€‚
+   T *data; å†…éƒ¨ä½¿ç”¨data[state]è¡¨ç¤ºè¿™ç§æ˜ å°„å…³ç³»ã€‚
+   set_domain(const int r)è®¾ç½®åŠ¨æ€æ•°ç»„dataçš„å¤§å°ï¼Œè¡¨ç¤ºå­˜å‚¨è¿™ç§å…³ç³»çš„å®¹é‡,å¯¹*dataåˆ†é…äº†å­˜å‚¨ç©ºé—´ã€‚
+   int howmany; è¡¨ç¤ºåŠ¨æ€æ•°ç»„dataå¤§å°ï¼ŒåŒ…å«æ‰©å……éƒ¨åˆ†(expansion_extraå¸¸é‡)
+   int in_use; è¡¨ç¤ºå®é™…ä½¿ç”¨çš„dataå¤§å°ã€‚
+   ä»¥ä¸‹ä¸¤ä¸ªå‡½æ•°éƒ½æ˜¯è¿”å›state r to Tçš„æ˜ å°„(map),å‰è€…è¿”å›Not const T&ï¼Œç”¨äºè®¾ç½®ï¼›åè€…è¿”å›const T&ï¼Œç”¨äºæŸ¥è¯¢ã€‚
+   äºŒè€…å‡æ²¡æœ‰ç»™data[r]èµ‹å€¼ã€‚ç•™ç»™ç»§æ‰¿ç±»å®Œæˆã€‚
+   T& map(const State r); retun data[r];  Not constï¼Œç”¨äºè®¾ç½®ï¼›
+   const T& lookup(const State r) return data[r]ï¼Œç”¨äºæŸ¥è¯¢ã€‚åœ¨æ´¾ç”Ÿç±»ä¸­ç»™data[r]èµ‹å€¼åæ‰èƒ½ä½¿ç”¨ã€‚
  ***************************************************************/
 void basicStateToStateSetTest()
 {
 	cout << "====basicStateToStateSetTest()\n";
 	StateTo<StateSet> st;
-	st.set_domain(5); // ÉèÖÃÈİÁ¿
+	st.set_domain(5); // è®¾ç½®å®¹é‡
 	cout << "domain(): " << st.domain() << endl;  // 5
 	cout << "st: " << st << endl;
 
-	// ÒÔÏÂÁ½¸öº¯Êı¶¼ÊÇ·µ»Østate r to TµÄÓ³Éä(map), Ç°Õß·µ»ØNot const T&£¬ÓÃÓÚÉèÖÃ£»ºóÕß·µ»Øconst T&£¬ÓÃÓÚ²éÑ¯¡£
-	// ¶şÕß¾ùÃ»ÓĞ¸ødata[r]¸³Öµ¡£Áô¸ø¼Ì³ĞÀàÍê³É¡£
+	// ä»¥ä¸‹ä¸¤ä¸ªå‡½æ•°éƒ½æ˜¯è¿”å›state r to Tçš„æ˜ å°„(map), å‰è€…è¿”å›Not const T&ï¼Œç”¨äºè®¾ç½®ï¼›åè€…è¿”å›const T&ï¼Œç”¨äºæŸ¥è¯¢ã€‚
+	// äºŒè€…å‡æ²¡æœ‰ç»™data[r]èµ‹å€¼ã€‚ç•™ç»™ç»§æ‰¿ç±»å®Œæˆã€‚
 	// StateSet set1 = st.map(1);    
 	// StateSet set2 = st.lookup(1); 
 }
 
 /***********************************************************
   StateTo<T>& StateTo<T>::disjointing_union(const StateTo<T>& r)
-  ºÏ²¢thisºÍr ==> this£¬±£Ö¤²»ÖØµş, this.domain += r.domain;
+  åˆå¹¶thiså’Œr ==> thisï¼Œä¿è¯ä¸é‡å , this.domain += r.domain;
  ***********************************************************/
 void disjointing_unionTest()
 {
 	cout << "====disjointing_unionTest()\n";
 	StateTo<StateSet> st1,st2;
-	st1.set_domain(10); // ÉèÖÃst1ÈİÁ¿
-	st2.set_domain(20); // ÉèÖÃst1ÈİÁ¿
+	st1.set_domain(10); // è®¾ç½®st1å®¹é‡
+	st2.set_domain(20); // è®¾ç½®st1å®¹é‡
 	cout << "st1,st2 domain(): " << st1.domain() << "," << st2.domain() << endl;  // 10,20
 	cout << "disjoining_union\n";
 	st1.disjointing_union(st2);
