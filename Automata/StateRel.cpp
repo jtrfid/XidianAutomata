@@ -1,4 +1,4 @@
-/**********************************************************************************
+ï»¿/**********************************************************************************
 	Implementation: StateRelinherits for implementation from StateTo<StateSet>. Many member
 functions are simply calls to the corresponding member of StateTo. Member functions such
 as reincarnate first reincarnates all of the StateSets, followed by the StateTo.
@@ -6,8 +6,8 @@ as reincarnate first reincarnates all of the StateSets, followed by the StateTo.
 #include "stdafx.h"
 #include "StateRel.h"
 
-
-// Compute the image of r under *this.
+// Compute(Lookup) the image of r under *this. precondition: this.domain() = r.domain()
+// Note: map: states -> states(images)
 StateSet StateRel::image(const StateSet& r) const
 {
 	assert(class_invariant() && r.class_invariant());
@@ -24,6 +24,7 @@ StateSet StateRel::image(const StateSet& r) const
 }
 
 // Compute the reflexive and transitive closure of r under *this.
+// return r union { image }, Note: map: states -> states(images)
 StateSet StateRel::closure(const StateSet& r) const
 {
 	assert(class_invariant() && r.class_invariant());
@@ -42,7 +43,7 @@ StateSet StateRel::closure(const StateSet& r) const
 
 // Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 // with A times B(Cartesian cross product).
-// Map all members of S to st as well.
+// Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
 StateRel& StateRel::union_cross(const StateSet& S, State st)
 {
 	assert(class_invariant());
@@ -57,6 +58,9 @@ StateRel& StateRel::union_cross(const StateSet& S, State st)
 	return(*this);
 }
 
+// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
+// with A times B(Cartesian cross product).
+// Map A to B . precondition: this.domain() == A.domain() == B.domain()
 // This could probably have made use of union_cross(State,StateSet).
 StateRel& StateRel::union_cross(const StateSet& A, const StateSet& B)
 {
@@ -121,11 +125,12 @@ void StateRel::set_domain(const int r)
 	assert(class_invariant());
 }
 
-// Recycle this entire relation.
+// Recycle this entire relation. domain() = 0
 void StateRel::reincarnate()
 {
 	assert(class_invariant());
 	for (int i = 0; i < domain(); i++) map(i).reincarnate();
+	StateTo<StateSet>::reincarnate();
 	assert(class_invariant());
 }
 
@@ -147,7 +152,7 @@ StateRel& StateRel::disjointing_union(const StateRel& r)
 	return(*this);
 }
 
-// ĞŞ¸ÄÎªinline, ²¢ÔÚ.hÎÄ¼şÖĞ¶¨Òå£¬·ñÔòÁ¬½ÓÆ÷ÕÒ²»µ½StateTo<StateRel>
+// ä¿®æ”¹ä¸ºinline, å¹¶åœ¨.hæ–‡ä»¶ä¸­å®šä¹‰ï¼Œå¦åˆ™è¿æ¥å™¨æ‰¾ä¸åˆ°StateTo<StateRel>
 //inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
 //{
 //	assert(r.class_invariant());

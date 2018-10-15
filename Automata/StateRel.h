@@ -1,14 +1,14 @@
-/****************************************************************************
+ï»¿/****************************************************************************
 	Implementation class: StateRel
 	Files: StateRel.h, StateRel.cpp
 	Uses: State, StateSet, StateTo
 	Description: A StateRel is a binary relation on States. The class is used in the implementation
-	of the ¦Å-transition relation for class FA [Wat93a, Definition 2.1] and the follow relation
+	of the Îµ-transition relation for class FA [Wat93a, Definition 2.1] and the follow relation
 	[Wat93a, Definition 4.24] in classes RFA, LBFA and RBFA. Many relation operators are
 	available, including taking the image of a State or a StateSet, and the star-closure of a
 	StateSet. In order to easily construct StateRels, a member function union_cross is provided,
 	which performs the following operation (where l, r are either States or StateSets):
-	                            *this := *this ¡È (l x r)
+	                            *this := *this âˆª (l x r)
 	Standard union is available, as is disjointing_union which operates analogously to the member
 	function in StateSet and StateTo (incoming States are renamed to avoid a collision). As with
 	StateSet, the domain must be explicitly maintained by the client. Those member functions
@@ -17,9 +17,9 @@
 ****************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "State.h"
 #include "StateSet.h"
 #include "StateTo.h"
@@ -43,26 +43,46 @@ public:
 	
 	// Some relational operators:
 	
-	// Compute the image of r under *this.
+	// Compute(Lookup) the image of r under *this. precondition: this.domain() = r.domain()
+	// Note: map: states -> states(images)
 	StateSet image(const StateSet& r) const;
 	
-	// Compute the image of a single State.
+	// Compute(Lookup) the image of a single State. precondition: r = [0,this.domain())
+	// Note: map: states -> states(images)
 	inline const StateSet& image(const State r) const;
 
 	// Compute the reflexive and transitive closure of r under *this.
+	// return r union { image }, Note: map: states -> states(images)
 	StateSet closure(const StateSet& r) const;
 
 	// Some functions updating *this:
 	
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 	// with A times B(Cartesian cross product).
+	// Map p to q. precondition: p,q = [0,this.domain())
 	inline StateRel& union_cross(State p, State q);
+
+	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
+	// with A times B(Cartesian cross product).
+	// Map a st also to StateSet S. precondition: this.domain() == S.domain(), st = [0,this.domain())
 	inline StateRel& union_cross(State st, const StateSet& S);
+
+	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
+    // with A times B(Cartesian cross product).
+    // Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
 	StateRel& union_cross(const StateSet& S, State st);
+
+	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
+    // with A times B(Cartesian cross product).
+    // Map A to B . precondition: this.domain() == A.domain() == B.domain()
+    // This could probably have made use of union_cross(State,StateSet).
 	StateRel& union_cross(const StateSet& A, const StateSet& B);
 
 	// Remove a pair of States from the relation.
+	// Remove map: p->q and q->p
 	inline StateRel& remove_pair(const State p, const State q);
+
+	// Remove map: P -> Q 
 	StateRel& remove_pairs(const StateSet& P, const StateSet& Q);
 	
 	// Clear out this relation, without changing the domain.
@@ -79,7 +99,7 @@ public:
 	// Change the domain of this relation.
 	void set_domain(const int r);
 	
-	// Recycle this entire relation.
+	// Recycle this entire relation. domain() = 0
 	void reincarnate();
 
 	// Union relation r into *this, while adjusting r.
@@ -87,7 +107,7 @@ public:
 	
 	// Some special members:
 
-	// ĞŞ¸ÄÎªinline, ²¢ÔÚ.hÎÄ¼şÖĞ¶¨Òå£¬·ñÔòÁ¬½ÓÆ÷ÕÒ²»µ½StateTo<StateRel>
+	// ä¿®æ”¹ä¸ºinline, å¹¶åœ¨.hæ–‡ä»¶ä¸­å®šä¹‰ï¼Œå¦åˆ™è¿æ¥å™¨æ‰¾ä¸åˆ°StateTo<StateRel>
 	inline friend std::ostream& operator<<(std::ostream& os, const StateRel& r);
 	
 	inline int class_invariant() const;
@@ -116,7 +136,8 @@ inline const StateRel& StateRel::operator=(const StateRel& r)
 	return(*this);
 }
 
-// Or, compute the image of a single State.
+// Compute(Lookup) the image of a single State. precondition: r = [0,this.domain())
+// Note: map: states -> states(images)
 inline const StateSet& StateRel::image(const State r) const
 {
 	assert(class_invariant());
@@ -127,6 +148,7 @@ inline const StateSet& StateRel::image(const State r) const
 
 // Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 // with A times B(Cartesian cross product).
+// Map p to q. precondition: p,q = [0,this.domain())
 inline StateRel& StateRel::union_cross(State p, State q)
 {
 	assert(class_invariant());
@@ -136,7 +158,7 @@ inline StateRel& StateRel::union_cross(State p, State q)
 	return(*this);
 }
 
-// Map a st also to StateSet S.
+// Map a st also to StateSet S. precondition: this.domain() == S.domain(), st = [0,this.domain())
 inline StateRel& StateRel::union_cross(State st, const StateSet& S)
 {
 	assert(class_invariant());
@@ -176,7 +198,7 @@ inline int StateRel::class_invariant() const
 	return ret;
 }
 
-// ĞŞ¸ÄÎªinline, ²¢ÔÚ.hÎÄ¼şÖĞ¶¨Òå£¬·ñÔòÁ¬½ÓÆ÷ÕÒ²»µ½StateTo<StateRel>
+// ä¿®æ”¹ä¸ºinline, å¹¶åœ¨.hæ–‡ä»¶ä¸­å®šä¹‰ï¼Œå¦åˆ™è¿æ¥å™¨æ‰¾ä¸åˆ°StateTo<StateRel>
 inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
 {
 	assert(r.class_invariant());
