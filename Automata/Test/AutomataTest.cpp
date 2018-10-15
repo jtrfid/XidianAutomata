@@ -1,13 +1,13 @@
-//#include "../stdafx.h"  // fatal error C1010: ÔÚ²éÕÒÔ¤±àÒëÍ·Ê±Óöµ½ÒâÍâµÄÎÄ¼ş½áÎ²¡£ÊÇ·ñÍü¼ÇÁËÏòÔ´ÖĞÌí¼Ó¡°#include "stdafx.h"¡±?
-#include "stdafx.h"  // ËäÈ»ÔÚTestÄ¿Â¼ÏÂÎŞ´ËÎÄ¼ş£¬µ«ÊÇÈ´Æ­È¡ÁË±àÒëÆ÷£¬ÎŞÉÏÊö´íÎóÁË
+ï»¿//#include "../stdafx.h"  // fatal error C1010: åœ¨æŸ¥æ‰¾é¢„ç¼–è¯‘å¤´æ—¶é‡åˆ°æ„å¤–çš„æ–‡ä»¶ç»“å°¾ã€‚æ˜¯å¦å¿˜è®°äº†å‘æºä¸­æ·»åŠ â€œ#include "stdafx.h"â€?
+#include "stdafx.h"  // è™½ç„¶åœ¨Testç›®å½•ä¸‹æ— æ­¤æ–‡ä»¶ï¼Œä½†æ˜¯å´éª—å–äº†ç¼–è¯‘å™¨ï¼Œæ— ä¸Šè¿°é”™è¯¯äº†
 
 void StateSetTest();
-void StateRelTest();
 void StateToStateSetTest();
+void StateRelTest();
 
 void AutomataTest()
 {
-	//StateSetTest();
+	StateSetTest();
 	StateToStateSetTest();
-	//StateRelTest();
+	StateRelTest();
 }
