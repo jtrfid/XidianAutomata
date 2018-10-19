@@ -222,7 +222,7 @@ inline CharRange CharRange::left_excess(const CharRange& r) const
 }
 inline CharRange CharRange::right_excess(const CharRange& r) const
 {
-	CharRange ret(std::min(hi, r.hi) + 1, std::max(lo, r.lo));
+	CharRange ret(std::min(hi, r.hi) + 1, std::max(hi, r.hi));
 	return(ret);
 }
 

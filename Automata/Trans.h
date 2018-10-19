@@ -21,7 +21,7 @@
 #include "TransPair.h"
 #include "TransImpl.h"
 
-// Map char to StateSet, using Translmpl.
+// Map char(CharRange) to StateSet, using Translmpl.
 // Implement the transitions for one state, or for the inverse of Qmap
 // (in RFA's, LBFA's, and RBFA's).
 class Trans :protected TransImpl
@@ -57,12 +57,12 @@ public:
 	// Clear out all prevo transitions, and zero the domain.
 	inline void reincarnate();
 
-	// The range of States that can be transitioned to.
+	// The range of States that can be transitioned to. i.e. StateSet domain()
 	inline int range() const;
 
 	// Change the range of States that can be transitioned to.
-	// This is used in determining the domain() of the StateSet's (which
-	// are destinations of transitions).
+	// This is used in determining the domain() of the StateSet's (which are destinations of transitions).
+	// set state (destinations of transition) is [0,r), i.e. StateSet domain()
 	inline void set_range(const int r);
 	
 	// Add one more transition to the set.
@@ -138,7 +138,7 @@ inline void Trans::reincarnate()
 	assert(class_invariant());
 }
 
-// The range of States that can be transitioned to.
+// The range of States that can be transitioned to. i.e. StateSet domain()
 inline int Trans::range() const
 {
 	assert(class_invariant());
@@ -146,8 +146,8 @@ inline int Trans::range() const
 }
 
 // Change the range of States that can be transitioned to.
-// This is used in determining the domain() of the StateSet's (which
-// are destinations of transitions).
+// This is used in determining the domain() of the StateSet's (which are destinations of transitions).
+// set state (destinations of transition) is [0,r), i.e. StateSet domain()
 inline void Trans::set_range(const int r)
 {
 	assert(class_invariant());

@@ -23,8 +23,8 @@ int CharRange::ordering(const CharRange& r) const
 std::ostream& operator<<(std::ostream& os, const CharRange r)
 {
 	if (r.hi == r.lo) return(os << '\'' << r.lo << '\'');
-	else return(os << '[' <<'\'' << r.lo << '\'' << ','
-		           << '\'' << r.hi << '\'' << ']');
+	else return(os << "[" <<'\'' << r.lo << '\'' << ','
+		           << '\'' << r.hi << '\'' << "]");
 }
 
 CharRange::~CharRange()

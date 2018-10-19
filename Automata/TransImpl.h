@@ -2,7 +2,7 @@
 	Implementation class: Translmpl
 	Files: TransIml.h, TansIml.cpp
 	Uses: CharRange, CRSet, State, StateSet, TransPair
-	Description: A Translmpl is a set of TransPairs. It is used as a base class for Trans and DTrans,
+	Description: A TransImpl is a set of TransPairs. It is used as a base class for Trans and DTrans,
 	which are used to implement transition relations. TransPairs can be added, but not removed
 	from the set. When a new TransPair is added, if its CharRange is adjacent to the CharRange
 	of a TransPair already in the set, and the destination State of the two TransPairs is the
@@ -66,8 +66,11 @@ protected:
 	void ensure_min_size(int w);
 
 	// Implementation details:
-    // How many transitions are there.
+
+    // How many transitions are there.index of TransPair *data (include expansion_extra)
 	int howmany;
+
+	// How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition(
 	int in_use;
 
 	// A dynamically allocated array of(CharRange, State) pairs(transitions).

@@ -284,5 +284,11 @@
     <ClCompile Include="Test\StateTo(StateSet)Test.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\TransTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\CRSetTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

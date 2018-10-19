@@ -234,9 +234,11 @@
     </ClCompile>
     <ClCompile Include="SymRel.cpp" />
     <ClCompile Include="Test\AutomataTest.cpp" />
+    <ClCompile Include="Test\CRSetTest.cpp" />
     <ClCompile Include="Test\StateRelTest.cpp" />
     <ClCompile Include="Test\StateSetTest.cpp" />
     <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />
+    <ClCompile Include="Test\TransTest.cpp" />
     <ClCompile Include="Trans.cpp" />
     <ClCompile Include="TransImpl.cpp" />
     <ClCompile Include="TransRel.cpp" />

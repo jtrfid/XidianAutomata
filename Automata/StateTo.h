@@ -110,7 +110,7 @@ private:
 	int howmany;
 
 	// indicating how many of the dynamically allocated array of T's elements are in use.
-	// [0,domain)
+	// [0,domain) -> index of T *data;
 	int in_use;
 	// dynamically allocated array of T's (include expansion_extra).
 	T *data;

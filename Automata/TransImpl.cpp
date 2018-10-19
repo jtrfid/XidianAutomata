@@ -81,7 +81,7 @@ TransImpl& TransImpl::add_transition(const CharRange a, const State q)
 	for (int i = 0; i < in_use; i++)
 	{
 		// They're mergeable if they go to the same place and the labels are adjacent.
-		if (data[i].transition_destination == q && data[i].transition_label.overlap_or_adjacent(a))
+		if ((data[i].transition_destination == q) && (data[i].transition_label.overlap_or_adjacent(a)))
 		{
 			data[i].transition_label.merge(a);
 			return(*this);
