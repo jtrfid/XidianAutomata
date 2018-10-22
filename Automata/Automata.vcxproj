@@ -238,6 +238,7 @@
     <ClCompile Include="Test\StateRelTest.cpp" />
     <ClCompile Include="Test\StateSetTest.cpp" />
     <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />
+    <ClCompile Include="Test\ThompsonTest.cpp" />
     <ClCompile Include="Test\TransTest.cpp" />
     <ClCompile Include="Trans.cpp" />
     <ClCompile Include="TransImpl.cpp" />

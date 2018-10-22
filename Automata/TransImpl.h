@@ -70,7 +70,7 @@ protected:
     // How many transitions are there.index of TransPair *data (include expansion_extra)
 	int howmany;
 
-	// How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition(
+	// How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition()
 	int in_use;
 
 	// A dynamically allocated array of(CharRange, State) pairs(transitions).

@@ -22,6 +22,8 @@
 #include "TransImpl.h"
 
 // Map char(CharRange) to StateSet, using Translmpl.
+// Trans::destination_range; // The domain() of the associated State Pool.
+// TransImpl::in_use;  // How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition()
 // Implement the transitions for one state, or for the inverse of Qmap
 // (in RFA's, LBFA's, and RBFA's).
 class Trans :protected TransImpl
@@ -54,7 +56,8 @@ public:
 	
 	// Some special member functions:
 
-	// Clear out all prevo transitions, and zero the domain.
+	// Clear out all prev transitions, and zero the domain.
+	// do'not change the domain() of the associated State Pool.
 	inline void reincarnate();
 
 	// The range of States that can be transitioned to. i.e. StateSet domain()
@@ -130,7 +133,8 @@ inline CRSet Trans::labels_into(const StateSet& r) const
 	return(TransImpl::labels_into(r));
 }
 
-// Clear out all prevo transitions, and zero the domain.
+// Clear out all prev transitions, and zero the domain.
+// do'not change the domain() of the associated State Pool.
 inline void Trans::reincarnate()
 {
 	assert(class_invariant());

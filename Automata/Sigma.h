@@ -1,8 +1,8 @@
-/************************************************************************************
- The ¦²-algebra
-	Template class Reg is used to define a client interface for the regular ¦²-algebra (which is fully
+ï»¿/************************************************************************************
+ The Î£-algebra
+	Template class Reg is used to define a client interface for the regular Î£-algebra (which is fully
 	defined in [Wat93a, Section 3]). The template takes a single type parameter T which is used as
-	the carrier set of the ¦²-algebra. Class Reg<T> derives publicly from T, and so an Reg<T> can
+	the carrier set of the Î£-algebra. Class Reg<T> derives publicly from T, and so an Reg<T> can
 	be used anywhere that a T can. The following member functions are provided:
 
 	For any two carrier sets Tl and T2 , the Sigma-algebra operator definitions will have very little in
@@ -14,14 +14,14 @@ Implementation class: Reg
 Files: Sigma.h
 Uses: CharRange, RE, REops
 
-Description: Reg implements the ¦²-algebra as defined in [Wat93a, Section 3]. The single type
-(or generic) parameter T is used to specify the carrier set of the ¦²-algebra. The template Reg
+Description: Reg implements the Î£-algebra as defined in [Wat93a, Section 3]. The single type
+(or generic) parameter T is used to specify the carrier set of the Î£-algebra. The template Reg
 is an abstract template, in the sense that it is only used to force a common interface between
-the ¦²-algebras. Most of the member functions are left undefined, with versions specific to the
+the Î£-algebras. Most of the member functions are left undefined, with versions specific to the
 carrier set being defined separately (see files Sig-re.cpp, Sig-fa.cpp, and Sig-rfa.cpp).
-Regular expressions (class RE) are taken as the ¦²-term algebra. 
+Regular expressions (class RE) are taken as the Î£-term algebra. 
 A special member function is defined, taking a regular expression, and constructing the homomorphic image of the RE,
-in the ¦²-algebra of T. The ¦²-algebra is the only way to construct regular expressions, and
+in the Î£-algebra of T. The Î£-algebra is the only way to construct regular expressions, and
 it is particularly useful for constructing parts of a finite automaton separately. 
 Reg<T> inherits publicly from a T, and since a Reg<T> contains nothing extra, it can be cast to a T
 safely (no slicing occurs, and no information is lost). 
@@ -29,7 +29,7 @@ Presently, only Reg<RE>, Reg<FA>,and Reg<RFA> are available. (Each of RE, FA, an
 a const reference to RE; for practical purposes, these constructors are much faster than
 constructing the homomorphic image using Reg.)
 
-Implementation: The template is used to force a common interface for ¦²-algebras with different
+Implementation: The template is used to force a common interface for Î£-algebras with different
 carrier sets. Forcing an interface is commonly done using abstract base classes, although
 this is not possible in this case, as the return types of many of the member functions would
 not be correct.
@@ -39,9 +39,9 @@ results in local variables. Use-counting in the carrier class can improve perfor
  ************************************************************************************/
 #pragma once
 #include<iostream>
- // È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+ // å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
  // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "CharRange.h"
 #include "REops.h"
 #include "RE.h"
@@ -106,11 +106,11 @@ public:
 	Reg<T>& empty();
 
 	//symbol takes a CharRange and makes *this accept the set of chars denoted by the CharRange.
-	// ÓëRE::symbol()Í¬Ãû£¬Reg<RE>¶ÔÏó½öÄÜµ÷ÓÃsymbol(const CharRange r)º¯Êı
+	// ä¸RE::symbol()åŒåï¼ŒReg<RE>å¯¹è±¡ä»…èƒ½è°ƒç”¨symbol(const CharRange r)å‡½æ•°
 	// ==> thist -> op = SYMBOL, this->symbol = r, this->left = this->right = 0
 	Reg<T>& symbol(const CharRange r);
 	
-	// Sigma-algebra binary ops,Ô­ÎÄÎªor,ÓëC++¹Ø¼ü×Ö³åÍ»£¬¸ÄÎªOr
+	// Sigma-algebra binary ops,åŸæ–‡ä¸ºor,ä¸C++å…³é”®å­—å†²çªï¼Œæ”¹ä¸ºOr
 	// or takes another Reg<T> r, and makes *this accept the language of *this union the language of r.
 	// ==> thist = (shallow_copy(this) union r)
 	Reg<T>& Or(const Reg<T>& r);

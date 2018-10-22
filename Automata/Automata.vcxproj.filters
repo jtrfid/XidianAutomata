@@ -290,5 +290,8 @@
     <ClCompile Include="Test\CRSetTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\ThompsonTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

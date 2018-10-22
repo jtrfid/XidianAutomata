@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 Automata constructions
 
 Three header files contain (inline) definitions or prototypes of functions that take a regular expression

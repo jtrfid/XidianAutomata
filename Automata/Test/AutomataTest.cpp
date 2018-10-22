@@ -6,6 +6,7 @@ void StateSetTest();
 void StateToStateSetTest();
 void StateRelTest();
 void TransTest();
+void TompsonTest();
 
 void AutomataTest()
 {
@@ -13,5 +14,6 @@ void AutomataTest()
 	//StateSetTest();
 	//StateToStateSetTest();
 	//StateRelTest();
-	TransTest();
+	//TransTest();
+	TompsonTest();
 }

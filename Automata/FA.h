@@ -1,4 +1,4 @@
-/***********************************************************************************
+ï»¿/***********************************************************************************
 	Implementation class: FA
 
 	Files: FA.h, FA.cpp
@@ -8,15 +8,15 @@
 	Description: Class FA implements finite automata as defined in [Wat93a, Definition 2.1]. It
 	inherits from FAabs, and implements the interface defined there. A constructor taking an
 	RE is provided, implementing Thompson's top-down construction [Wat93a, Construction 4.5]. 
-	This constructor can be more efficient than using the ¦²- algebra Reg<FA>.
+	This constructor can be more efficient than using the Î£- algebra Reg<FA>.
 
 	Definition 2.1 (Finite automaton): A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F)
  ***********************************************************************************/
 #pragma once
 #include <iostream>
- // È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+ // å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
  // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "State.h"
 #include "StatePool.h"
 #include "RE.h"

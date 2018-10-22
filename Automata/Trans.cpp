@@ -43,7 +43,7 @@ StateSet Trans::range_transition(const CharRange a) const
 }
 
 // Do normal set union.
-// The following member does not change the range.
+// The following member does not change the range.  
 Trans& Trans::set_union(const Trans& r)
 {
 	assert(class_invariant() && class_invariant());

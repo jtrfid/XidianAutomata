@@ -1,13 +1,13 @@
-/************************************************************************************
+ï»¿/************************************************************************************
 	Implementation class : RE
 	Files : RE.h, RE.cpp
 	Uses : CharRange, CRSet, REops
 	Description : An RE is a regular expression(see[Wat93a, Section 3] for the definition of regular
-		expressions).The argument-less constructor constructs the regular expression ¦Õ(the regular
+		expressions).The argument-less constructor constructs the regular expression Ï†(the regular
 		expression denoting the empty language).It is not possible to construct more complex regular
 		expressions with the member functions(see the template class Reg<RE> for information
 		on constructing regular expressions).Class RE is the implementation of the carrier set of
-		the ¦²-term algebra(an RE is a term in the ¦²-term algebra).
+		the Î£-term algebra(an RE is a term in the Î£-term algebra).
 		A member function returns the operator type of the main(or root) operator of the regular
 		expression. (The operator types are enumerated in REops.) Other member functions can
 		be used to determine additional information about the main(root) operator of the regular
@@ -22,9 +22,9 @@
 ******************************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "CharRange.h"
 #include "CRSet.h"
 #include "REops.h"
@@ -137,8 +137,8 @@ protected:
 
 	// Some implementation details.
 
-	// a set of several constants: ¦Å,¦Õ,a1,...,an; Reg(where V = {al, ... ,an }),
-	// and five operators ¡¤ : Reg x Reg--> Reg(the dot operator), U : Reg x Reg--> Reg, *: Reg--> Reg,
+	// a set of several constants: Îµ,Ï†,a1,...,an; Reg(where V = {al, ... ,an }),
+	// and five operators Â· : Reg x Reg--> Reg(the dot operator), U : Reg x Reg--> Reg, *: Reg--> Reg,
 	//	+: Reg----> Reg, and ? : Reg----> Reg.
 	REops op;
 
