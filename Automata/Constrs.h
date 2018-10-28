@@ -35,15 +35,17 @@ in [Wat93a].
 
 // Thompson's construction:
 //           use the functions Thompson or Thompson_sigma, or
-//           FA Th(E);
-//           Reg<FA> Th2(E);
-// Construction 4.5
+//           FA Th(E);       // Construction 4.5 (Top-down Thompson's)
+//           Reg<FA> Th2(E); // Construction 4.3 (Thompson)
+// Construction 4.5, td(const State s, const RE& e, const State f);
 inline FA Thompson(const RE& r)
 {
 	return(FA(r));
 }
 
-// Construction 4.3
+// Construction 4.3 (Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
+// from RE to Thompson's Sigma-algebra of FA's.
+// C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
 inline FA Thompson_sigma(const RE& r)
 {
 	return(Reg<FA>(r));

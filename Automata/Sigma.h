@@ -10,6 +10,10 @@
 	each carrier set. Presently, the operators are only defined for three type parameters (carrier sets):
 	Reg<RE>, Reg<FA>, and Reg<RFA>. (see files Sig-re.cpp, Sig-fa.cpp, and Sig-rfa.cpp).
 
+	no-basis operator(epsilon,empty,symbol): this ==> left = right = 0
+	unary operator(star,plus,question): this ==> left = this, right = 0
+    binary operator(union(or),concat): this ==> left(this) operator right
+
 Implementation class: Reg
 Files: Sigma.h
 Uses: CharRange, RE, REops
@@ -28,6 +32,10 @@ safely (no slicing occurs, and no information is lost).
 Presently, only Reg<RE>, Reg<FA>,and Reg<RFA> are available. (Each of RE, FA, and RFA also have constructors taking
 a const reference to RE; for practical purposes, these constructors are much faster than
 constructing the homomorphic image using Reg.)
+
+non-basis operator(epsilon,empty,symbol): this ==> left = right = 0
+unary operator(star,plus,question): this ==> left = this, right = 0
+binary operator(union(or),concat(dot)): this ==> left(this) operator right
 
 Implementation: The template is used to force a common interface for Σ-algebras with different
 carrier sets. Forcing an interface is commonly done using abstract base classes, although
@@ -81,6 +89,9 @@ public:
 		return(*this);
 	}
 
+	// Construction 4.3 (Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
+    // from RE to Thompson's Sigma-algebra of FA's.
+    // C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
 	// Construct the homomorphic image of regular expression r, using the Sigma-algebra operators
 	// (corresponding to the operators of the regular expression).
 	// A constructor from RE (a regular expression). Given that regular expressions are the Sigma-term algebra, 
@@ -146,6 +157,10 @@ template<class T>
 void Reg<T>::homomorphic_image(const RE& r)
 {
 	assert(r.class_invariant());
+
+	// non-basis operator(epsilon, empty, symbol) : this == > left = right = 0
+	// unary operator(star, plus, question) : this == > left = this, right = 0
+	// binary operator(union(or ), concat(dot)) : this == > left(this) operator right
 
 	// Construct the homomorphic image of r in *this.
 	switch (r.root_operator())

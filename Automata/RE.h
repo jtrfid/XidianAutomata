@@ -16,9 +16,9 @@
 		A very basic istream extraction (input) operator is provided, expecting the input to be 
 		a regular expression in prefix notation; the operator does little error checking.
 
-		no-basis operator(epsilon,empty,symbol): this ==> left = right = 0
+		non-basis operator(epsilon,empty,symbol): this ==> left = right = 0
 		unary operator(star,plus,question): this ==> left = this, right = 0
-		binary operator(union(or),concat): this ==> left(this) operator right
+		binary operator(union(or),concat(dot)): this ==> left(this) operator right
 ******************************************************************************************/
 #pragma once
 #include<iostream>
@@ -142,10 +142,9 @@ protected:
 	//	+: Reg----> Reg, and ? : Reg----> Reg.
 	REops op;
 
-	// left RE and right RE of binary operator: union(or), dot operator
-	// left RE of unary operator: *,+,? operator, left = this
-	// Assume that *this is higher(non-basic operator) regular operator.
-	// non-basis operator: constants(epsilon,empty,symbol): left = 0,right = 0
+	// non-basis operator(epsilon, empty, symbol) : this == > left = right = 0
+	// unary operator(star, plus, question) : this == > left = this, right = 0
+	// binary operator(union(or), concat(dot)) : this == > left(this) operator right
 	RE *left, *right;
 
 	// symbol: a1,...,an in this RE

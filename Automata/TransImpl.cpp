@@ -40,7 +40,7 @@ const TransImpl& TransImpl::operator=(const TransImpl& r)
 		data = d;
 	}
 	assert(howmany >= r.in_use);
-	for (int i = 0; i < r.in_use; i++) data[i] = data[r.in_use];
+	for (int i = 0; i < r.in_use; i++) data[i] = r.data[i];
 	in_use = r.in_use;
 	assert(class_invariant());
 	return(*this);

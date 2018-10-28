@@ -1,4 +1,4 @@
-/***********************************************************************************
+﻿/***********************************************************************************
 Implementation: Most of the member functions are implemented in a straight-forward manner.
 The constructor from an RE makes a traversal of the RE to determine the number of States
 to allocate before-hand.
@@ -40,7 +40,7 @@ FA::FA(const FA& r) :Q(r.Q), S(r.S), F(r.F),
 }
 
 // A special constructor, implementing the Thompson's top-down construction
-// (see Construction 4.5).
+// (see Construction 4.5). td(const State s, const RE& e, const State f);
 FA::FA(const RE& e)
 {
 	// First, allocate enough states by setting up the domains.
@@ -143,7 +143,22 @@ int FA::states_reqd(const RE& e)
 	return(ret);
 }
 
-// Thompson's top-down construction [Wat93a, Construction 4.5]
+/**
+ Thompson's top-down construction [Wat93a, Construction 4.5](Top-down Thompson's): 
+ We assume a universe of available states U, to define function
+    td in U x RE x U --> FA
+ [ Definition 2.1 (Finite automaton): A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F) ]
+ The function is defined recursively on the structure of regular expressions:
+ td(s,epsilon,f) = ({s,f},V,empty,{(s,f)},{s},{f}); E.union_cross(s, f);
+ td(s,empty,f) = ({s,f},V,empty,empty,{s},{f})
+ td(s,a,f) = ({s,f},V,{(s,a,f)},empty,{s},{f}) (for all a in V); Transitions.add_transition(s, e.symbol(), f);
+ td(s,E0 concat E1,f) = td(s,e.left_subexpr(),p); td(q, e.right_subexpr(),f);  E.union_cross(p, q); E0 = e.left_subexpr(); E1 = e.right_subexpr();
+ td(s,E0 union(or) E1,f) = td(p, e.left_subexpr(), q); td(r, e.right_subexpr(), t);	E0 = e.left_subexpr(); E1 = e.right_subexpr();
+                           E.union_cross(s, p); E.union_cross(s, r); E.union_cross(q, f); E.union_cross(t, f);
+ td(s,E0 star,f) = td(s,e.left_subexpr(),p); E.union_cross(s, p); E.union_cross(q, p); E.union_cross(q, f); E.union_cross(s, f);E0 = e.left_subexpr();
+ td(s,E0 plus,f) = td(s,e.left_subexpr(),p); E.union_cross(s, p); E.union_cross(q, p); E.union_cross(q, f);E0 = e.left_subexpr();
+ td(s,E0 question,f) = td(s,e.left_subexpr(),p); E.union_cross(s, p); E.union_cross(q, f); E.union_cross(s, f);E0 = e.left_subexpr();
+ **/
 void FA::td(const State s, const RE& e, const State f)
 {
 	assert(e.class_invariant());
@@ -153,7 +168,7 @@ void FA::td(const State s, const RE& e, const State f)
 	switch (e.root_operator())
 	{
 	case EPSILON:  // td(s,epsilon,f) = {{s,f},V,empty,{(s,f)}},{s},{f}}
-		E.union_cross(s, f);
+		E.union_cross(s, f); // Map s to f
 		break;
 	case EMPTY: // td(s,empty,f) = {{s,f},V,empty,empty,{s},{f}}
 		break;

@@ -1,6 +1,6 @@
 /***********************************************************************************
 	Implementation class: REops
-	Files: REops. h
+	Files: REops.h
 	Uses:
 	Description: The regular operators (of the ¦²-algebra -- see class Reg(Sigma.h) or [Wat93a, Definition
 	3.12]) are encoded as elements of an enumeration. These are usually stored in a type-field in

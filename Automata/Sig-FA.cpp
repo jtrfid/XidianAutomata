@@ -1,10 +1,10 @@
-/***********************************************************************************
-The ¦²-algebra Reg<FA>
+ï»¿/***********************************************************************************
+The Î£-algebra Reg<FA>
 Implementation class: Reg<FA>
 Files: Sig-FA. cpp
 Uses: CharRange, Reg, FA, Sate
 
-Description: The template instantiation Reg<FA> implements Thompson's ¦²-algebra of finite
+Description: The template instantiation Reg<FA> implements Thompson's Î£-algebra of finite
 automata, as defined in [Wat93a, Definition 4.1]. The operators can be used directly to
 construct complex finite automata, or the Reg<FA> constructor from FA (the constructor
 defined in class Reg) can be used to construct the homomorphic image of the regular

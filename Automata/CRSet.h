@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "CharRange.h"
 
 /***********************************************************
@@ -14,6 +14,13 @@
  pairwise disjoint. When a new CharRange is added to a CRSet, some CharRanges may be
  split to ensure that the disjointness property is preserved. Members are provided to check
  if two CRSets cover the same characters, and to combine two CRSets.
+ eg.
+ CRSet set1; CharRange cr('a', 'd');
+ cout << cr << endl; // [ 'a' 'd' ]
+ cout << cr.not_disjoint('b') << endl;  // 1, è¡¨ç¤ºcrä¸'a'ç›¸äº¤
+ set1.add(cr);
+ set1.add('b');
+ cout << set1 << endl;   // { 'b'  'a'  ['c','d'] }
  ***********************************************************/
 class CRSet
 {

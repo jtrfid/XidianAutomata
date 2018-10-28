@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
 	Implementation class: TransRel
 	Files: TransRel.h, TransRel.cpp
 	Uses: CharRange, CRSet, State, StateSet, StateTo, Trans
@@ -9,9 +9,9 @@
 ****************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "StateTo.h"
 #include "Trans.h"
 
@@ -27,6 +27,7 @@ public:
 	inline TransRel(const TransRel& r);
 	
 	// Default destructor is okay
+
 	inline const TransRel& operator=(const TransRel& r);
 	
 	// Some relational operators:
@@ -58,7 +59,7 @@ public:
 	
 	// Some special members:
 	
-	// ±ØĞëÀàÄÚ¶¨Òå
+	// å¿…é¡»ç±»å†…å®šä¹‰
 	friend std::ostream& operator<<(std::ostream& os, const TransRel& r);
 
 	inline int class_invariant() const;
@@ -112,11 +113,11 @@ inline int TransRel::class_invariant() const
 	return(res);
 }
 
-// ĞŞ¸ÄÎªinline,·ñÔòÁ¬½ÓÆ÷ÕÒ²»µ½StateTo<Trans>,µ«ÊÇstd::cout<<³öÏÖÍ¬ÑùµÄ´íÎó,ÔÙ°ÑStateTo<Trans>ÒÆÈëËüËùÔÚµÄÀàÄÚ¶¨Òå£¬ok
+// ä¿®æ”¹ä¸ºinline,å¦åˆ™è¿æ¥å™¨æ‰¾ä¸åˆ°StateTo<Trans>,ä½†æ˜¯std::cout<<å‡ºç°åŒæ ·çš„é”™è¯¯,å†æŠŠStateTo<Trans>ç§»å…¥å®ƒæ‰€åœ¨çš„ç±»å†…å®šä¹‰ï¼Œok
 inline std::ostream& operator<<(std::ostream& os, const TransRel& r)
 {
 	assert(r.class_invariant());
 	return(os << (const StateTo<Trans>&)r);
-	//return(os << r); // ÒıÆğµİ¹é
+	//return(os << r); // å¼•èµ·é€’å½’
 }
 

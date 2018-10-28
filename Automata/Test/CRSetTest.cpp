@@ -8,6 +8,10 @@ using namespace std;
 class CRSetTestClass
 {
 public:
+	/******************************************************
+	  A data-structure to hold sets of CharRange's. The CharRange's are kept pair wise disjoint.
+	  When a new CharRange is added to a CRSet, some CharRanges may be split to ensure that the disjointness property is preserved.
+	 ******************************************************/
 	void basicCRSetTest()
 	{
 		cout << "===basicCRSetTest\n";
