@@ -1,12 +1,12 @@
-/************************************************************************************
+ï»¿/************************************************************************************
 Left-biased finite automata
 Implementation class: LBFA
 Files: LBFA.h, LBFA.cpp
 Uses: DFA, FAabs, RFA, State, StatePool, StateRel, StateSet, Trans
 
 Description: Class LBFA implements left-biased finite automata, as defined in [Wat93a, Definition 4.20]. 
-It inherits from FAabs, and implements the interface defined by abstract base
-FAabs. A constructor taking an RFA provides a method of (indirectly) constructing an
+It inherits from FAabs, and implements the interface defined by abstract base FAabs. 
+A constructor taking an RFA provides a method of (indirectly) constructing an
 LBFA from regular expressions. The constructor implements isomorphism decode as defined
 in [Wat93a, Definition 4.28]. A special member function takes an an RFA and implements
 the non-isomorphic mapping convert defined in [Wat93a, Definition 4.35]. This mapping
@@ -15,9 +15,9 @@ provides an alternative way of constructing an LBFA from an RFA (see [Wat93a, p.
 
 #pragma once
 #include <iostream>
- // È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+ // å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
  // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "State.h"
 #include "StatePool.h"
 #include "RFA.h"
@@ -61,12 +61,22 @@ public:
 
 protected:
 	// Implementation stuff, protected for Reg<LBFA>:
+
+	// Q is a finite set of states,
 	StatePool Q;
+
 	// Single start state.
 	State s;
+
+	// F (subset Q) is a set of final states,
 	StateSet F;
+
 	// Qmap(see Definition 4.24) stored as its inverse.
+	// Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
+	// and its inverse as Qmap^-1 in V--/-- > P(Q)[the set of all partial functions from V to P(Q)]).
 	Trans Qmap_inverse;
+
+	// follow(in P(Q x Q)) is a follow relation(replacing the transition relation),
 	StateRel follow;
 
 	// Simulation stuff:

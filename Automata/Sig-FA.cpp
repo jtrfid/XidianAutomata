@@ -12,13 +12,22 @@ expression (the constructor uses these operators indirectly).
 
 Implementation: The implementation follows directly from [Wat93a, Definition 4.1]. In some
 places it is complicated by the management of domains of StateSets, StateRels, and TransRels.
+
+// Construction 4.3 (Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
+// from RE to Thompson's Sigma-algebra of FA's.
+// C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
+// Construct the homomorphic image of regular expression r, using the Sigma-algebra operators
+// (corresponding to the operators of the regular expression).
+// A constructor from RE (a regular expression). Given that regular expressions are the Sigma-term algebra,
+// this constructor constructs the homomorphic image of the regular expression in the Sigma-algebra of T.
+// Definition 3.7 (Sigma-homomorphism): Given E-a1gebras (V,F) and (W,G), a Sigma-homomorphism from(V, F) to(W, G)
  ***********************************************************************************/
 #include "stdafx.h"
 #include "CharRange.h"
 #include "FA.h"
 #include "Sigma.h"
 
-// Implement the Sigma-algebra operators(Definition 4.29 of the Taxonomy).
+// Implement the Sigma-algebra operators(Definition 4.1 of the Taxonomy).
 Reg<FA>& Reg<FA>::epsilon() {
 	// *this may have been something in a previous life.
 	// Wipe out all previous components;

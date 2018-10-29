@@ -1,4 +1,4 @@
-/***********************************************************************************
+ï»¿/***********************************************************************************
 	Reduced finite automata
 	Implementation class: RFA
 	Files: RFA.h, RFA.cpp
@@ -8,13 +8,23 @@
 	4.24]. It inherits from FAabs, and implements the interface defined by abstract base FAabs.
 	A constructor taking an RE provides a very efficient top-down implementation of homomorphism
 	RFA defined in [Wat93a, Definition 4.30].
+
+	Definition 4.24 (RFA): A reduced FA (RFA) is a 7-tuple (Q, V, follow, first, last, null, Qmap) where
+	â€¢ Q is a finite set of states,
+    â€¢ V is a alphabet,
+    â€¢ follow (in P(Q x Q)) is a follow relation (replacing the transition relation),
+    â€¢ first (subset Q) is a set of initial states (replacing T(s) in an LBFA) ,
+    â€¢ last (subset Q) is a set of final states,
+    â€¢ null (in {true,false}) is a Boolean value (encoding s (in F) in an LBFA), and
+    â€¢ Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
+	  and its inverse as Qmap^-1 in V --/--> P(Q)[the set of all partial functions from V to P(Q)]).
  ***********************************************************************************/
 
 #pragma once
 #include <iostream>
- // È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+ // å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
  // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "State.h"
 #include "StatePool.h"
 #include "RE.h"
@@ -83,10 +93,21 @@ protected:
 	void reincarnate();
 	
 	// Implementation details, protected for Reg<RFA> use.
+	// Q is a finite set of states,
 	StatePool Q;
+
+	// first(subset Q) is a set of initial states(replacing T(s) in an LBFA),
+	// last(subset Q) is a set of final states,
 	StateSet first, last;
+
+	// Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
+	// and its inverse as Qmap^-1 in V --/-->P(Q)[the set of all partial functions from V to P(Q)]).
 	Trans Qmap_inverse;
+
+	// follow(in P(Q x Q)) is a follow relation(replacing the transition relation),
 	StateRel follow;
+
+	// null (in {true,false}) is a Boolean value (encoding s (in F) in an LBFA)
 	int Nullable;
 	
 	// Some simulation stuff.

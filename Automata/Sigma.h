@@ -8,11 +8,7 @@
 	For any two carrier sets Tl and T2 , the Sigma-algebra operator definitions will have very little in
 	common. For this reason, the operators of template class Reg are specially defined defined for
 	each carrier set. Presently, the operators are only defined for three type parameters (carrier sets):
-	Reg<RE>, Reg<FA>, and Reg<RFA>. (see files Sig-re.cpp, Sig-fa.cpp, and Sig-rfa.cpp).
-
-	no-basis operator(epsilon,empty,symbol): this ==> left = right = 0
-	unary operator(star,plus,question): this ==> left = this, right = 0
-    binary operator(union(or),concat): this ==> left(this) operator right
+	Reg<RE>, Reg<FA>, and Reg<RFA>. (see files Sig-RE.cpp, Sig-FA.cpp, and Sig-RFA.cpp).
 
 Implementation class: Reg
 Files: Sigma.h
@@ -33,10 +29,6 @@ Presently, only Reg<RE>, Reg<FA>,and Reg<RFA> are available. (Each of RE, FA, an
 a const reference to RE; for practical purposes, these constructors are much faster than
 constructing the homomorphic image using Reg.)
 
-non-basis operator(epsilon,empty,symbol): this ==> left = right = 0
-unary operator(star,plus,question): this ==> left = this, right = 0
-binary operator(union(or),concat(dot)): this ==> left(this) operator right
-
 Implementation: The template is used to force a common interface for Σ-algebras with different
 carrier sets. Forcing an interface is commonly done using abstract base classes, although
 this is not possible in this case, as the return types of many of the member functions would
@@ -44,6 +36,25 @@ not be correct.
 
 Performance: The homomorphic image member function is recursive, and keeps partially constructed
 results in local variables. Use-counting in the carrier class can improve performance.
+
+===========================================================================================
+Reg<RE>: (in Sig-RE.cpp)  Class RE is a regular expression(see[Wat93a, Section 3]
+non-basis operator(epsilon,empty,symbol): this ==> left = right = 0
+unary operator(star,plus,question): this ==> left = this, right = 0
+binary operator(union(or),concat(dot)): this ==> left(this) operator right
+Reg<RE>& Reg<RE>::epsilon(); Reg<RE>& Reg<RE>::empty();Reg<RE>& Reg<RE>::symbol(const CharRange r);
+Reg<RE>& Reg<RE>::Or(const Reg<RE>& r); Reg<RE>& Reg<RE>::concat(const Reg<RE>& r);
+Reg<RE>& Reg<RE>::star();Reg<RE>& Reg<RE>::plus();Reg<RE>& Reg<RE>::question();
+---------------------------------------------------------------------------------------------
+Reg<FA>: (in Sig-FA.cpp)  Class FA implements finite automata as defined in [Wat93a, Definition 2.1]
+Reg<FA>& Reg<FA>::epsilon(); Reg<FA>& Reg<FA>::empty();Reg<FA>& Reg<FA>::symbol(const CharRange r);
+Reg<FA>& Reg<FA>::Or(const Reg<FA>& r); Reg<FA>& Reg<FA>::concat(const Reg<FA>& r);
+Reg<FA>& Reg<FA>::star();Reg<FA>& Reg<FA>::plus();Reg<FA>& Reg<FA>::question();
+---------------------------------------------------------------------------------------------
+Reg<RFA>: (in Sig-RFA.cpp) Class RFA implements reduced finite automata, as defined in [Wat93a, Definition 4.24].
+Reg<RFA>& Reg<RFA>::epsilon(); Reg<RFA>& Reg<RFA>::empty();Reg<RFA>& Reg<RFA>::symbol(const CharRange r);
+Reg<RFA>& Reg<RFA>::Or(const Reg<RFA>& r); Reg<RFA>& Reg<RFA>::concat(const Reg<RFA>& r);
+Reg<RFA>& Reg<RFA>::star();Reg<RFA>& Reg<RFA>::plus();Reg<RFA>& Reg<RFA>::question();
  ************************************************************************************/
 #pragma once
 #include<iostream>
@@ -157,10 +168,6 @@ template<class T>
 void Reg<T>::homomorphic_image(const RE& r)
 {
 	assert(r.class_invariant());
-
-	// non-basis operator(epsilon, empty, symbol) : this == > left = right = 0
-	// unary operator(star, plus, question) : this == > left = this, right = 0
-	// binary operator(union(or ), concat(dot)) : this == > left(this) operator right
 
 	// Construct the homomorphic image of r in *this.
 	switch (r.root_operator())

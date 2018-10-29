@@ -1,5 +1,5 @@
-/************************************************************************
-	The ¦²-term algebra Reg<RE>
+ï»¿/************************************************************************
+	The Î£-term algebra Reg<RE>
 	Implementation class: Reg<RE>
 	Files: Sig-RE.cpp
 	Uses: CharRange, Reg, RE, REops

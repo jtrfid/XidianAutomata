@@ -7,6 +7,22 @@
 
 using namespace std;
 
+/*******************************************************************
+	Reg<RE> re1;
+	//Reg<RE> re1 = Reg<RE>(); // 等效
+
+    ///////////////////////// Thompson's construction:
+
+	// Thompson's Construction 4.5 (Top-down Thompson's)
+	FA fa1(re1);
+	//FA fa1 = FA(re1);   // 等效
+	//FA fa1 = Thompson(re1);  // 等效
+
+	// Thompson's Construction 4.3 (Thompson)
+	Reg<FA> fa1(re1);
+	//FA fa1 = Reg<FA>(re1);   // 等效
+	//FA fa1 = Thompson_sigma(re1);  // 等效
+ *******************************************************************/
 class ThompsonTestClass
 {
 public:
@@ -815,8 +831,8 @@ public:
 		re1.epsilon();
 		cout << re1 << endl; // 1  ==> op = EPSILON, left = right = 0
 
-		FA Th = Thompson_sigma(re1); 
-		// FA Th = Reg<FA>(re1);
+		//FA Th = Thompson_sigma(re1); 
+	    FA Th = Reg<FA>(re1);
 		cout << "Th:" << Th << endl;
 		/**
 		FA
@@ -837,8 +853,8 @@ void ThompsonTest()
 	//test.ThompsonTest11();
 	//test.ThompsonTest2();
 	//test.Thompson_sigmaTest1();
-	test.Thompson_sigmaTest11();
-	//test.Thompson_sigmaTest2();
+	//test.Thompson_sigmaTest11();
+	test.Thompson_sigmaTest2();
 }
 
 

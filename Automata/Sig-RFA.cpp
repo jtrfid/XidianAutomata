@@ -1,10 +1,10 @@
-/***********************************************************************************
-The ¦²-algebra Reg<RFA>
+ï»¿/***********************************************************************************
+The Î£-algebra Reg<RFA>
 Implementation class: Reg<RFA>
 Files: Sig-RFA. cpp
 Uses: CharRange, Reg, RFA, Sate
 
-Description: The template instantiation Reg<RFA> implements the ¦²-algebra of reduced finite
+Description: The template instantiation Reg<RFA> implements the Î£-algebra of reduced finite
 automata, as defined in [Wat93a, Definition 4.29]. The operators can be used directly to construct
 complex RFAs, or the Reg<RFA> constructor from RE (which is defined in template
 class Reg) can be used to construct the homomorphic image of the regular expression.
