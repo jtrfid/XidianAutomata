@@ -58,10 +58,10 @@ int RE::Null() const
 	case SYMBOL:
 		ret = 0; break; // empty,symbol: false
 	case OR:
-		ret = left->Null() || right->Null(); // ∨(disjunction合取,"或")
+		ret = left->Null() || right->Null(); // ∨(disjunction析取,"或")
 		break;
 	case CONCAT:
-		ret = left->Null() && right->Null(); // ∧(conjunction析取,"与")
+		ret = left->Null() && right->Null(); // ∧(conjunction合取,"与")
 		break;
 	case STAR:
 		ret = 1; break; // star: true
