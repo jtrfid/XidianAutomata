@@ -28,7 +28,7 @@
 // Implement general finite automata(Definition 2.1 of the Taxonomy).
 // These can be constructed by the Sigma-algebra(see Sig-fa.cpp) or using
 // the special constructor from RE's.
-class FA :public FAabs
+class FA : virtual public FAabs
 {
 public:
 	// Constructors, destructors, operator=:

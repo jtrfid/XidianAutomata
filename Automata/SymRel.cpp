@@ -1,4 +1,4 @@
-/**********************************************************************
+ï»¿/**********************************************************************
 	Implementation: SymRel inherits for implementation from StateRel. All of the member functions
 simply call through to StateRel.
  **********************************************************************/
@@ -32,7 +32,7 @@ SymRel& SymRel::complement()
 	return(*this);
 }
 
-// ĞŞ¸ÄÎªinline, ·ñÔòÁ¬½ÓÆ÷ÕÒ²»µ½StateRel
+// ä¿®æ”¹ä¸ºinline, å¦åˆ™è¿æ¥å™¨æ‰¾ä¸åˆ°StateRel
 inline std::ostream& operator<<(std::ostream& os, const SymRel& r)
 {
 	assert(r.class_invariant());

@@ -1,6 +1,6 @@
 ﻿/******************************************************************************************************************
 	Derivatives
-	Two functions on regular expressions, Null and First (see [Wat93a, Example 3.20, Definition 4.60]
+	Two functions on regular expressions, Null and First (see [Wat93a, Definiton 3.20, Property 3.21, Definition 4.60]
 - both used in computing derivatives of regular expressions), are defined as recursive member
 functions in file deriv.cpp. Function Null returns 1 if the empty word (ε) is in the language
 denoted by the regular expression, and 0 otherwise. Function First returns a CRSet denoting the
@@ -8,7 +8,7 @@ characters which can occur as the first character of a word in the language deno
 expression.
 	Member function derivative takes a CharRange and returns the derivative of the regular expression
 with respect to the CharRange. The derivative is computed recursively according to the
-definition given in [Wat93a, Definition 5.23J. It is used in the implementation of Brzozowski's
+definition given in [Wat93a, Definition 5.23]. It is used in the implementation of Brzozowski's
 construction.
 	• All of its OR operators are left-associative; for example (E0 ∪ El ) ∪ E2 is left-associative,
 	  while E0 ∪ (El ∪ E2) is not.
@@ -35,8 +35,17 @@ making such transformations as φ. E ----> φ and 0* ----> ε.
 
  // Some derivatives(Brzozowski's) related member functions:
 
+ /********************************************************
  // Does * this accept epsilon?
  // This is from Definition 3.20 and Property 3.21
+ The nullable sigma-algebra: We define the nullable sigma-algebra as follows:
+ * The carrier set is {true,false}.
+ * The constants are: true,flase,and false(corresponding respectively to epsilon,empty,and a:a in V).
+ * Here the constant false corresponds to empty and to all a in V.
+ * The operators are: ∨(析取disjunction,"OR"),∧(conjunction合取,"AND"), the constant function true, the identity function, and (again) the constant
+ * function true (corresponding respectively to uion,concat,start,plus,and question). 
+ * The operators corresponding to star and to qustion are interesting because they map their argument to the constant true.
+ *********************************************************/
 int RE::Null() const
 {
 	assert(class_invariant());
@@ -44,29 +53,37 @@ int RE::Null() const
 	switch (op)
 	{
 	case EPSILON:
-		ret = 1; break;
+		ret = 1; break; // epsilon: true
 	case EMPTY:
 	case SYMBOL:
-		ret = 0; break;
+		ret = 0; break; // empty,symbol: false
 	case OR:
-		ret = left->Null() || right->Null();
+		ret = left->Null() || right->Null(); // ∨(disjunction合取,"或")
 		break;
 	case CONCAT:
-		ret = left->Null() || right->Null();
+		ret = left->Null() && right->Null(); // ∧(conjunction析取,"与")
 		break;
 	case STAR:
-		ret = 1; break;
+		ret = 1; break; // star: true
 	case PLUS:
-		ret = left->Null();
+		ret = left->Null(); //  the identity function
 		break;
-	case QUESTION:
-		ret = 1; break;
+	case QUESTION: // L union {epsilon}
+		ret = 1; break; // question: true
 	}
 	return(ret);
 }
 
+/************************************************
 // What is the First of *this?
 // This is from Definition 4.60
+We define First in RE --> P(V) recursively
+First(empty) = Fisrt(empty) = empty
+First(a) = {a}
+First(E concat F) = First(E) union if (Null(E)) then First(F) else empty fi
+First(E or F) = First(E) union First(F)
+First(E star) = First(E plus) = First(E qustion) = First(E)
+**************************************************/
 CRSet RE::First() const
 {
 	assert(class_invariant());

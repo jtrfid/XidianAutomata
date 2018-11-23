@@ -1,4 +1,4 @@
-/************************************************************************
+ï»¿/************************************************************************
 	Deterministic FAs
 Implementation class: DFA
 Files: DFA.h, DFA.cpp
@@ -13,9 +13,9 @@ the subset construction (see (Wat93a, p. 12-13] for the subset construction).
  ************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "FAabs.h"
 #include "State.h"
 #include "StateSet.h"

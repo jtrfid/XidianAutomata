@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
 	Implementation class: SymRel
 	Files: SymRel.h, SymRel.cpp
 	Uses: State, StateSet, StateRel
@@ -8,9 +8,9 @@
 ****************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "State.h"
 #include "StateSet.h"
 #include "StateRel.h"

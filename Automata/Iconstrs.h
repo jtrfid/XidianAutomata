@@ -1,9 +1,9 @@
-/******************************************************************************
+﻿/******************************************************************************
 Automata constructions
 
 Three header files contain (inline) definitions or prototypes of functions that take a regular expression
 and construct a finite automaton accepting the language of the regular expression. These
-functions implement all of the construction algorithms given in [Wat93aJ. They differ in the type
+functions implement all of the construction algorithms given in [Wat93a]. They differ in the type
 of finite automaton that is created:
 
 The finite automata construction functions are functions which take an RE (or a pointer to an

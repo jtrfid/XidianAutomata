@@ -3,7 +3,7 @@ Abstract states and the subset construction
 
 An abstract state is a certain type of object used in the construction of a DFA. They are essentially
 states in the subset construction (see [Wat93a, p. 12-13]) with some extra information.
-The template function construcLcomponents uses the extra information to construct a DFA. All
+The template function construct_components uses the extra information to construct a DFA. All
 abstract states in FIRE engine are implemented using classes with names beginning with DS,
 such as DSDFARev. An abstract state must have the following member functions:
 	• an argumentless constructor, a copy constructor, an assignment operator, and equality and
@@ -27,7 +27,7 @@ Description: Template function construct_components implements the subset constr
 useless state removal [Wat93a, p. 12-13]. It takes an "abstract state" and constructs the
 components of a DFA (using the abstract state argument as the start state), returning them
 in a DFA_components structure. It does this by encoding the abstract states as States,
-using a 【breadth-first traversal】 of the starl-reachable abstract states. During the traversal,
+using a 【breadth-first traversal】 of the start-reachable abstract states. During the traversal,
 the deterministic transition relation (a DTransRel) is also constructed. As a result of using
 a traversal starting at the start state, only reachable States and the reachable part of the
 deterministic transition relation are constructed.

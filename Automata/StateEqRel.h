@@ -1,12 +1,12 @@
-/****************************************************************************
-Implementation class: SymRel
+ï»¿/****************************************************************************
+Implementation class: StateEqRel
 	Files: StateEqRel.h, StateEqRel.cpp
 	Uses: StateSet, StateTo
 Description: A StateEqRel is a binary equivalence relation on States. They are used mainly in
 	DFA minimization algorithms. The argumentless constructor leaves the StateEqRel as the
 	total relation. The identity member function makes the StateEqRel the identity relation.
 	As with many other classes related to sets of States, the domain of the StateEqRel must be
-	managed by the client(Èô¸Éº¯ÊıÖĞ£¬ÉêÇëµÄ¶ÑÄÚ´æÃ»ÓĞ±»ÊÍ·Å!!!£¬Íâ²¿µ÷ÓÃ£¬Ê¹ÓÃÍêÒªÉ¾³ı£¬Ò²¿ÉÄÜÔÚ¸¸ÀàµÄÎö¹¹º¯ÊıÖĞ±»×Ô¶¯É¾³ı). 
+	managed by the client(è‹¥å¹²å‡½æ•°ä¸­ï¼Œç”³è¯·çš„å †å†…å­˜æ²¡æœ‰è¢«é‡Šæ”¾!!!ï¼Œå¤–éƒ¨è°ƒç”¨ï¼Œä½¿ç”¨å®Œè¦åˆ é™¤ï¼Œä¹Ÿå¯èƒ½åœ¨çˆ¶ç±»çš„ææ„å‡½æ•°ä¸­è¢«è‡ªåŠ¨åˆ é™¤). 
 	Member functions are available for determining if two States are equivalent, for splitting 
 	an equivalence class, and for determining the equivalence class (as	a StateSet) of a State. 
 	Each equivalence class has a unique representative; if an equivalence class is split, one of the (at most two) resulting classes is guaranteed to have, as its unique.
@@ -16,9 +16,9 @@ Description: A StateEqRel is a binary equivalence relation on States. They are u
 ****************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "StateSet.h"
 #include "StateTo.h"
 

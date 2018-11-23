@@ -12,6 +12,8 @@ using namespace std;
 	//Reg<RE> re1 = Reg<RE>(); // 等效
 
     ///////////////////////// Thompson's construction:
+	// Thompson's top-down construction [Wat93a, Construction 4.5]. 
+	// This constructor can be more efficient than using the Σ- algebra Reg<FA>.
 
 	// Thompson's Construction 4.5 (Top-down Thompson's)
 	FA fa1(re1);
@@ -848,12 +850,12 @@ void ThompsonTest()
 {
 	cout << "=====ThompsonTest=====\n";
 	ThompsonTestClass test;
-	//test.Reg_RE_Test();
-	//test.ThompsonTest1();
-	//test.ThompsonTest11();
-	//test.ThompsonTest2();
-	//test.Thompson_sigmaTest1();
-	//test.Thompson_sigmaTest11();
+	test.Reg_RE_Test();
+	test.ThompsonTest1();
+	test.ThompsonTest11();
+	test.ThompsonTest2();
+	test.Thompson_sigmaTest1();
+	test.Thompson_sigmaTest11();
 	test.Thompson_sigmaTest2();
 }
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Dconstrs.h"
 //#include "Constrs.h"
 //#include "Dconstrs.h"
@@ -14,6 +14,6 @@ DFA Brz(const RE& r)
 
 //DFA Brz_optimized(const RE& r) {
 //	assert(r.class_invariant());
-//	return(construct_components(DSREopt(r)));  // ±àÒë³ö´í
-//	//return(construct_components<DSREopt>(r));  // µÈÐ§
+//	//return(construct_components(DSREopt(r)));  // ç¼–è¯‘å‡ºé”™
+//	return(construct_components<DSREopt>(r));  // ç­‰æ•ˆ
 //}
