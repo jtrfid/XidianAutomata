@@ -75,7 +75,7 @@ int DFA::Usefulf() const
 // Remove any States that cannot reach a final State.
 // (This is a last step in minimization, since some of the min. algorithms may yield 
 // a DFA with a sink state.)
-// Implement Remark 2.39
+// Implement Remark 2.39  removing states that are not final - reachable.
 DFA& DFA::usefulf()
 {
 	assert(class_invariant());

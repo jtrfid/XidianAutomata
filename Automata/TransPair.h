@@ -12,6 +12,7 @@
 
 // Implement a single transition, for use in classes TransImpl, Trans(Trans.h
 // and Trans.cpp) and class DTrans(Dtrans.h and Dtrans.cpp).
+// V ¡Á Q
 struct TransPair {
 	CharRange transition_label;
 	State transition_destination;

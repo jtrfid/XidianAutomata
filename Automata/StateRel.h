@@ -60,22 +60,26 @@ public:
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 	// with A times B(Cartesian cross product).
 	// Map p to q. precondition: p,q = [0,this.domain())
+	// {p} X {q}
 	inline StateRel& union_cross(State p, State q);
 
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 	// with A times B(Cartesian cross product).
 	// Map a st also to StateSet S. precondition: this.domain() == S.domain(), st = [0,this.domain())
+	// {st} X S
 	inline StateRel& union_cross(State st, const StateSet& S);
 
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
     // with A times B(Cartesian cross product).
     // Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
+	// S X {st}
 	StateRel& union_cross(const StateSet& S, State st);
 
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
     // with A times B(Cartesian cross product).
     // Map A to B . precondition: this.domain() == A.domain() == B.domain()
     // This could probably have made use of union_cross(State,StateSet).
+	// A X B
 	StateRel& union_cross(const StateSet& A, const StateSet& B);
 
 	// Remove a pair of States from the relation.
@@ -89,6 +93,7 @@ public:
 	void clear();
 	
 	// Perform normal union of two relations.
+	// *this X r
 	StateRel& set_union(const StateRel& r);
 	
 	// Some domain members:
@@ -102,7 +107,7 @@ public:
 	// Recycle this entire relation. domain() = 0
 	void reincarnate();
 
-	// Union relation r into *this, while adjusting r.
+	// Union relation r into *this, while adjusting r.调整domain + r.domain, 确保无交集
 	StateRel& disjointing_union(const StateRel& r);
 	
 	// Some special members:
@@ -149,6 +154,7 @@ inline const StateSet& StateRel::image(const State r) const
 // Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 // with A times B(Cartesian cross product).
 // Map p to q. precondition: p,q = [0,this.domain())
+// {p} X {q}
 inline StateRel& StateRel::union_cross(State p, State q)
 {
 	assert(class_invariant());
@@ -159,6 +165,7 @@ inline StateRel& StateRel::union_cross(State p, State q)
 }
 
 // Map a st also to StateSet S. precondition: this.domain() == S.domain(), st = [0,this.domain())
+// {st} X S
 inline StateRel& StateRel::union_cross(State st, const StateSet& S)
 {
 	assert(class_invariant());

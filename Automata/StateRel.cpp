@@ -44,6 +44,7 @@ StateSet StateRel::closure(const StateSet& r) const
 // Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 // with A times B(Cartesian cross product).
 // Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
+// S X {st}
 StateRel& StateRel::union_cross(const StateSet& S, State st)
 {
 	assert(class_invariant());
@@ -62,6 +63,7 @@ StateRel& StateRel::union_cross(const StateSet& S, State st)
 // with A times B(Cartesian cross product).
 // Map A to B . precondition: this.domain() == A.domain() == B.domain()
 // This could probably have made use of union_cross(State,StateSet).
+// A X B
 StateRel& StateRel::union_cross(const StateSet& A, const StateSet& B)
 {
 	assert(class_invariant());
@@ -100,6 +102,7 @@ void StateRel::clear()
 }
 
 // Perform normal union of two relations.
+// *this X r
 StateRel& StateRel::set_union(const StateRel& r)
 {
 	assert(class_invariant() && r.class_invariant());
@@ -134,12 +137,12 @@ void StateRel::reincarnate()
 	assert(class_invariant());
 }
 
-// Union relation r into *this, while adjusting r.
+// Union relation r into *this, while adjusting r.调整domain + r.domain, 确保无交集
 StateRel& StateRel::disjointing_union(const StateRel& r)
 {
 	assert(class_invariant() && r.class_invariant());
 	int olddom(domain());
-	StateTo<StateSet>::disjointing_union(r);
+	StateTo<StateSet>::disjointing_union(r); // 调整domain + r.domain, 确保无交集
 	// domain() is the new one,olddom is the old one:
 	assert(domain() == olddom + r.domain());
 

@@ -31,7 +31,7 @@ public:
 	inline const TransRel& operator=(const TransRel& r);
 	
 	// Some relational operators:
-	// Compute the image of r, and a under *this.
+	// Compute the image of r, and a under *this. return T(r,a) = { image }
 	StateSet image(const StateSet& r, const char a) const;
 
 	// Transitioning on a CharRange? (Same idea as above.)
@@ -40,7 +40,7 @@ public:
 	// On which labels can we transition?
 	CRSet out_labels(const StateSet& r) const;
 	
-	// Some functions updating *this:
+	// Some functions updating *this:  T(p) = {(r,q)}
 	inline TransRel& add_transition(const State p, const CharRange r, const State q);
 	
 	// Some domain related members:
@@ -85,7 +85,7 @@ inline const TransRel& TransRel::operator = (const TransRel& r)
 	return(*this);
 }
 
-// Some functions updating *this:
+// Some functions updating *this:  T(p) = {(r,q)}
 inline TransRel& TransRel::add_transition(const State p, const CharRange r, const State q)
 {
 	assert(class_invariant());

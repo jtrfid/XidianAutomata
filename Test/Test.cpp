@@ -249,7 +249,7 @@ bool compareStr(const string s1, const string s2)
 	return (!flag);
 }
 
-int main()
+int main4()
 {
 	//vector<string> S = { "0110","0111","2000","1110","0011","2222" };
 	vector<string> S = { "1222","3333","0344" };
@@ -268,7 +268,7 @@ int main()
 	return 0;
 }
 
-int main4()
+int main5()
 {
 	//vector<string> S = { "0110","0111","2000","1110","0011","2222" };
 	vector<string> S = { "1222","3333","0344" };
@@ -295,6 +295,24 @@ int main4()
 	for (vector<string>::iterator it = S.begin(); it != S.end(); it++)
 		cout << *it << '\t';
 	cout << endl;
+	return 0;
+}
+
+int main()
+{
+	// https://zh.cppreference.com/w/cpp/language/array
+	// 在用于 new[] 表达式时，数组的大小可以为零；这种数组无元素：
+	// int* p = new int[0]; // 访问 p[0] 或 *p 为未定义
+	// delete[] p; // 仍然要求清理
+	int *data = 0, *data1 = 0;
+	data = new int[1];
+	data1 = new int[0];
+	cout << (data == 0) << endl; // 0
+	cout << (data1 == 0) << endl; // 0
+	delete[] data;  // delete后，data并不等于0（地址）
+	delete[] data1;
+	cout << (data == 0) << endl; // 0
+	cout << (data1 == 0) << endl; // 0
 	return 0;
 }
 

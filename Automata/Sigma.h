@@ -107,6 +107,7 @@ public:
 	// (corresponding to the operators of the regular expression).
 	// A constructor from RE (a regular expression). Given that regular expressions are the Sigma-term algebra, 
 	// this constructor constructs the homomorphic image of the regular expression in the Sigma-algebra of T.
+	// Definition 2.6 (Isomorphism of FA's)
 	// Definition 3.7 (Sigma-homomorphism): Given E-a1gebras (V,F) and (W,G), a Sigma-homomorphism from(V, F) to(W, G)
 	Reg(const RE& r)
 	{
@@ -158,12 +159,14 @@ public:
 protected:
 	// Helper for constructing the homomorphic image of a regular expression.
 	// (Can also be used as a type of copy constructor for RE's.)
+	// T is carrier set: RE,FA,RFA，执行各自的操作，分别在Sig-RE.cpp,Sig-FA.cpp,Sig-RFA.cpp中定义
 	inline void homomorphic_image(const RE& r);
 };
 
 // Helper for constructing the homomorphic image of a regular expression.
 // Definition 3.7 (Sigma-homomorphism): Given E-a1gebras (V,F) and (W,G), a Sigma-homomorphism from(V, F) to(W, G)
 // (Can also be used as a type of copy constructor for RE's.)
+// T is carrier set: RE,FA,RFA，执行各自的操作，分别在Sig-RE.cpp,Sig-FA.cpp,Sig-RFA.cpp中定义
 template<class T>
 void Reg<T>::homomorphic_image(const RE& r)
 {

@@ -15,7 +15,7 @@
     • follow (in P(Q x Q)) is a follow relation (replacing the transition relation),
     • first (subset Q) is a set of initial states (replacing T(s) in an LBFA) ,
     • last (subset Q) is a set of final states,
-    • null (in {true,false}) is a Boolean value (encoding s (in F) in an LBFA), and
+    • null (in {true,false}) is a Boolean value (encoding s in F in an LBFA), and
     • Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
 	  and its inverse as Qmap^-1 in V --/--> P(Q)[the set of all partial functions from V to P(Q)]).
  ***********************************************************************************/
@@ -49,7 +49,7 @@ public:
 	// Need a copy constructor:
 	RFA(const RFA& r);
 	
-	// The Sigma-homomorphism constructor(see Definition 4.30):
+	// The Sigma-homomorphism constructor(see Definition 4.30): RE --> RFA
 	RFA(const RE& e);
 
 	// Default destr, opemtor = are okay.
@@ -80,7 +80,10 @@ protected:
 		// A helper: compute all of the components into place.
 		//        for use in the constructor.
 
-	// Implement a top down version of Sigma homomorphism rfa(Definition 4.30)
+	// Implement a top down version of Sigma homomorphism rfa(Definition 4.30): RE-->RFA
+	// 参见：Definition 4.29 (Sigma-algebra of RFA's): p33-35
+	// N: Nullable, {true,flase} ==> {1,0}
+	// Qm: V --> P(Q)
 	void rfa_into(const RE& e,
 		StatePool& Qp,
 		StateSet& f,
@@ -102,13 +105,17 @@ protected:
 
 	// Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
 	// and its inverse as Qmap^-1 in V --/-->P(Q)[the set of all partial functions from V to P(Q)]).
+	// Trans用struct TransPair 表示:T(a) = { q | a in V，q in Q }, 而Qmap 属于P(Q x V),
+	// 因此这里表示Qmap的inverse，V --> P(Q)
 	Trans Qmap_inverse;
 
 	// follow(in P(Q x Q)) is a follow relation(replacing the transition relation),
 	StateRel follow;
 
-	// null (in {true,false}) is a Boolean value (encoding s (in F) in an LBFA)
-	int Nullable;
+	// null (in {true,false}) is a Boolean value (encoding s in F in an LBFA)
+	// if epsilon属于LBFA, true; final set中包含s
+	// {true, flase} == > {1, 0}
+	int Nullable; 
 	
 	// Some simulation stuff.
 	int final;

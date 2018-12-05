@@ -72,7 +72,7 @@ public:
 	// Remove any States that cannot reach a final State.
 	// (This is a last step in minimization, since some of the min. algorithms may yield 
 	// a DFA with a sink state.)
-	// Implement Remark 2.39
+	// Implement Remark 2.39  removing states that are not final - reachable.
 	DFA& usefulf();
 
 	// Special member functions :
@@ -96,7 +96,7 @@ protected:
 	// Implementation details:
 	
 	StatePool Q;
-	// S must be a singleton set, or empty.
+	// S must be a singleton set, or empty. |S| <= 1
 	StateSet S;
 	StateSet F;  // final states
 	DTransRel T;

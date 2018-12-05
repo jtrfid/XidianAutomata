@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "TransRel.h"
 
-// Compute the image of r, and a under *this.
+// Compute the image of r, and a under *this. return T(r,a) = { image }
 StateSet TransRel::image(const StateSet& r, const char a) const
 {
 	assert(class_invariant() && r.class_invariant());

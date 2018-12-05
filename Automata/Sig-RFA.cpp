@@ -17,6 +17,7 @@ Implementation: The implementation follows directly from [Wat93a, Definition 4.2
 #include "Sigma.h"
 
 // Implement the Sigma-algebra operators(Definition 4.29 of the Taxonomy).
+// Definition 4.29 (Sigma-algebra of RFA's): The carrier set is [RFA], p33-35
 Reg<RFA>& Reg<RFA>::epsilon() {
 	// This RFA may have been something in a previous life.
 	// Wipe out all previous info in this components;
@@ -70,8 +71,8 @@ Reg<RFA>& Reg<RFA>::Or(const Reg<RFA>& r) {
 	// All state-related stuff in r must be adjusted.
 
 	Q.incorporate(r.Q);
-	
-	first.disjointing_union(r.first);
+
+	first.disjointing_union(r.first); 
 	
 	last.disjointing_union(r.last);
 	

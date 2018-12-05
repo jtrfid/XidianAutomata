@@ -71,7 +71,7 @@ DFA_components construct_components(const T& abs_start)
 	State s(ret.Q.allocate());
 
 	names.set_domain(ret.Q.size());
-	names.map(s) = abs_start;
+	names.map(s) = abs_start;   // map: s --> abs_start
 	ret.T.set_domain(ret.Q.size());
 	ret.F.set_domain(ret.Q.size());
 	

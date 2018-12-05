@@ -1,4 +1,4 @@
-/**********************************************************************************
+ï»¿/**********************************************************************************
 	Implementation class : DTransRel
 	Files : dtransre.h, dtransre.cpp
 	Uses : CharRange, CRSet, DTrans, State, StateSet, StateTo RELATIONS
@@ -10,9 +10,9 @@
 ****************************************************************************************/
 #pragma once
 #include<iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "DTrans.h"
 #include "StateTo.h"
 
@@ -34,7 +34,7 @@ public:
 	
 	// Some relational operators :
 	
-	// Compute the image of r, and a under *this.
+	// Compute the image of r, and a under *this. [image = T(r,a)]
 	inline State image(const State r, const char a) const;
 	
 	// Compute the image of r, and CharRange it under *this.
@@ -91,12 +91,12 @@ inline const DTransRel& DTransRel::operator=(const DTransRel& r)
 	return(*this);
 }
 
-// Compute the image of r, and a under *this.
+// Compute the image of r, and a under *this. [image = T(r,a)]
 inline State DTransRel::image(const State r, const char a) const
 {
 	assert(class_invariant());
 	assert(0 <= r && r < domain());
-	return(lookup(a)[a]);
+	return(lookup(r)[a]);
 }
 
 // Compute the image of r, and CharRange it under *this.

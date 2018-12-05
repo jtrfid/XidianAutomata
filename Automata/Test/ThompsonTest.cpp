@@ -8,22 +8,23 @@
 using namespace std;
 
 /*******************************************************************
+	// 构造RE(Regular Expression)
 	Reg<RE> re1;
-	//Reg<RE> re1 = Reg<RE>(); // 等效
+	//Reg<RE> re1 = Reg<RE>(); // 等效， 在Sigma.h中定义Reg(const RE& r),sigma-operator在Sig-RE.cpp中定义
 
-    ///////////////////////// Thompson's construction:
-	// Thompson's top-down construction [Wat93a, Construction 4.5]. 
-	// This constructor can be more efficient than using the Σ- algebra Reg<FA>.
+    ///////////////////////// Thompson's construction: 由RE(Regular Expression)构造FA
+	// Thompson's top-down construction [Wat93a, Construction 4.5]. 更有效
+	// This constructor can be more efficient than using the Σ-algebra Reg<FA>.
 
 	// Thompson's Construction 4.5 (Top-down Thompson's)
 	FA fa1(re1);
-	//FA fa1 = FA(re1);   // 等效
-	//FA fa1 = Thompson(re1);  // 等效
+	//FA fa1 = FA(re1);   // 等效，在FA.cpp中定义，递归函数：td(const State s, const RE& e, const State f);
+	//FA fa1 = Thompson(re1);  // 等效,在Constrs.h中封装，FA Thompson(const RE& r)
 
-	// Thompson's Construction 4.3 (Thompson)
+	// Thompson's Construction 4.3 (Top-down sigma-algebra Thompson)
 	Reg<FA> fa1(re1);
-	//FA fa1 = Reg<FA>(re1);   // 等效
-	//FA fa1 = Thompson_sigma(re1);  // 等效
+	//FA fa1 = Reg<FA>(re1);   // 等效，在Sigma.h中定义Reg(const RE& r),sigma-operator在Sig-FA.cpp中定义
+	//FA fa1 = Thompson_sigma(re1);  // 等效，,在Constrs.h中封装，FA Thompson_sigma(const RE& r)
  *******************************************************************/
 class ThompsonTestClass
 {

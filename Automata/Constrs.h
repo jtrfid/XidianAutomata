@@ -47,17 +47,30 @@ in [Wat93a].
 #include "Sigma.h"
 #include "DFA.h"
 
-// Thompson's construction:
+/****************************************************************************************
+// Thompson's construction: 由RE(Regular Expression)构造FA
 //           use the functions Thompson or Thompson_sigma, or
-//           FA Th(E);       // Construction 4.5 (Top-down Thompson's)
-//           Reg<FA> Th2(E); // Construction 4.3 (Thompson)
+//           FA Th(E);       // Construction 4.5 (Top-down Thompson's),更有效
+//           Reg<FA> Th2(E); // Construction 4.3 (Top-down sigma-algebra Thompson)
+
+	// Thompson's Construction 4.5 (Top-down Thompson's)
+	FA fa1(re1);
+	//FA fa1 = FA(re1);   // 等效，在FA.cpp中定义，递归函数：td(const State s, const RE& e, const State f);
+	//FA fa1 = Thompson(re1);  // 等效,在Constrs.h中封装，FA Thompson(const RE& r)
+
+	// Thompson's Construction 4.3 (Top-down sigma-algebra Thompson)
+	Reg<FA> fa1(re1);
+	//FA fa1 = Reg<FA>(re1);   // 等效，在Sigma.h中定义Reg(const RE& r),sigma-operator在Sig-FA.cpp中定义
+	//FA fa1 = Thompson_sigma(re1);  // 等效，,在Constrs.h中封装，FA Thompson_sigma(const RE& r)
+*****************************************************************************************/
+
 // Construction 4.5, td(const State s, const RE& e, const State f);
 inline FA Thompson(const RE& r)
 {
 	return(FA(r));
 }
 
-// Construction 4.3 (Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
+// Construction 4.3 (Top-down sigma-algebra Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
 // from RE to Thompson's Sigma-algebra of FA's.
 // C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
 inline FA Thompson_sigma(const RE& r)
@@ -65,22 +78,28 @@ inline FA Thompson_sigma(const RE& r)
 	return(Reg<FA>(r));
 }
 
-// RFA constructions:
+//////////////// RFA constructions: 由RE(Regular Expression)构造RFA(Reduced FA)//////////////
 //     use the functions, or
-//     RFA R(E);
-//     Reg<RFA> R2(E);
+//     RFA R(E); // Definition 4.30
+//     Reg<RFA> R2(E); // Definition 4.29 (Sigma-algebra of RFA's)
 //     To DFA:
 //         R.determinism()
 //         R2.determinism();
 //         R.determinism2();
 //         R2.determinism2();
-// Definition 4.30 (variation)
+
+// Definition 4.30 (Homomorphism from RE to[RFA]) : We define rfa in RE--->[RFA],
+// to be the unique homomorphism from REs to[RFA]
+// RFA rfa1(re);     // 在RFA.h，RFA.cpp定义和实现RFA(const RE& e)
+// RFA rfa1 = rfa(re); // 等效，在Constrs.h中封装，RFA rfa(const RE& r)
 inline RFA rfa(const RE& r)
 {
 	return(RFA(r));
 }
 
-// Definition 4.30
+// Definition 4.29 (Sigma-algebra of RFA's): The carrier set is [RFA], p33-35
+// RFA rfa1 = Reg<RFA>(re); // 在Sigma.h中定义Reg(const RE& r)，sigma-operator在Sig-RFA.cpp中定义
+// RFA rfa1 = rfa_sigma(re);  // 等效,在Constrs.h封装，RFA rfa_sigma(const RE& r)
 inline RFA rfa_sigma(const RE& r)
 {
 	return(Reg<RFA>(r));
@@ -98,12 +117,29 @@ inline DFA ASU_shortcut(const RE& r)
 	return(RFA(r).determinism());
 }
 
+/***************************************************************************
+	RE --> LBFA:
+	(1) RE --> RFA
+		RFA rfa = RFA(re); // 或sigma代数运算：Reg<RFA>(re)
+	(2) Specially construct from an RFA(see Definition 4.28). RFA --> LBFA
+	//LBFA lbfa = LBFA(rfa); // 在LBFA.h,LBFA.cpp定义 LBFA(const RFA& r)
+
+	// 等效，由LBFA中的LBFA& decode(const RFA& r)函数完成
+	// LBFA lbfa; lbfa = lbfa.decode(rfa);
+
+	/////// 综合(1),(2)
+	// Construction 4.32 (Berry-Sethi): Construction BS 属于 RE --> LBFA
+	// lbfa(E) = BS(E) = decode o rfa(E)
+	// 等效，在Constrs.h中封装LBFA BerrySethi(const RE& r)
+	// RE -->RFA: rfa = RFA(re); RFA --> LBFA, lbfa = LBFA(rfa) 或 lbfa = lbfa.decode(rfa)
+	LBFA lbfa = BerrySethi(re);
+***************************************************************************/
 // LBFA constructions:
 //       using RFA's.
 // Construction 4.32
 inline LBFA BerrySethi(const RE& r)
 {
-	return(RFA(r));
+	return(RFA(r));  // RE -->RFA: rfa=RFA(r); RFA --> LBFA, lbfa = LBFA(rfa) 或 lbfa = lbfa.decode(rfa)
 }
 
 // LBFA constructions:

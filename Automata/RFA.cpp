@@ -25,12 +25,13 @@ follow(r.follow),Nullable(r.Nullable),final(r.final),current(r.current)
 	assert(class_invariant());
 }
 
-// The Sigma-homomorphism constructor (see Definition 4.30):
+// The Sigma-homomorphism constructor (see Definition 4.30): RE -- >RFA
 RFA::RFA(const RE& e)
 {
 	assert(e.class_invariant());
 	
-	int size(e.num_symbols());
+	// The number of states in M equals the number of(not necessarily distinct) symbols(of V) occuring in E. P34
+	int size(e.num_symbols()); // How many SYMBOL nodes in this regular expression?
 	first.set_domain(size);
 	last.set_domain(size);
 	Qmap_inverse.set_range(size);
@@ -113,7 +114,10 @@ DFA RFA::determinism2() const
 }
 ///////////////////////////////////////////////////////
 
-// Implement a top down version of Sigma homomorphism rfa(Definition 4.30)
+// Implement a top down version of Sigma homomorphism rfa(Definition 4.30): RE --> RFA
+// Definition 4.29 (Sigma-algebra of RFA's): p33-35
+// N: Nullable, {true,flase} ==> {1,0}
+// Qm: V --> P(Q)
 void RFA::rfa_into(const RE& e,
 	StatePool& Qp,
 	StateSet& f,
@@ -122,26 +126,26 @@ void RFA::rfa_into(const RE& e,
 	StateRel& foll,
 	int& N)
 {
-	assert(class_invariant());
+	assert(e.class_invariant());
 
 	switch (e.root_operator()) 
 	{
 	case EPSILON:
 		// Nothing to do, but make it nullable.
-		N = 1;
+		N = 1;  // Nullable = true
 		return;
 	case EMPTY:
-		N = 0;
+		N = 0; // Nullable = false
 		return;
 	case SYMBOL:
 		// There is a symbol here, so give it a State.
 	{
-		State q(Qp.allocate());
-		f.add(q);
+		State q(Qp.allocate()); // q be a new state
+		f.add(q); // first=last={q}
 		l.add(q);
 		Qm.add_transition(e.symbol(), q);
 		// Nothing to do to follow.
-		N = 0;
+		N = 0; // Nullable = false
 	}
 	return;
 	case OR:
@@ -149,7 +153,7 @@ void RFA::rfa_into(const RE& e,
 	// Lots of common code, so do the two together.
 	{
 		// Compute the rfa of e.left_subexpr() into *this.
-		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N);
+		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N);  // M0
 		
 		// Use some locals to store the pieces of the RFA of
 		// the right subexpression.
@@ -165,48 +169,48 @@ void RFA::rfa_into(const RE& e,
 
 		// Now compute the RFA components corresponding to the right subexpr.
 		//         Note: states are still taken from Qp.
-		rfa_into(e.right_subexpr(), Qp, fr, lr, Qmr, follr, Nr);
+		rfa_into(e.right_subexpr(), Qp, fr, lr, Qmr, follr, Nr); // M1
 
-		Qm.set_union(Qmr);
-		if (e.root_operator() == OR) {
-			f.set_union(fr);
-			l.set_union(lr);
-			foll.set_union(follr);
-			N = N || Nr;
+		Qm.set_union(Qmr); // Q = Q0 ∪ Q1
+		if (e.root_operator() == OR) {   
+			f.set_union(fr); // first = first0 ∪ first1;
+			l.set_union(lr); // last = last0 ∪ last1;
+			foll.set_union(follr); // follow = follow0 ∪ follow1;
+			N = N || Nr; // null = null0 ∨ null1
 		}
 		else {
 			// This is a CONCAT.
 			assert(e.root_operator() == CONCAT);
-			foll.set_union(follr);
+			foll.set_union(follr); // follow = follow0 ∪ follow1 ∪ (last0 × first1);
 			foll.union_cross(l, fr);
-			if (N) {
-				f.set_union(fr);
-			}
+			if (N) { 
+				f.set_union(fr); // first = first0 ∪ if(null0) first1;
+			}  // 不用考虑else吗？
 			if (Nr) {
-				l.set_union(lr);
+				l.set_union(lr); // last = last1 ∪ if(null1) last0;
 			}
-			else {
-				l = lr;
+			else { // if null1 = flase, last = last1
+				l = lr; // last = last1
 			}
-			N = N && Nr;
+			N = N && Nr; // null = null0 ∧ null1
 		}
 	}
 	return;
 	case STAR:
 	case PLUS:
 		// First, do the subexpression.
-		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N);
-		foll.union_cross(l, f);
+		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N); // M
+		foll.union_cross(l, f); // follow = last × first
 		if (e.root_operator() == STAR) {
-			N = 1;
+			N = 1; // null = true
 		}
-		else {
+		else { // plus: null值取决于M的null
 			assert(e.root_operator() == PLUS);
 		}
 		return;
 	case QUESTION:
-		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N);
-		N = 1;
+		rfa_into(e.left_subexpr(), Qp, f, l, Qm, foll, N); // M
+		N = 1;  // null = true
 		return;
 	}
 }

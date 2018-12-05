@@ -1,4 +1,4 @@
-/***********************************************************************************
+﻿/***********************************************************************************
 Implementation: Class LBFA is a friend of class RFA. Most of the member functions are
 implemented in a straight-forward manner.
  ***********************************************************************************/
@@ -21,7 +21,8 @@ LBFA::LBFA()
 	assert(class_invariant());
 }
 
-// Specially construct from an RFA(see Definition 4.28).
+// Specially construct from an RFA(see Definition 4.28). RFA --> LBFA
+// LBFA& decode(const RFA& r)完成同样的功能
 LBFA::LBFA(const RFA& r) :Q(r.Q), F(r.last), Qmap_inverse(r.Qmap_inverse), follow(r.follow)
 {
 	assert(r.class_invariant());
@@ -40,7 +41,7 @@ LBFA::LBFA(const RFA& r) :Q(r.Q), F(r.last), Qmap_inverse(r.Qmap_inverse), follo
 	fst.set_domain(Q.size());
 	follow.union_cross(s, fst);
 	//////////////////////////////////////////////////////////////////
-	assert(class_invariant());  // ԭ�� assert(r.class_invariant());
+	assert(class_invariant());  // 原文 assert(r.class_invariant());
 }
 
 // Standard FAabs operators. Don't override acceptable():
@@ -92,7 +93,8 @@ DFA LBFA::determinism() const
 	return(construct_components(DSLBFA(S, &Qmap_inverse, &follow, &F)));
 }
 
-// Implement homomorphism decode(Definition 4.28).
+// Implement homomorphism decode(Definition 4.28). RFA--> LBFA
+// 构造函数LBFA(const RFA& r)完成同样的功能
 LBFA& LBFA::decode(const RFA& r)
 {
 	// Implement Definition 4.28 of the Taxonomy.
@@ -104,17 +106,24 @@ LBFA& LBFA::decode(const RFA& r)
 
 	// The new start state:
 	s = Q.allocate();
+
+	// T = {(q0,Qmap(q1),q1): q0,q1 属于 follow }
+	// T' = {(s,Qmap(q),q): q属于first }
+	// F = last ∪ if(null) then {s} else empty
+	// Q = Q ∪ {s}, T = T ∪ T', E = empty, Start = {s}
+
+	// 调整各个domain，因为新添了{s}. 
 	F.set_domain(Q.size());
 	Qmap_inverse.set_range(Q.size());
 	follow.set_domain(Q.size());
 	current.set_domain(Q.size());
 	// ...which is final if the RFA is nullable.
 	if (r.Nullable) {
-		F.add(s);
+		F.add(s); // F = last ∪ if(null) then {s} else empty
 	}
 	StateSet fst(r.first);
 	fst.set_domain(Q.size());
-	follow.union_cross(s, fst);
+	follow.union_cross(s, fst); // {s} x {r.first},表示T = T ∪ T'中的T'
 
 	assert(class_invariant());
 	return(*this);

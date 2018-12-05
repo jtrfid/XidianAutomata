@@ -235,6 +235,7 @@
     <ClCompile Include="SymRel.cpp" />
     <ClCompile Include="Test\AutomataTest.cpp" />
     <ClCompile Include="Test\CRSetTest.cpp" />
+    <ClCompile Include="Test\RFATest.cpp" />
     <ClCompile Include="Test\StateRelTest.cpp" />
     <ClCompile Include="Test\StateSetTest.cpp" />
     <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />

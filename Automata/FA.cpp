@@ -45,8 +45,8 @@ FA::FA(const RE& e)
 {
 	// First, allocate enough states by setting up the domains.
 	// See Section 4.1.1 of the Taxonomy.
-	int states_required(states_reqd(e));
-	S.set_domain(states_required);
+	int states_required(states_reqd(e)); // 计算e需要的总状态数
+	S.set_domain(states_required); // 调整S,F,Transitions和E的domain
 	F.set_domain(states_required);
 	Transitions.set_domain(states_required);
 	E.set_domain(states_required);
@@ -134,7 +134,7 @@ int FA::states_reqd(const RE& e)
 	case CONCAT: // left_subexpr and right_subxpr
 		ret = states_reqd(e.left_subexpr()) + states_reqd(e.right_subexpr());
 		break;
-	case STAR:      // (new states: q0,q1) + left_subexpr
+	case STAR:  // (new states: q0,q1) + left_subexpr
 	case PLUS:
 	case QUESTION:
 		ret = 2 + states_reqd(e.left_subexpr());
@@ -164,7 +164,7 @@ void FA::td(const State s, const RE& e, const State f)
 	assert(e.class_invariant());
 	// Implement function td(of Construction 4.5).
 	// Construct an FA to accept the language of e, between s and f.
-	// FA = (Q,V,T,E,S,T), td = Q x RE x Q ---> FA
+	// FA = (Q,V,T,E,S,F), td 属于 Q×RE×Q ---> FA
 	switch (e.root_operator())
 	{
 	case EPSILON:  // td(s,epsilon,f) = {{s,f},V,empty,{(s,f)}},{s},{f}}
@@ -175,63 +175,77 @@ void FA::td(const State s, const RE& e, const State f)
 	case SYMBOL: // td(s,a,f) = {{s,f},V,{(s,a,f)},empty,{s},{f}} (for all a in V)
 		Transitions.add_transition(s, e.symbol(), f);
 		break;
-	case OR:  // td(s,E0 union E1,f)
+	case OR:  // td(s,E0∪E1,f)
 	{
-		State p(Q.allocate());
+		// new states p,q,r,t
+		// (Q0,V,T0,E0,{p},{q}) = td(p,E0,q)
+		// (Q1,V,T1,E1,{r},{t}) = td(r,E0,t)
+		// Q = (Q0∪Q1)∪{s,f}, V, T = T0∪T1, E = E0∪E1∪({s}×{p,r})∪({q,t}×{f}), S = {s}, F = {f}
+		State p(Q.allocate()); // start and final state of left_subexpr
 		State q(Q.allocate());
-		td(p, e.left_subexpr(), q);
-		State r(Q.allocate());
+		td(p, e.left_subexpr(), q); // left: M0 = (Q0,V,T0,E0,{p},{q})
+		State r(Q.allocate());  // start and final state of right_subexpr
 		State t(Q.allocate());
-		td(r, e.right_subexpr(), t);
+		td(r, e.right_subexpr(), t); // right: M1 = (Q1,V,T1,E1,{r},{t})
 
-		E.union_cross(s, p);
+		E.union_cross(s, p); // {s}×{p,r} 
 		E.union_cross(s, r);
 
-		E.union_cross(q, f);
-		E.union_cross(t, f);
+		E.union_cross(q, f); // {q,t}×{f}
+		E.union_cross(t, f); 
 	}
 	break;
 	case CONCAT: // td(s,E0 concat E1,f)
 	{
-		State p(Q.allocate());
-		State q(Q.allocate());
-		td(s, e.left_subexpr(), p);
-		td(q, e.right_subexpr(), f);
-
-		E.union_cross(p, q);
+		// new states p,q
+		// (Q0,V,T0,E0,{s},{p}) = td(s,E0,p)
+		// (Q1,V,T1,E1,{q},{f}) = td(q,E0,f)
+		// Q = Q0∪Q1, V, T = T0∪T1, E = E0∪E1∪{(p,q)}, S = {s}, F = {f}
+		State p(Q.allocate()); // final state of left_subexpr
+		State q(Q.allocate()); // start state of right_subexpr
+		td(s, e.left_subexpr(), p);  // M0 = (Q0,V,T0,E0,{s},{p})
+		td(q, e.right_subexpr(), f); // M1 = (Q1,V,T1,E1,{q},{f})
+		E.union_cross(p, q); // map p to q
 	}
 	break;
-	case STAR: // td(s,star,f)
+	case STAR: // td(s,star,f)，M重复0次或多次，表示Kleene闭包，包含epsilon语言
 	{
-		State p(Q.allocate());
+		// new states p,q
+		// (Q,V,T,E,{p},{q}) = td(p,E,q)
+		// Q = Q∪{s,f} , V, T, E = E ∪{(s,p),(q,p),(q,f),(s,f)}, S = {s}, F = {f}
+		State p(Q.allocate());  // start and final state of left_subexpr
 		State q(Q.allocate());
-		td(p, e.left_subexpr(), q);
-
-		E.union_cross(s, p);
-		E.union_cross(q, p);
-		E.union_cross(q, f);
-		E.union_cross(s, f);
+		td(p, e.left_subexpr(), q); 
+		E.union_cross(s, p); // (s,p)
+		E.union_cross(q, p); // (p,q)
+		E.union_cross(q, f); // (q,f)
+		E.union_cross(s, f); // (s,f) 
 	}
 	break;
-	case PLUS: // td(s,plus,f)
+	case PLUS: // td(s,plus,f)，M至少重复一次，不包含epsilon语言
 	{
-		State p(Q.allocate());
+		// new states p,q
+		// (Q,V,T,E,{p},{q}) = td(p,E,q)
+		// Q = Q∪{s,f} , V, T, E = E ∪{(s,p),(q,p),(q,f)}, S = {s}, F = {f}
+		State p(Q.allocate()); // start and final state of left_subexpr
 		State q(Q.allocate());
 		td(p, e.left_subexpr(), q);
-		E.union_cross(s, p);
-		E.union_cross(q, p);
-		E.union_cross(q, f);
+		E.union_cross(s, p); // (s,p)
+		E.union_cross(q, p); // (q,p)
+		E.union_cross(q, f); // (q,f)
 	}
 	break;
-	case QUESTION: // td(s,question,f)
+	case QUESTION: // td(s,question,f)，M执行0次或1次, 包含epsilon语言
 	{
-		State p(Q.allocate());
+		// new states p,q
+		// (Q,V,T,E,{p},{q}) = td(p,E,q)
+		// Q = Q∪{s,f} , V, T, E = E ∪{(s,p),(q,f),(s,f)}, S = {s}, F = {f}
+		State p(Q.allocate()); // start and final state of left_subexpr
 		State q(Q.allocate());
 		td(p, e.left_subexpr(), q);
-
-		E.union_cross(s, p);
-		E.union_cross(q, f);
-		E.union_cross(s, f);
+		E.union_cross(s, p); // (s,p)
+		E.union_cross(q, f); // (q,f)
+		E.union_cross(s, f); // (s,f)
 	}
 	break;
 	}

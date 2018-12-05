@@ -20,6 +20,14 @@ BitVec::BitVec(const BitVec& r):
 	data(new unsigned int[r.words])
 {
 	for (int i = 0; i < words; i++) data[i] = r.data[i];
+	// Bug!!! r.words = 0时，data分配了无元素的空数组，会引起class_invariant()异常
+	// 如下处理
+	if (r.words == 0)
+	{
+		delete[] data;
+		data = 0;
+	}
+
 	assert(class_invariant());
 }
 

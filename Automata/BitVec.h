@@ -177,6 +177,8 @@ inline BitVec::~BitVec()
 {
 	assert(class_invariant());
 	delete[]data;
+	// 安全起见，其后添加
+	data = 0;
 }
 
 // Inequality operator.
