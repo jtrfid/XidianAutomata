@@ -130,6 +130,7 @@ LBFA& LBFA::decode(const RFA& r)
 }
 
 // Implement non-homomorphic RFA->LBFA mapping convert(Defn. 4.35).
+// 取RFA的first中编号最小的状态为LBFA的单个{start}
 LBFA& LBFA::convert(const RFA& r)
 {
 	// Implement Definition 4.35 of the Taxonomy.
@@ -137,8 +138,8 @@ LBFA& LBFA::convert(const RFA& r)
 	Q = r.Q;
 	// r.first must be a singleton set for this to work properly!
 	// (See Property 4.37)
-	assert(r.first.size() == 1);
-	s = r.first.smallest();
+	// assert(r.first.size() == 1); // 这里不能有此断言，因为RFA的first可能含有多个状态
+	s = r.first.smallest(); // 取RFA的first中编号最小的状态为LBFA的单个{start}
 
 	F = r.last;
 	Qmap_inverse = r.Qmap_inverse;

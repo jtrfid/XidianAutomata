@@ -164,12 +164,12 @@
 \DeclareOption{openany}{\@openrightfalse}
 %
 % no size changing allowed
-\DeclareOption{14pt}{\OptionNotUsed}
-\DeclareOption{14pt}{\OptionNotUsed}
+\DeclareOption{12pt}{\OptionNotUsed}
+\DeclareOption{12pt}{\OptionNotUsed}
 % options for the article class
-\def\@rticle@options{14pt,twoside}
+\def\@rticle@options{12pt,twoside}
 % fleqn
-\DeclareOption{fleqn}{\def\@rticle@options{14pt,twoside,fleqn}%
+\DeclareOption{fleqn}{\def\@rticle@options{12pt,twoside,fleqn}%
 \AtEndOfClass{\let\leftlegendglue\relax}%
 \AtBeginDocument{\mathindent\parindent}}
 % hanging sectioning titles

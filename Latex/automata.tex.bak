@@ -26,6 +26,8 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,backgrounds}
 
+\usepackage{CJK}  %中文
+
 \renewcommand{\thefootnote}{}
 
 % see the list of further useful packages
@@ -42,36 +44,38 @@
 \author{Zhiwu Li}
 \title{Basics of Discrete Event Systems}
 %\subtitle{-- Monograph --}
-\maketitle
-\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{dedic}
-\include{foreword}
-\include{preface}
-\include{acknow}
+%\maketitle
+%\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\include{dedic}
+%%\include{foreword}
+%%\include{preface}
+%%\include{acknow}
 
-\tableofcontents
+%\tableofcontents
 
-\include{acronym}
-\include{symbol}
+%%\include{acronym}
+%%\include{symbol}
 
 
-\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{part}
+%\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{part}
 %\include{chapter_1}
 %\include{chapter_21}
 %\include{chapter_2_function}
 %\include{appendix}
 
-\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{glossary}
-\include{solutions}
-\printindex
+%\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{glossary}
+%\include{solutions}
+%\printindex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-$\emph{P}$ $\texttt{P}$ $\P$
-$\noindent$
-the signatures of the transition relations:
+$\emph{P}$ $\texttt{P}$ $\P$  $\mathrm{P}$  $\mathcal{P}$ $\mathit{P}$  $\mathnormal{P}$  $\boldsymbol{P}$  $\mathbf{P}$
+
+\hfill
+
+$\textbf{the signatures of the transition relations:}$
 
 $T \in P(Q \times V \times Q)$
 
@@ -82,18 +86,73 @@ $T \in Q\times Q \to P(V)$
 $T \in Q \times V \to P(Q)$
 
 $T \in Q \to P(V \times Q)$
-\\
-$\epsilon$-transition relation:
+
+for example, the function $T \in Q \to P(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
+
+\hfill
+
+$\textbf{$\epsilon$-transition relation:}$
 
 $E \in P(Q\times Q)$
 
 $E \in Q \to P(Q)$
 
-for example, the fuction $T \in Q \to P(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
+\hfill
 
-$\overline{\pi}_2$
-$\bar{\pi}_2$
-$$\mathbf{P}$$
+$T \in P(Q \times V \times Q), T = \{(s,a,q) \}$
+
+$T(s)\in Q \to P(V\times Q), T(s) = \{(a,q):(s,a,q) \in T\}$
+
+$Q_{map}: P(Q\times V), Q_{map} = \{(q,a): (s,a,q) \in T\}$
+
+$Q_{map}(q) = \{a: (s,a,q)\in T\}$
+
+${Q_{map}}^{-1}: V \nrightarrow P(Q), {Q_{map}}^{-1} = \{(a,q): (s,a,q) \in T\}$
+
+According to Convention A.4 (Tuple projection):
+
+$\bar{\pi}_2(T) = \{(s,q): (s,a,q)\in T \}$
+
+$Q_{map} = (\bar{\pi}_1(T))^R, Q_{map} = \{(a,q):(s,a,q) \in T\}^R = \{(q,a):(s,a,q) \in T\}$
+
+\hfill
+
+$f(a)=(f(a^R))^R$
+
+\hfill
+
+$\textbf{Prefix-closure:}$ Let $L\subseteq V^*$,then
+$$L^{-1} := \{s\in V^*:(\exists t\in V^*)[st\in L]\}$$
+
+In words, the prefix closure of L is the language denoted by $L^{-1}$ and consisting of all the prefixes in L. In general, $L\subseteq L^{-1}$.
+
+L is said to be prefix-closed if $L = L^{-1}$. Thus language L is prefix-closed if any prefix of any string in L is also an element of L. 
+
+$L_1 = \{\epsilon,a,aa\}, L_1 = L_{1}^{-1}, L_{1} \text{ is prefix-closed.}$
+
+$L_2 = \{a,b,ab\}, L_{2}^{-1} = \{\epsilon,a,b,ab\}, L_{2} \subset L_{2}^{-1}, L_{2} \text{ is not prefix closed.}$
+
+\hfill
+
+$\textbf{Post-language:}$ Let $L\subseteq V^{\ast}$ and $s\in L$. Then the post-language of L after s, denoted by L/s, is the language 
+$$ L/s := \{t\in V^{\ast}:st\in L\}$$
+By definition, $L/s = \emptyset$ if $s \notin \overline{L}.$
+
+ 
+ 
+\hfill
+
+$\textbf{Definition A.15 (Left derivatives):}$ Given language $A\subseteq V^{\ast}$ and $w\in V^{\ast}$ we define the left derivative of A with respect to w as:
+$$w^{-1}A = \{x\in V^{\ast}:wx\in A\}$$
+
+\hfill
+
+$\textbf{Kleene-closure:}$ Let $L\subseteq V^*$, then
+$$L^* := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$
+This is the same operation that we defined above for the set V, except that now it is applied to set L whose elements may be strings of length greater than one. An element of $L^*$ is formed by the concatenation of a finite (but possibly arbitrarily large) number of elements of L; this includes the concatenation of "zero" elements, that is the empty string $\epsilon$. Note that $\ast$ operation is idempotent: ${(L^*)}^* = L^*$.
+%\bgein{CJK}
+%中文
+%\end{CJK}
 
 \end{document}
 
