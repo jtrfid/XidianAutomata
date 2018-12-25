@@ -7,7 +7,7 @@
 \usepackage{helvet}
 \usepackage{courier}
 \usepackage{amsmath}
-
+\usepackage{ctex}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
@@ -21,14 +21,12 @@
 \usepackage[bottom]{footmisc}% places footnotes at page bottom
 
 \usepackage{wrapfig}
-%\usepackage{picins}
+\usepackage{picins}
 %xxx\usepackage{custom}
-%\usepackage{tikz}
-%\usetikzlibrary{shapes,backgrounds}
+\usepackage{tikz}
+\usetikzlibrary{shapes,backgrounds}
 
-%\usepackage{CJK} 
-
-\usepackage[UTF8]{ctex}
+\usepackage{CJK}  %ÖÐÎÄ
 
 \newtheorem{myTh}{Theorem}
 \newtheorem{myDf}{Definition}
@@ -155,15 +153,6 @@ Sometimes derivatives are written as $D_{w}A$ or as $\frac{dA}{dw}$. Right deriv
 $\textbf{Kleene-closure:}$ Let $L\subseteq V^*$, then
 $$L^* := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$
 This is the same operation that we defined above for the set V, except that now it is applied to set L whose elements may be strings of length greater than one. An element of $L^*$ is formed by the concatenation of a finite (but possibly arbitrarily large) number of elements of L; this includes the concatenation of "zero" elements, that is the empty string $\epsilon$. Note that $\ast$ operation is idempotent: ${(L^*)}^* = L^*$.
-
-ä¸­æ–‡ç¤ºä¾‹
-
-
-\begin{myTh}
-	content...
-\end{myTh}
-
-$\notin\beta$
 
 \begin{myTh}
 
