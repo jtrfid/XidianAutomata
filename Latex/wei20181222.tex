@@ -1,0 +1,1868 @@
+%\documentclass[letterpaper, 10pt, conference]{IEEEconf}  % Comment this line out if you need a4paper
+\documentclass[journal,onecolumn]{IEEEtran}      % Use this line for a4 paper
+\linespread{1.72}
+\usepackage[left]{lineno}
+\usepackage{blindtext}
+\usepackage{graphicx}      % include this line if your document contains figures
+%\usepackage{natbib}        % required for bibliography
+\usepackage{times}
+\usepackage{graphicx}      % include this line if your document contains figures
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{booktabs}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+%\usepackage{algorithmic}
+\usepackage[ruled]{algorithm2e}
+\usepackage{lipsum}
+\usepackage{algpseudocode,float}
+\usepackage{algcompatible}
+
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{problem}{Problem}
+\newtheorem{property}{Property}
+\newtheorem{proposition}{Proposition}
+\newtheorem{eg}{Example}
+%\newtheorem{alg}{Algorithm}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newcommand{\red}{\color{red}}
+\newcommand{\blue}{\color{blue}}
+\newcommand{\white}{\color{white}}
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}} % Use Input in the format of Algorithm
+%\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+
+\makeatletter
+\newenvironment{subtheorem}[1]{%
+	\def\subtheoremcounter{#1}%
+	\refstepcounter{#1}%
+	\protected@edef\theparentnumber{\csname the#1\endcsname}%
+	\setcounter{parentnumber}{\value{#1}}%
+	\setcounter{#1}{0}%
+	\expandafter\def\csname the#1\endcsname{\theparentnumber\alph{#1}}%
+	\ignorespaces
+}{%
+	\setcounter{\subtheoremcounter}{\value{parentnumber}}%
+	\ignorespacesafterend
+}
+\makeatother
+\newcounter{parentnumber}
+
+
+\graphicspath{{./fig/}}
+
+
+\IEEEoverridecommandlockouts                              % This command is only needed if
+% you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+\title{\LARGE \bf
+An Optimal Deadlock Prevention Policy for Flexible Manufacturing Systems Modeled with Petri Nets Using Structural Analysis
+}
+
+
+\author{% <-this % stops a space
+	Wei Duan,
+	Chunfu Zhong,
+	Xiang Wang,
+	Ateekh Ur Rehman,
+	Usama Umer,
+	Naiqi Wu,~\IEEEmembership{Fellow, IEEE},
+
+	
+
+	
+		\thanks{*This work was supported in part by the National Natural Science Foundation of China under Grants 61603285, 61472295, 61873342 and 51305325, and the Science Technology Development Fund, MSAR, under Grant 122/2017/A3. ($Corresponding$ $author$: $Chunfu$ $Zhong$).}% <-this % stops a space
+	\thanks{W. Duan, C. Zhong, and X. Wang are with the School of Electro-Mechanical Engineering, Xidian University, Xi'an 710071, China (e-mail: dwei1024@126.com; cfuzhong@gmail.com; e-mail: 1056750400@qq.com).}
+
+	\thanks{A. Rehman is with the Department of Industrial Engineering, College of Engineering, PO Box 800, King Saud University, Riyadh 11421, Saudi Arabia (e-mail: arehman@ksu.edu.sa).}
+	
+    \thanks{U. Umer is with the
+	Advance Manufacturing Institute, College of Engineering, PO Box 800, King Saud University, Riyadh 11421, Saudi Arabia (e-mail: uumer@ksu.edu.sa).}
+
+	\thanks{N. Wu is with the Institute of Systems Engineering, Macau University of Science and Technology, Macau SAR China (e-mail: nqwu@must.edu.mo).}
+	
+
+	
+
+
+
+}
+
+\hyphenation{GMEC}
+\hyphenation{GMECs}
+\hyphenation{corresponds}
+
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\linenumbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+	
+%Using siphon control to obtain a liveness supervisor means to add linear constraints to avoid the existence of dead states. In general, Petri nets that have non-convex legal state space cannot be optimally controlled by linear constraints.
+%to compute SMSs at each iteration
+This paper derives an iterative deadlock prevention policy for systems of simple sequential processes with resources ($\rm{S^3PR}s$) based on structural analysis, which consists of two stages. The first stage is called siphons control. Strict minimal siphons (SMSs) in an $\rm{S^3PR}$ net are computed  and control places are added by imposing P-invariants associated with the complementary sets of the SMSs, which restricts no legal system behavior. The original resource places are removed and the newly added control places are regarded as resource places, resulting in a new net which needs to add control places for its SMSs if deadlocks persist. Repeat this step until a new net without SMSs is obtained.
+%Control places are continuously added for the SMSs at each iteration to ensure that no SMSs are generated in a final net.
+Then an $\rm{S^4PR}$, called the first-controlled net, is obtained by integrating all added control places into the original net. The second stage, called non-max-marked siphons control, is performed in an iterative way if the system is still not live. At each iteration, solving an mixed integer linear programming (MILP) problem is utilized to compute a non-max-marked siphon, and a control place is added for the siphon to the first-controlled net, resulting in an augmented net. The iteration is executed until a final-augmented net generates no new non-max-marked siphon. Based on above two stages, this paper can in general obtain a supervisor with more behavior permissiveness compared with the previous studies. Moreover, an optimal supervisor can be found if a first-controlled net has no non-max-marked siphon, implying that the second stage is not necessary. Finally, some examples are provided to demonstrate the proposed policy. 	
+
+ %Meanwhile, siphons, especially strict minimal siphons (SMSs), perform a vital role in deadlock control as the structure characteristics of Petri nets. To control deadlock we have four strategies, one of which is deadlock prevention. Deadlock prevention based on siphons is one of the common and effective ways to handle deadlock in a Petri net. System of simple sequential processes with resources ($\rm{S^3PR}$) is a class of Petri net. For designing a deadlock control monitor in $\rm{S^3PR}$, we usually let output arcs of the control places move to source transitions to avoid generation of new emptied siphons. However, the behavior permission of the controlled Petri net are reduced. This research attempts to derive a new strategy to get a well behavior permission in an iterative way under convex legal space.
+
+\end{abstract}
+
+\begin{keywords}
+Flexible manufacturing system, Petri net, Deadlock prevention policy, Siphon control
+\end{keywords}
+
+
+\section{Introduction}
+%Compared with traditional manufacturing systems, FMSs have many advantages such as higher product quality, lower production cost and shorter production cycle. They have been widely used in parts processing, commodity production and so on. An FMS is also a discrete production process and connected by automatic loading, unloading and transmission machine chain, which is controlled by a computer system.
+
+A flexible manufacturing system (FMS) can run in parallel to process multiple different products at the same time. However, it may lead to deadlocks, blocking the entire system or part of it, due to the inappropriate allocation of resources in the system. It is significant to develop an effective control policy to solve the problem of deadlocks [1-6], [8], [14-17], [20-21], [29-30], [41-47], [50-51] in an FMS.
+There are mainly three approaches:
+deadlock detection and recovery, deadlock avoidance [30], [36], [45], and deadlock prevention [1-4], [33-34], [37-41], [46].
+
+Petri nets can well describe concurrency, distributivity, similarity, uncertainty and randomness of a system. Thus they are often used in FMSs for modeling and analyzing them [7], [9-12], [16-19], [22-25], [28], [31-32], [43-44], [45-50], [53], [55]. There are two methods
+to address the deadlocks problem in an FMS by Petri nets. The first is based on the theory of regions by exploring the reachablity graph of Petri nets [10], [29], [35], [42]. The other is to design a supervisor by structural analysis, such as siphon control that eliminates deadlocks through the control of siphons [2], [7-9], [12], [13].
+
+Since deadlock prevention is a static strategy, an off-line computing mechanism is usually used to control the allocation of resources such that an FMS does not reach deadlock states. This paper proposes a deadlock prevention policy based on siphon control for FMSs, which adds control places with related arcs to the Petri net model. It can build a control mechanism in advance by structural analysis.
+
+In a Petri net, once a siphon loses its tokens, it remains unmarked under any subsequent marking. Therefore, the related transitions cannot fire, and the net loses liveness. In [2], Ezpeleta $\emph{et al.}$ present a method of adding control places for $\rm{S^3PR}$ nets by studying the relationship between deadlocks and siphons.
+However, it considerably restricts the behaviors of the nets in general. A feasible liveness-enforcing Petri net supervisor is mainly assessed from three aspects:
+(1) behavior permissiveness,
+(2) computational complexity,
+and (3) structural complexity.
+Therefore, more behavior permissiveness, lower computational and structural complexity contribute to an elegant supervisor.
+
+However, it is in general difficult to design a supervisor satisfying the above criteria.
+The number of SMSs in a Petri net has an exponential relationship with the structural size of the net. As a net structure grows, the number of control places that need to be added increases quickly. To reduce structural complexity, Li and Zhou propose the concept of elementary siphons in a Petri net [39]. They prove that under certain conditions, a Petri net supervisor can be obtained by simply controlling the elementary siphons, and thereby the structural complexity of a supervisor can be greatly reduced. A drawback of the idea that the supervisor derived from elementary siphons is not maximally permissive.
+
+An iterative siphon control can obtain more behavior permissiveness compared with other methods.
+Huang $\emph{et al.}$ propose an iterative deadlock prevention policy based on mixed integer linear programming (MILP) problems for $\rm{S^3PR}$ nets [40].
+To enhance the modeling ability and convenience of $\rm{S^3PR}$ nets, some general subclasses of Petri nets, such as $\rm{S^4PR}$ nets, are presented for modeling and analysis of manufacturing systems. In an $\rm{S^3PR}$, deadlocks control can be implemented by ensuring that SMSs are always marked. In an $\rm{S^4PR}$, a deadlock can occur even if SMSs are marked at any reachable marking. Barkaoui $\emph{et al.}$ study the notion of max-controlled siphons by satisfying invariant control in an $\rm{S^4PR}$ [4]. Zhong $\emph{et al.}$  propose an iterative approach to analyze the liveness of an $\rm{S^4PR}$ by utilizing this concept and obtain decent results [1].
+
+%Piroddi $\emph{et al.}$ propose a selective siphons control policy [40] that provides a controller with small size in an iterative way, which is based on a set covering approach that conveniently relates siphons and markings. It obtains a supervisor with more behavior permissiveness but not still be optimal.
+
+
+%It can be concluded that there are several drawbacks to be worthy of note by iterative siphon control. The first is with adding control places, a net becomes augmented in an iterative way, which leads to a lot computation. The second is that the net exists redundant control places in the iteration procedure.
+
+%All the above works are based on place invariant (P-invariant) to design control places, which means that adding linear constraints to a Petri net system. If a legal state space of the system is non-convex, an optimal supervisor cannot be obtained by the enforcement of linear constraints. Based on convex legal state space,
+
+A maximally permissive, also called optimal, supervisor can bring in high utilization of resources in a system. Motivated by the work in [1], [40], this paper proposes a deadlock prevention policy for $\rm{S^3PR}$ nets in an iterative way to obtain an optimal or more permissive supervisor. The policy includes two stages. In order not to generate new SMSs in the iterative siphon control, most policies adopt a method where the output arcs of control places are bounded to the source transitions, which restricts behavior permissiveness. We apply a novel approach called siphons control in the first stage. Specifically, given an $\rm{S^3PR}$, SMSs are computed and control places are added for them in the net. Then the original resource places in the original net model as well as their corresponding arcs are removed and the added control places are regarded as new resource places, which results in a new net. Then we compute the SMSs in this new net. Continue the above processes until no SMSs can be found. An $\rm{S^4PR}$, called first-controlled net, is obtained by integrating all the control places added at each iteration into the original net. This stage does not need to bound the output arcs of control places to the source transitions, thus preventing behavior permissiveness from being restricted. However, those added control places may produce new SMSs associating with resource places in the original net. As a result, the first-controlled net may not be live. In the second stage, solving an MILP problem is utilized to check whether the net has a non-max-marked siphon or not. This stage is called non-max-marked siphons control, where it does not need to compute all SMSs such that computational overheads are reduced. If there is no non-max-marked siphon, then no new siphon is generated, and the net is proved to be live and maximally permissive. Otherwise, a control place is added for the siphon to the net, resulting in a new augmented net. Repeat the above step until there does not exist a non-max-marked siphon. Eventually, a final-augmented net with more behavior permissiveness is obtained.
+
+
+
+The rest of this paper is organized as follows. Section \uppercase\expandafter{\romannumeral2} reviews two special classes of Petri nets: $\rm{S^3PR}$ nets and $\rm{S^4PR}$ nets.
+Siphons control is presented in Section \uppercase\expandafter{\romannumeral3}.
+The corresponding notions of max-controlled siphons are utilized to design control places in Section \uppercase\expandafter{\romannumeral4}.
+Section \uppercase\expandafter{\romannumeral5} proposes a deadlock
+prevention policy. Section \uppercase\expandafter{\romannumeral6} gives several examples to demonstrate the proposed approach. Finally, conclusions and further research topics are exposed in Section \uppercase\expandafter{\romannumeral7}. An appendix presents the basic definitions and properties of Petri nets used throughout the paper.
+
+
+
+
+%\begin{definition}\cite{ZH11}
+	%Let $r$ be a resource place and $S$ be an SMS(strict minimal siphon) in an $\rm{S^4R}$. The set of holders of resource $r$, denoted as $H(r)$, is defined as the difference of two multisets $I_r$ and $r$, $i.e.$, $H(r) =I_r-r$. As a multiset, $Th_S=\Sigma_{r\in S^R}H(r)-\Sigma_{r\in S^R,p\in S^A}I_r(p)p$ is called the complementary set of siphon $S$. $[S] = \Vert Th_S\Vert$ is called the support of $Th_S$.
+%\end{definition}
+
+
+\section{Preliminaries}
+
+ Some basic notions of Petri nets are shown in the Appendix. This section mainly reviews the definitions of $\rm{S^3PR}$ nets [2] and $\rm{S^4PR}$ nets [1]. In what follows, $\mathbb{N}^+$ denotes the set of positive integers and $\mathbb{N}^{|P|}$ denotes the set of $|P|-$dimensional vectors.
+
+\subsection{$\rm{S^3PR}$}
+
+%The following definitions of $\rm{S^3PR}$ nets are from [2].
+
+\begin{definition}
+	A simple sequential process ($\rm{S^2P}$) is a Petri net $N=(P_S\cup\lbrace p^0\rbrace,T,F)$, where (1) $P_S\neq\emptyset$ is called the set of operation places; (2) $p^0\notin P_S$ is called the idle place; (3) $N$ is a strongly connected state machine; (4) every circuit of $N$ contains place $p^0$.
+
+
+\end{definition}
+
+
+%Note that $^\bullet r$ represents place $r's$ input transitions.$^{\bullet\bullet}r =\cup_{t\in ^\bullet r}$$^\bullet t$ is the set of allinput places of all input transitions of place $r$. Similarly, $r^{\bullet\bullet}= \cup_{t\in r^\bullet}t^\bullet$ representsthe set of all output places of all output transitions of place $r$.
+
+
+\begin{definition}
+	A simple sequential process with resources ($\rm{S^2PR}$) is a Petri net $N =(\lbrace p^0\rbrace\cup P_S\cup P_R,T,F)$ such that:
+	\begin{enumerate}
+		\item 	The subnet generated by $X=P_S\cup \lbrace p^0\rbrace\cup T$ is an $\rm{S^2P}$.
+		\item   $P_R\neq\emptyset$ and $(P_S\cup \lbrace p^0\rbrace)\cap P_R= \emptyset$, where $r\in P_R$ is called a resource place.
+		\item   $\forall p\in P_S$, $\forall t\in$$^\bullet p$, $ \forall t'\in p^\bullet$, $\exists r_p\in P_R$, $^\bullet t\cap P_R=t'^{\bullet}\cap P_R=\lbrace r_p\rbrace.$
+		\item   The following statements are verified:
+			(a) $\forall r\in P_R$, $^{\bullet\bullet} r \cap P_S=r^{\bullet\bullet}\cap P_S\neq\emptyset$;
+		(b) $\forall r\in P_R$, $^\bullet r\cap r^\bullet = \emptyset.$
+		\item   $^{\bullet\bullet}(p^0)\cap P_R=(p^0)^{\bullet\bullet}\cap P_R =\emptyset.$
+	\end{enumerate}
+
+\end{definition}
+
+Note that $^\bullet r$ represents the set of input transitions of place $r$, $^{\bullet\bullet}r=\bigcup_{t\in ^\bullet r}$$^\bullet t$ is the set of all input places of all input transitions of place $r$. Similarly, $r^{\bullet\bullet}=\bigcup_{t\in r^\bullet}t^\bullet$ represents the set of all output places of all output transitions of place $r$.
+
+
+\begin{definition}
+	Let $N =(\lbrace p^0\rbrace\cup P_S\cup P_R,T,F)$ be an $\rm{S^2PR}$. An initial marking $M_0$ is called an acceptable initial marking for $N$ if (1) $M_0(p^0)\ge1$; (2) $M_0(p)=0$, $\forall p\in P_S$; (3) $M_0(r)\ge1$, $\forall r\in P_R$. An $\rm{S^2PR}$ with such a marking is said to be acceptably marked.
+\end{definition}
+
+
+\begin{definition}
+	 A system of $\rm{S^2PR}$, called $\rm{S^3PR}$ for short, is defined recursively as follows:
+	\begin{enumerate}
+		\item   An $\rm{S^2PR}$ is an $\rm{S^3PR}$.
+		\item   Let $N_i=(P_{S_i}\cup\lbrace p^0_i\rbrace\cup P_{R_i},T_i,F_i)$, $i\in\lbrace1,2\rbrace$, be two $\rm{S^3PR}$ nets such that $(P_{S_1}\cup \lbrace p^0_1\rbrace)\cap(P_{S_2}\cup \lbrace p^0_2\rbrace)=\emptyset$, $P_{R_1}\cap P_{R_2}=P_C\neq\emptyset$, and $T_1\cap T_2=\emptyset$. Then, the net $N =(P_S\cap P^0\cap P_R,T,F)$ resulting from the composition of $N_1$ and $N_2$ via $P_C$ (denoted as $N=N_1\bigcirc N_2$) defined as follows:
+		 (a) $P_S=P_{S_1}\cup P_{S_2}$;
+		 (b) $P^0=\lbrace p^0_1\rbrace\cup\lbrace p^0_2\rbrace$;
+		 (c) $P_R=P_{R_1}\cup P_{R_2}$;
+		 (d) $T=T_1\cup T_2$;
+		 and (e) $F=F_1\cup F_2$, is also an $\rm{S^3PR}$.
+	\end{enumerate}
+
+\end{definition}
+
+Let $I_m=\lbrace 1,2,\dots,m\rbrace$ be a set of indices. An $\rm{S^3PR}$ composed of $m$ $\rm{S^2PR}$, denoted by $N=\bigcirc_{i\in I_m}N_i$, is defined as follows: $N=N_1$ if $m=1$; $N=(\bigcirc_{i=1}^{m-1}N_i)\bigcirc N_m$ if $m\textgreater1$.
+Transitions in $(P^0)^\bullet$ ($^\bullet(P^0)$) are called source (sink) transitions that represent the entry (exit) of raw materials when a manufacturing system is modeled with an $\rm{S^3PR}$.
+
+\begin{definition}
+	Let $N$ be an $\rm{S^3PR}$. $(N,M_0)$ is called an acceptably marked $\rm{S^3PR}$ if one of the two following statements is true:
+	\begin{enumerate}
+	\item $(N,M_0)$ is an acceptably marked $\rm{S^2PR}$.
+	\item $N=N_1\bigcirc N_2$, where $(N_i,M_{0_i})$, $i=1,2$, is an acceptably marked $\rm{S^3PR}$ and \\
+	(a) $\forall i\in \lbrace 1,2\rbrace$,  $\forall p\in P_{S_i}\cup\lbrace p_i^0\rbrace$, $M_0(p)=M_{0_i}(p)$. \\
+	(b) $\forall i\in\lbrace1,2\rbrace$, $\forall r\in P_{R_i}\setminus
+	P_C$, $M_0(r)=M_{0_i}(r)$. \\
+	(c) $\forall r\in P_C$, $M_0(r)=max\lbrace M_{0_1}(r),M_{0_2}(r)\rbrace$.
+	\end{enumerate}
+
+\end{definition}
+
+Let $S$ be an SMS in an $\rm{S^3PR}$ $N=(P_S\cup P^0\cup P_R,T,F)$. $S$ can be represented by $S^S\cup S^R$, where $S^R=S\cap P_R$ and $S^S=S\cap P_S$, as shown in [2].
+
+%\begin{definition}\cite{EZ95}
+%For $r\in P_R$, $H(r)$=$^{\bullet\bullet}r\cap P_S,$ the operation places that use $r$, is called the set of holders of $r$. Let $[S]=(\cup_{r\in S^R}H(r))$$\backslash S$. $[S]$ is called the complementary set of siphon $S$.
+%\end{definition}
+
+
+\begin{definition}\cite{EZ95}
+	Let $(N,M_0)$ be a marked $\rm{S^3PR}$. For $r\in P_R$, $H(r)$=$^{\bullet\bullet}r\cap P_S,$ the operation places that use $r$, is called the set of holders of $r$. Let $[S]=(\bigcup_{r\in S^R}H(r))$$\backslash S$. $[S]$ is called the complementary set of siphon $S$.
+\end{definition}
+
+
+Operation places in a siphon $S$ compete for resources with operation places in $[S]$. When all tokens in resource places of $S$ flow into operation places in $[S]$, $S$ will be emptied, which results in dead transitions. Hence we need to construct a control place to ensure that the siphon $S$ can be marked at any reachable marking of an $\rm{S^3PR}$ net.
+
+
+\subsection{$\rm{S^4PR}$}
+
+\begin{definition}
+A generalized connected self-loop-free net $N=\bigcirc_{i\in I_m}N_i=(P,T,F,W)$ is said to be an $\rm{S^4PR}$ if:
+
+\begin{enumerate}
+	\item $N_i=(P_{S_i}\cup\lbrace p^0_i\rbrace\cup P_{R_i},T_i,F_i,W_i)$, $i\in I_m$, $p^0_i\notin P_{S_i}\cup P_{R_i}$, $P_{S_i}\cap P_{R_i}=\emptyset$.
+	\item $P=P_S\cup P^0\cup P_R$ is a partition such that (1) $P_S=\bigcup_{i\in I_m}P_{S_i}$ is called the set of operation places, where for all $i\ne j$, $P_{S_i}\ne\emptyset$ and $P_{S_i}\cap P_{S_j}=\emptyset$; (2) $P^0=\bigcup_{i\in I_m}\lbrace p^0_i\rbrace$ is called the set of idle places; (3) $P_R=\bigcup_{i\in I_m}P_{R_i}$ is called the set of resource places.
+	\item $T=\bigcup_{i\in I_m}T_i$ is called the set of transitions, where for all $i\ne j$, $T_i\ne\emptyset$ and $T_i\cap T_j=\emptyset$.
+	\item for all $i\in I_m$, the subnet $\bar{N_i}$ generated by $P_{S_i}\cup\lbrace p_i^0\rbrace\cup T_i$ is a strongly connected state machine such that every circuit of the state machine contains idle place $p^0_i$.
+	\item for all $r\in P_R$, there exists a unique minimal P-semiflow $I_r\in\mathbb{N}^{|P|}$ such that $\lbrace r\rbrace=||I_r||\cap P_R$, $P^0\cap||I_r||=\emptyset$, $P_S\cap||I_r||\ne\emptyset$, and $I_r(r)=1$.
+	\item $P_S=\bigcup_{r\in P_R}(||I_r||\backslash\lbrace r\rbrace)$.
+\end{enumerate}
+	
+\end{definition}
+
+\begin{definition}
+	An initial marking $M_0$ is acceptable for an $\rm{S^4PR}$ $N=(P_S\cup P^0\cup P_R,T,F,W)$ if (1) $\forall i\in I_m,M_0(p^0_i)\textgreater0$; (2) $\forall p\in P_S$, $M_0(p)=0$; and (3) $\forall r\in P_R$, $M_0(r)\ge max_{p\in||I_r||}I_r(p)$.
+\end{definition}
+
+
+	Let $S$ be an SMS in an $\rm{S^4PR}$ $N=(P_S\cup P^0\cup P_R,T,F,W)$. Then $S=S^R\cup S^S$ satisfies $S\cap P_R=S^R\ne\emptyset$ and $S\cap P_S=S^S\ne\emptyset$, as shown in [1].
+
+
+
+\begin{definition}\cite{ZH11}
+	Let $r$ be a resource place, $S$ be an SMS and $I_r$ be a P-semiflow associated with $r$ in an $\rm{S^4PR}$. The set of holders of resource $r$, denoted as $H(r)$, is defined as the difference of two multisets $I_r$ and $r$, i.e., $H(r)=I_r-r$. As a multiset, $Th(S)=\Sigma_{r\in S^R}H(r)-\Sigma_{r\in S^R,p\in S^S}I_r(p)p$ is called the complementary set of siphon $S$. $Th_{S}(p)$ denotes an element $p$ in $Th(S)$.
+\end{definition}
+
+\section{Siphons control}
+
+ In an $\rm{S^3PR}$, the presence of unmarked siphons leads to dead transitions and makes the net not live. It is necessary to ensure that siphons are marked at any reachable markings through some external control mechanisms. It can be achieved by adding control places such that a control place and the complementary set of a siphon constitute a P-invariant. This section proposes an iterative way to control unmarked siphons. At the beginning, SMSs are computed in a marked $\rm{S^3PR}$ net $(N,M_0)$ and control places are added for them. After that, resource places with their related arcs are removed and the control places with their related arcs are reserved to obtain a new net. Continue to compute SMSs by regarding the newly added control places as resource places until no new SMSs are produced. Then, a first-controlled net is obtained by integrating all added control places with their related arcs at each iteration into the net $(N,M_0)$.
+ 
+ % Note that, for a marked $\rm{S^3PR}$ net, original resource places with related arcs are removed and the latest added control places with related arcs are only reserved resulting in a new net in an iterative way, which is a relatively efficient and accurate approach to find the SMSs to be controlled.
+
+%\begin{definition}\cite{EZ95}
+%	Let $(N,M_0)$ be a marked $\rm{S^3PR}$. Then, $(N,M_0)$ is live iff $\forall M\in R(N,M_0).$ $\forall$ SMS, $M(S)\neq0$.	
+%\end{definition}
+
+
+%\begin{proposition}
+	%\label{P1}
+%	Let $S$ be an SMS in a marked $\rm{S^3PR}$ net $(N,M_0)$. Siphon $S$ can be always marked by means of the control place $V_S$ that is added to the net by the enforcement that $\sum_{p\in[S]}p+V_S$ is a P-invariant of the $i$-order controller $(N_{V_i},M_{0V_i})$ if $M_{0V_i}(V_S)=M_{0V_{i-1}}(S)-\xi_S$ for $i\ge1$, where $1\le\xi_S\le M_{0V_{i-1}}(S)-1$.  $\xi_S$ is called the control depth variable for an SMS $S$, which represents the strength of controlling $S$.
+	
+%\end{proposition}
+ In order to obtain an optimal supervisor, we need to ensure that no legal behavior in $(N,M_0)$ can be restricted. Hence, a method of adding control places based on the complementary sets of SMSs is presented as shown below. In what follows, we refer an $\rm{S^3PR}$ ($\rm{S^4PR}$) with an acceptable initial marking to as a marked $\rm{S^3PR}$ ($\rm{S^4PR}$).
+
+
+\begin{proposition}\cite{Li09}
+	Let $S$ be an SMS in a marked $\rm{S^3PR}$ $(N,M_0)$ with its complementary set $[S]$. A control place $V_S$ is added such that $\sum_{p\in[S]}p+V_S$ is a P-semiflow of the resulting net $(N^\alpha,M_0^\alpha)$, where $\forall p\in P_S\cup P^0\cup P_R$, $M_0^\alpha(p)=M_0(p)$, and $M_0^\alpha(V_S)=M_0(S)-\xi_S$ $(\xi_S\in\mathbb{N}^+)$. $S$ is controlled if $1\le\xi_S\le M_{0}(S)-1$, where $\xi_S$ is called the control depth variable for an SMS $S$, representing the strength of controlling $S$.
+\end{proposition}
+
+
+\begin{theorem}\cite{Li09}
+	Let $S$ be an SMS in a marked $\rm{S^3PR}$ $(N,M_0)$, and a control place $V_S$ is designed for it by Proposition 1. $S$ is optimally controlled if $\xi_S=1$.
+\end{theorem}
+
+%\begin{proof}
+%	A siphon $S$ is said to be optimally controlled if its added control place only restricts all illegal behavior and preserves all legal behavior in $(N,M_0)$, which means that the number of tokens in the complementary set of $S$ should be maximal under the condition that $S$ cannot be unmarked. In $(N^\alpha,M_0^\alpha)$, $M_0^\alpha(V_S)=M_0(S)-\xi_S$ is proposed by Proposition 1.
+%	$\forall M\in R(N^\alpha,M_0^\alpha)$, $S$ is unmarked if and only if $M([S])= M_0^\alpha(S)$. Since $M_0^\alpha(S)=M_0(S)$ and $M_0^\alpha(V_S)=M_0(S)-\xi_S$, we have $M([S])\le M_0^\alpha(V_S)=M_0(S)-\xi_S$. When $\xi_S=1$, we only avoid the situation $M([S])= M_0^\alpha(S)$. Therefore, we can say that $S$ is optimally controlled.
+%\end{proof}
+
+An SMS can be optimally controlled by designing a control place according to Proposition 1 and Theorem 1. However, if each SMS in $(N,M_0)$ is optimally controlled, it may produce new SMSs due to the added control places.
+Besides, adding those control places increases structural complexity of the resulting net. It is more difficult to compute the new SMSs. 
+To mitigate this problem, an iterative way is used. For a marked $\rm{S^3PR}$ net, at each iteration, original resource places with their related arcs are removed and the added control places with their related arcs are reserved, resulting in a new net, which is a relatively efficient and accurate approach to find the SMSs derived from the added control places.
+
+
+
+%\begin{proof}
+%	Since $[S]\cup V_S$ is the support of a P-semiflow in $(N,M_0)$, $\forall M\in R(N_{V_i},M_{0V_i})$, $M([S])+M(V_S)=M_{0V_i}(V_S)$. Therefore, we have $M([S])+M(V_S)=M_{0V_{i-1}}(S)-\xi_S$. Since $M(V_S)\ge0$, \begin{equation}
+%	M([S])\le M_{0V_{i-1}}(S)-\xi_S.
+%	\end{equation} In addition, since $[S]\cup S$ is the support of a P-semiflow in $(N_{V_{i-1}},M_{0V_{i-1}})$, it is also a P-semiflow in $(N_{V_i},M_{0V_i})$. We can conclude that \begin{equation}
+%	M(S)+M([S])=M_{0V_i}(S).
+%	\end{equation} Combining (1) with (2), we obtain $M(S)\ge\xi_S\ge1$, which implies that $S$ can be marked at any reachable marking by a control place $V_S$.
+%\end{proof}
+
+
+
+
+In what follows, a marked $\rm{S^3PR}$ $(N,M_0)$ is represented by $N=(P_S\cup P^0\cup P_R,T,F)$. We can also define $F$ in another way such as $F=F_{P_1}\cup F_{P_2}\cup F_{R_1}\cup F_{R_2}$, where $F_{P_1}=\lbrace (t,p)|t\in$$^\bullet(P^0\cup P_S),p\in (P^0\cup P_S)\rbrace$, $F_{P_2}=\lbrace (p,t)|t\in(P^0\cup P_S)^\bullet,p\in (P^0\cup P_S)\rbrace$, $F_{R_1}=\lbrace (t,p)|t\in$$^\bullet P_R,p\in P_R\rbrace$, and $F_{R_2}=\lbrace (p,t)|t\in P_R$$^\bullet,p\in P_R\rbrace$.
+
+\begin{definition}
+	Let $(N,M_0)$ be an $\rm{S^3PR}$ with $N=(P_S\cup P^0\cup P_R,T,F)$. The net $(N_{V_i},M_{0V_i})=(P_S\cup P^0\cup\Phi_i,T,F_{P_1}\cup F_{P_2}\cup F_{V_i})$ is said to be the $i$-order controlled net of $(N,M_0)$ if it satisfies the following statements for $i\in I_m$:
+	\begin{enumerate}
+		\item $\Phi_i=\lbrace V_S|S\in\Pi_{i-1}\rbrace$ is a set of control places, where $\Pi_{i-1}$ is a set of SMSs in $(N_{V_{i-1}},M_{0V_{i-1}})$.
+		\item $F_{V_i}=F_{V'}\cup F_{V{''}}$, where $F_{V'}=\lbrace (V_S,t)|t\in$$^\bullet[S]\rbrace$, and $F_{V{''}}=\lbrace (t,V_S)|t\in[S]$$^\bullet\rbrace$.
+		\item (a) $\forall p\in P_S\cup P^0$, $M_{0V_i}(p)=M_0(p)$; (b) $\forall V_S\in\Phi_i$, $M_{0V_1}(V_S)=M_{0}(S)-1$ if $i=1$ and $M_{0V_i}(V_S)=M_{0V_{i-1}}(S)-1$ if $i\textgreater1$.
+	\end{enumerate}
+\end{definition}
+
+
+Let $(N,M_0)$ be the $0$-order controlled net such that $(N_{V_0},M_{0V_0})=(N,M_0)$. We utilize the $m$-order controlled net $(N_{V_m},M_{0V_m})$ to represent the net after the final iteration, in which no SMS exists.
+Note that $\Phi_1=\lbrace V_S|S\in\Pi_{0}\rbrace$ if $i=1$, where $\Pi_{0}$ is a set of SMSs in $(N_{V_0},M_{0V_0})$. According to Proposition 1, we directly add a control place by the complementary set of an SMS, in stead of letting output arcs of the control place bound to the source transitions of an $\rm{S^3PR}$. Let $\xi_S=1$ by Theorem 1. We can ensure that every siphon $S$ in $N_{V_i}$ is optimally controlled. Then, control places are added in an iterative way until no SMS is generated. A first-controlled net $(N_V,M_{0V})$ is obtained by synthesizing all added control places and their corresponding arcs into the original net $(N_{V_0},M_{0V_0})$. $(N_V,M_{0V})=(P,T,F_{V})$, where $P= P^0\cup P_S\cup P_R\cup\Phi$, $\Phi=\bigcup_{i=1}^m\Phi_i$, and $F_V=(\bigcup_{i=1}^m F_{V_i})\cup F$.
+
+
+%	Let $(N,M_0)$ be a marked $\rm{S^3PR}$ net and $\Pi_i=\lbrace S_{ij}|1\leq j\leq K_i, i\in I_m\rbrace$ be a set of SMSs at each iteration, where $m$ denotes iteration times in the first stage and $K_i$ denotes the number of SMSs at each iteration. $\Phi_i=\lbrace V_{i1},V_{i2},\dots,V_{ij}\rbrace$ is the set of control places, where  $V_{ij}$ denotes control places added for the $j$-order SMSs when the $i$-order iteration occurs.
+	
+
+
+ %We will explain how to add controller in $\rm{S^3PR}$ in the following and add in $\rm{S^4R}$ in the next chapter.
+
+ %Then $S=S^S\cup S^R$ satisfies $S^R=S\cap P_R\ne\emptyset$ and $S^S=S\setminus S^R\ne\emptyset$, where $S^R$ denotes the set of resource places in an SMS and $S^S$ denotes the set of operation places in an SMS.
+
+
+
+
+
+
+
+%\begin{definition}
+	%Let $(N,M_0)$ be a marked $\rm{S^3PR}$ net and $\Pi_i=\lbrace S_{ij}|1\leq j\leq K_i\rbrace$ be a set of SMSs to be controlled. ($\Pi_i$ denotes the set of SMSs to be controlled when $i$-th iteration occurs. $K_i$ denotes the number of all SMSs when $i$-th iteration occurs). Control places are added to prevent siphons from being emptied.  $\Phi_i$ is the set of these places. $\Phi_i=\lbrace V_{ij}|i,j\in\mathbb{N}^+\rbrace$, $V_{ij}$ denotes control places added for $j$-th SMSs when $i$-th iteration occurs. After adding control places and  removing original resource places in the net $(N,M_0)$, we obtain a net $(N,M_{0V_i})=(P^0\cup P_S\cup\Phi_i,T,F_{V_i},W_{V_i})$, called $i$-th controller net. Finally we integrate $\Phi_i$ added from every step into the original net $(N,M_0)$, $\Phi=\sum_{i=1}^n\Phi_i$ (n denotes final iteration times), $F_V=\sum_{i=1}^n F_{V_i}$ and $W_V=\sum_{i=1}^n W_{V_i}$, the controlled net $(N,M_{0V})=(P^0\cup P_S\cup P_R\cup\Phi,T,F_{V},W_{V})$ is obtained.
+%\end{definition}
+
+
+
+%\begin{theorem}
+%$\rm{S^3PR}$ is first controlled and obtains net $(N_{OV1},M_{OV1})=(\lbrace p^0\rbrace\cup P_S\cup P_R\cup\lbrace\Phi_1\rbrace,T,F_V,W_V)$. Siphon $S$ don't need to add control places if $S$ satisfy:$|S^R|\cap|\Phi_1|\geq3$ in $(N_{OV1},M_{0V1})$.
+%\end{theorem}
+
+
+%\begin{theorem}
+%Let $\Pi_l$ are the sets of SMSs in a marked $\rm{S^3PR}$ $(N,M_0)$. Every time iteration just need to contain control places as new resource places.\\
+%\end{theorem}
+
+
+
+There exist three SMSs in Fig. 1: $S_{01}=\lbrace p_3,p_8$, $p_{11}, p_{12},p_{13}\rbrace$, $S_{02}=\lbrace p_3,p_6,p_{10},p_{13}$, $p_{14}\rbrace$, and $S_{03}=\lbrace p_3,p_6,p_{11},p_{12},p_{13}$, $p_{14}\rbrace$. We have $\Pi_{0}=\lbrace S_{01},S_{02},S_{03}\rbrace$, $[S_{01}]=\lbrace p_2,p_{10}\rbrace$, $[S_{02}]=\lbrace p_8,p_9\rbrace$, and $[S_{03}]=\lbrace p_2,p_8,p_9,p_{10}\rbrace$.
+
+
+\begin{figure}[h]
+	
+	\centering
+	\includegraphics[scale=0.5]{16p12tWithout}
+	\caption{A marked $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})$. }
+\end{figure}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Control places for an $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})$ shown in Fig. 1}
+	\begin{tabular}{|c|c|c|c|}
+		
+		\hline
+		$V_S$  &preset &postset& $M_{0V}(V_{1i})$\\
+		\hline
+		$V_{01}$ &  $t_2,t_{11}$ &  $t_1,t_{10}$ & 3  \\
+		\hline
+		$V_{02}$ & $t_{10}$ & $t_8$ & 3\\
+		\hline
+		$V_{03}$ & $t_2,t_{11}$ & $t_1,t_8$ & 5\\
+		\hline
+		
+	\end{tabular}
+\end{table}
+
+According to Proposition 1 and Theorem 1, control places are added for $S_{01},S_{02}$, and $S_{03}$ as shown in Table
+1. A $1$-order controlled net $(N_{V_1},M_{0V_1})=(P^0\cup P_S\cup \Phi_1,T,F_{P_1}\cup F_{P_2}\cup F_{V_1})$ is obtained, where $\Phi_1=\lbrace V_{01},V_{02},V_{03}\rbrace$. Since there is no new SMS, a first-controlled net $(N_V,M_{0V})$ is obtained, where $(N_V,M_{0V})=(P^0\cup P_S\cup P_R\cup \Phi_1,T,F\cup F_{V_1})$. It is verified that the net is live and maximally permissive. For some nets, the redundancy problem of control places may arise in the process of computation. The two following properties in the $i$-order controlled net are found, which are useful to reduce unnecessary computation.
+
+
+		\begin{property}
+			Let $S_1$, $S_2$, and $S_3$ be three SMSs in $(N_{V_i},M_{0V_i})$, where $i\ge0$. If $[S_3]=[S_1]\cup[S_2]$, $M_{0V_{i}}(S_3)-1=M_{0V_{i}}(S_1)-1+M_{0V_{i}}(S_2)-1$, and $S_1$ and $S_2$ are controlled by Proposition 1 and Theorem 1, then $S_3$ is always marked at any reachable marking in $(N_{V_i},M_{0V_i})$. 
+		\end{property}
+		
+		
+		
+		\begin{proof}
+			If $S_1$ and $S_2$ are controlled by Proposition 1 and Theorem 1, then we have $M_{0V_i}(V_{S_1})=M_{0V_{i}}(S_1)-1$ and $M_{0V_i}(V_{S_2})=M_{0V_{i}}(S_2)-1$. Since $[S_3]=[S_1]\cup[S_2]$ and $M_{0V_{i}}(S_3)-1=M_{0V_{i}}(S_1)-1+M_{0V_{i}}(S_2)-1$, we have $M([S_3])=M([S_1])+M([S_2])$. Note that $[S_1]\cup \lbrace V_{S_1}\rbrace$ is the support of a P-semiflow in $(N_{V_i},M_{0V_i})$, $\forall M\in R(N_{V_i},M_{0V_i})$, we have $M(V_{S_1})+M([S_1])=M_{0V_i}(V_{S_1})$. By $M(V_{S_1})\geq0$, we have $M([S_1])\leq M_{0V_i}(V_{S_1})$. Similarly, $M([S_2])\leq M_{0V_i}(V_{S_2})$ holds. Therefore, $M([S_3])\leq M_{0V_i}(V_{S_1})+M_{0V_i}(V_{S_2})=M_{0V_{i}}(S_1)-1+M_{0V_{i}}(S_2)-1=M_{0V_{i}}(S_3)-1$. We conclude that $S_3$ is always marked at any reachable marking $M$.	
+\end{proof}
+
+
+   
+
+\begin{definition}
+	Let $P_R$ be the set of resource places in $(N_{V_0},M_{0V_0})$ and $S$ be an SMS in an $i$-order controlled net $ (N_{V_i},M_{0V_i})$. $S_\beta$ is called the storer of $S$ in $(N_{V_0},M_{0V_0})$ if $S_\beta=S^S\cup P_{SR}$, where $P_{SR}=\bigcup_{p\in S^S}p^{\bullet\bullet}\cap P_R$.
+\end{definition}
+
+
+\begin{property}\label{marking}
+	Let $S$ be an SMS in a net system $(N_{V_i},M_{0V_i})$ and $S_\beta$ be the storer of $S$ in $(N_{V_0},M_{0V_0})$, where $i\ge1$. If $M_{0V_i}(S)\ge M_{0V_0}(S_\beta)+1$, then for all $M\in R(N_{V},M_{0V})$, $M(S)\textgreater0$.
+\end{property}
+
+
+\begin{proof}
+		A first-controlled net $(N_{V},M_{0V})$ is synthesized by all added control places with their corresponding arcs to $(N,M_{0})$. In other words, we have $S$ and $S_\beta$ in $(N_{V},M_{0V})$, where $M_{0V}(S)=M_{0V_i}(S)$ and $M_{0V}(S_\beta)=M_{0V_0}(S_\beta)$. Since $S=S^S\cup S^R$ and $S_\beta=S^S\cup P_{SR}$ by Definition 11, for all $ M\in R(N_{V},M_{0V})$, we have \begin{equation}\label{key}
+		M(S^S)+M(S^R)=M_{0V}(S),
+		\end{equation} and \begin{equation}\label{key}
+		M(S^S)+M(P_{SR})=M_{0V}(S_\beta).
+		\end{equation} Thus $M(S^R)-M(P_{SR})=M_{0V}(S)-M_{0V}(S_\beta)$ is obtained by (3) minus (4). If $M_{0V_i}(S)\ge M_{0V_0}(S_\beta)+1$, it means $M_{0V}(S)\ge M_{0V}(S_\beta)+1$, then $M(S^R)-M(P_{SR})\ge1$. Since $M(P_{SR})\ge0$, $M(S^R)\ge1\textgreater0$, $M(S)\textgreater0$.
+\end{proof}
+
+To a certain extent, the computation process can be simplified according to Properties 1 or 2. Let $\Pi_{F_i}=\Pi_i-\Pi_{C_i}$, where $\Pi_{C_i}$ is a set of siphons in $\Pi_i$ that do not need to be explicitly controlled.
+ At each iteration, control places are only added for the siphons in $\Pi_{F_i}$.
+
+\begin{figure}[htbp]
+	
+	\centering
+	\includegraphics[scale=0.5]{16p12t}
+	\caption{A marked $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})$.}
+\end{figure}
+
+
+For a marked $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})$ as shown in Fig. 2, $\Pi_{0}=\lbrace S_{01},S_{02},S_{03},S_{04}\rbrace$, where $S_{01}$=$\lbrace p_5,p_{11},p_{12},p_{13},p_{14},p_{15},p_{16}\rbrace$, $S_{02}$=$\lbrace p_5$, $p_{10},p_{13},p_{14},p_{15},p_{16}\rbrace$, $S_{03}=\lbrace p_5,p_9,p_{14},p_{16}\rbrace$, and $S_{04}=\lbrace p_3,p_{11},p_{12},p_{13}\rbrace$. Their complementary sets are $[S_{01}]=\lbrace p_2,p_3,p_4$, $p_6,p_8,p_9,p_{10}\rbrace$, $[S_{02}]=\lbrace p_3,p_4,p_6,p_8,p_9\rbrace$, $[S_{03}]=\lbrace p_6,p_8\rbrace$, and $[S_{04}]=\lbrace p_2,p_{10}\rbrace$, respectively. Since $[S_{01}]=[S_{02}]\cup[S_{04}]$, and $M_0(S^R_{01})-1=M_0(S^R_{02})-1+M_0(S^R_{04})-1=5$, $S_{01}$ is implicitly controlled by Property 1. Then we have $\Pi_{F_0}=\lbrace S_{02},S_{03},S_{04}\rbrace$.
+
+
+%$S_{12}$, $S_{13}$ and $S_{14}$ need to be controlled.
+
+After adding three control places for each siphon in $\Pi_{F_0}$ as shown in Table 2, we have $\Phi_1=\lbrace V_{02},V_{03},V_{04}\rbrace$. The 1-order controlled net $(N_{V_1},M_{0V_1})$ is obtained in Fig. 3. Let us continue to compute SMSs. There exists one siphon $S_{11}=\lbrace p_3,p_4,p_6,p_{10},V_{02},V_{03}\rbrace$ in $\Pi_{1}$, and a storer $S_\beta=\lbrace p_3,p_4,p_6,p_{10},p_{13},p_{14},p_{15}\rbrace$ is found in $(N_{V_0},M_{V_0})$, where $S^S=\lbrace p_3,p_4,p_6,p_{10}\rbrace$ and $P_{SR}=\lbrace p_{13},p_{14},p_{15}\rbrace$. Since $M_{0V_1}(S_{11})=5\textgreater M_{0V_0}(S_\beta)+1=4$, $S_{11}$ can be marked at any reachable marking after a first-controlled net is synthesized according to Property 2. We can conclude that no SMS is generated in this iteration since $S_{11}$ does not need to be explicitly controlled. 
+
+\begin{table}[htbp]
+	\centering
+	\caption{Adding a control place for each SMS}
+	\begin{tabular}{|c|c|c|c|}
+		
+		\hline
+		control places & $M_{0V}(V_{0i}),i=2,3,4$ &preset &postset\\
+		\hline
+		$V_{02}$& 2  &  $t_2,t_{11}$ &  $t_1,t_{10}$  \\
+		\hline
+		$V_{03}$& 3 & $t_4,t_7,t_{10}$ & $t_2,t_8$ \\
+		\hline
+		$V_{04}$& 1 & $t_7,t_9$ & $t_6,t_8$ \\
+		\hline
+		
+	\end{tabular}
+\end{table}
+
+
+\begin{figure}[htbp]
+	
+	\centering
+	\includegraphics[scale=0.5]{16p12tfir}
+	\caption{The 1-order controlled net $(N_{V_1},M_{0V_1})$.}
+\end{figure}
+
+
+Therefore, the first stage is finished. $V_{02}$, $V_{03}$, and $V_{04}$ with their corresponding arcs are integrated into the net $(N_{V_0},M_{V_0})$ and a first-controlled net $(N_V,M_{0V})$ is obtained. By using the approach of controlling unmarked siphons from Proposition 1 and Theorem 1 in an iterative way, the net is still not live. A way to figure it out is explained in the next section.
+%Therefore, $\Pi_{0}=\lbrace S_{02},S_{03},S_{04}\rbrace$.
+
+
+
+%$M_0([S_{1}])=4\textless M_{0V_1}([S_{21}])$.
+%But this net is still not live. Since the approach of controlling emptied siphons from proposition 1, it will produce the interaction among the control places that we added in each step and original resource places in $(N,M_0)$. So the net still exists emptied siphons.
+
+%\begin{proposition}\cite{ZH11}
+%	Let $S$ be an SMS in a $\rm{S^4R}$ net $(N_{\mu0},M_{\mu0})$ and $K_S=\lbrace p|k_s(p)\neq0\notin\|Th_S\|\rbrace$, where $N_{\mu0}=(P^0\cup P_S\cup P_R,T,F_{\mu0},W_{\mu0})$. A monitor $V_S$ is added to $(N_{\mu0},M_{\mu0})$ by imposing that $g_S$ is a $P$-invariant of the resulting net system $(N_{\mu1},M_{\mu1})$, where $N_{\mu1}=(P^0\cup P_S\cup P_R \cup\lbrace V_s\rbrace,T,F_{\mu1},W_{\mu1})$; $\forall p\in P^0\cup P_S \cup P_R$, $M_{\mu1}(p)=M_{\mu0}(p)$. $S$ is $max^{'}$-controlled if one of the following condition holds:
+%	$g_S=k_S+V_S$, $f_S=\Sigma_{r\in S^R}I_r-g_S$, $M_{\mu1}(V_S)=M_{\mu0}(S)-\xi_S)$ and $\xi_S\textgreater M_S^upper$.
+%\end{proposition}
+
+
+
+
+
+
+
+%\begin{definition}\cite{ZH11}
+	%Let $S$ be a siphon in a well-marked $\rm{S^4R}$ $(N,M_0)$. $S$ is said to be max'-marked at marking $M\in R(N,M_0)$ if $\exists r\in S^R$ such that $M(p)\geq1$ or $\exists r\in S^R$ such that $M(r)\geq max_{t\in(r^\bullet\cap[S]^\bullet)}\lbrace W(r,t)\rbrace$.
+%\end{definition}
+
+
+%\begin{definition}\cite{ZH11}
+	%Let $S$ be a siphon in a well-marked $\rm{S^4R}$ $(N,M_0)$. $S$ is said to be max'-controlled if $S$ is max'-marked at any reachable marking, $i.e.$, $\forall M\in R(N,M_0)$,  $\exists r\in S^R$ such that $M(p)\geq1$ or $\exists r\in S^R$ such that $M(r)\geq max_{t\in(r^\bullet\cap[S]^\bullet)}\lbrace W(r,t)\rbrace$.
+%\end{definition}
+
+
+%\begin{definition}\cite{ZH11}
+	%Let $S$ be an SMS in a well-marked $\rm{S^4R}$ $(N,M_0)$. $M^{upper}_S= max\lbrace M(S^R)|M\in I_H(N,M_0)$, $M(S^A)=0$, $\forall r\in S^R$, $M(r)\textless max_{t\in(r^\bullet\cap|S|^\bullet)}{W(r,t)}\rbrace$ is called the potential non-max'-controlled upper bound of $S$.
+%\end{definition}
+
+%\begin{theorem}\cite{ZH11}
+	%Let $(N,M_0)$ be a well-marked $\rm{S^4R}$. It is live if every siphon is max'-controlled.
+%\end{theorem}
+
+
+
+%\begin{definition}\cite{LI07}
+	%Let $S$ be a SMS in a $\rm{S^4R}$ net $(N_{\mu0},M_{\mu0})$, where $N_{\mu0}=\circ^n_{i=1}N_i=(P^0\cup P^S\cup P^R,T,F_{\mu0},W_{\mu0})$. Let $\lbrace\alpha,\beta,\dots,\gamma\rbrace\subseteq I_n$ such that $\forall i\in\lbrace\alpha,\beta,\dots,\gamma\rbrace$, $Th(S)\cap P_{S_i}\ne\emptyset$ and $\forall j\in I_n\setminus\lbrace\alpha,\beta,\dots,\gamma\rbrace$, $Th(S)\cap P_{S_j}=\emptyset$. A simple path from $x_1$ to $x_n$ is a
+	%path whose nodes are all different, which is denoted by
+	%$SP(x_1, x_n)$. For $S$, a non-negative $P$-vector $k_s$ is constructed as follows:
+	
+	%Step 1. $\forall p\in P_S\cup P^0\cup P_R$, $k_s(p):=0$.
+	
+%	Step 2. $\forall p\in Th(S)$, $k_s(p):=Th_s(p)$, where $Th(S)=\sum_{p\in Th(S)}Th_S(p)p$.
+	
+%	Step 3. $\forall i\in\lbrace\alpha,\beta,\dots,\gamma\rbrace$, let $p_s\in Th(S)\cap P_{S_i}$ be such a place that $\forall p_t\in SP(p_\mu,p_{0i})$, $p_\mu\in p_s^{\bullet\bullet}$, $p_t\notin Th(S)$.We assume that there are $m$ such places, $p^1_s,p^2_s,\dots,p^m_s$. Certainly, we have $\lbrace p^i_s|i=1,2,\dots,m\rbrace\subseteq Th(S)\cap P_{S_i}$. $\forall p^i_s$, let $p_v\in SP(p_{0i},p^i_s)$ be such a place that $Th_S(p_v)\ge Th_s(p_w)$, $\forall p_w\in SP(p_{0i},p^i_s)$. $\forall p_v$, $\forall p_x\in SP(p_{0i,pv})$, $k_S(p_x):=Th_S(p_v)$. $\forall p_y\in\cap^m_{i=1}SP(p_{0i},p^i_s)$, $k_S(p_y):=Th_S(p^i_z)$, where $p^i_z\in Th(S)\cap P_{S_i}$, $\nexists p\in Th(S)\cap P_{S_i}$, $Th_S(p)\textgreater Th_S(p^i_z)$.
+%\end{definition}
+
+%\begin{proposition}\cite{LI07}
+%	Let $S$ be a strict minimal siphon in a marked $\rm{S^4R}$ net $(N_{\mu0},M_{\mu0})$, where $N_{\mu0}=(P^0\cup P_S\cup P_R,T,F,W)$. Construct $k_S$ for $S$ via Definition 13. A monitor $V_S$ is added to $(N_{\mu0},M_{\mu0})$ by imposing that $g_S=k_S+V_S$ be a $P$-invariant of the resultant net system $(N_{\mu1},M_{\mu1})$, where $N_{\mu1}=(P^0\cup P_S\cup P_R\cup\lbrace V_S\rbrace,T,F_{\mu1},W_{\mu1})$; $\forall p\in P^0\cup P_S\cup P_R$, $M_{\mu1}(p)=M_{\mu0}(p)$. Let $h_S=\sum_{r\in S_R}I_r-g_S$ and $M_{\mu1}(V_S)=M_{\mu0}(S)-\xi_S(\xi_S\in N^+)$. Then $S$ is max-controlled if $\xi_S\textgreater\sum_{p\in S}h_S(p)(max_{p^\bullet}-1)$.
+%\end{proposition}
+
+
+
+
+
+
+%\begin{proposition}\cite{ZH11}
+%	Let $S$ be an SMS in a $\rm{S^4R}$ net $(N_{\mu0},M_{\mu0})$ and $K_S=\lbrace p|k_s(p)\neq0\notin\|Th_S\|\rbrace$, where $N_{\mu0}=(P^0\cup P_S\cup P_R,T,F_{\mu0},W_{\mu0})$. A monitor $V_S$ is added to $(N_{\mu0},M_{\mu0})$ by imposing that $g_S$ is a $P$-invariant of the resulting net system $(N_{\mu1},M_{\mu1})$, where $N_{\mu1}=(P^0\cup P_S\cup P_R \cup\lbrace V_s\rbrace,T,F_{\mu1},W_{\mu1})$; $\forall p\in P^0\cup P_S \cup P_R$, $M_{\mu1}(p)=M_{\mu0}(p)$. $S$ is $max^{'}$-controlled if one of the following condition holds:
+%	$g_S=k_S+V_S$, $f_S=\Sigma_{r\in S^R}I_r-g_S$, $M_{\mu1}(V_S)=M_{\mu0}(S)-\xi_S)$ and $\xi_S\textgreater M_S^upper$.
+%\end{proposition}
+
+%Proposition 2 provides one approach to design monitor for a siphon in a $\rm{S^4R}$. $\xi$ is called the control depth variable. If it gets more bigger, then the result of a constrain gets more tighter. For flexibility of systems, we usually assgin a minimal number to it. In this paper, we define $\xi$ as one.
+
+
+
+%According to the Definition 12, $M^{upper}_S$ is called the potential non-max'-controlled upper bound of $S$, which means a upper bound of the maximum number of remaining tokens in SMSs after tokens flows into the conlementary set of SMSs as much as possible. SMSs could be emptied in $\rm{S^3PR}$, so $M^{upper}_S=0$, then $\xi_S\textgreater M_S^{upper}$  could be satisfied when we let $\xi_S=1$.
+
+
+\section{Non-max-marked siphons control}
+
+
+For some $\rm{S^3PR}$ nets such as the one shown in Fig. 1, optimal Petri net supervisors can be obtained by only integrating all control places in the first stage.
+While others like the net in Fig. 2, they are not live after controlling all SMSs. Nevertheless, all of them are converted to $\rm{S^4PR}$ nets after the first stage, since there exists a place in $P_S$ possesses two or more resources in $P_R$ and $\Phi$ at the same time. In $\rm{S^3PR}$ nets, deadlocks can be prevented by making all SMSs marked. Comparing with $\rm{S^3PR}$ nets, deadlocks can occur even if all SMSs are marked in $\rm{S^4PR}$ nets. Hence, this section introduces the concept of non-max-controlled siphons, and we need to detect whether there exist non-max-marked siphons in the net by solving MILP problems. In what follows, Definitions 12-14 and Theorem 3 are from \cite{ZH09}. In the sequel, for a given place $p$, we denote $max_{t\in p^\bullet}\lbrace W(p,t)\rbrace$ by $max_{p^\bullet}$. Since $(N_V,M_{0V})$ is a marked $\rm{S^4PR}$ after the siphons control stage, $(N_V,M_{0V})$ can be updated as $N_V=(P,T,F_V,W_V)$, where $W_V(f)=1$ if for all $f$ in $F_V$.
+
+\begin{definition}
+	Let $(N_V,M_{0V})$ be a marked $\rm{S^4PR}$ net and $S$ be a siphon of $N_V$. $S$ is said to be max-marked at a marking $M\in R(N_V,M_{0V})$ if there exists a place $p\in S$ such that $M(p)\ge max_{p^\bullet}$.
+\end{definition}
+
+
+\begin{definition}
+	Let $(N_V,M_{0V})$ be a marked $\rm{S^4PR}$ net and $S$ be a siphon of $N_V$. $S$ is said to be max-controlled if $S$ is max-marked at any reachable marking.
+\end{definition}
+
+
+\begin{definition}
+	An $\rm{S^4PR}$ net $(N_V,M_{0V})$ is said to satisfy the max-cs property (controlled-siphon property) if each minimal siphon of $N_V$ is max-controlled.
+\end{definition}
+
+\begin{theorem}
+	Let $(N_V,M_{0V})$ be a marked $\rm{S^4PR}$ net. It is live if it satisfies max-cs property.
+\end{theorem}
+
+\begin{lemma}\cite{BAR96}
+	Let $(N_V,M_{0V})$ be a marked $\rm{S^4R}$ net and $S$ be a siphon of $N_V$. $S$ is max-controlled if there exists a P-invariant $I$ such that $\forall p\in(||I||^-\cap S)$, $max_{p^\bullet}=1$, $||I||^+\subseteq S$, $\sum_{p\in P}I(p)M_{0V}(p)\textgreater\sum_{p\in S}I(p)(max_{p^\bullet}-1)$.
+\end{lemma}
+%\begin{definition}\cite{LI07}
+%	Let $S$ be a SMS in a marked $\rm{S^4R}$ net $(N,M_{0V})$, where $(N,M_{0V})=(P^0\cup P_S\cup P_R\cup\Phi,T,F_{V},W_{V})$. Let $\lbrace\alpha,\beta,\dots,\gamma\rbrace\subseteq I_n$ such that $\forall i\in\lbrace\alpha,\beta,\dots,\gamma\rbrace$, $Th(S)\cap P_{S_i}\ne\emptyset$ and $\forall j\in I_n\setminus\lbrace\alpha,\beta,\dots,\gamma\rbrace$, $Th(S)\cap P_{S_j}=\emptyset$. A simple path from $x_1$ to $x_n$ is a
+%	path whose nodes are all different, which is denoted by
+%	$SP(x_1, x_n)$. For $S$, a non-negative $P$-vector $k_s$ is constructed as follows:
+	
+%	\begin{itemize}
+%		\item 	$\forall p\in P_S\cup P^0\cup P_R\cup\Phi$, $k_s(p):=0$.
+%		\item   $\forall p\in Th(S)$, $k_s(p):=Th_s(p)$, where $Th(S)=\sum_{p\in Th(S)}Th_S(p)p$.
+%		\item 	$\forall i\in\lbrace\alpha,\beta,\dots,\gamma\rbrace$, let $p_s\in Th(S)\cap P_{S_i}$ be such a place that $\forall p_t\in SP(p_0,p_{i})$, $p_0\in p_s^{\bullet\bullet}$, $p_t\notin Th(S)$.We assume that there are $m$ such places, $p^1_s,p^2_s,\dots,p^m_s$. Certainly, we have $\lbrace p^i_s|i=1,2,\dots,m\rbrace\subseteq Th(S)\cap P_{S_i}$. $\forall p^i_s$, let $p_v\in SP(p_{i},p^i_s)$ be such a place that $Th_S(p_v)\ge Th_s(p_w)$, $\forall p_w\in SP(p_{i},p^i_s)$. $\forall p_v$, $\forall p_x\in SP(p_{i,pv})$, $k_S(p_x):=Th_S(p_v)$. $\forall p_y\in\cap^m_{i=1}SP(p_{0i},p^i_s)$, $k_S(p_y):=Th_S(p^i_z)$, where $p^i_z\in Th(S)\cap P_{S_i}$, $\nexists p\in Th(S)\cap P_{S_i}$, $Th_S(p)\textgreater Th_S(p^i_z)$.
+%	\end{itemize}
+	
+%\end{definition}
+
+
+%\begin{proposition}
+	%Let $S$ be an SMS in a marked $\rm{S^4PR}$ net $(N_V,M_{0V})$, where $(N_V,M_{0V})=(P^0\cup P_S\cup P_R\cup\Phi,T,F_{V},W_{V})$. $Th(S)$ is the complementary sets of SMSs. $V_S$ is constructed as follows: $V_S^\bullet=^\bullet Th(S)$, $^\bullet V_S=Th(S)^\bullet$. $M_{0V'}(V_S)=M_{0V}(S)-\xi_S$, where $1\le\xi_S\le\sum_{ p\in S^R}M_{0V}(p)-1$.
+	
+%\end{proposition}
+
+%Proposition 2 provides one approach to design monitor for a siphon in an $\rm{S^4PR}$. $\xi$ is called the control depth variable. If it gets bigger, then the result of a constrain gets tighter. For flexibility of systems, we usually assgin a minimal number to it.
+
+%\begin{theorem}
+%	Let $S$ be an SMS in a marked $\rm{S^4PR}$ net. For any $S$, it cannot be emptied by means of the monitor constructed by Definition 14.
+%\end{theorem}
+
+%\begin{proof}
+%	Similar to that of Theorem 1.
+%\end{proof}
+
+
+
+\begin{definition}
+	Let $(N_V,M_{0V})$ be a marked $\rm{S^4PR}$.  $(N_{V'},M_{0V'})=(P\cup\lbrace V_{n}\rbrace,T,F_{V'},W_{V'})$ is said to be the final-augmented net of $(N_V,M_{0V})$ if:
+	\begin{enumerate}
+		\item $V_{n}$ is a control place for a non-max-marked siphon $S$.
+		\item $F_{V'}=F_V\cup F_{V_{{n_1}}}\cup F_{V_{{n_2}}}$, where $F_{V_{{n_1}}}=\lbrace(V_{n},t)|t\in $$^\bullet Th(S)\rbrace$ and $F_{V_{{n_2}}}=\lbrace(t,V_{n})|t\in Th(S)$$^\bullet\rbrace$.
+		\item $W_{V'}: F_{V'}\rightarrow\mathbb{N}^+$ is a mapping that assigns a weight to any arc in $F_{V'}$.
+		\item $\forall p\in P\cup\lbrace V_{n}\rbrace$, $M_{0V'}(p)=M_{0V}(p)$, and $M_{0V'}(V_{n})=M_{0V}({S})-\xi_{S_n}$ $(\xi_{S_n}\in\mathbb{N}^+)$.
+	\end{enumerate}
+\end{definition}
+
+
+\begin{proposition}
+	Let $S$ be an SMS in a marked $\rm{S^4PR}$ net $(N_V,M_{0V})$. A control place $V_{n}$ is added to $(N_V,M_{0V})$ by imposing that $g_{S}=Th({S})+V_{n}$ is a P-invariant of the final-augmented net $(N_{V'},M_{0V'})$. Let $h_{S}=\sum_{r\in S^R}I_r-g_{S}$ and $M_{0V'}(V_{n})=M_{0V}({S})-\xi_{S_n}$. ${S}$ is max-controlled if $\xi_{S_n}\textgreater\sum_{p\in {S}}h_{S}(p)(max_{p^\bullet}-1)$.
+\end{proposition}
+
+\begin{proof}
+	Since $g_{S}$ and $\sum_{r\in S^R}I_r$ are P-invariants of $N_{V'}$, $h_{S}=\sum_{p\in S}h_{S}(p)p-\sum_{p\in Th(S)}Th_{S}(p)p-V_{n}$ is also a P-invariants of $N_{V'}$. $Th(S)\subseteq P_S$, $\forall p\in Th(S)$, $M_{0V'}(p)=M_{0V}(p)=0$.
+	
+	$\sum_{p\in (P\cup\lbrace V_{n}\rbrace)}h_{S}(p)M_{0V'}(p)$ $=\sum_{p\in S}h_{S}(p)M_{0V'}(p)-\sum_{p\in Th(S)}Th_{S}(p)M_{0V'}(p)-M_{0V'}(V_S)$
+	
+	$\ge M_{0V}(S)-\sum_{p\in Th(S)}Th_{S}(p)M_{0V}(p)-M_{0V'}(V_S)$
+	
+	$=M_{0V}(S)-(M_{0V}(S)-\xi_{S_n})$
+	
+	$=\xi_{S_n}\textgreater\sum_{p\in S}h_{S}(p)(max_{p^\bullet}-1)$.
+	
+	Otherwise, $h_{S}=\sum_{r\in S^R}I_r-g_{S}$ so that $||h_{S}||^-\cap S=\emptyset$ and $||h_{S}||^+=S$. Therefore, $S$ is max-controlled from Lemma 1.
+\end{proof}
+
+
+As for $\xi_{S_n}$, it has the same function as $\xi_S$ in the siphons control. For more permissive behavior in a final-augmented net, $\xi_{S_n}$ is expected to be minimal under the constraint condition in Proposition 2. When $p\in P_S$, $max_{p^\bullet}-1=0$. Therefore, $\xi_{S_n}\textgreater\sum_{p\in S}h_{S}(p)$ $(max_{p^\bullet}-1)=\sum_{p\in S^R}(max_{p^\bullet}-1)$. Let $\xi_{S_n}=\sum_{p\in S^R}(max_{p^\bullet}-1)+1$ be a minimum value to ensure that $S$ is max-controlled.
+
+
+The control policy in this stage is called non-max-marked siphons control. For a first-controlled net $(N_V,M_{0V})$, a non-max-marked siphon is computed by solving an MILP problem. Then, a control place is added by Proposition 2 to the net, which makes the siphon max-controlled. Repeat the above two steps until no non-max-marked siphon can be found in a final-augmented net $(N_{V'},M_{0V'})$. As a result, each siphon is max-controlled, which means that the net is live because it satisfies the max cs-property. It is worth noting that a supervisor can be obtained without computing all siphons by this stage.
+
+
+
+The method of determining whether there is a non-max-marked siphon in $(N_V,M_{0V})$ by solving an MILP problem is shown below $\cite{ZH09}$:
+\begin{equation}
+\begin{split}
+{\bf min}\quad &z =\textbf{1}^Ts\\
+{\bf s.t}\quad&K_1Pre^Ts\geq Post^Ts\\
+&X^TM=k \\
+&K_2s+M-L\leq K_2\textbf{1}\\
+&\textbf{1}^Ts\geq2\\
+\end{split}
+\end{equation}
+where $s\in\lbrace0,1\rbrace^m$, $M\in R(N_V,M_{0V})$, $Pre:$ $P\times T\rightarrow\mathbb{N}$, $Post:$ $P\times T\rightarrow\mathbb{N}$, and $k=X^TM_{0V}$. Here the three constants $K_1$, $K_2$ and $L$ are defined as $K_1=max\lbrace\textbf{1}^TPost(\bullet,t)|t\in T\rbrace$, $K_2=max\lbrace M(p)|p\in P,M\in R(N_V,M_{0V})\rbrace$ and $L(i)=max_{p^\bullet_i}-1(i\in I_m,p_i\in P)$.
+
+The first constraint ensures that $s$ is the characteristic
+vector of a siphon $S$. Let $X$ be a matrix where each column is a P-semiflow of $(N_V,M_{0V})$, and the set of invariant markings is denoted by $I_X(N_V,M_{0V})=\lbrace M\in\mathbb{N}^{|P|}|X^TM=X^TM_0\rbrace$. The second equation ensures that $M$ belongs to the set $I_X(N_V,M_{0V})$. The third guarantees that for all $p_i\in P$, $K_2s(i)+M(p_i)-L(i)\leq K_2$ holds. The last one ensures that there are at least two places in a siphon. The objective function ensures that only non-max-marked siphons are computed.
+
+
+\begin{theorem}\cite{ZH09}
+	Let $(N_V,M_{0V})$ be a marked Petri net. A siphon $S$ in $(N_V,M_{0V})$ is a non-max-marked siphon if its characteristic vector $s$ satisfies $(5)$.
+\end{theorem}
+
+
+For the net $(N_{V_0},M_{0V_0})$ as shown in Fig. 2, $(N_V,M_{0V})$ is obtained as shown in Fig. $\ref{16p12tALL}$ after the siphons control stage. We decide whether there exists a non-max-marked siphon in $(N_V,M_{0V})$ by solving an MILP problem $(5)$.
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.5]{16p12tALL}
+	\caption{The first-controlled net $(N_V,M_{0V})$.}
+	\label{16p12tALL}
+\end{figure}
+
+
+Let $s^T=[x_1,x_2,...,x_{19}]$ and $M^T=[y_1,y_2,...,y_{19}]$, where $x_i=\lbrace0,1\rbrace$ and $y_i\geq0$ for $i=1,2,...,19$.
+Then, $M_{0V}^T = [10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 2, 1, 1, 1, 2, 3]$.
+ $k=X^TM_{0V}=[10, 2, 1, 1, 1, 1, 2, 3, 10, 1]^T$, $K_1 = 4$, $K_2 = 10$ and $L^T = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]$, respectively. They lead to the following MILP problem:
+
+\noindent min $x_1 + x_2 + \dots + x_{18}+x_{19}$
+
+\noindent subject to\\
+$4x_1 + 4x_{12} + 4x_{17} \geq x_2$\\
+$4x_2 + 4x_{13} + 4x_{18} \geq x_3 + x_{12} + x_{17}$\\
+$4x_3 + 4x_{15} \geq x_4 + x_{13}$ \\
+$4x_4 + 4x_{16} \ge x_5+ x_{15} +x_{18}$\\
+$4x_5\ge x_1+x_{17}$\\
+$4x_3+4x_{14}+4x_{19}\ge x_6+x_{13}$\\
+$4x_6+4x_{16}\ge x_5+x_{14}+x_{18}+x_{19}$\\
+$4x_7+4x_{16}+4x_{18}+4x_{19}\ge x_8$\\
+$4x_8+4x_{14}\ge x_9+x_{16}+x_{19}$\\
+$4x_9 + 4x_{13} + 4x_{17} \geq x_{10} + x_{14} + x_{18}$ \\
+$4x_{10} + 4x_{12} \geq x_{11} + x_{13} + x_{17} $\\
+$4x_{11} \geq x_7 + x_{12}$ \\
+$y_1 + y_2 + y_3 + y_4 + y_5 + y_6=10$ \\
+$y_7 + y_8 + y_9+ y_{10} + y_{11} =10$ \\
+$y_2 + y_{11} + y_{12}=2$ \\
+$y_3 + y_{10} + y_{13}=1$ \\
+$y_3 + y_4 + y_6+ y_8 + y_9 + y_{18}=3$ \\
+$y_2 + y_{10} + y_{17}= 2$ \\
+$y_6 + y_9 + y_{14}= 1$ \\
+$y_4 + y_{15}= 1$ \\
+$y_5 + y_8 + y_{16}= 1$ \\
+$y_6 + y_8 + y_{19}= 1$ \\
+$10x_i + y_i\leq10 $ $(i=1,2,\dots19)$\\
+$x_1 + x_2 + \dots + x_{18}+ x_{19} \geq 2$
+
+It gives $min(x_1+x_2+...+x_{19}) =6$, where
+$x_5,x_{10},x_{14},x_{16},x_{17}$ and $x_{18}$ are all equal to 1. The corresponding siphon is $S =\lbrace p_5,p_{10},p_{14},p_{16},V_{02},V_{03}\rbrace$. Then, $S$ is max-controlled after adding $V_n$ by Proposition 2. Since $Th(S)=p_2+p_3+p_4+2p_6+2p_8+2p_9$, it is easy to find  $g_{S}=Th(S)+V_{n}=p_2+p_3+p_4+2p_6+2p_8+2p_9+V_n$, and $\xi_{S_n}=\sum_{ p\in {S^R}}(max_{p^\bullet}-1)+1=1$. $M_{0V'}(V_n)=M_{0V}({S})-\xi_{S_n}=3+2+1+1-1=6$. A final-augmented net $(N_{V'},M_{0V'})$ is obtained after adding this control place $V_n$ to $(N_{V},M_{0V})$ due to the fact that no non-max-marked siphon exists in $(N_{V'},M_{0V'})$. As a result, $(N_{V'},M_{0V'})$ with 218 states is maximally permissive.
+
+
+%the latest control places as new resource places in evrey iteration for reducing computational complexity, we aim to compute new emptied SMSs until no empited SMSs exist in an iterative way
+
+
+\section{Deadlock Prevention Policy}
+
+ This section develops a deadlock prevention policy by synthesizing the two above stage for $\rm{S^3PR}$ nets. It is synthesized as follows:
+
+
+%For some nets such as the one in Fig. 1, $(N_{V},M_{0V})$ is live and maximally permissive after controlling in the first stage, because new SMSs are just derived from added control places at final iteration. Siphons control can prevent these siphons from being unmarked.
+%There are other nets such as the one in Fig. 2, $(N_{V},M_{0V})$ is not live after the first stage. Since new SMSs are derived from not only the added control places at the final iteration, but also from the added control places with original resource places. To deal with this case, we bring in non-max-marked siphons control.
+
+
+%The iterative way of regarding newly added control places as resource places, resulting a new net, to compute SMSs is used in the first stage. In the second stage, the synthesized net becomes an $\rm{S^4PR}$ in general and may still not be live. Then we add control places by the concept of max-controlled siphons.
+%Now a deadlock prevention policy algorithm is synthesized as follows:
+
+
+\begin{algorithm}[htbp]
+	\caption{A liveness-enforcing supervisor for an $\rm{S^3PR}$}
+	\label{Algorithm}
+	\LinesNumbered
+	\KwIn{A marked $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})=(P^0\cup P_S\cup P_R,T,F)$.}
+	\KwOut{A final-augmented net $(N_{V'},M_{0V'})=(P\cup \Phi,T,F_{V'},W_{V'})$.}
+	  /*******Stage One: Siphons Control*******/\;
+	
+	  $m:=0$\;
+      Compute $\Pi_m$ in $(N_{V_0},M_{0V_0})$ and 
+      the set of siphons that do not need to be explicitly controlled $\Pi_{C_m}$ by Property 1\;
+      $\Pi_{F_m}=\Pi_m-\Pi_{C_m}$\;
+ \While{($\Pi_{F_m}\neq\emptyset$)
+ }{
+ 	Add a control place $V_{S}$ for each SMS in $\Pi_{F_m}$ by Proposition 1 and Theorem 1\;
+ 	$m++$\;
+ 	$\Phi_m=\lbrace V_S|S\in\Pi_{F_{m-1}}\rbrace$\;
+ 	Let $(N_{V_m},M_{0V_m})=(P^0\cup P_S\cup\Phi_m,T,F_{V_m}\cup F_{P_1}\cup F_{P_2})$\;
+ 	
+ 	Compute $\Pi_m$ in $(N_{V_m},M_{0V_m})$ and $\Pi_{C_m}$ by Properties 1 or 2\;
+ 	$\Pi_{F_m}=\Pi_m-\Pi_{C_m}$\;
+ }
+	$\Phi=\bigcup_{i=1}^m\Phi_i$, $P=P^0\cup P_S\cup P_R\cup\Phi$, $F_V=(\bigcup_{i=1}^m F_{V_i})\cup F$, $\forall f\in F_V, W_V(f)=1$\;
+	 Let $(N_V,M_{0V})=(P,T,F_V,W_V)$\;
+	
+	 /*******Stage Two: Non-max-marked Siphons Control*******/\;
+	 $\Phi=\emptyset$\;
+
+	 Compute a non-max-marked siphon $S$ in $(N_V,M_{0V})$ by solving an MILP problem $(5)$\;
+
+	 \While{there exists such a siphon $S$}
+	 {
+	 	Add a control place $V_{n}$ by Proposition 2\;
+	 	$\Phi:=\Phi\cup\lbrace V_{n}\rbrace$\;
+	 	Let $(N_{V'},M_{0V'})=(P\cup \Phi,T,F_{V'},W_{V'})$\;
+	 		
+	 	 Compute a non-max-marked siphon $S$ in $(N_{V'},M_{0V'})$\;
+	 	
+ }
+       Output $(N_{V'},M_{0V'})$.
+
+\end{algorithm}
+
+Algorithm 1 can synthesize a liveness-enforcing supervisor for an $\rm{S^3PR}$ model $(N_{V_0},M_{0V_0})$ if some conditions are satisfied.
+The first stage is to compute the set of SMSs $\Pi_0$ in $(N_{V_0},M_{0V_0})$ and select the set of uncontrollable SMSs $\Pi_{F_0}$ from $\Pi_0$ by Property 1, and then a control place $V_S$ is added for each SMS in $\Pi_{F_0}$. Reserving newly added control places and removing all resource places produce a 1-order controlled net $(N_{V_1},M_{0V_1})$. Continue to compute SMSs and add control places for them. Repeat the above steps until no SMSs are generated. A first-controlled net $(N_V,M_{0V})$ is obtained by synthesizing all added control places at each iteration into the original net $(N_{V_0},M_{0V_0})$. Next, in the second stage, we check whether $(N_V,M_{0V})$ has a non-max-marked siphon or not. Note that if it has none, the net will be proved to be optimal. Otherwise, a non-max-marked siphon is computed by solving an MILP problem at each iteration. A final-augmented net $(N_{V'},M_{0V'})$ is obtained until no non-max-marked siphon exists.
+
+
+% Due to the way that controlling a siphon from its complementary set, this algorithm can obtain a liveness-enforcing supervisor with more permissive behaviour.
+
+%\begin{algorithm}[htp]
+	%\caption{Liveness-enforcing supervisor synthesis}
+	
+	%\begin{algorithmic}[1]
+	%	\Require
+	%	A marked $\rm{S^3PR}$ $(N,M_0)=(P^0\cup P_S\cup P_R,T,F,W)$
+	%	\Ensure
+	%	The controlled net system $(N_V',M_{0V'})=(P^0\cup P_S\cup P_R\cup\Phi\cup\lbrace V_S\rbrace,T,F_{V'},W_{V'})$
+	%	\State $\Pi_i=\lbrace n|n$ is the number of SMSs $\rbrace$, $i$ denotes iteration times in stage 1;
+		
+	%	\State $i:=1$;
+	%	\State $(N_{V_i},M_{0V_i}):=(N,M_0)$;
+	%	\State compute SMSs in $(N_{V_i},M_{0V_i})$;
+		
+	%	\If {$\Pi_i=\emptyset$}
+	%	\State $\Phi:=\emptyset$;
+	%	\State goto 14;
+		
+	%	\Else
+	%	\State add control places $\Phi_i$ by Proposition 1;
+	%	\State $(N_{V_i},M_{0V_i})=(P^0\cup P_S\cup\Phi_i,T,F_{V_i},W_{V_i})$;
+	%	\State i++;
+	%	\State goto 4;
+		
+	%	\EndIf
+		
+	%	\State $\Phi=\cup^i_{k=1}\Phi_k$;
+	%	\State $(N_V,M_{0V})=\lbrace P^0\cup P_S\cup P^R\cup\Phi,T,F_V,W_V\rbrace$;
+	%	\State $j:=1$, $j$ denotes iteration times in stage 2;
+	%	\State $(N_{V_j'},M_{0V_j'}):=(N_V,M_{0V})$;
+	%	\State compute non-max-marked siphons $S_n$ in $(N_{V_j'},M_{0V_j'})$;
+		
+	%	\If {it exists $S_n$}
+	%	\State add control places by Proposition 2;
+	%	\State $(N_{V_j'},M_{0V_j'})=(P^0\cup P_R\cup P_S\cup\Phi\cup \lbrace V_j\rbrace,T,F_{V_j'},W_{V_j'})$;
+	%	\State $j++$;
+	%	\State goto 18;
+		
+	%	\EndIf
+	%	\State $V_S=\lbrace\cup^j_{l=1}V_j\rbrace$;
+		
+	%	\State output controlled net $(N_V',M_{0V'})$
+		
+		
+%	\end{algorithmic}
+%\end{algorithm}
+
+
+
+
+\begin{theorem}
+	$(N_{V'},M_{0V'})$ is live by Algorithm 1.
+\end{theorem}
+
+\begin{proof}
+	In an $\rm{S^3PR}$, deadlocks stem from the existence of a least one unmarked siphon $S$ ($[S]$ competes resources with $S^S$ and finally holds all resource units). A approach that designs a control place by Proposition 1 and Theorem 1 can prevent $S$ from being unmarked. During the siphons control stage, original resources places are removed and added control places are regarded as new resources places at each iteration. Therefore, the operation places in siphons of $(N_{V_i},M_{0V_i})$ may be contained in the complementary sets of new SMSs of $(N_{V_{i+1}},M_{0V_{i+1}})$. Let $P_{t_i}$ ($i=0,1,\dots,m$) be the subset of operation places in $(N_{V_i},M_{0V_i})$, satisfying\\
+	$P_{t_0}=^{\bullet\bullet}$${(P^0)}\cap P_S$ in $(N_{V_0},M_{0V_0})$,\\
+	$P_{t_1}=^{\bullet\bullet}$${(P_{t_0})}\cap P_S$ in $(N_{V_1},M_{0V_1})$,\\
+	$\dots\dots$\\
+	$P_{t_i}=^{\bullet\bullet}$${(P_{t_{i-1}})}\cap P_S$ in $(N_{V_i},M_{0V_i})$,\\
+	$\dots\dots$\\
+	$P_{t_m}=^{\bullet\bullet}$${(P_{t_{m-1}})}\cap P_S$ in $(N_{V_0},M_{0V_0})$.\\
+	Suppose that $p\in P_{t_i}$ contains at least one token. Then $t\in P_{t_i}^\bullet$ will definitely fire. We conclude that the firing of $t\in P_{t_i}^\bullet$ due to $p\in P_{t_i}$ cannot lead to a deadlock and $p\in P_{t_i}$ is no longer the holder of resources in $(N_{V_{i+1}},M_{0V_{i+1}})$, which means that the places in $ P_{t_i}$ do not compete for resources in $(N_{V_{i+1}},M_{0V_{i+1}})$, and then they cannot be in the complementary sets of new SMSs. Thus, the number of SMSs can decrease after each iteration. The siphons control stage will be terminated. All added control places with their corresponding arcs are synthesized into $(N_{V_0},M_{0V_0})$, resulting in a first-controlled net $(N_V,M_{0V})$. As for the second stage, suppose that there are finite dead states in $(N_{V},M_{0V})$. Once we make a non-max-marked siphon controlled in terms of a control place designed by Proposition 2, some dead states can be removed. Since the number of dead states is limited, by repeating the above steps, if every siphon in $(N_{V'},M_{0V'})$ is max-controlled, the net is live by Theorem 2.
+	%, which means that the number of tokens in $[S]$ cannot exceed a limit, i.e., $M_{0V_i}([S])\leq M_{0V_i}(S)-1$
+	%Let $P_{t_i}$ is the subset of operation places $P_S$ in $(N_{V_i},M_{0V_i})$ if it satisfies the following relationships for $i\in\mathbb{N}$:
+	%$P_{t_0}=^{\bullet\bullet}$${(P^0)}\cap P_S$ in $(N_{V_0},M_{0V_0})$,\\
+	%$P_{t_1}=^{\bullet\bullet}$${(P_{t_0})}\cap P_S$ in $(N_{V_1},M_{0V_1})$,\\
+	% $\dots\dots$,\\
+	%$P_{t_n}=^{\bullet\bullet}$${(P_{t_{n-1}})}\cap P_S$ in %$(N_{V_0},M_{0V_0})$.\\
+	%At each iteration, $P_{t_i}$ is always a holder of resource, which means a place in $P_{t_i}$ can use the resource. Suppose that $P_{t_i}$ contains at least one token, then $P_{t_i}^\bullet$ will definitely fire. For preventing from deadlocks, control places are added for the complementary sets of SMSs by Proposition 1 and Theorem 1. And $P_{t_i}$ does not need to be controlled due to the fact that it cannot lead to a deadlock in any cases. Since that, the net structure of $(N_{V_i},M_{0V_i})$ can continually decrease, and the number of SMSs in $(N_{V_i},M_{0V_i})$ will decrease. Thus, the siphons control will terminate. Then, all added control places with their corresponding arcs are synthesized into $(N_{V_0},M_{0V_0})$, resulting in a first-controlled net $(N_V,M_{0V})$. As for the second stage, suppose that there are finite dead states in $(N_{V},M_{0V})$. When we make a non-max-marked siphon controlled in terms of a control place designed by Proposition 2, some dead states will be removed. Since the number of dead states is limited, repeat the above steps, if every siphon in $(N_{V'},M_{0V'})$ is max-controlled, then the net is live by Theorem 2.
+	%Since an SMS consists of at least one operation place, we conclude that there are some operation places of SMSs do not need to be controlled at each iteration according to the siphons control stage. For instance, $P_{t}=^{\bullet\bullet}$${(P^0)}\cap P_S$ in $(N_{V_0},M_{0V_0})$ is always holder of a resource, which means that a place in $P_{t}$ can use the resource. Suppose that there is at least one token in $P_{t}$, then $t\in P_{t}^\bullet$ is able to fire. Therefore, $P_{t}$ does not need to be controlled due to the fact that it cannot lead to a deadlock in any cases.
+	%With more and more operation places do not need to be controlled, the net structure of $(N_{V_i},M_{0V_i})$ can continually decrease, and the number of SMSs in $(N_{V_i},M_{0V_i})$ will decrease.Thus, the siphons control stage can be terminated.
+\end{proof}
+
+
+\begin{theorem}
+	In Algorithm 1, $(N_{V},M_{0V})$ is optimal if there does not exist no non-max-marked siphon.
+\end{theorem}
+
+\begin{proof}	
+	According to the siphons control stage, we can ensure that each siphon $S$ is optimally controlled through adding control places by Proposition 1 and Theorem 1. If no non-max-marked siphon exists, the non-max-marked siphons control stage is not necessary. As a result, $(N_{V},M_{0V})$ is optimal.
+\end{proof}
+
+
+
+
+	%During the siphons control stage, the set of added control places $\Phi_m$ is regarded as the set of new resource places at each iteration. The SMSs that producing from the added control places are controlled continually until no SMS can be found. 
+	%Let $n$ be the cardinality of $P_R$ and $n_s$ be the number of SMSs in a marked $\rm{S^3PR}$. $\Pi_{0}$ is computed in $(N_{V_0},M_{0V_0})$. Since an unmarked SMS $S$ includes at least two resource places, suppose that $n=k+1$, where $k\ge2$ and $k\in\mathbb{N}^+$. We have $n_s\le n-1=k$. A control place $V_S$ is added for each SMS $S$ in $\Pi_{0}$ by Proposition 1 and Theorem 1. We can say that the number of the control places equals $n_s$. At each iteration, the latest added control places are reserved as new resource places, resulting in a new net to compute SMSs. As for this, we have the following relationships:	
+	%$n_s\le n-1=k$ if $n=k+1$ in $(N_{V_0},M_{0V_0})$;	
+	%$n_s\le k-1$ if $n=k$ in $(N_{V_1},M_{0V_1})$;	
+	%$\dots$	
+	%$n_s\le1$ if $n=2$ in $(N_{V_m},M_{0V_m})$.	
+	%Therefore, we can conclude that the siphons control stage will terminate. 
+
+
+
+
+
+
+
+%If control places for SMSs are added at each iteration as stated by the algorithm, then the final controlled net is live. The following examples in the next chapter are used to explain this algorithm.
+
+%\begin{theorem}
+%	$(N_{V'},M_{0V'})$ is maximally permissive.
+%\end{theorem}
+
+%\begin{proof}
+%	There exist two cases: (1) $(N_{V'},M_{0V'})$ is obtained when $(N_{V},M_{0V})$ does not exist $S_n$ and (2) $(N_{V'},M_{0V'})$ is obtained when $(N_{V},M_{0V})$ exists $S_n$. In case (1), we obtain an optimal supervisor in the first stage. Each control place added by Proposition 1 can constitute a P-invariant with a complementary set of an SMS in an iterative way. It can ensure that the SMS is not emptied while it cannot restrict superfluous behaviors. Hence, an optimal supervisor can be obtained. In case (2), we need to make $S_n$ be max-controlled by Proposition 2 first, it is a way to limit the number of tokens whose removed from the $S_n$ and avoid the system enter dead states.
+	
+%\end{proof}
+
+
+\section{Examples}
+
+%In this section, some examples are provided to illustrate the deadlock prevention policy.
+
+
+\subsection{Example 1}
+The net system in Fig. $\ref{19p14t}$ consists of 19 places and 14 transitions, where $P^0=\lbrace p_{101},p_{108}\rbrace$, $P_R=\lbrace p_{114},p_{115},p_{116}$, $p_{117},p_{118},p_{119}\rbrace$, and $P_S=\lbrace p_{102},p_{103},p_{104},p_{105},p_{106},p_{107},p_{109},p_{110},p_{111},p_{112},p_{113}\rbrace$. In the first iteration, SMSs are computed in the $N_{V_0},M_{0V_0}$. There are five SMSs: $S_{01}=\lbrace p_{107},p_{113},p_{114},p_{115},p_{116},p_{117},p_{118},p_{119}\rbrace$, $S_{02}=\lbrace p_{105},p_{113},p_{114},p_{115}$, $p_{118}\rbrace$, $S_{03}=\lbrace p_{102},p_{107}$, $p_{113},p_{115},p_{116},p_{117},p_{118},p_{119}\rbrace$, $S_{04}=\lbrace p_{102},p_{107},p_{111},p_{113},p_{116},p_{117},p_{118},p_{119}\rbrace$
+and $S_{05}=\lbrace p_{102},p_{105}$, $p_{113},p_{115},p_{118}\rbrace$.
+$\Pi_{0}=\lbrace S_{01},S_{02},S_{03},S_{04},S_{05}\rbrace$ and the complementary sets of the SMSs in $\Pi_{0}$ are computed by Definition 6, i.e, $[S_{01}]=\lbrace p_{102},p_{103}$, $p_{104},p_{105},p_{106},p_{109},p_{110},p_{111},p_{112}\rbrace$, $[S_{02}]=\lbrace p_{102},p_{103}$, $p_{104},p_{111},p_{112}\rbrace$,
+$[S_{03}]=\lbrace p_{103},p_{105},p_{106},p_{109}$, $p_{110}$, $p_{111},p_{112}\rbrace$, $[S_{04}]=\lbrace p_{105},p_{106},p_{109},p_{110}\rbrace$, and
+$[S_{05}]=\lbrace p_{103},p_{111},p_{112}\rbrace$. Control places are added for them according to Proposition 1 and Theorem 1 as shown in Table 3.
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.5]{19p14t}
+	\caption{A marked $\rm{S^3PR}$ $(N_{V_0},M_{0V_0})$.}
+	\label{19p14t}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Control places are added in the first iteration}
+	\label{19p14tT}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$V_S$ & preset & postset & $M_{0V_1}(V_{0i}),(i=1,2,3,4,5)$ \\
+		\hline
+		$V_{01}$ & $t_7,t_{13}$ & $t_1,t_9$ & 5 \\
+		\hline
+		$V_{02}$ & $t_4,t_5,t_{13}$ & $t_1,t_{11}$ & 2 \\
+		\hline
+		$V_{03}$ & $t_7,t_{13}$ & $t_2,t_4,t_9$ & 4 \\
+		\hline
+		$V_{04}$ & $t_7,t_{11}$ & $t_4,t_5,t_9$ & 3 \\
+		\hline
+		$V_{05}$ & $t_5,t_{13}$ & $t_1,t_{11}$ & 1 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+Hence, we have $\Phi_1=\lbrace V_{01},V_{02},V_{03},V_{04},V_{05}\rbrace$ and $(N_{V_1},M_{0V_1})=\lbrace P^0\cup P_S\cup\Phi_1,T,F_{V_1}\cup F_{P_1}\cup F_{P_2}\rbrace$.
+Then $\Pi_{1}=\lbrace S_{11},S_{12},S_{13}\rbrace$ is computed in $(N_{V_1},M_{0V_1})$, where $S_{11}=\lbrace p_{105},p_{106},p_{111},p_{112},p_{117},p_{118}\rbrace$,
+$S_{12}=\lbrace p_{105},p_{106},p_{111},p_{112}$, $p_{115},p_{117}\rbrace$,
+and $S_{13}=\lbrace p_{103},p_{105},p_{106},p_{111},p_{112},p_{115},p_{116}\rbrace$.
+The complementary sets of these SMSs $[S_{11}]=\lbrace p_3,p_{10}\rbrace$, $[S_{12}]=\lbrace p_3,p_4,p_{10}\rbrace$, and $[S_{13}]=\lbrace p_4\rbrace$ are computed by Definition 6. The corresponding control places are added by Proposition 1 and Theorem 1 as shown in Table 4.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Control places are added in the second iteration}
+	\label{19p14tTT}
+	
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$V_S$ & preset & postset & $M_{0V_2}(V_{1i}),i=1,2,3$ \\
+		\hline
+		$V_{11}$ & $t_5,t_{11}$ & $t_2,t_{10}$ & 3 \\
+		\hline
+		$V_{12}$ & $t_4,t_5,t_{11}$ & $t_2,t_3,t_{10}$ & 4 \\
+		\hline
+		$V_{13}$ & $t_4$ & $t_3$ & 4 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Now $\Phi_2=\lbrace V_{11},V_{12},V_{13}\rbrace$, and we obtain a 2-order controlled net $(N_{V_2},M_{0V_2})=(P^0\cup P_S\cup\Phi_2,T,F_{V_2}\cup F_{P_1}\cup F_{P_2})$. As no SMSs can be computed in $(N_{V_2},M_{0V_2})$, we integrate all control places with their related arcs to $(N_{V_0},M_{0V_0})$. Thus, $(N_V,M_{0V})=(P^0\cup P_R\cup P_S\cup\Phi,T,F_V)$ is obtained, where $\Phi=\Phi_1\cup\Phi_2$, $F_V=F_{V_1}\cup F_{V_2}\cup F$.
+
+In the second stage, the net can be updated into $(N_V,M_{0V})=(P,T,F_V,W_V)$, where $P=P^0\cup P_R\cup P_S\cup\Phi$. A non-max-marked siphon $S_{1}$ is found by solving an MILP problem (5) in $(N_V,M_{0V})$, where
+$S_{1}=\lbrace p_{107},p_{111},p_{112},p_{117},p_{119},p_{121},p_{123}\rbrace$. Its complementary set $Th(S_{1})=p_{102}+p_{103}+p_{104}+p_{105}+p_{106}+2p_{109}+2p_{110}$. A control place is added for it by Proposition 2, and we have a P-invariant $g_{S_{1}}=p_{102}+p_{103}+p_{104}+p_{105}+p_{106}+2p_{109}+2p_{110}+V_1$,
+and $M_{0V'}(V_1)=M_{0V}(S_{1})-\sum_{p\in S_{1}^R}(max_{p^\bullet}-1)-1=7-1=6$. An augmented net $(N_{V'},M_{0V'})=(P\cup\lbrace V_{1}\rbrace,T,F_{V'},W_{V'})$ is obtained, then another non-max-marked siphon $S_{2}$ is found by solving an MILP problem (5) in the net, where $S_{2}=\lbrace p_{107},p_{112},p_{115},p_{117},p_{119},p_{123},p_{124}\rbrace$ . Its complementary set $Th(S_{2})=2p_{103}+p_{105}+p_{106}+2p_{109}+2p_{110}+p_{111}+p_{112}$. A control place is added for it by Proposition 2, we have $g_{S_{2}}=2p_{103}+p_{105}+p_{106}+2p_{109}+2p_{110}+p_{111}+p_{112}+V_2$ and $M_{0V'}(V_2)=6$. Then a final-augmented net $(N_{V'},M_{0V'})=(P\cup \Phi,T,F_{V'},W_{V'})$ is obtained due to the fact that no non-max-marked siphon can be found in the net, where $\Phi=\lbrace V_1, V_2\rbrace$. It is live and maximally permissive with 205 states. According to Algorithm 1, an optimal supervisor is obtained by adding 10 control places.
+
+
+
+ % $S_{n_1}$ is found in $(N_V,M_{0V})$ by solving a MILP (1) and controlling it by Proposition 2. $S_{n_1}=\lbrace p_{107},p_{111},p_{112},p_{117},p_{119},p_{121},p_{123}\rbrace$. Its complementary is $Th(S_{n_1})=p_{102}+p_{103}+p_{104}+p_{105}+p_{106}+2p_{109}+2p_{110}$. P-invariant $g_{V_1}=p_{102}+p_{103}+p_{104}+p_{105}+p_{106}+2p_{109}+2p_{110}+V_1$,and $M_{0V_1'}(V_1)=M_{0V}(S_{n_1})-\sum_{p\in S_{n_1}^R}(max_{p^\bullet}-1)-1=7-1=6$.
+
+%Now a net $(N_{V_1'},M_{0V_1'})=\lbrace P^0\cup P_S\cup P_R\cup\Phi\cup V_1,T,F_{V_1'},W_{V_1'}\rbrace$ is obtained.
+
+
+%Then a net $(N_{V_2'},M_{0V_2'})=\lbrace P^0\cup P_S\cup P_R\cup\Phi\cup V_1\cup V_2,T,F_{V_2'},W_{V_2'}\rbrace$ is obtained.
+%In the second iteration, $S_{n_2}=\lbrace p_{107},p_{112},p_{115},p_{117},p_{119},p_{123},p_{124}\rbrace$ is found and add control places like $S_{n_1}$. $g_{V_2}=2p_{103}+p_{105}+p_{106}+2p_{109}+2p_{110}+p_{111}+p_{112}+V_2$ and $M_{0V}(V_2)=6$. Since it cannot find non-max-marked siphons in $(N_{V_2'},M_{0V_2'})$, the iteration is finished. Then a final-controlled net $(N_{V'},M_{0V'})=\lbrace P^0\cup P_S\cup P_R\cup\Phi\cup V_{S_n},T,F_{V'},W_{V'}\rbrace$ is obtained, where $V_{S_n}=\lbrace V_1, V_2\rbrace$. It is live and has 205 states. Therefore we only need to add 10 control places to get a maximally permissive liveness controller by the proposed algorithm.
+
+\subsection{Example 2}
+Fig. 6 shows a model of an FMS with three production
+routings. Places $p_{120}$, $p_{121}$ and $p_{122}$ represent three robots. Places $p_{123}$, $p_{124}$, $p_{125}$, and $p_{126}$ represent four machines. This model belongs to $\rm{S^3PR}$, where $p_{101}$, $p_{105}$ and $p_{114}$ are idle process places, $p_{120}$ to $p_{126}$ are resource places, and the others are operation places. 
+The $\rm{S^3PR}$ has 26750 reachable states, 21581 of which are safe, while 5169 states should be forbidden.
+
+
+\begin{figure}[htbp]
+	\centering
+	\label{26p20t}
+	\includegraphics[scale=0.5]{26p20t}
+	\caption{The Petri net model $(N_{V_0},M_{0V_0})$ of a flexible manufacturing system.}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{SMSs and their complementary set of $(N_{V_0},M_{0V_0})$ as shown in Fig. 6}
+	\begin{tabular}{|c|c|}
+		\hline
+		&  SMSs in the model $(N_{V_0},M_{0V_0})$  \\
+		\hline
+		$S_{01}$ & $p_{110},p_{118},p_{122},p_{126}$  \\
+		\hline
+		$S_{02}$  & $p_{104},p_{109},p_{112},p_{117},p_{121},p_{124}$  \\
+		\hline
+		$S_{03}$  & $p_{102},p_{104},p_{108},p_{113},p_{117},p_{121},p_{126}$ \\
+		\hline
+		$S_{04}$ & $p_{102},p_{104},p_{108},p_{112},p_{116},p_{121},p_{125}$ \\
+		\hline
+		$S_{05}$ &  $p_{102},p_{104},p_{108},p_{110},p_{117},p_{121},p_{122},p_{126}$  \\
+		\hline
+		$S_{06}$ & $p_{104},p_{109},p_{112},p_{116},p_{121},p_{124},p_{125}$ \\
+		\hline
+		$S_{07}$  & $p_{104},p_{109},p_{113},p_{117},p_{121},p_{124},p_{126}$ \\
+		\hline
+		$S_{08}$  & $p_{102},p_{104},p_{108},p_{113},p_{116},p_{121},p_{125},p_{126}$ \\
+		\hline
+		$S_{09}$  & $p_{104},p_{110},p_{117},p_{121},p_{122},p_{124},p_{126}$ \\
+		\hline
+		$S_{010}$ & $p_{104},p_{109},p_{113},p_{116},p_{121},p_{124},p_{125},p_{126}$ \\
+		\hline
+		$S_{011}$ & $p_{102},p_{104},p_{108},p_{110},p_{116},p_{121},p_{122},p_{125},p_{126}$ \\
+		\hline
+		$S_{012}$ & $p_{102},p_{104},p_{108},p_{112},p_{115},p_{120},p_{121},p_{123},p_{125}$ \\
+		\hline
+		$S_{013}$ & $p_{104},p_{110},p_{116},p_{121},p_{122},p_{124},p_{125},p_{126}$ \\
+		\hline
+		$S_{014}$ & $p_{104},p_{109},p_{112},p_{115},p_{120},p_{121},p_{123},p_{124},p_{125}$ \\
+		\hline
+		$S_{015}$ & $p_{102},p_{104},p_{108},p_{113},p_{115},p_{120},p_{121},p_{123},p_{125},p_{126}$ \\
+		\hline
+		$S_{016}$ & $p_{104},p_{109},p_{113},p_{115},p_{120},p_{121},p_{123},p_{124},p_{125},p_{126}$ \\
+		\hline
+		$S_{017}$ & $p_{102},p_{104},p_{108},p_{110},p_{115},p_{120},p_{121},p_{122},p_{123},p_{125},p_{126}$ \\
+		\hline
+		$S_{018}$ & $p_{104},p_{110},p_{115},p_{120},p_{121},p_{122},p_{123},p_{124},p_{125},p_{126}$ \\
+        \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{SMSs and their complementary set of $(N_{V_0},M_{0V_0})$ as shown in Fig. 6}
+	\begin{tabular}{|c|c|}
+		\hline
+& The complementary sets of the strict minimal siphons  \\
+\hline
+$[S_{01}]$ & $p_{113},p_{119}$ \\
+\hline
+$[S_{02}]$ & $p_{102},p_{103},p_{108}$  \\
+\hline
+$[S_{03}]$ & $p_{112},p_{118}$ \\
+\hline
+$[S_{04}]$ & $p_{111},p_{117}$ \\
+\hline
+$[S_{05}]$ & $p_{112},p_{113},p_{118},p_{119}$ \\
+\hline
+$[S_{06}]$ & $p_{102},p_{103},p_{108},p_{111},p_{117}$ \\
+\hline
+$[S_{07}]$ & $p_{102},p_{103},p_{108},p_{112},p_{118}$ \\
+\hline
+$[S_{08}]$ & $p_{111},p_{112},p_{117},p_{118}$ \\
+\hline
+$[S_{09}]$ & $p_{102},p_{103},p_{108},p_{109},p_{112},p_{113},p_{118},p_{119}$ \\
+\hline
+$[S_{010}]$ & $p_{102},p_{103},p_{108},p_{111},p_{112},p_{117},p_{118}$ \\
+\hline
+$[S_{011}]$ & $p_{111},p_{112},p_{113},p_{117},p_{118},p_{119}$ \\
+\hline
+$[S_{012}]$ & $p_{106},p_{107},p_{111},p_{116},p_{117}$ \\
+\hline
+$[S_{013}]$ & $p_{102},p_{103},p_{108},p_{109},p_{111},p_{112},p_{113},p_{117},p_{118},p_{119}$  \\
+\hline
+$[S_{014}]$ & $p_{102},p_{103},p_{106},p_{107},p_{108},p_{111},p_{112},p_{116},p_{117},p_{118}$ \\
+\hline
+$[S_{015}]$ & $p_{106},p_{107},p_{111},p_{112},p_{116},p_{117},p_{118}$ \\
+\hline
+$[S_{016}]$ & $p_{102},p_{103},p_{106},p_{107},p_{108},p_{111},p_{112},p_{116},p_{117},p_{118}$ \\
+\hline
+$[S_{017}]$  & $p_{106},p_{107},p_{111},p_{112},p_{113},p_{116},p_{117},p_{118},p_{119}$ \\
+\hline
+$[S_{018}]$ & $p_{102},p_{103},p_{106},p_{107},p_{108},p_{109},p_{111},p_{112},p_{113},p_{116},p_{117},p_{118},p_{119}$ \\
+\hline
+
+	\end{tabular}
+\end{table}
+
+
+
+
+First of all, every SMS in $\Pi_{0}$ and its complementary set are computed as shown in Tables 5 and 6. However, the complementary sets of SMSs, including $[S_{06}],[S_{08}],$ $[S_{010}],[S_{013}],[S_{014}],[S_{015}],[S_{016}]$, and $[S_{018}]$, have the following relationships:\\
+$[S_{06}]=[S_{02}]\cup[S_{04}]$, $M_{0V_0}(S_{06})-1=4=M_{0V_0}(S_{02})-1+M_{0V_0}(S_{04}^R)-1=3-1+3-1=4$;\\
+$[S_{07}]=[S_{02}]\cup[S_{03}]$, $M_{0V_0}(S_{07})-1=4=M_{0V_0}(S_{02})-1+M_{0V_0}(S_{03})-1=3-1+3-1=4$; \\
+$[S_{08}]=[S_{03}]\cup[S_{04}]$, $M_{0V_0}(S_{08})-1=4=M_{0V_0}(S_{03})-1+M_{0V_0}(S_{04})-1=3-1+3-1=4$; \\
+$[S_{010}]=[S_{02}]\cup[S_{03}]\cup[S_{04}]$, $M_{0V_0}(S_{010})-1=6=M_{0V_0}(S_{02})-1+M_{0V_0}(S_{03})-1+M_{0V_0}(S_{04})-1=3-1+3-1+3-1=6$;\\
+$[S_{011}]=[S_{04}]\cup[S_{05}]$, $M_{0V_0}(S_{011})-1=5=M_{0V_0}(S_{04})-1+M_{0V_0}(S_{05})-1=3-1+4=5$;\\
+$[S_{013}]=[S_{04}]\cup[S_{09}]$, $M_{0V_0}(S_{013})-1=7=M_{0V_0}(S_{04})-1+M_{0V_0}(S_{09})-1=3-1+6-1=7$;\\
+$[S_{014}]=[S_{02}]\cup[S_{012}]$, $M_{0V_0}(S_{014})-1=7=M_{0V_0}(S_{02})-1+M_{0V_0}(S_{012})-1=3-1+6-1=7$;\\
+$[S_{015}]=[S_{03}]\cup[S_{012}]$, $M_{0V_0}(S_{015})-1=7=M_{0V_0}(S_{03})-1+M_{0V_0}(S_{012})-1=3-1+6-1=7$;\\
+$[S_{016}]=[S_{02}]\cup[S_{03}]\cup[S_{012}]$, $M_{0V_0}(S_{016})-1=9=M_{0V_0}(S_{02})-1+M_{0V_0}(S_{03})-1+M_{0V_0}(S_{012})-1=3-1+3-1+6-1=9$;\\
+$[S_{017}]=[S_{05}]\cup[S_{012}]$, $M_{0V_0}(S_{017})-1=8=M_{0V_0}(S_{05})-1+M_{0V_0}(S_{012})-1=6-1+6-1=8$;\\
+$[S_{018}]=[S_{09}]\cup[S_{012}]$, $M_{0V_0}(S_{018})-1=10=M_{0V_0}(S_{09})-1+M_{0V_0}(S_{012})-1=6-1+6-1=10$.
+
+According to Property 1, siphons $S_{06},S_{08}, S_{010},S_{013},S_{014},S_{015},S_{016}$ are implicitly controlled.
+Hence, $\Pi_{F_0}=\lbrace S_{01}, S_{02}, S_{03}$, $S_{04}, S_{05}, S_{09}, S_{012}\rbrace $. Control places are added for these SMSs in $\Pi_{F_0}$ by Proposition 1 and Theorem 1, as shown in Table 7. A 1-order controlled net  $(N_{V_1},M_{0V_1})=(P^0\cup P_S\cup\Phi_1,T,F_{V_1}\cup F_{P_1}\cup F_{P_2})$ is obtained, where
+$\Phi_1=\lbrace V_{01}$, $V_{02}$, $V_{03}$, $V_{04}$, $V_{05}$, $V_{09}$, $V_{012}\rbrace$.
+
+\begin{table}[htbp]
+	\caption{Added control places in the first iteration}
+	\centering
+	\label{26p20tT}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$V_S$  & preset & postset & $M_{0V_1}(V_{1i})$\\
+		\hline
+		$V_{01}$  & $t_{10},t_{16}$ & $t_9,t_{15}$& 2 \\
+		\hline
+		$V_{02}$ & $t_4,t_{13}$ & $t_3,t_{11}$ & 2 \\
+		\hline
+		$V_{03}$ & $t_9,t_{17}$ & $t_8,t_{16}$  & 2\\
+		\hline
+		$V_{04}$ & $t_8,t_{18}$ & $t_7,t_{17}$ & 2 \\
+		\hline
+		$V_{05}$  & $t_{10},t_{17}$ & $t_8,t_{15}$ & 3\\
+		\hline
+		$V_{09}$ & $t_5,t_{10},t_{13},t_{17}$ & $t_3,t_8,t_{11},t_{15}$& 5  \\
+		\hline
+		$V_{012}$  & $t_3,t_8,t_{19}$ & $t_1,t_{17}$& 5 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+\begin{table}[htbp]
+	\centering
+	\caption{SMSs and their complementary of $(N_{V_1},M_{0V_1})$}
+	\label{26p20tTT}
+	\begin{tabular}{|c|c|}
+		\hline
+		& SMSs  \\
+		\hline
+		$S_{11}$ & $p_{113},p_{118},p_{120},p_{124}$ \\
+		\hline
+		$S_{12}$ & $p_{113},p_{117},p_{120},p_{124},p_{126}$ \\
+		\hline
+		$S_{13}$ & $p_{112},p_{113},p_{117},p_{123},p_{124}$  \\
+		\hline
+		$S_{14}$ & $p_{112},p_{117},p_{122},p_{123}$ \\
+		\hline
+		$S_{15}$ & $p_{106},p_{107},p_{113},p_{116},p_{117},p_{120},p_{124},p_{125}$ \\
+		\hline
+		$S_{16}$ & $p_{106},p_{107},p_{112},p_{113},p_{116},p_{117},p_{124},p_{127}$ \\
+		\hline
+		$S_{17}$ & $p_{106},p_{107},p_{112},p_{116},p_{117},p_{122},p_{127}$\\
+		\hline
+		$S_{18}$ & $p_{102},p_{103},p_{108},p_{109},p_{113},p_{116},p_{117},p_{120},p_{122},p_{125},p_{127}$ \\
+		\hline
+		$S_{19}$ & $p_{102},p_{103},p_{108},p_{109},p_{112},p_{113},p_{116},p_{117},p_{125},p_{127}$ \\
+		\hline
+		$S_{110}$ & $p_{102},p_{103},p_{108},p_{109},p_{112},p_{113},p_{117},p_{123},p_{125}$\\
+		\hline
+		& Complementary sets of SMSs \\
+		\hline
+		$[S_{11}]$ & $p_{112},p_{119}$ \\
+		\hline
+		$[S_{12}]$ & $p_{111},p_{112},p_{118},p_{119}$ \\
+		\hline
+		$[S_{13}]$ & $p_{111},p_{118},p_{119}$ \\
+		\hline
+		$[S_{14}]$ & $p_{111},p_{118}$ \\
+		\hline
+		$[S_{15}]$ & $p_{111},p_{112},p_{118},p_{119}$ \\
+		\hline
+		$[S_{16}]$ & $p_{111},p_{118},p_{119}$ \\
+		\hline
+		$[S_{17}]$ & $p_{111},p_{118}$ \\
+		\hline
+		$[S_{18}]$ & $p_6,p_7,p_{111},p_{112},p_{118},p_{119}$ \\
+		\hline
+		$[S_{19}]$ & $p_{106},p_{107},p_{111},p_{118},p_{119}$ \\
+		\hline
+		$[S_{110}]$ & $p_{111},p_{118},p_{119}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Continue to compute SMSs in $(N_{V_1},M_{0V_1})$. Details about SMSs and their complementary sets are shown in Table 8. We have $\Pi_{F_1}=\lbrace S_{12},S_{14}\rbrace$ according to Properties 1 and 2. Control places are added for $S_{12}$ and $S_{14}$ by Proposition 1 and Theorem 1. $V_{12}$ and $V_{14}$ are obtained with
+$M_{0V_2}(V_{12})=3$, $^\bullet V_{12}=\lbrace t_8,t_{17}\rbrace,V_{12}^\bullet=\lbrace t_7,t_{16}\rbrace$. $M_{0V_2}(V_{14})=5$, $^\bullet V_{14}=\lbrace t_8,t_{17}\rbrace,V_{14}^\bullet=\lbrace t_7,t_{16}\rbrace$. Thus, we have $\Phi_2=\lbrace V_{12},V_{14}\rbrace$. By removing $\Phi_1$ and reserving $\Phi_2$, we can obtain the 2-order controlled net $(N_{V_2},M_{0V_2})$, where there is no more new SMS generated. A first-controlled net $(N_V,M_{0V})=(P,T,F_V)$ is obtained, where $P=P^0\cup P_R\cup P_S\cup\Phi$, $\Phi=\Phi_1\cup\Phi_2$, and $F_V=F_{V_1}\cup F_{V_2}\cup F$. And we update the net into $(N_V,M_{0V})=(P,T,F_V,W_V)$, where $W_V$ is a mapping from $F_V$ to $\mathbb{N}^+$.  
+
+
+\begin{table}[htbp]
+	\caption{Non-max-marked siphons}
+	\centering
+	\label{MILP}
+	\begin{tabular}{|c|c|}
+		\hline
+		& non-max-marked siphons \\
+		\hline
+		$S_{n_1}$ & $p_{110},p_{117},p_{122},p_{130},p_{131},p_{138}$ \\
+		\hline
+		$S_{n_2}$ & $p_{104},p_{110},p_{112},p_{117},p_{121},p_{122},p_{124},p_{138}$ \\
+		\hline
+		$S_{n_3}$ & $p_{102},p_{103},p_{110},p_{115},p_{120},p_{122},p_{123},p_{132},p_{134},p_{138}$ \\
+		\hline
+		$S_{n_4}$ & $p_{102},p_{103},p_{110},p_{115},p_{120},p_{122},p_{123},p_{125},p_{126},p_{132},p_{134}$ \\
+		\hline
+		$S_{n_5}$ & $p_{104},p_{110},p_{116},p_{121},p_{122},p_{124},p_{129},p_{144}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\caption{Added control places for each corresponding non-max-marked siphons in TABLE \ref{MILP}}
+	\centering
+	\begin{tabular}{|p{0.7cm}|p{3.4cm}|p{1.9cm}|p{1.5cm}|}
+		\hline
+		$V$  & preset & postset & $M_{0V(V_i)},i=1,2,3,4,5$\\
+		\hline
+		$V_1$  & $t_8,t_{10},2t_{17}$ & $2t_7,2t_{15}$& 8 \\
+		\hline
+		$V_2$  & $t_5,t_8,t_{13},t_{17}$ & $t_3,t_7,t_{11},t_{15}$& 6 \\
+		\hline
+		$V_3$  & $t_3,t_5,t_8,t_{10},t_{17},t_{19}$ & $2t_1,2t_{15}$ & 16\\
+		\hline
+		$V_4$ & $t_3,t_5,t_8,2t_{10},t_{17},2t_{19}$ & $2t_1,t_9,2t_{15},t_{18}$ & 17 \\
+		\hline
+		$V_5$ & $2t_5,t_9,2t_{10},t_{13},t_{17},t_{18},t_{19}$ & $2t_1,t_8,t_{11},3t_{15}$ & 22 \\
+		\hline
+	\end{tabular}
+\end{table}	
+
+\begin{table}[htbp]
+	\centering
+	\caption{Comparison of control policies}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Control Criteria & [2]  & [39] & [40] & [38] &  Our method \\
+		\hline
+		Number of monitors & 18  & 6 & 17 & 13 & 15 \\
+		\hline
+		Number of reachable states & 6287 & 6287 & 12256 & 21581 & 21581 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+In the second stage, we need to determine whether there exist non-max-marked siphons in the net by solving MILP problems. The related information is shown in Table 9. After five siphons are controlled successively, i.e, $\Phi=\lbrace V_1,V_2,V_3,V_4,V_5\rbrace$, there is no non-max-marked siphon and finally we obtain a final-augmented net $(N_{V'},M_{0V'})=(P\cup \Phi,T,F_{V'},W_{V'})$.
+Table 11 shows a comparison among several control policies. Compared with [2], [40], we obtain an optimal supervisor with less control places. Although the method in [39] adds less control places than our method, we obtain an optimal supervisor. As for [38], we do not need to consider the reachability graphs.
+
+
+
+%And control policy in \cite{L08} use 13 control places and also get 21581 states, but we do not need to consider about set covering problem in this way, thus reducing complexity of computation.
+
+
+%\subsection{Example 3}
+
+%Consider an FMS with two production routings as shown in Fig. \ref{20p14t}, which has non-convex legal space.
+%There are 15 SMSs in the $(N,M_0)$. We need to go through five iterations to finish work in stage 1. All related data are shown in the Appendix. Now we synthesize all added control places as $\Phi$ and a first-controlled net $(N_V,M_{0V})$ is obtained. Find out seven non-max-marked siphons by MILP as shown in Table 8.
+
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[scale=0.35]{20p14t}
+%	\caption{The Petri net model $(N,M_0)$ of an FMS.}
+%	\label{20p14t}
+%\end{figure}
+
+%\begin{table}[htbp]
+%	\caption{add control places for each corresponding non-max-marked siphons in TABLE . \ref{MILP}}
+%	\centering
+%	\label{20p14tM}
+%	\begin{tabular}{|c|c|}
+%		\hline
+%		& non-max-marked siphons \\
+%		\hline
+%		$S_1$ & $p_6,p_{10},p_{25},p_{27},p_{35}$ \\
+%		\hline
+%		$S_2$ & $p_6,p_{11},p_{17},p_{18},p_{25},p_{28}$ \\
+%		\hline
+%		$S_3$ & $p_5,p_{10},p_{16},p_{18},p_{34},p_{64}$ \\
+%		\hline
+%		$S_4$ & $p_3,p_4,p_5,p_{10},p_{35},p_{65}$ \\
+%		\hline
+%		$S_5$ & $p_5,p_{10},p_{18},p_{31},p_{35},p_{50}$ \\
+%		\hline
+%		$S_6$ & $p_5,p_{11},p_{18},p_{65},p_{67}$ \\
+%		\hline
+%	\end{tabular}
+	
+	
+%\end{table}
+
+%An error arises when we compute a new non-max-marked siphon. It generates an identical siphon as $S_6$, which means that $S_6$ is not controlled. Hence the iteration cannot be terminated, and we cannot get a maximally permissive controller by this approach.
+%Since the apporach of designing a supervisor based on siphons is linear, when adding a control place, we just want to limit the behavior of the system to prevent a siphon from being emptied, but other siphons will not be empited. As a result, in the case of non-convex legal space, there is no solution by this apporach.
+
+
+
+
+
+\section{Conclusions}
+
+
+This paper develops a deadlock prevention policy for FMSs by using structural analysis techniques, which includes two stages. The first stage is called siphons control, which aims to obtain an optimal supervisor since each siphon is optimally controlled. If the first-controlled net is still not live after the first stage, then the second stage, called non-max-marked siphons control, is carried out. A non-max-marked siphon is computed by solving an MILP problem, and then the siphon is max-controlled by adding a control place. Repeat the above steps until no max-marked siphon is found in a final-augmented net. In this stage, we do not need a complete siphon enumeration by utilizing MILP problems to compute siphons. In some cases, it is shown that  the proposed structure-based analysis method can lead to an optimal supervisor, which, as far as the authors know, is not exposed in the existing methods in the case that there exist $\xi$-resources [52]. Our future work will consider extending the policy to automata based methods for the control of FMSs [26-27], [47-48].\\
+
+
+%in the case of non-convex legal space, there is no solution to obtain a maximally permissive controller in this way. A siphon cannot be controlled when a new non-max-marked siphon includes control place that we added in the latest time. Our future work will focus on their relationship.
+
+
+
+%We will consider the deadlock problem in automated manufacturing systems using the ideas proposed in [47,48] for reconfigurable systems.
+
+
+\noindent \textbf{Acknowledgements}
+
+The authors extend their appreciation to the Deanship of Scientific Research at King Saud University for funding this work
+through research group number RG-1439-005.
+
+
+\begin{thebibliography}{99}
+	
+	\bibitem{ZH09}
+	C. F. Zhong and Z. W. Li, ``A deadlock prevention approach for flexible manufacturing systems without complete siphon enumeration of their Petri net models,''
+	\textit{Engineering with Computers}, vol. 20, pp. 269--278, 2009.
+	
+	\bibitem{EZ95}
+	J. Ezpeleta, M. J. Colom, and J. Martinez, ``A Petri net based deadlock prevention policy for flexible manufacturing system,''
+	\textit{IEEE Transactions on Robotics and Automation}, vol. 11, no. 2, pp. 173--184, 1995.
+	
+
+	\bibitem{MU89}
+	T. Murata, ``Petri nets: Properties analysis and applications,'' in\textit{ Proceedings of the IEEE}, vol. 77, no. 4, pp. 541--580, 1989.
+	
+	\bibitem{BAR96}
+	K. Barkaoui and J. F. Pradat-Peyre, ``On liveness and controlled siphons in Petri nets,''
+	\textit{Lecture Notes in Computer Science}, vol. 1996, pp. 57--72, 1901.
+	
+	\bibitem{ZH11}
+	C. F. Zhong, Z. W. Li and K. Barkaoui, ``Monitor design for siphon control in $\rm{S^4PR}$ nets: from structure analysis points of view,''
+	\textit{International Journal of Innovative Computing, Information and Control}, vol. 7, no. 1, pp. 1--22, 2011.
+	
+	\bibitem{ZH10}
+	C. F. Zhong and Z. W. Li, ``Self-liveness of a class of Petri net models for flexible manufacturing systems,''
+	\textit{IET Control Theory $\&$ Applications}, vol. 4, no. 3, pp. 403--410, 2010.
+
+	\bibitem{Wang18}
+	S. G. Wang, Y. Dan and S. Carla, ``A novel approach for constraint transformation in Petri nets with uncontrollable transitions,''
+	\textit{IEEE Transactions on Systems, Man, and Cybernetics}, vol. 48, no. 8, pp. 1403--1410, 2018.
+	
+	\bibitem{Dan18}
+	Y. Dan, S. G. Wang, W. Z. Dai, W. H. Wu and Y. S. Jia, ``An approach for enumerating minimal siphons in a subclass of Petri nets,''
+	\textit{IEEE Access}, vol. 12, no. 6, pp. 4255--4265, 2018.
+	
+	
+	\bibitem{WU12JAN}
+	N. Q. Wu and M. C. Zhou, ``Schedulability analysis and optimal scheduling of dual-arm cluster tools with residency time constraint and activity time variation,''
+	\textit{IEEE Transactions on Automation Science and Engineering}, vol. 9, no. 1, pp. 203--209, 2012.
+	
+	\bibitem{WU12APR}
+	N. Q. Wu and M. C. Zhou, ``Modeling, analysis and control of dual-arm cluster tools with residency time constraint and activity time variation based on Petri nets,''
+	\textit{IEEE Transactions on Automation Science and Engineering}, vol. 9, no. 2, pp. 446--454, 2012.
+	
+	\bibitem{WU13}
+	N. Q. Wu, F. Chu, C. B. Chu, and M. C. Zhou, ``Petri net modeling and cycle time analysis of dual-arm cluster tools with wafer revisiting,''
+	\textit{IEEE Transactions on Systems, Man and Cybernetics}, vol. 43, no. 1, pp. 196--207, 2013.
+	
+	\bibitem{citekey}
+	N. Q. Wu, M. C. Zhou and Z. W. Li, ``Short-term scheduling of crude-oil operations: Petri net-based control-theoretic approach,''
+	\textit{IEEE Robotics and Automation Magazine}, vol. 22, no. 2, pp. 64--76, 2015.
+	
+	\bibitem{Zhang15}
+	J. F. Zhang, M. Khalgui, Z. W. Li, G. Frey, O. Mosbahi and H. B. Salah, ``Reconfigurable coordination of distributed discrete event control systems,''
+	\textit{IEEE Transactions on Control Systems Technology}, vol. 23, no. 1, pp. 323--330, 2015.
+	
+	\bibitem{Giua92}
+	A. Giua, F. DiCesare, and M. Silva, ``Generalized mutual exclusion constraints on nets with uncontrollable transitions,'' \textit{In Process }, vol. 2, pp. 974-979, 1992.
+	
+	\bibitem{MA15}
+	Z. Y. Ma, Z. W. Li and A. Giua, ``Design of optimal petri net controllers for disjunctive generalized mutual exclusion constraints,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 60, no. 7, pp. 1774--1785, 2015.
+	
+	\bibitem{YE15}
+	J. H. Ye, Z. W. Li and A. Giua, ``Decentralized supervision of petri nets with a coordinator,''
+	\textit{IEEE Transactions on Systems, Man and Cybernetics}, vol. 45, no. 6, pp. 955--966, 2015.
+
+	\bibitem{citekey}
+	Y. F. Chen, Z. W. Li, K. Barkaoui and A. Giua, ``On the enforcement of a class of nonlinear constraints on Petri nets,''
+	\textit{Automatica}, vol. 55, pp. 116--124, 2015.
+	
+	\bibitem{citekey}
+	Y. Tong, Z. W. Li and A. Giua, ``On the equivalence of observation structures for Petri net generators,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 61, no. 9, pp. 2448-¨C2462, 2016.
+	
+	\bibitem{citekey}
+	Y. Tong, Z. W. Li, C. Seatzu and A. Giua, ``Verification of state-based opacity using Petri nets,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 62, no. 6, pp. 2823-¨C2837, 2017.
+	
+	\bibitem{citekey}
+	Z. Y. Ma, Z. W. Li and A. Giua, ``Petri net controllers for generalized mutual exclusion constraints with floor operators,'' \textit{Automatica}, vol. 74, pp. 238--246, 2016.
+	
+	\bibitem{citekey}
+	M. Uzam, Z. W. Li, G. Gelen and R. S. Zakariyya, ``A divide-and-conquer-method for the synthesis of liveness enforcing supervisors for flexible manufacturing systems,'' \textit{Journal of Intelligent Manufacturing}, vol. 27, no. 5, pp. 1111--1129, 2016.
+	
+	\bibitem{citekey}
+	H. C. Liu, J. X. You, Z. W. Li and G. D. Tian, ``Fuzzy Petri nets for knowledge representation and reasoning: A literature review,'' \textit{Engineering Applications of Artificial Intelligence}, vol. 60, pp. 45--56, 2017.
+	
+	\bibitem{citekey}
+	Z. Y. Ma, Z. W. Li and A. Giua, ``Characterization of admissible marking sets in Petri nets with conflicts and synchronizations,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 62, no. 3, pp. 1329--1341, 2017.
+	
+	\bibitem{citekey}
+	Z. Y. Ma, Y. Tong, Z. W. Li and A. Giua, ``Basis marking representation of Petri net reachability spaces and its application to the reachability problem,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 62, no. 3, pp. 1078--1093, 2017.
+	
+	\bibitem{citekey}
+	X. Y. Cong, M. P. Fanti, A. M. Mangini and Z. W. Li, ``Decentralized diagnosis by Petri nets and integer linear programming,''
+	\textit{IEEE Transactions on Systems, Man, and Cybernetics}, vol. 48, no. 10, pp. 1689--1700, 2017.
+	
+	\bibitem{citekey}
+	H. M. Zhang, L. Feng, N. Q. Wu and Z. W. Li, ``Integration of learning-based testing and supervisory control for requirements conformance of black-box reactive systems,''
+	\textit{IEEE Transactions on Automation Science and Engineering}, vol. 15, no. 1, pp. 2--15, 2018.
+	
+	\bibitem{citekey}
+	H. Zhang, L. Feng, and Z. W. Li, ``A learning-based synthesis approach to the supremal nonblocking supervisor of discrete-event systems,''
+	\textit{IEEE Transactions on Automatic Control}, vol. 63, no. 10, pp. 3345--3360, 2018.
+	
+	\bibitem{citekey}
+	G. H. Zhu, Z. W. Li, N. Q. Wu and A. M. Al-Ahmari, ``Fault identification of discrete event systems modeled by Petri nets with unobservable transitions,''
+	\textit{IEEE Transactions on Systems, Man, and Cybernetics}, DOI: 10.1109/TSMC.2017.2762823, 2018.
+	
+	\bibitem{citekey}
+	R. A. Wysk, N. S. Yang and S. Joshi, ``Resolution of deadlock in flexible manufacturing system: avoidance and recovery approaches,''
+	\textit{Journal of Manufacturing Systems}, vol. 13, no. 2, pp. 128--128, 1994.
+	
+	\bibitem{citekey}
+	F. S. Hsieh and S. C. Chang, ``Dispatching driven deadlock avoidance controller synthesis for flexible manufacturing systems,''
+	\textit{IEEE Transactions on Robotics and Automation}, vol. 10, no. 2, pp. 196--209, 1994.
+	
+	
+	
+				\bibitem{citekey}
+			Z. W. Li, H. S. Hu, and A. R. Wang, ``Design of liveness-enforcing supervisors for flexible manufacturing systems using Petri nets,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics, Part C}, vol. 37, no. 4, pp. 517--526, 2007.
+			
+			
+			
+			\bibitem{citekey}
+			Z. W. Li and M. C. Zhou, ``Control of elementary and dependent siphons in Petri nets and their application,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics, Part A}, vol. 38, no. 1, pp. 133--148, 2008.
+			
+			
+			\bibitem{citekey}
+			Z. W. Li, M. C. Zhou, and N. Q. Wu, ``A survey and comparison of petri net-based deadlock prevention policies for flexible manufacturing systems,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics, Part C}, vol. 38, no. 2, pp. 173--188, 2008.
+			
+			
+			\bibitem{citekey}
+			Z. W. Li and M. Zhao, ``On controllability of dependent siphons for deadlock
+			prevention in generalized Petri nets,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics, Part A}, vol. 38, no. 2, pp. 369--384, 2008.
+			
+			
+			
+			\bibitem{citekey}
+			Y. F. Chen and Z.W. Li, ``Design of a maximally permissive liveness-enforcing
+			supervisor with a compressed supervisory structure for flexible manufacturing systems,'' \textit{Automatica}, vol. 47, no. 5, pp. 1028--1034, 2011.
+
+
+	
+	
+	
+	
+	
+	
+	\bibitem{citekey}
+	M. P. Fanti and M. C. Zhou, ``Deadlock control methods in automated manufacturing systems,''
+	\textit{IEEE Transaction on Systems, Man and Cyberneties}, vol. 34, no. 1, pp. 5--22, 2004.
+
+	
+	\bibitem{citekey}
+	Z. W. Li, M. C. Zhou and M. D. Jeng. ``A maximally permissive deadlock prevention policy for FMS based on Petri net siphon control and the theory of regions,''
+	\textit{IEEE Transactions on Automation Science and Engineering}, vol. 5, no. 1, pp. 182--188, 2008.
+
+	
+	\bibitem{L08}
+	L. Piroddi, R. Cordon and I. Fumagalli, ``Selective siphon control for deadlock prevention in Petri nets,''
+	\textit{IEEE Transactions on Systems, Man and Cybernetics}, vol. 38, no. 6, pp. 1337--1348, 2008.
+
+	
+	\bibitem{citekey}
+	Z. W. Li and M. C. Zhou, ``Elementary siphons of Petri nets and their application to deadlock prevention in flexible manufacturing systems,''
+	\textit{IEEE Transactions on Systems, Man and Cybernetics}, vol. 34, no. 1, pp. 38--51, 2004.
+	
+	\bibitem{citekey}
+	Y. S. Huang, M. D. Jeng and X. L. Xie, ``Deadlock prevention policy based on Petri net and siphons,''
+	\textit{International Journal of Production Research}, vol. 39, no. 2, pp. 283--305, 2001.
+
+	\bibitem{LI07}
+	Z. W. Li, J. Zhang and M. Zhao, ``Liveness-enforcing supervisor design for a class of generalised petri net models of flexible manufacturing systems,''
+	\textit{LET Control Theory $\&$ Applications}, vol. 1, no. 4, pp. 955--967, 2007.
+	
+	\bibitem{citekey}
+	G. Y. Liu, P. Li, Z. W. Li and N. Q. Wu, ``Robust deadlock control for automated manufacturing systems with unreliable resources based on Petri net reachability graphs,''
+	\textit{IEEE Transactions on Systems, Man and Cybernetics}, to be published, DOI: 10.1109/TSMC.2018.2815618, 2018.
+	
+	\bibitem{citekey}
+	G. H. Zhu, Z. W. Li and N .Q. Wu, ``Model-based fault identification of discrete event systems using partially observed Petri nets,'' \textit{Automatica}, vol. 96, pp. 201--212, 2018.
+	
+	\bibitem{citekey}
+	X. Y. Cong, M. P. Fanti, A. M. Mangini and Z .W. Li, ``On-line verification of current-state opacity by Petri nets and integer linear programming,'' \textit{Automatica}, vol. 94, pp. 205--213, 2018.
+	
+	\bibitem{citekey}
+	C. Gu, Z. W. Li, N. Q. Wu, M. Khalgui, T. Qu, and A. Al-Ahmarimm, ``Improved multi-step look-ahead control policies for automated manufacturing systems,'' \textit{IEEE Access}, vol. 6, no. 1, pp. 68824-68838, 2018.
+	
+	\bibitem{citekey}
+	Z. W. Li, G. Y. Liu, M-H. Hanisch and M. C. Zhou, ``Deadlock prevention based on structure reuse of Petri net supervisors for flexible manufacturing systems,'' \textit{IEEE Transactions on Systems, Man and Cybernetics}, vol. 42, no. 1, pp. 178--191, 2012.
+	
+	\bibitem{citekey}
+	X. Wang, I. Khemaissia, M. Khalgui, Z. W. Li, O. Mosbahi and M. C. Zhou, ``Dynamic low-power reconfiguration of real-time systems with periodic and probabilistic tasks,'' \textit{IEEE Transactions on Automation Science and Engineering}, vol. 12, no. 1, pp. 258--271, 2015.
+	
+	\bibitem{citekey}
+	 X. Wang, Z. W. Li, W. M. Wonham, ``Dynamic multiple-period reconfiguration of real-time scheduling based on timed DES supervisory control,'' \textit{IEEE Transactions on Industrial Informatics}, vol. 12, no. 1, pp.
+	101--111, 2016.
+	
+	\bibitem{citekey}
+	H. Grichi, O. Mosbahi, M. Khalgui, and Z. W. Li, ``RWiN: New methodology for the development of
+	reconfigurable WSN,'' \textit{IEEE Transactions on Automation Science and Engineering}, vol. 14, no. 1, pp. 109--125, 2017.
+	
+	\bibitem{citekey}
+	M. Gasmi, O. Mosbahi, M. Khalgui, L. Gomes, and Z. W. Li, ``R-Node: New pipelined approach for an
+	effective reconfigurable wireless sensor node,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics: Systems}, vol. 48, no. 6, pp. 892--905, 2018.
+	
+    \bibitem{Li09}
+    Z. W. Li and M. C. Zhou, \textit{Deadlock Resolution in Automated Manufacturing Systems: A Novel Petri Net Approach.} New York. NY, USA: Springer, 2009.
+    
+    \bibitem{citekey}
+    K. Y. Xing, M. C. Zhou, H. X. Liu, and F. Tian, ``Optimal Petri-Net-Based Polynomial-Complexity Deadlock-Avoidance Policies for Automated Manufacturing Systems,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics: Systems}, vol. 39, no. 1, pp. 188--199, 2009.
+
+    \bibitem{citekey}
+    J. Ye, M. C. Zhou, Z. W. Li, and A. Al-Ahmari, ``Structural decomposition and decentralized control of Petri nets,'' \textit{IEEE Transactions on Systems, Man, and Cybernetics: Systems}, vol. 48, no. 8, pp. 1360--1369, 2018.
+    
+    \bibitem{citekey}
+    J. F. Zhang, M. Khalgui, Z. W. Li, G. Frey, O. Mosbahi, and H. B. Salah, ``Reconfigurable coordination of distributed discrete event
+    control systems,'' \textit{IEEE Transactions on Control Systems Technology}, vol. 23, no. 1, pp. 323--330, 2015.
+    
+    \bibitem{citekey}
+    Y. F. Chen, Z. W. Li, and K. Barkaoui, ``New Petri net structure and its application to optimal supervisory control: Interval inhibitor
+    arcs'' \textit{IEEE Transactions on Systems, Man, and Cybernetics: Systems}, vol. 44, no. 10, pp. 1384--1400, 2014.
+    
+    \bibitem{citekey}
+    C. Gu, X. Wang, and Z. W. Li , ``Synthesis of supervisory control with partial observation on normal state tree structures,'' \textit{IEEE
+    	Transactions on Automation Science and Engineering}, DOI: 10.1109/TASE.2018.2880178, 2018.
+    
+    \bibitem{citekey}
+    N. Q. Wu, Z. W. Li, and T. Qu, ``Energy efficiency optimization in scheduling crude oil operations of refinery based on linear
+    programming,'' \textit{Journal of Cleaner Production}, vol. 166, pp. 49--57, 2017.
+\end{thebibliography}
+
+
+
+
+\appendix
+
+%\subsection{Petri Net}
+A generalized Petri net [4] is a 4-tuple $N=(P,T,F,W)$ where $P$ and $T$ are finite, non-empty, and disjoint sets. $\emph{P}$ is the set of places and $\emph{T}$ is the set of transitions with $P\cup T\neq\emptyset$ and $P\cap T=\emptyset$. $F\subseteq(P\times T)\cup(T\times P)$ is called a flow relation of the net, represented by arcs with arrows from places to transitions or from transitions to places. $W:(P\times T)\cup(T\times P)\rightarrow N$ is a mapping that assigns a weight to an arc: $W(x,y)>0$ if $(x,y)\in F$, and $W(x,y)=0$, otherwise, where $x,y\in P\cup T$. $N=(P,T,F,W)$ is called an ordinary net, denoted by $N=(P,T,F)$, if $\forall f\in F$, $W(f)=1$. Note that ordinary and generalized Petri nets have the same modeling power. The only difference is that the latter may have improved modeling efficiency and convenience.
+
+A net $N = (P,T,F,W)$ is pure (self-loop free) if for all $x,y\in P\cup T$,
+$W(x,y)\textgreater0$ implies $W(y,x)=0$. A pure net $N=(P,T,F,W)$ can be represented by its incidence matrix $[N]$, where $[N]$ is a $|P|\times|T|$ integer matrix with $[N](p,t)=W(t,p)-W(p,t)$. For a place $p$ (transition $t$), its incidence vector, a row (column) in $[N]$, is denoted by $[N](p,\bullet)([N](\bullet,t))$. The incidence matrix $[N]$ of a net $N$ can be naturally divided into two parts $Pre$ and $Post$ according to the token flow by defining $[N]=Post-Pre$, where $Pre:P\times T\rightarrow\mathbb{N}$ and $Post:P\times T\rightarrow\mathbb{N}$, respectively.
+
+
+Let $x\in P\cup T$ be a node of net $N =(P, T, F, W)$. The preset of $x$ is defined as $^\bullet x = \lbrace y\in P \cup T \mid (y , x)\in F\rbrace$. While the postset of $x$ is defined as $x^\bullet =\lbrace y\in P\cup T\mid (x, y)\in F\rbrace$. For $t\in T$, $p\in$$^{\bullet} t$ is called an input place of $t$ and $p\in t^\bullet$ is called an output place of $t$. For $p\in P$, $t\in$$ ^{\bullet} p$ is called an input transition of $p$ and $t\in p^\bullet$ is called an output transition of $p$.
+
+
+A marking $M$ of a Petri net $N$ is a mapping from $P$ to $\mathbb{N}$. $M(p)$ denotes the number of tokens in place $p$. A place $p$ is marked by a marking $M$ if $M(p)>0$. The sum of tokens of all places in $S$ is denoted by $M(S)$, $i.e.$, $M(S)=\sum_{p\in S}M(p)$. $S$ is said to be empty at $M$ if $M(S)$ = 0. $(N,M_0)$ is called a net system or a marked net and $M_0$ is called an initial marking of $N$.
+
+
+A transition $t\in T$ is enabled at a marking $M$ if for all $p\in$$^\bullet t$, $M(p)\geq W(p,t)$. This fact is denoted by $M[t\rangle$. Firing it yields a new marking $M^{'}$ such that for all $p\in P$, $M^{'}(p)=M(p)- W(p,t)+ W(t,p)$, as denoted by $M[t\rangle M^{'}$. $M^{'}$ is called an immediately reachable marking from $M$. Marking $M^{''}$ is said to be reachable from $M$ if there exists a sequence of transitions $\sigma = t_0t_1\cdot\cdot\cdot t_n$ and markings $M_1$, $M_2$, $\cdot\cdot\cdot$, $M_n$ such that $M[t_0\rangle M_1[t_1\rangle M_2\cdot \cdot\cdot M_n[t_n\rangle M^{''}$ holds. The set of markings reachable from $M$ in $N$ is called the reachability set of Petri net $(N,M)$ and denoted by $R(N,M)$.
+
+A transition $t$ is live if for all $M\in R(N,M_0)$, there exists a marking $M^{'}\in R(N,M)$ such that $M^{'}[t\rangle$ holds. A net is live if every transition is live. A transition $t$ is dead at a marking $M\in R(N, M_0)$ if $\forall M^{'}\in R(N, M), M^{'}[t\rangle$ does not hold.
+
+%A net $N =(P,T,F,W)$ can be represented by its incidence matrix $[N]$, where $[N]$ is a $|P|\times|T|$ integer matrix with $[N](p,t)= W(t,p)- W(p,t)$. For a place $p$ (transition $t$), its incidence vector, a row (column) in $[N]$, is denoted by $[N]( p,\cdot)$ $([N](\cdot, t ))$.
+
+A P-vector is a column vector $I:P\rightarrow \mathbb{Z}$ indexed by $P$, where $\mathbb{Z}$ is the set of integers.
+P-vector $I$ is called a P-invariant (place invariant) if $I\neq \textbf{0}$ and $I^T[N]= \textbf{0}^T$. P-invariant $I$ is a P-semiflow if every element of $I$ is non-negative. $||I||=\lbrace p|I(p)=0\rbrace$ is called the support of $I$. $||I||^+ = \lbrace p|I(p)>0\rbrace$ denotes the
+positive support of P-invariant I and $||I||^- = \lbrace p|I(p) < 0\rbrace$ denotes the negative
+support of I.
+ If $I$ is a P-invariant of $(N,M_0)$, for all $M\in R(N,M_0)$, $I^TM=I^TM_0$.
+
+%$T$-vector $J$ is called a T-invariant (transition invariant) if $J\neq \textbf{0}$ and $[N]J = \textbf{0}$.
+
+A nonempty set $S\subseteq P$ is a siphon (trap) if $^{\bullet}S\subseteq S^\bullet$ ($S^{\bullet}\subseteq$$^\bullet S$) holds. A siphon is minimal if there is no siphon contained in it as a proper subset. A minimal siphon is called strict if it does not contain a trap, denoted as SMS for short. A siphon $S$ can also be described by its characteristic vector $s\in\lbrace 0,1\rbrace^m$ such that $s_i=1$ if $p_i\in S$, else $s_i=0$; thus $M(S)=s^TM$.
+
+
+
+%\begin{definition}
+%	Let $(N,M_{0V})$ be a marked net and $S$ be a siphon of $N$. $S$ is said to be max-marked at a marking $M\in R(N,M_{0V})$ iff $\exists p\in S$ such that $M(p)\ge max_{p^\bullet}$.
+%\end{definition}
+
+
+%\begin{definition}
+%	Let $(N,M_{0V})$ be a marked net and $S$ be a siphon of $N$. $S$ is said to be max-controlled iff $S$ is max-marked at any reachable marking.
+%\end{definition}
+
+
+%\begin{definition}
+%	A net $(N,M_{0V})$ is said to be satisfying the max-cs property (controlled-siphon property) iff each minimal siphon of $N$ is max-controlled.
+%\end{definition}
+
+%\begin{theorem}
+%	Let $(N,M_{0V})$ be a marked $\rm{S^4R}$ net. It is live under $M_{0V}$ iff it satisfies max-cs property.
+%\end{theorem}
+
+
+
+
+\iffalse
+\subsection{The related data about Example 3}
+	\begin{table}
+		\centering
+		\caption{SMSs and its complementary in $(N,M_0)$ in the first iteration of Example 3}
+		\label{20p14tT}
+		\begin{tabular}{|c|c|}
+			\hline
+			& $SMSs$ \\
+			\hline
+			$S_1$ & $p_7,p_9,p_{15},p_{16},p_{17},p_{18},p_{19},p_{20}$ \\
+			\hline
+			$S_2$ & $p_7,p_{10},p_{16},p_{17},p_{18},p_{19},p_{20}$ \\
+			\hline
+			$S_3$ & $p_7,p_{11},p_{17},p_{18},p_{19},p_{20}$ \\
+			\hline
+			$S_4$ & $p_7,p_{12},p_{18},p_{19},p_{20}$ \\
+			\hline
+			$S_5$ & $p_7,p_{13},p_{19},p_{20}$ \\
+			\hline
+			$S_6$ & $p_6,p_9,p_{15},p_{16},p_{17},p_{18},p_{19}$ \\
+			\hline
+			$S_7$ & $p_6,p_{10},p_{16},p_{17},p_{18},p_{19}$ \\
+			\hline
+			$S_8$ & $p_6,p_9,p_{11},p_{17},p_{18},p_{19}$ \\
+			\hline
+			$S_9$ & $p_6,p_{12},p_{18},p_{19}$ \\
+			\hline
+			$S_{10}$ & $p_5,p_9,p_{15},p_{16},p_{17},p_{18}$ \\
+			\hline
+			$S_{11}$ & $p_5,p_{10},p_{16},p_{17},p_{18}$ \\
+			\hline
+			$S_{12}$ & $p_5,p_{11},p_{17},p_{18}$ \\
+			\hline
+			$S_{13}$ & $p_4,p_9,p_{15},p_{16},p_{17}$ \\
+			\hline
+			$S_{14}$ & $p_4,p_{10},p_{16},p_{17}$ \\
+			\hline
+			$S_{15}$ & $p_3,p_9,p_{15},p_{16}$ \\
+			\hline
+			& The complementary sets  \\
+			\hline
+			$[S_1]$ & $p_2,p_3,p_4,p_5,p_6,p_{10},p_{11},p_{12},p_{13},p_{14}$ \\
+			\hline
+			$[S_2]$ & $p_3,p_4,p_5,p_6,p_{11},p_{12},p_{13},p_{14}$ \\
+			\hline
+			$[S_3]$ & $p_4,p_5,p_6,p_{12},p_{13},p_{14}$ \\
+			\hline
+			$[S_4]$ & $p_5,p_6,p_{13},p_{14}$ \\
+			\hline
+			$[S_5]$ & $p_6,p_{14}$ \\
+			\hline
+			$[S_6]$ & $p_2,p_3,p_4,p_5,p_{10},p_{11},p_{12},p_{13}$ \\
+			\hline
+			$[S_7]$ & $p_3,p_4,p_5,p_{11},p_{12},p_{13}$ \\
+			\hline
+			$[S_8]$ & $p_4,p_5,p_{12},p_{13}$ \\
+			\hline
+			$[S_9]$ & $p_5,p_{13}$ \\
+			\hline
+			$[S_{10}]$ & $p_2,p_3,p_4,p_{10},p_{11},p_{12}$ \\
+			\hline
+			$[S_{11}]$ & $p_3,p_4,p_5,p_{11},p_{12}$ \\
+			\hline
+			$[S_{12}]$ & $p_4,p_{12}$ \\
+			\hline
+			$[S_{13}]$ & $p_2,p_3,p_{10},p_{11}$ \\
+			\hline
+			$[S_{14}]$ & $p_3,p_{11}$ \\
+			\hline
+			$[S_{15}]$ & $p_2,p_{10}$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+\begin{table}
+	\centering
+	\caption{SMSs and its complementary in $(N,M_0)$ in the second iteration of Example 3}
+	
+	
+	\begin{tabular}{|c|c|}
+		\hline
+		& $SMSs$ \\
+		\hline
+		$S_1$ & $p_6,p_{10},p_{22},p_{25},p_{29},p_{32},p_{33},p_{35}$ \\
+		\hline
+		$S_2$ & $p_6,p_{11},p_{25},p_{29},p_{32},p_{34}$ \\
+		\hline
+		$S_3$ & $p_6,p_{10},p_{25},p_{29},p_{31},p_{35}$ \\
+		\hline
+		$S_4$ & $p_6,p_{10},p_{25},p_{28},p_{34},p_{35}$ \\
+		\hline
+		$S_5$ & $p_6,p_{12},p_{25},p_{29},p_{32}$ \\
+		\hline
+		$S_6$ & $p_6,p_{11},p_{25},p_{28},p_{34}$ \\
+		\hline
+		$S_7$ & $p_6,p_{10},p_{25},p_{27},p_{35}$ \\
+		\hline
+		$S_8$ & $p_5,p_{10},p_{29},p_{32},p_{34},p_{35}$ \\
+		\hline
+		$S_9$ & $p_5,p_{11},p_{29},p_{32},p_{34}$ \\
+		\hline
+		$S_{10}$ & $p_5,p_{10},p_{29},p_{31},p_{35}$ \\
+		\hline
+		$S_{11}$ & $p_4,p_{10},p_{32},p_{34},p_{35}$ \\
+		\hline
+		$S_{12}$ & $p_4,p_{11},p_{32},p_{34}$ \\
+		\hline
+		$S_{13}$ & $p_6,p_{13},p_{25},p_{29}$ \\
+		\hline
+		$S_{14}$ & $p_3,p_{10},p_{34},p_{35}$ \\
+		\hline
+		$S_{15}$ & $p_5,p_{12},p_{29},p_{32}$ \\
+		\hline
+		& The complementary sets \\
+		\hline
+		$[S_1]$ & $p_2,p_3,p_4,p_5,p_{11},p_{12},p_{13},p_{14}$ \\
+		\hline
+		$[S_2]$ & $p_3,p_4,p_5,p_{12},p_{13},p_{14}$ \\
+		\hline
+		$[S_3]$ & $p_2,p_4,p_5,p_{11},p_{13},p_{14}$ \\
+		\hline
+		$[S_4]$ & $p_2,p_3,p_5,p_{11},p_{12},p_{14}$ \\
+		\hline
+		$[S_5]$ & $p_4,p_5,p_{13},p_{14}$ \\
+		\hline
+		$[S_6]$ & $p_3,p_5,p_{12},p_{14}$ \\
+		\hline
+		$[S_7]$ & $p_2,p_5,p_{11},p_{14}$ \\
+		\hline
+		$[S_8]$ & $p_2,p_3,p_4,p_{11},p_{12},p_{13}$ \\
+		\hline
+		$[S_9]$ & $p_3,p_4,p_{12},p_{13}$ \\
+		\hline
+		$[S_{10}]$ & $p_2,p_4,p_{11},p_{13}$ \\
+		\hline
+		$[S_{11}]$ & $p_2,p_3,p_{11},p_{12}$ \\
+		\hline
+		$[S_{12}]$ & $p_3,p_{12}$ \\
+		\hline
+		$[S_{13}]$ & $p_5,p_{14}$ \\
+		\hline
+		$[S_{14}]$ & $p_2,p_{11}$ \\
+		\hline
+		$[S_{15}]$ & $p_4,p_{13}$ \\
+		\hline
+	\end{tabular}
+	
+	\end{table}
+
+\begin{table}
+	\centering
+	\caption{SMSs and its complementary in $(N,M_0)$ in the third iteration of Example 3}
+
+\begin{tabular}{|c|c|}
+	\hline
+	& $SMSs$ \\
+	\hline
+	$S_1$ & $p_5,p_{11},p_{66},p_{74},p_{91},p_{96}$ \\
+	\hline
+	$S_2$ & $p_5,p_{12},p_{66},p_{74},p_{96}$ \\
+	\hline
+	$S_3$ & $p_5,p_{11},p_{50},p_{74},p_{91}$ \\
+	\hline
+	$S_4$ & $p_4,p_{11},p_{66},p_{91},p_{96}$ \\
+	\hline
+	$S_5$ & $p_3,p_{11},p_{66},p_{91}$ \\
+	\hline
+	$S_6$ & $p_5,p_{13},p_{74},p_{96}$ \\
+	\hline
+	$S_7$ & $p_4,p_{12},p_{66},p_{96}$ \\
+	\hline
+	& The complementary sets \\
+	\hline
+	$[S_1]$ & $p_2,p_3,p_4,p_{12},p_{13},p_{14}$ \\
+	\hline
+	$[S_2]$ & $p_3,p_4,p_{13},p_{14}$ \\
+	\hline
+	$[S_3]$ & $p_2,p_4,p_{12},p_{14}$ \\
+	\hline
+	$[S_4]$ & $p_2,p_3,p_{12},p_{13}$ \\
+	\hline
+	$[S_5]$ & $p_2,p_{12}$ \\
+	\hline
+	$[S_6]$ & $p_4,p_{14}$ \\
+	\hline
+	$[S_7]$ & $p_3,p_{13}$ \\
+	\hline
+\end{tabular}
+
+
+\end{table}
+
+
+\begin{table}
+	\centering
+	\caption{SMSs and its complementary in $(N,M_0)$ in the fourth iteration of Example 3}
+\begin{tabular}{|c|c|}
+	\hline
+	& $SMSs$ \\
+	\hline
+	$S_1$ & $p_4,p_{12},p_{105},p_{197}$ \\
+	\hline
+	$S_2$ & $p_4,p_{13},p_{173},p_{197}$ \\
+	\hline
+	$S_3$ & $p_3,p_{12},p_{171},p_{197}$ \\
+	\hline
+	& The complementary sets \\
+	\hline
+	$[S_1]$ & $p_2,p_3,p_{13},p_{14}$ \\
+	\hline
+	$[S_2]$ & $p_3,p_{14}$ \\
+	\hline
+	$[S_3]$ & $p_2,p_{13}$ \\
+	\hline
+\end{tabular}
+
+
+\end{table}
+
+
+\begin{table}
+	\centering
+	\caption{SMSs and its complementary in $(N,M_0)$ in the fifth iteration of Example 3}
+	\begin{tabular}{|c|c|}
+		\hline
+		& $SMSs$ \\
+		\hline
+		$S_1$ & $p_3,p_{13},p_{202},p_{206}$ \\
+		\hline
+		& The complementary set \\
+		\hline
+		$[S_1]$ & $p_2,p_{14}$ \\
+		\hline
+	\end{tabular}
+	
+\end{table}
+\fi
+
+
+\end{document}

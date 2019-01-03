@@ -26,12 +26,15 @@
 %\usepackage{tikz}
 %\usetikzlibrary{shapes,backgrounds}
 
-%\usepackage{CJK} 
-
+%中文包
 \usepackage[UTF8]{ctex}
 
 \newtheorem{myTh}{Theorem}
 \newtheorem{myDf}{Definition}
+\newtheorem{myPro}{Property}
+\newtheorem{myExt}{Example}
+\newtheorem{myPf}{Proof}
+
 
 
 \renewcommand{\thefootnote}{}
@@ -78,6 +81,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $\emph{P}$ $\texttt{P}$ $\P$  $\mathrm{P}$  $\mathcal{P}$ $\mathit{P}$  $\mathnormal{P}$  $\boldsymbol{P}$  $\mathbf{P}$
+
+中文示例
+
+\begin{myTh}
+	content...
+\end{myTh}
+
+$\notin\beta$
+
+\begin{myTh}
+	
+\end{myTh}
+
+\begin{myDf}
+	
+\end{myDf}
 
 \hfill
 
@@ -146,31 +165,94 @@ By definition, $L/s = \emptyset$ if $s \notin \overline{L}$.
 
 \hfill
 
-$\textbf{Definition A.15 (Left derivatives):}$ Given language $A\subseteq V^{\ast}$ and $w\in V^{\ast}$ we define the left derivative of A with respect to $w$ as:
+\begin{myDf}[Left derivatives]: Given language $A\subseteq V^{\ast}$ and $w\in V^{\ast}$ we define the left derivative of A with respect to $w$ as:
 $$w^{-1}A = \{x\in V^{\ast}:wx\in A\}$$
+$A$关于$w$的左导数，就是$A$中： \{$w$的后缀组成的字符串集合\}。
+
 Sometimes derivatives are written as $D_{w}A$ or as $\frac{dA}{dw}$. Right derivatives are analogously defined. Derivatives can also be extended to $B^{-1}A$ where B is also a language.
-
-\hfill
-
-$\textbf{Kleene-closure:}$ Let $L\subseteq V^*$, then
-$$L^* := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$
-This is the same operation that we defined above for the set V, except that now it is applied to set L whose elements may be strings of length greater than one. An element of $L^*$ is formed by the concatenation of a finite (but possibly arbitrarily large) number of elements of L; this includes the concatenation of "zero" elements, that is the empty string $\epsilon$. Note that $\ast$ operation is idempotent: ${(L^*)}^* = L^*$.
-
-中文示例
-
-
-\begin{myTh}
-	content...
-\end{myTh}
-
-$\notin\beta$
-
-\begin{myTh}
-
-\end{myTh}
-
-\begin{myDf}
-
 \end{myDf}
+
+\begin{myExt}
+$A = \{a,aab,baa\},a^{-1}A = D_{a}A = \frac{dA}{da} =\{\epsilon,ab,\emptyset\} = \{\epsilon,ab\}$
+\end{myExt}
+
+\begin{myExt}
+	$L = \{ba,baa,baab,ca\}, w = \{ba\},$
+	
+	$w^{-1}L =\{\epsilon,a,ab,\emptyset\} = \{\epsilon,a,ab\}$
+	
+	${(wa)}^{-1}L = {(baa)}^{-1}L = \{\emptyset,\epsilon,b,\emptyset\} = \{\epsilon,b\}$
+	
+	$a^{-1}(w^{-1}L) = a^{-1}\{\epsilon,a,ab\} = \{\emptyset,\epsilon,b\} = \{\epsilon,b\}$
+	
+	$w\in L \equiv \epsilon \in w^{-1}L,and {(wa)}^{-1}L = a^{-1}(w^{-1}L)$
+\end{myExt}
+
+\begin{myExt}
+	$a^{-1}\{a\} = \{\epsilon\}; \quad a^{-1}\{b\} = \emptyset,\quad\Leftarrow if (a\ne b)$
+\end{myExt}
+
+\begin{myExt}
+	$L_0 = \{ab\},L_1 = \{ac\}, L_0L_1 = \{abac\}$
+	
+	$a^{-1}(L_0L_1) = \{bac\}$
+	
+	$a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup \emptyset \quad \Leftarrow(\epsilon \notin L_0)$
+	
+	$= \{b\}L_1 = \{bac\}$
+\end{myExt}
+
+\begin{myExt}
+	$L_0 = \{\epsilon,ab\},L_1 = \{ac\}, L_0L_1 = \{ac,abac\}$
+	
+	$a^{-1}(L_0L_1) = \{c,bac\}$
+	
+	$a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup a^{-1}L_1 \quad\Leftarrow(\epsilon \in L_0)$
+	
+	$= \{\emptyset,b\}L_1 \cup \{c\} = \{c,bac\}$
+\end{myExt}
+
+\begin{myPf}
+	$a^{-1}(L_0L_1)$
+	
+	$1. if(\epsilon \in L_0) \Rightarrow a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup a^{-1}L_1 $ 
+	
+	$L_0 = (L_0 \backslash \{\epsilon\}) \cup \{\epsilon\}$
+	
+	$a^{-1}(L_0L_1) = a^{-1}(((L_0 \backslash \{\epsilon\}) \cup \{\epsilon\})L_1)$
+	
+	$=a^{-1}(L_0L_1\cup L_1)$
+	
+	$a^{-1}L_0 = a^{-1}((L_0 \backslash \{\epsilon\}) \cup \{\epsilon\})$
+	
+	$=a^{-1}(L_0\ \backslash \{\epsilon \}) \cup a^{-1}\{\epsilon \}$
+	
+	$=a^{-1}L_0 \cup \emptyset = a^{-1}L_0$
+\end{myPf}
+	
+
+\clearpage
+
+自动机理论、语言和计算机导论,P99
+
+(1)如果$L$是一个语言，$a$是一个符号，则$L/a$(称作$L$和$a$的商)是所有满足如下条件的串$w$的集合：$wa$属于$L$。
+例如，如果$L=\{a,aab,baa\}$,则$L/a = \{\epsilon,ba\}$, 证明：如果$L$是正则的，那么$L/a$也是。提示：从$L$的$DFA$出发，考虑接受状态的集合。
+
+(2)如果$L$是一个语言，$a$是一个符号，则$a\backslash L$是所有满足如下条件的串$w$的集合: $aw$属于$L$。例如，如果$L=\{a,aab,baa\}$,则$a\backslash L=\{\epsilon,ab\}$,证明：如果$L$是正则的，那么$a\backslash L$也是。提示：记得正则语言在反转运算下是封闭的，又由(1)知，正则语言的商运算下是封闭的。
+
+\begin{myDf}[Kleene-closure]: 
+	Let $L\subseteq V^{\ast}$, then 
+	$$L^{\ast} := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$ 
+\end{myDf}
+
+This is the same operation that we defined above for the set V, except that now it is applied to set L whose elements may be strings of length greater than one. An element of $L^*$ is formed by the concatenation of a finite (but possibly arbitrarily large) number of elements of L; this includes the concatenation of "zero" elements, that is the empty string $\epsilon$. Note that $\ast$ operation is idempotent: ${(L^*)}^* = L^*$.
+\begin{align*}
+L^{\ast} & = (L\backslash \{\epsilon\})L^{\ast}\cup \{\epsilon\} \\
+         & = \{\epsilon \} \cup L\cup LL\cup LLL\cup \dots
+\end{align*}
+
+
+
+
 \end{document}
 
