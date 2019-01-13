@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%% book.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for the chapters of your "monograph"
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox,envcountchap,sectrefs]{svmono1}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+%
+\usepackage{type1cm}
+
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+\usepackage{wrapfig}
+\usepackage{picins}
+%xxx\usepackage{custom}
+\usepackage{tikz}
+\usetikzlibrary{shapes,backgrounds}
+
+%中文包
+\usepackage[UTF8]{ctex}
+% figure目录
+\graphicspath{{fig/},} 
+
+%\renewcommand{\thefootnote}{}  % footnote不编号
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%x%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\author{Zhiwu Li}
+\title{ Sample template for Springer's preferred layout}
+%\date{} %%如果没有这句，会生成时间
+%\subtitle{-- Monograph --}
+%\maketitle  % 生成书名
+%封面
+%\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{dedic}    %dedication 赠言
+%\include{foreword} %foreword 前言
+%\include{preface}  %preface 序言
+%\include{acknow}   %acknowledgement 致谢
+
+%\tableofcontents   %生成目录
+
+\include{acronym} % list(s) of abbreviations缩略语 or symbols in the Springer layout.
+\include{symbol}  % list(s) of abbreviations or symbols in the Springer layout.
+
+%%表示文章的正文部分，在生成目录后将从第一页开始
+%\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{part}      % part title page
+\include{automata}
+%\include{chapter_jiang_1} % \cite{蒋宗礼2013}(第1章 绪论)
+\include{chapter_jiang_3} % \cite{蒋宗礼2013}(第3章 有穷状态自动机)
+%\include{sample}     % 整理的简单格式样例 
+%\include{chapter}   % Springer's sample chapter
+%\include{chapter_1} % Zhiwu Li
+%\include{appendix}  % appendix of your book in the Springer layout.
+
+%\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{glossary}
+%\include{solutions} % Solutions
+\printindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

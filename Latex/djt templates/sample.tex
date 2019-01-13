@@ -7,9 +7,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\motto{Use the template \emph{chapter.tex} to style the various elements of your chapter content.}
 \chapter{chapter format}
-\label{ch_format} % Always give a unique label
+\label{intro} % Always give a unique label
 % use \chaptermark{}
 % to alter or adjust the chapter heading in the running head
+
+\abstract{This paragraph shall summarize the contents of the paper in short terms.}
+
 \paragraph{first Paragraph}
 \subparagraph{first Subparagraph} 
 \section{first section}
@@ -21,13 +24,12 @@
 \end{svgraybox}
 
 description
-
 \begin{description}[Type 1]
 	\item[Type 1]{description type 1.}
 	\item[Type 2]{description type 2.}
 \end{description}
 
-% Problems or Exercises should be sorted chapterwise
+Problems or Exercises should be sorted chapterwise
 \section*{Problems}
 \addcontentsline{toc}{section}{Problems}
 %
@@ -47,13 +49,13 @@ description
 \end{prob}
 
 
-\chapter{theorem/definition/proof/example}
+\section{theorem/definition/proof/example}
 \begin{theorem}
 	Theorem text goes here.
 \end{theorem}
 
 %
-\begin{definition}
+\begin{definition}[DfName]
 	Definition text goes here.
 \end{definition}
 
@@ -67,8 +69,42 @@ description
 	Examples text goes here.  \hfill$\square$ 
 \end{example}
 
-\chapter{equation eqnarray}
-\label{intro} % Always give a unique label
+\begin{corollary}
+	Examples text goes here.  \hfill$\square$ 
+\end{corollary}
+
+\begin{lemma}
+	Examples text goes here.  \hfill$\square$ 
+\end{lemma}
+
+\begin{remark}
+	Examples text goes here.  \hfill$\square$ 
+\end{remark}
+
+\begin{proposition}
+	Examples text goes here.  \hfill$\square$ 
+\end{proposition}
+
+\begin{note}
+	Examples text goes here.
+\end{note}
+
+\begin{problem}
+	Examples text goes here.
+\end{problem}
+
+\begin{question}
+	Examples text goes here.
+\end{question}
+
+\begin{exercise}
+	Examples text goes here.  
+\end{exercise}
+
+\begin{solution}
+	Examples text goes here.  
+\end{solution}
+
 
 \section{equation}
 equations, e.g.
@@ -156,7 +192,7 @@ For figures use
 \end{figure}
 
 
-\chapter{ref,cite}
+\section{ref,cite}
 \label{sec:2}
 % Always give a unique label
 % and use \ref{<label>} for cross-references
@@ -164,9 +200,14 @@ For figures use
 % use \sectionmark{}
 % to alter or adjust the section heading in the running head
 
-ref Sect.~\ref{sec:2} , see also Fig.~\ref{fig:1}
+referenc Sect.~\ref{sec:2} , see also Fig.~\ref{fig:1}
 
-ref：Table. ~\ref{tab:1}
+referenc：Table. ~\ref{tab:1}
+
+\cite{Lipschutz2007}
+
+\cite[chap.2]{Lipschutz2007}
+
 
 \runinhead{Run-in Heading Boldface Version} Use the \LaTeX\ automatism for all your cross-references and citations.
 \subruninhead{Run-in Heading Italic Version} Use the \LaTeX\ automatism for all your cross-refer\-ences and citations as has already been described in Sect.~\ref{sec:2}\index{paragraph}.
@@ -177,6 +218,20 @@ ref：Table. ~\ref{tab:1}
 	引用原文-- it will automatically render Springer's preferred layout.
 \end{quotation}
 
-environment\footnote{脚注footnote.}.
+footnote environment \footnote{脚注footnote.}.
 
+参考文献
 %\input{referenc}
+
+\begin{thebibliography}{99}
+	
+	
+	\bibitem{Lipschutz2007}
+	S. Lipschutz and M. L. Lipson, \textit{Schaum's Outline of Theory and Problems of Discrete Mathematics}, Third Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem{Rosen2007}
+	K. H. Rosen, \textit{Discrete Mathematics and Its Applications}, Seventh Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem{Maclane1988}
+	S. Maclane and G. Birkhoff, \textit{Algebra}, Third Edition, New York: Bchelsea Publishing Company, 1988.
+\end{thebibliography}

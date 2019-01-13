@@ -19,7 +19,7 @@
 %%   Right brace   \}     Tilde         \~}
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{svmono1}[2009/12/17 v5.5
+\ProvidesClass{svmono}[2009/12/17 v5.5
 ^^JSpringer Verlag global LaTeX document class for monographs]
 %
 % Options
@@ -164,12 +164,12 @@
 \DeclareOption{openany}{\@openrightfalse}
 %
 % no size changing allowed
-\DeclareOption{12pt}{\OptionNotUsed}
-\DeclareOption{12pt}{\OptionNotUsed}
+\DeclareOption{14pt}{\OptionNotUsed}
+\DeclareOption{14pt}{\OptionNotUsed}
 % options for the article class
-\def\@rticle@options{12pt,twoside}
+\def\@rticle@options{14pt,twoside}
 % fleqn
-\DeclareOption{fleqn}{\def\@rticle@options{12pt,twoside,fleqn}%
+\DeclareOption{fleqn}{\def\@rticle@options{14pt,twoside,fleqn}%
 \AtEndOfClass{\let\leftlegendglue\relax}%
 \AtBeginDocument{\mathindent\parindent}}
 % hanging sectioning titles

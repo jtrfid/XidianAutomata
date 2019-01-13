@@ -1,0 +1,334 @@
+\chapter{\cite{蒋宗礼2013}(第1章 绪论)}
+
+\begin{itemize}
+	\item 集合：集合的表示、集合之间的关系、集合的基本运算。
+	\item 关系：主要介绍了二元关系相关的内容。包括等价关系、等价分类、关系合成、关系闭包。
+	\item 递归定义与归纳证明。	
+	\item 图：无向图、有向图、树的基本概念。
+	\item 语言与形式语言：自然语言的描述，形式语言和自动机理论的出现，形式语言和自动机理论对计算机科学与技术学科人才能力培养的作用
+	\item 基本概念：字母表、字母、句子、字母表上的语言、语言的基本运算
+	
+\end{itemize}
+
+\section{集合的基础知识}
+
+\section{关系}
+\begin{itemize}
+	\item 二元关系 
+	\item 递归定义与归纳证明 
+	\item 关系的闭包 
+\end{itemize}
+
+\section{递归定义(recurisive definition)与归纳证明}
+\begin{itemize}
+	\item 递归定义(recurisive definition)
+	\begin{itemize}
+		\item 又称为归纳定义(indutive definition),它来定义一个集合。
+		\item 集合的递归定义由三个部分组成：
+		\begin{itemize}
+			\item 基础(basis): 用来定义该集合的最基本的元素。
+			\item 归纳(induction): 指出用集合中的元素来构造集合的新元素的规则。
+			\item 极小性限定: 指出一个对象是所定义集合中的元素的充要条件是它可以通过有限次的使用基础和归纳条款中所给的规定构造出来。
+		\end{itemize}
+	\end{itemize}
+    \item 归纳证明
+    \begin{itemize}
+    	\item 与递归定义相对应
+    	\item 归纳证明方法包括三大步:
+    	\begin{itemize}
+    		\item 基础(basis): 证明最基本元素具有相应性质。
+    		\item 归纳(induction): 证明如果某些元素具有相应性质，则根据这些元素用所规定的方法得到新元素也有相应的性质。
+    		\item 根据归纳法原理，所有的元素具有相应的性质。
+    	\end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\begin{definition}
+	设$R$是$S$上的关系，我们递归地定义$R^n$的幂：
+	\begin{enumerate}
+		\item $R^0 = \{(a,a)|a\in S\}$
+		\item $R^i = R^{i-1}R\quad (i=1,2,3,\cdots)$
+	\end{enumerate}
+\end{definition}
+
+\begin{example}
+对有穷集合$A$, 证明$|2^A| = 2^{|A|}$。
+\begin{proof}
+	设$A$为一个有穷集合，施归纳于$|A|$:
+	\begin{enumerate}
+		\item 基础: 当$|A|=0$时，$|2^A|=|\{\emptyset \}|=1$。
+		\item 归纳: 假设$|A|=n$时结论成立,这里$n\ge 0$,往证当$|A|=n+1$时结论成立
+		$$2^A = 2^B \cup \{C\cup \{ a\} | C\in 2^B\}$$
+		$$2^B\cap \{C\cup \{a\}|C\in 2^B \} = \emptyset$$
+		\begin{align*}
+		|2^A|&=|2^B \cup \{C\cup \{ a\} | C\in 2^B\}|\\
+		&=|2^B|+|\{C\cup \{a\}|C\in 2^B \}| \\
+		&=|2^B|+|2^B| \\
+		&=2\ast |2^B| \\
+		&=2\ast 2^{|B|} \\
+		&=2^{|B|+1}   \\
+		&=2^{|A|}
+		\end{align*}
+		\item 由归纳法原理，结论对任意有穷集合成立。
+	\end{enumerate}
+\end{proof}	
+\end{example}
+
+\section{关系的闭包}
+\begin{itemize}
+	\item 闭包(closure)
+		\subitem 设$P$是关于关系的性质的集合，关系$R$的$P$闭包(closure)是包含$R$并且具有$P$中所有性质的最小关系。
+	\item 正闭包(positive closure)
+		\subitem(1) $R\subseteq R^{+}$。
+		\subitem(2) 如果$(a,b),(b,c) \in R^{+}$,则$(a,c)\in R^{+}$。
+		\subitem(3) 除(1)、(2)外，$R^{+}$不包含有其他任何元素。
+	\item 传递闭包(transitive closure)
+	   	\subitem{-} 具有传递性的闭包。
+	   	\subitem{-} $R^{+}$具有传递性。
+	\item 可以证明，对任意二元关系$R$,
+			$$R^{+} = R\cup R^2 \cup R^3 \cup R^4 \cup \dots$$
+	\item 而且当$S$为有穷集时：
+			\[R^{+} = R\cup R^2 \cup R^3 \cup \cdots \cup R^{|S|} \]
+	\item 克林闭包(Kleene closure) $R^{\ast}$
+		\subitem(1) $R^0 \subseteq R^*,R\subseteq R^{\ast}$.
+		\subitem(2) 如果$(a,b),(b,c)\in R^{\ast}$则$(a,c)\in R^{\ast}$.
+		\subitem(3) 除(1),(2)外，$R^{\ast}$不再含有其他任何元素.
+	\item 自反传递闭包(reflexive and transitive closure)
+		\subitem $R^{\ast}$具有自反性、传递性。
+	\item 可以证明,对任意二元关系$R$,
+	\[R^{\ast} =R^{0}\cup R^{+} \]
+	\[R^{\ast} =R^{0}\cup R\cup R^{2}\cup R^{3}\cup \dots \]
+	\item 而且当$S$为有穷集时:
+	\[R^{\ast} =R^{0}\cup R\cup R^{2}\cup R^{3}\cup \dots \cup R^{|S|} \]
+	\item $R_1,R_2$是$S$上的两个二元关系
+		\subitem(1) $\emptyset^{+}=\emptyset$
+		\subitem(2) $(R_1^{+})^{+} = R_1^{+}$
+		\subitem(3) $(R_1^{\ast})^{\ast} = R_1^{\ast}$
+		\subitem(4) $R_1^{+}\cup R_2^{+} \subseteq (R_1 \cup R_2)^{+}$
+		\subitem(5) $R_1^{\ast}\cup R_2^{\ast} \subseteq (R_1\cup R^2)^{\ast}$		
+\end{itemize}
+
+\section{语言}
+\subsection{字母表(alphabet)}
+\begin{itemize}
+	\item \emph{字母表}是一个非空有穷集合，字母表中的元素称为该字母表的一个\emph{text字母(letter)}。又叫做\emph{符号(symbol)}、或者\emph{字符(character)}。
+	\item 非空性
+	\item 有穷性
+	\item 字符的两个特性
+		\subitem{-} 整体性(monolith), 也叫不可分性
+		\subitem{-} 可辨认性(distinguishable)，也叫可去区分性
+	\item 字母表的乘积(product)
+	\[\Sigma_1\Sigma_2 = \{ab|a\in \Sigma_1,b\in \Sigma_2 \} \]
+	\item 字母表$\Sigma$的n次幂
+		\subitem $\Sigma^0 = \{\epsilon\}$
+		\subitem $\Sigma^n = \Sigma^{n-1}\Sigma$
+		\subitem $\epsilon$是由$\Sigma$中的0个字符组成的。
+	\item $\Sigma$的\emph{正闭包}
+		\[\Sigma^{+} = \Sigma \cup \Sigma^2 \cup \Sigma^3 \cup \cdots \]
+		\[\Sigma^+ = \{x|x\text{是}\Sigma\text{中的至少一个字符连接而成的字符串}\} \]
+	\item $\Sigma$的\emph{克林闭包}
+		\[\Sigma^{\ast} = \Sigma^0 \cup \Sigma^+ = \Sigma^0 \cup \Sigma \cup \Sigma^2 \cup \Sigma^3 \cup \cdots \]
+		\[\Sigma^{\ast} = \{x|x\text{是}\Sigma\text{中的若干个，包括0个字符，连接而成的字符串}\} \]
+\end{itemize}
+
+\begin{example} \{alphabet\}
+	\begin{flushleft}
+		\{a,b,c,d\}\\
+		\{a,b,c,\dots,z\}\\
+		\{0,1\} \\
+		\{a,$a^{\prime}$,b,$b^{\prime}$ \}\\
+		\{aa,ab,bb \}\\
+		$\{\infty,\land,\lor,\geq,\leq \}$
+	\end{flushleft}
+\end{example}
+
+\begin{example} product
+	\begin{flushleft}
+		\{0,1\}\{0,1\} = \{00,01,10,00\}\\
+		\{0,1\}\{a,b,c,d\} = \{0a,0b,0c,0d,1a,1b,1c,1d\}\\
+		\{a,b,c,d\}\{0,1\} = \{a0,a1,b0,b1,c0,c1,d0,d1\}\\
+		\{aa,ab,bb\}\{0,1\} = \{aa0,aa1,ab0,ab1,bb0,bb1\}
+	\end{flushleft}
+\end{example}
+
+\begin{example} $\Sigma^0,\Sigma^{\ast}$ 
+	\begin{align*}
+	\{0,1\}^+ &= \{0,1,00,01,11,000,001,010,011,100,\dots\}\\
+	\{0,1\}^{\ast} &= \{\epsilon,0,1,00,01,11,000,001,010,011,100,\dots\}\\
+	\{a,b,c,d\}^+ &= \{a,b,c,d,aa,ab,ac,ad,ba,bb,bc,bd,\dots,aaa,aab,aac,aad,aba,abb,abc,\dots\}\\
+	\{a,b,c,d\}^{\ast} &= \{\epsilon,a,b,c,d,aa,ab,ac,ad,ba,bb,bc,bd,\dots,aaa,aab,aac,aad,aba,abb,abc,\dots\}
+	\end{align*}
+\end{example}
+
+\subsection{句子(sentence)/字(word)/字符串(string)}
+\begin{itemize}
+	\item 别称\\
+		句子(sentence),(字符、符号)行(line),(字符、符号)串(string).
+	\item 句子(sentence)\\
+		$\Sigma$是一个字母表,$\forall \in \Sigma^{\ast},x$叫做$\Sigma$上的一个句子。
+	\item 句子相等\\
+		两个句子被认为相等的，如果它们对应位置上的字符都对应相等。
+	\item 句子的长度(length)
+		\subitem{-} $\forall x\in \Sigma^{\ast}$,句子$x$中字符出现的总个数叫做该句子的长度,记作$|x|$。
+		\subitem{-} 长度为0的字符串叫\emph{空句子},记作$\epsilon$
+	\item 串$x$的$n$次幂
+	\begin{align*}
+		x^0 &= \epsilon \\
+		x^n &= x^{n-1}x
+	\end{align*}
+\end{itemize}
+
+\begin{note} 注意事项
+	\begin{itemize}
+		\item $\epsilon$是一个句子
+		\item $\{\epsilon\}\ne \emptyset$。这是因为$\{\epsilon\}$不是一个空集，它是含有一个空句子的$\epsilon$的集合。$|\{\epsilon\}|=1,|\emptyset|=0$
+	\end{itemize}
+\end{note}
+
+\begin{example}
+	$$|abaabb|=6$$
+	$$|bbaa|=4$$
+	$$|\epsilon|=0$$
+\end{example}
+
+\begin{example}
+	x=001,y=1101
+	\begin{align*}
+	x^0 &= y^0 = \epsilon \\
+	x^4 &= 001001001001 \\
+	y^4 &= 1101110111011101
+	\end{align*}
+\end{example}
+
+\subsection{并置/连结(concatenation)}
+\begin{itemize}
+	\item 并置/连结(concatenation)
+	\subitem{-} $x,y\in \Sigma^{\ast},x,y$的并置是由串$x$直接相接串$y$组成的。记作$xy$.
+	\item $\Sigma^{\ast}$上的并置运算性质
+	\begin{enumerate}
+		\item 结合律: $(xy)z=x(yz)$
+		\item 左消去律: if $xy=xz$,then $y=z$
+		\item 右消去律: if $yx=zx$,then $y=z$
+		\item 惟一分解性: 存在惟一确定的$a_1,a_2,\dots,a_n \in \Sigma$,使得$x=a_1a_2\cdots a_n$.
+		\item 单位元素: $\epsilon x=x\epsilon=x$
+	\end{enumerate} 
+\end{itemize}
+
+\subsection{前缀与后缀}
+设$x,y,z,w,v\in \Sigma^{\ast},$且$x=yz,w=yv$
+\begin{enumerate}
+	\item $y$是$x$的前缀(prefix)
+	\item 如果$z\ne \epsilon$,则$y$是x的真前缀(proper prefix).
+	\item $z$是$x$的后缀(suffix)
+	\item 如果$y\ne \epsilon$,则$z$是$x$的真后缀(proper suffix)
+	\item $y$是$x$和$w$的公共前缀(common prefix)
+	\item 如果$x$和$w$的任何公共前缀都是$y$的前缀, 则$y$是$x$和$w$的最大公共前缀。
+	\item 如果$x=zy$和$w=vy$, 则$y$是$x$和$w$的公共后缀(common suffix)。
+	\item 如果$x$和$w$的任何公共后缀都是$y$的后缀, 则$y$是$x$和$w$的最大公共后缀。
+\end{enumerate}
+
+\begin{example}
+	$\Sigma = \{a,b\}$上的句子abaabb:\\
+	前缀: $\epsilon,a,ab,aba,abaa,abaab,abaabb$ \\
+	真前缀: $\epsilon,a,ab,aba,abaa,abaab$ \\
+	后缀: $\epsilon,b,bb,abb,aabb,baabb,abaabb$ \\
+	真后缀: $\epsilon,b,bb,abb,aabb,baabb$
+\end{example}
+
+\noindent \textbf{结论}
+
+\begin{enumerate}
+	\item $x$的任意前缀$y$有惟一的一个后缀$z$与之对应,使得$x=yz$;反之亦然。
+	\item $x$的任意真前缀$y$有惟一的一个真后缀$z$与之对应,使得$x=yz$;反之亦然。
+	\item $|\{w|w\text{是}x\text{的后缀}\}| = |\{w|w\text{是}x\text{的前缀}\}|$
+	\item $|\{w|w\text{是}x\text{的真后缀}\}| = |\{w|w\text{是}x\text{的真前缀}\}|$
+	\item $\{w|w\text{是}x\text{的前缀}\}| = |\{w|w\text{是}x\text{的真前缀}\cup \{x\}\}$
+	\item $|\{w|w\text{是}x\text{的前缀}\}| = |\{w|w\text{是}x\text{的真前缀} + 1\}|$
+	\item $\{w|w\text{是}x\text{的后缀}\}| = |\{w|w\text{是}x\text{的真后缀}\cup \{x\}\}$
+	\item $|\{w|w\text{是}x\text{的后缀}\}| = |\{w|w\text{是}x\text{的真后缀} + 1\}|$
+	\item 对于任意字符串$w,w$是自身的前缀,但不是自身的真前缀; $w$是自身的后缀,但不是自身的真后缀。
+	\item 对于任意字符串$w,\epsilon$是$w$的前缀,且是$w$的真前缀; $\epsilon$是$w$的后缀,且是$w$的真后缀。
+\end{enumerate}
+
+\noindent \textbf{约定}
+\begin{itemize}
+	\item 用小写字母表中较为靠前的字母$a,b,c,\dots$表示字母表中的字母
+	\item 用小写字母表中较为靠后的字母$x,y,z,\dots$表示字母表中的句子(字)
+	\item 用$x^T$表示$x$的倒序。例如,如果$x=abc$,则$X^T=cba$
+\end{itemize}
+
+\subsection{子串(substring)}
+\begin{itemize}
+	\item 子串(substring)
+		\subitem{-} $w,x,y,z\in \Sigma^{\ast}$,且$w=xyz$,则称$y$是$w$的子串。
+	\item 公共子串(common substring)
+		\subitem{-} $t,u,v,w,x,y,z\in \Sigma^{\ast}$,且$t=uyv,w=xyz$,则称$y$是$t$和$w$的公共子串(common substring)。如果$y_1,y_2,\dots,y_n$是$t$和$w$的公共子串,且$max\{|y_1|,|y_2|,\dots,|y_n|\}=|y_j|$,则称$y_j$是$t$和$w$的\emph{最大公共子串}。
+		\subitem{-} 两个串的最大公共子串并不一定是惟一的。
+\end{itemize}
+
+\subsection{语言(language)}
+$\forall \in\Sigma^{\ast},L$称为字母表$\Sigma$上的一个\emph{语言(language)},$\forall x\in L,x$叫做$L$的一个句子(sentence)/字(word)/字符串(string)。
+\begin{example}
+	$\Sigma = \{0,1\}$上的不同语言
+	\{00,11\}\\
+	\{0,1\}\\
+	\{0,1,00,11\}\\
+	\{0,1,00,11,01,10\}\\
+	\{00,11\}$^{\ast}$\\
+	\{01,10\}$^{\ast}$\\
+	\{00,01,10,11\}$^{\ast}$\\
+	\{0\}\{0,1\}$^{\ast}$\{1\}\\
+	\{0,1\}$^{\ast}$\{111\}\{0,1\}$^{\ast}$\\
+\end{example}
+
+\subsection{语言的\emph{乘积(product)}}
+$L_1\subseteq \Sigma_1^{\ast},L_2\subseteq\Sigma_2^{\ast}$,语言$L_1$与$L_2$的\emph{乘积(product)}是一个语言,该语言定义为:
+\[L_1L_2=\{xy|x\in L_1,y\in L_2\}\]
+是字母表$\Sigma_1\cup\Sigma_2$上的语言。
+\begin{example} $\Sigma = \{0,1\}$
+	\begin{align*}
+	L_1 &=\{0,1\}\\
+	L_2 &=\{00,01,10,11\} \\
+	L_3 &=\{0,1,00,01,10,11,000,\dots\} =\Sigma^{+} \\
+	L_4 &=\{\epsilon,0,1,00,01,10,11,000,\dots\}=\Sigma^{\ast} \\
+	L_5 &=\{0^n|n\geq 1\} \\
+	L_6 &=\{0^n1^n\geq 1\} \\
+	L_7 &=\{1^n|n\geq 1\} \\
+	L_8 &=\{0^n1^m|n,m\geq 1\} \\
+	L_9 &=\{0^n1^n0^n|n\geq 1\} \\
+	L_{10} &=\{0^n1^m0^k|n,m,k\geq 1\} \\
+	L_{11}  &=\{x|x\in\Sigma^{+}\text{且$x$中$0$和$1$的个数相同}\}
+	\end{align*}
+	\begin{itemize}
+		\item 上述所有语言都是$L_4$的子集(子语言)；
+		\item $L_1,L_2$是有穷语言；其他为无穷语言；其中$L_1$是$\Sigma$上的所有长度为$1$的字组成的语言，$L_2$是$\Sigma$上的所有长度为$2$的字组成的语言；
+		\item $L_3,L_4$分别是$\Sigma$的正闭包和克林闭包;
+		\item $L_5L_7\ne L_6$,但$L_5L_7=L_8$;同样$L_9\ne L_{10}$,但我们有$L_6\subset L_5L_7, L_9\subset L_{10}$.
+		\item $L_6$中的word中的0和1的个数是相同的，并且所有的0在所有的1的前面；$L_{11}$中的word中虽然保持着0和1的个数相同，但它并没有要求所有的0在所有的1的前面。例如，$0101,1100\in L_{11}$,但是$0101\notin L_6$。而对$\forall x\in L_6$,有$x \in L_{11}$。所以$L_6\subset L_{11}$。
+	\end{itemize}
+\end{example}
+
+\begin{example} $x^T example$
+	\begin{enumerate}
+		\item $\{x|x=x^T,x\in\Sigma\}$
+		\item $\{xx^T|x\in\Sigma^{+}\}$
+		\item $\{xx^T|x\in\Sigma^{\ast}\}$
+		\item $\{xwx^T|x,w\in\Sigma^{+}\}$
+		\item $\{xx^Tw|x,w\in\Sigma^{+}\}$
+	\end{enumerate}
+\end{example}
+
+\begin{itemize}
+	\item 幂
+	$\forall L\in\Sigma^{\ast},L$的$n$次\emph{幂}是一个语言，该语言定义为
+	\begin{enumerate}
+		\item 当$n=0$时，$L^n=\{\epsilon\}$
+		\item 当$n\ge 1$时，$L^n=L^{n-1}L$
+	\end{enumerate}
+	\item 正闭包
+	\[L^+=L\cup L^2\cup L^3\cup L^4 \cup\dots\]
+	\item 克林闭包
+	\[L^{\ast}=L^0\cup L\cup L^2\cup L^3\cup L^4 \cup\dots\]
+\end{itemize}
+
+

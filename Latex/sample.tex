@@ -1,0 +1,237 @@
+%%%%%%%%%%%%%%%%%%%%% chapter.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample chapter
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\motto{Use the template \emph{chapter.tex} to style the various elements of your chapter content.}
+\chapter{chapter format}
+\label{intro} % Always give a unique label
+% use \chaptermark{}
+% to alter or adjust the chapter heading in the running head
+
+\abstract{This paragraph shall summarize the contents of the paper in short terms.}
+
+\paragraph{first Paragraph}
+\subparagraph{first Subparagraph} 
+\section{first section}
+\label{first_section} % Always give a unique label
+\subsection{first subsection}
+
+\begin{svgraybox}
+	emphasize complete paragraphs of texts 
+\end{svgraybox}
+
+description
+\begin{description}[Type 1]
+	\item[Type 1]{description type 1.}
+	\item[Type 2]{description type 2.}
+\end{description}
+
+Problems or Exercises should be sorted chapterwise
+\section*{Problems}
+\addcontentsline{toc}{section}{Problems}
+%
+% Use the following environment.
+% Don't forget to label each problem;
+% the label is needed for the solutions' environment
+\begin{prob}
+	\label{prob1}
+	A given problem or Excercise is described here. 
+\end{prob}
+
+\begin{prob}
+	\label{prob2}
+	\textbf{Problem Heading}\\
+	(a) The first part of the problem is described here.\\
+	(b) The second part of the problem is described here.
+\end{prob}
+
+
+\section{theorem/definition/proof/example}
+\begin{theorem}
+	Theorem text goes here.
+\end{theorem}
+
+%
+\begin{definition}[DfName]
+	Definition text goes here.
+\end{definition}
+
+\begin{proof}
+	%\smartqed
+	Proof text goes here.
+	\qed
+\end{proof}
+
+\begin{example}
+	Examples text goes here.  \hfill$\square$ 
+\end{example}
+
+\begin{corollary}
+	Examples text goes here.  \hfill$\square$ 
+\end{corollary}
+
+\begin{lemma}
+	Examples text goes here.  \hfill$\square$ 
+\end{lemma}
+
+\begin{remark}
+	Examples text goes here.  \hfill$\square$ 
+\end{remark}
+
+\begin{proposition}
+	Examples text goes here.  \hfill$\square$ 
+\end{proposition}
+
+\begin{note}
+	Examples text goes here.
+\end{note}
+
+\begin{problem}
+	Examples text goes here.
+\end{problem}
+
+\begin{question}
+	Examples text goes here.
+\end{question}
+
+\begin{exercise}
+	Examples text goes here.  
+\end{exercise}
+
+\begin{solution}
+	Examples text goes here.  
+\end{solution}
+
+
+\section{equation}
+equations, e.g.
+\begin{equation}
+a \times b = c\;,
+\end{equation}
+
+multiline equations
+\begin{eqnarray}
+a \times b = c \nonumber\\
+\vec{a} \cdot \vec{b}=\vec{c}
+\label{eq:01}
+\end{eqnarray}
+
+enumerate example
+\begin{enumerate}
+	\item{item 1.}
+	\begin{enumerate}
+		\item{sub item a.}
+		\item{sub item b.}
+	\end{enumerate}
+	\item{item 2.}
+\end{enumerate}
+
+itemize example
+\begin{itemize}
+	\item{item 1, cf. Table~\ref{tab:1}.}
+	\begin{itemize}
+		\item{sub item 1.}
+		\item{sub item 2.}
+	\end{itemize}
+	\item{item.}
+\end{itemize}
+
+For tables use
+\begin{table}
+	\caption{Please write your table caption here}
+	\label{tab:1}       % Give a unique label
+	%
+	% For LaTeX tables use
+	%
+	\begin{tabular}{p{2cm}p{2.4cm}p{2cm}p{4.9cm}}
+		\hline\noalign{\smallskip}
+		Classes & Subclass & Length & Action Mechanism  \\
+		\noalign{\smallskip}\svhline\noalign{\smallskip}
+		Translation & mRNA$^a$  & 22 (19--25) & Translation repression, mRNA cleavage\\
+		Translation & mRNA cleavage & 21 & mRNA cleavage\\
+		Translation & mRNA  & 21--22 & mRNA cleavage\\
+		Translation & mRNA  & 24--26 & Histone and DNA Modification\\
+		\noalign{\smallskip}\hline\noalign{\smallskip}
+	\end{tabular}
+	$^a$ Table foot note (with superscript)
+\end{table}
+
+\section{figure}
+
+For figures use
+\begin{figure}[b]
+\sidecaption
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the option graphics use
+\includegraphics[scale=.65]{figure}
+%
+% If not, use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{If the width of the figure is less than 7.8 cm use the \texttt{sidecapion} command to flush the caption on the left side of the page. If the figure is positioned at the top of the page, align the sidecaption with the top of the figure -- to achieve this you simply need to use the optional argument \texttt{[t]} with the \texttt{sidecaption} command}
+\label{fig:1}       % Give a unique label
+\end{figure}
+
+
+\begin{figure}[t]
+\sidecaption[t]
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+% For example, with the option graphics use
+\includegraphics[scale=.65]{figure}
+%
+% If not, use
+%\picplace{5cm}{2cm} % Give the correct figure height and width in cm
+%
+\caption{Please write your figure caption here}
+\label{fig:2}       % Give a unique label
+\end{figure}
+
+
+\section{ref,cite}
+\label{sec:2}
+% Always give a unique label
+% and use \ref{<label>} for cross-references
+% and \cite{<label>} for bibliographic references
+% use \sectionmark{}
+% to alter or adjust the section heading in the running head
+
+referenc Sect.~\ref{sec:2} , see also Fig.~\ref{fig:1}
+
+referenc：Table. ~\ref{tab:1}
+
+\cite{Lipschutz2007}
+
+\cite[chap.2]{Lipschutz2007}
+
+
+\runinhead{Run-in Heading Boldface Version} Use the \LaTeX\ automatism for all your cross-references and citations.
+\subruninhead{Run-in Heading Italic Version} Use the \LaTeX\ automatism for all your cross-refer\-ences and citations as has already been described in Sect.~\ref{sec:2}\index{paragraph}.
+% Use the \index{} command to code your index words
+%
+
+\begin{quotation}
+	引用原文-- it will automatically render Springer's preferred layout.
+\end{quotation}
+
+footnote environment \footnote{脚注footnote.}.
+
+参考文献
+%\input{referenc}
+
+\begin{thebibliography}{99}
+	
+	
+	\bibitem{Lipschutz2007}
+	S. Lipschutz and M. L. Lipson, \textit{Schaum's Outline of Theory and Problems of Discrete Mathematics}, Third Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem{Rosen2007}
+	K. H. Rosen, \textit{Discrete Mathematics and Its Applications}, Seventh Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem{Maclane1988}
+	S. Maclane and G. Birkhoff, \textit{Algebra}, Third Edition, New York: Bchelsea Publishing Company, 1988.
+\end{thebibliography}

@@ -1,0 +1,397 @@
+\chapter{\cite{蒋宗礼2013}(第3章 有穷状态自动机)}
+
+\emph{主要内容}
+\begin{itemize} 
+	\item 确定的有穷状态自动机$(DFA)$
+		\subitem{-} 作为对实际问题的抽象、直观物理模型、形式定义，DFA接受的句子、语言，状态转移图。
+	\item 不确定的有穷状态自动机($NFA$)
+		\subitem{-} 定义；
+		\subitem{-} NFA与DFA的等价性；
+	\item 带空移动的有穷状态自动机($\epsilon-NFA$)
+		\subitem{-} 定义。
+		\subitem{-} $\epsilon-NFA$与$DFA$的等价性。
+	\item $FA$是正则语言的识别器
+		\subitem{-} 正则文法($RG$)与$FA$的等价性。
+		\subitem{-} 相互转换方法。
+		\subitem{-} 带输出的有穷状态自动机。
+		\subitem{-} 双向有穷状态自动机。
+	\item 重点：$DFA$的概念，$DFA$、$NFA$、$\epsilon-NFA$、$RG$之间的等价转换思路与方法。
+	\item 难点：对$DFA$概念的理解，$DFA$、$RG$的构造方法， $RG$与$FA$的等价性证明。
+\end{itemize}
+
+\section{语言的识别}
+
+\begin{svgraybox}
+	推导和归约中的回溯问题将对系统的效率产生极大的影响 
+	
+	$S\to aA|aB$
+	
+	$A\to aA|c$
+	
+	$B\to aB|d$
+	
+	分析句子(word)$aaac$的过程中可能需要回溯。
+\end{svgraybox}
+
+\begin{itemize}
+	\item 识别系统(模型)
+	\begin{enumerate}
+		\item 系统具有有穷个状态，不同的状态代表不同的意义。按照实际的需要，系统可以在不同的状态下完成规定的任务。
+		\item 我们可以将输入字符串中出现的字符汇集在一起构成一个字母表。系统处理的所有字符串都是这个字母表上的字符串。 
+		\item 系统在任何一个状态(当前状态)下，从输入字符串中读入一个字符，根据当前状态和读入的这个字符转到新的状态。当前状态和新的状态可以是同一个状态，也可以是不同的状态；当系统从输入字符串中读入一个字符后，它下一次再读时，会读入下一个字符。这就是说，相当于系统维持有一个读写指针，该指针在系统读入一个字符后指向输入串的下一个字符。
+		\item 系统中有一个状态，它是系统的开始状态，系统在这个状态下开始进行某个给定句子的处理。 
+		\item 系统中还有一些状态表示它到目前为止所读入的字符构成的字符串是语言的一个句子，把所有将系统从开始状态引导到这种状态的字符串放在一起构成一个语言，该语言就是系统所能识别的语言。\item 相应的物理模型
+		\begin{enumerate}
+			\item 一个右端无穷的输入带。
+			\item 一个有穷状态控制器(finite state control,FSC) 。
+			\item 一个读头。
+		\end{enumerate}
+	   \item 系统的每一个动作由三个节拍构成：
+	   \begin{enumerate}
+	   		\item 读入读头正注视的字符；
+	   		\item 根据当前状态和读入的字符改变有穷控制器的状态；
+	   		\item 将读头向右移动一格。
+	   \end{enumerate}    	
+	\end{enumerate}
+\end{itemize}
+
+系统识别语言$\{a^nc|n\ge 1\}\cup\{a^nd|n\ge 1\}$的字符串中状态的变化(figure \ref{fig:anc})
+\begin{figure}[htbp]
+	\includegraphics*[scale=.4]{anc}
+	\caption{系统识别语言$\{a^nc|n\ge 1\}\cup\{a^nd|n\ge 1\}$的字符串中状态的变化}
+	\label{fig:anc}       % Give a unique label
+\end{figure}
+
+有穷状态自动机的物理模型
+\begin{figure}[htbp]
+	\includegraphics*[scale=.4]{model}
+	\caption{有穷状态自动机的物理模型}
+	\label{fig:model}       % Give a unique label
+\end{figure}
+
+\section{有穷状态自动机(finite automaton,FA)}
+\[M=(Q,\Sigma,\delta,q_0,F)\]
+
+$Q$: 状态的非空有穷集合。$\forall\in Q,q$称为$M$的一个\emph{状态(state)}。
+
+$\Sigma$: \emph{输入字母表(Input alphabet)}。输入字符串都是$\Sigma$上的字符串。
+
+$q_0$: $q_0\in Q$,是$M$的\emph{开始状态(initial state)},也可叫做初始状态或者启动状态。
+
+$\delta$: 状态\emph{转移函数(transition function)}，有时候又叫做状态转换函数或者移动函数。$\delta: Q\times\Sigma\to Q$，对$\forall(q,a)\in Q\times\Sigma,\delta(q,a)=p$表示：$M$在状态$q$读入字符$a$，将状态变成$p$，并将读头向右移动一个带方格而指向输入字符串的下一个字符。
+
+$F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall q\in F, q$称为$M$的终止状态，又称为\emph{接受状态(accept state)}。  
+
+将$\delta$扩充为
+\[\hat{\delta}: Q\times\Sigma^{\ast}\to Q\]
+
+对于任意的$q\in Q, w\in\Sigma^{\ast}, a\in\Sigma$，定义
+\begin{enumerate}
+	\item $\hat{\delta}(q,\epsilon) = q$
+	\item $\hat{\delta}(q,wa) = \delta(\hat{\delta}(q,w),a)$
+\end{enumerate}
+\begin{align*}
+ \hat{\delta}(q,a) &= \hat{\delta}(q,\epsilon a) \\
+ 				   &= \delta(\hat{\delta}(q,\epsilon),a) \\
+ 				   &= \delta(q,a)
+\end{align*}
+
+两值相同，不用区分这两个符号。 
+
+\paragraph{\textbf{确定的有穷状态自动机}}
+
+由于对于任意的$q\in Q, a\in\Sigma, \delta(q,a)$均有确定的值，所以，将这种FA称为\emph{确定的有穷状态自动机(deterministic finite automaton，DFA) }
+
+\paragraph{\textbf{$M$接受(识别)的语言}}
+
+对于$\forall x\in\Sigma^{\ast}$如果$\delta(q,w)\in F$，则称$x$被$M$接受，如果$\delta(q,w)\notin F$, 则称$M$不接受$x$。
+\[L(M)=\{x|x\in\Sigma^{\ast},\text{且}\delta(q,w)\in F\}\]
+
+称为由$M$接受(识别)的语言 
+
+\[L(M_1)=L(M_2)=\{2^{2^n}|n\ge 1\}\]
+
+如果$L(M_1)=L(M_2)$,则称$M_1$与$M_2$等价。
+
+\begin{example}构造一个$DFA$，它接受的语言为
+	\[\{x000y|x,y\in\{0,1\}^{\ast}\}\]
+	\begin{itemize}
+		\item $q_0$: $M$的启动状态；
+	    \item $q_1$: $M$读到了一个0，这个0可能是子串“000”的第1个0；
+	    \item $q_2$: $M$在$q_1$后紧接着又读到了一个0，这个0可能是子串“000”的第2个0；
+		\item $q_3$: $M$在$q_2$后紧接着又读到了一个0，发现输入字符串含有子串“000”；因此，这个状态应该是终止状态。
+	    \item $\delta(q_0,1)= q_0$: $M$在$q_0$读到了一个1，它需要继续在$q_0$ “等待”可能是子串“000”的第1个0的输入字符0；
+		\item $\delta(q_1,1)= q_0$: $M$在刚刚读到了一个0后，读到了一个1，表明在读入这个1之前所读入的0并不是子串“000”的第1个0，因此，$M$需要重新回到状态$q_0$，以寻找子串“000”的第1个0；
+		
+		\item $\delta(q_2,1)= q_0$: $M$在刚刚发现了00后，读到了一个1，表明在读入这个1之前所读入的00并不是子串“000”的前两个0，因此，M需要重新回到状态$q_0$，以寻找子串“000”的第1个0；
+		
+		\item $\delta(q_3,0)= q_3$: $M$找到了子串“000”，只用读入该串的剩余部分。
+		
+		\item $\delta(q_3,1)= q_3$: $M$找到了子串“000”，只用读入该串的剩余部分。	
+	\end{itemize}
+	\begin{align*} 
+	M=&(\{q_0,q_1,q_2,q_3\},\{0,1\},\\
+	&\{\delta(q_0,0)=q_1,\delta(q_1,0)=q_2,\delta(q_2,0)=q_3,\\
+	&\delta(q_0,1)=q_0,\delta(q_1,1)=q_0,\delta(q_2,1)=q_0,\\
+	&\delta(q_3,0)=q_3,\delta(q_3,1)=q_3\},\\
+	&q_0,\{q_3\})
+	\end{align*}
+	
+	see: figure(\ref{fig:x000y}),table(\ref{tab:x000y})
+	\begin{table}
+		\caption{状态转移表}
+		\label{tab:x000y}       % Give a unique label
+		\begin{tabular}{|p{1.3cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|}
+		%\begin{tabular}{|c|c|c|c|}
+			\hline 
+			状态说明 & 状态 & \multicolumn{2}{c|}{输入字符} \\ 
+			\hline 
+			&  & 0 & 1 \\ 
+			\hline 
+			开始状态 & $q_0$ & $q_1$ & $q_0$ \\ 
+			\hline 
+			& $q_1$ & $q_2$ & $q_0$ \\ 
+			\hline 
+			& $q_2$ & $q_3$ & $q_0$ \\ 
+			\hline 
+			终止状态 & $q_3$ & $q_3$ & $q_3$ \\ 
+			\hline 
+		\end{tabular} 
+    \end{table}
+    \begin{figure}[htbp]
+    	\includegraphics*[scale=.4]{x000y}
+    	\caption{识别语言\{$x000y|x,y\in\{0,1\}^{\ast}$\}的$DFA$}
+    	\label{fig:x000y}       % Give a unique label
+    \end{figure}
+\end{example}
+
+\begin{example}构造一个$DFA$，它接受的语言为
+	\[\{x000|x\in\{0,1\}^{\ast}\}\]
+	
+	see: figure(\ref{fig:x000})
+	\begin{figure}[htbp]
+		\includegraphics*[scale=.4]{x000}
+		\caption{识别语言\{$x000|x\in\{0,1\}^{\ast}$\}的$DFA$}
+		\label{fig:x000}       % Give a unique label
+	\end{figure}
+\end{example}
+
+\paragraph{}
+\begin{note}\emph{几点值得注意}
+	\begin{enumerate}
+		\item 定义$FA$时，常常只给出$FA$相应的状态转移图就可以了。 
+		\item 对于$DFA$来说，并行的弧按其上的标记字符的个数计算，对于每个顶点来说，它的出度恰好等于输入字母表中所含的字符的个数。 
+		\item 不难看出，字符串$x$被$FA\quad M$接受的充分必要条件是，在$M$的状态转移图中存在一条从开始状态到某一个终止状态的有向路，该有向路上从第1条边到最后一条边的标记依次并置而构成的字符串$x$。简称此路的标记为$x$。 
+		\item 一个$FA$可以有多于1个的终止状态。 
+	\end{enumerate}
+\end{note}
+
+\paragraph{\textbf{即时描述(instantaneous description，ID）}}
+
+\begin{itemize}
+	\item $x,y\in \Sigma^{\ast}, \delta(q_0,x)=q, xqy$称为$M$的一个即时描述，表示$xy$是$M$正在处理的一个字符串，$x$引导$M$从$q_0$启动并到达状态$q$，$M$当前正注视着$y$的首字符。 
+	
+	\item 如果$xqay$是$M$的一个即时描述，且$\delta(q,a)=p$, 则$xqay\vdash_Mxapy$。
+	
+	\item $\alpha\vdash_{M^n}\beta$: 表示$M$从即时描述$\alpha$经过$n$次移动到达即时描述$\beta$。
+	
+	\item $M$存在即时描述$\alpha_1,\alpha_2,\alpha_{n-1}$，使得
+	\[\alpha\vdash_M\alpha_1,\alpha_1\vdash_M\alpha_2,\cdots,\alpha_{n-1}\vdash_M\beta\]
+	\subitem 当$n=0$时，有$\alpha=\beta$, 即$\alpha\vdash_{M^0}\alpha$
+	
+	\item $\alpha\vdash_{M^+}\beta$: 表示$M$从即时描述$\alpha$经过至少1次移动到达即时描述$\beta$。
+	
+	\item $\alpha\vdash_{M^{\ast}}\beta$: 表示$M$从即时描述$\alpha$经过若干步移动到达即时描述$\beta$。
+	
+	\item 当意义清楚时，我们将符号$\vdash_M, \vdash_{M^n}, \vdash_{M^{\ast}}, \vdash_{M^+}$中的$M$省去，分别用$\vdash, \vdash_n, \vdash_\ast, \vdash_+$表示。	
+\end{itemize}
+
+\begin{example}
+	图(\ref{fig:x000ID})的DFA到即时描述(instantaneous description,ID)的转换
+	\begin{align*}
+		q_0101010001 &\vdash 1 q_0 010010001 \\
+		&\vdash 10 q_1 10010001 \\
+		&\vdash 101 q_0 0010001 \\
+		&\vdash 1010 q_1 010001 \\
+		&\vdash 10100 q_2 10001 \\
+		&\vdash 101001 q_0 0001 \\
+		&\vdash 1010010 q_1 001 \\
+		&\vdash 10100100 q_2 01 \\
+		&\vdash 101001000 q_3 1 \\
+		&\vdash 1010010001 q_0
+	\end{align*}
+	即
+	\begin{align*}
+		q_0101010001 &\vdash_{10}1010010001 q_0 \\
+		q_0101010001 &\vdash_{+}1010010001 q_0 \\
+		q_0101010001 &\vdash_{\ast}1010010001 q_0 
+	\end{align*}
+	对于$x\in\Sigma^{\ast}$,
+	\begin{align*}
+	q_0x1 &\vdash_{+}x1q_0     \\
+	q_0x10 &\vdash_{+}x10q_1   \\
+	q_0x100 &\vdash_{+}x100q_2 \\
+	q_0x000 &\vdash_{+}x000q_3 
+	\end{align*}
+	
+	\begin{figure}[htbp]
+		\includegraphics*[scale=.4]{x000}
+		\caption{识别语言\{$x000|x\in\{0,1\}^{\ast}$\}的$DFA$}
+		\label{fig:x000ID}       % Give a unique label
+	\end{figure}
+\end{example}
+
+能引导$FA$从开始状态$q_0$到达$q$的字符串的集合为：
+\[set(q)=\{x|x\in\Sigma^{\ast},\delta(q_0,x)=q\}\]
+
+\begin{example}
+	对图\ref{fig:x000ID}所给的$DFA$中的所有$q$，求$set(q)$。
+	\begin{align*}
+		set(q_0) &=\{x|x\in\Sigma^{\ast},x=\epsilon\text{或者$x$以1结尾}\} \\
+		set(q_1) &=\{x|x\in\Sigma^{\ast},x=0\text{或者$x$以10结尾}\} \\
+		set(q_2) &=\{x|x\in\Sigma^{\ast},x=00\text{或者$x$以100结尾}\} \\
+		set(q_3) &=\{x|x\in\Sigma^{\ast},\text{$x$以000结尾}\} \\
+		set(q_4) &=\{x|x\in\Sigma^{\ast},\text{$x$以001结尾}\}
+	\end{align*}
+	这5个集合是两两互不相交。
+\end{example}
+
+对于任意一个$FA,\quad M=(Q,\Sigma,\delta,q_0,F)$ 我们可以按照如下方式定义关系$R_M$:
+
+对$\forall x,y\in\Sigma^{\ast},xR_My \Leftrightarrow \exists q\in Q$，使得$x\in set(q)$和$y\in set(q)$同时成立。
+
+按照这个定义所得到的关系实际上是$\Sigma^{\ast}$上的一个等价关系。利用这个关系，可以将$\Sigma^{\ast}$划分成不多于|Q|个等价类。 
+
+\begin{example}
+	构造一个$DFA$，它接受的语言为$\{0^n1^m2^k|n,m,k\ge 1\}$。 
+	
+	$q_0$: $M$的启动状态；
+	
+	$q_1$: $M$读到至少一个0，并等待读更多的0；
+	
+	$q_2$: $M$读到至少一个0后，读到了至少一个1，并等待读更多的1；
+	
+	$q_3$: $M$读到至少一个0后跟至少一个1后，并且接着读到了至少一个2。 
+	\begin{itemize}
+		\item 先设计“主体框架” ,见图\ref{fig:0n1m2k_1}
+		\item 再补充细节, 见图\ref{fig:0n1m2k_2}
+	\end{itemize}
+	\begin{figure}[htbp]
+		\includegraphics*[scale=.4]{0n1m2k_1}
+		\caption{语言$\{0^n1^m2^k|n,m,k\ge 1\}$的主题框架}
+		\label{fig:0n1m2k_1}       % Give a unique label
+	\end{figure}
+
+	\begin{figure}[htbp]
+		\includegraphics*[scale=.4]{0n1m2k_2}
+		\caption{语言$\{0^n1^m2^k|n,m,k\ge 1\}$的细节}
+		\label{fig:0n1m2k_2}       % Give a unique label
+	\end{figure}
+
+	\begin{enumerate}
+		\item 当$FA$一旦进入状态$q_t$，它就无法离开此状态。所以，$q_t$相当于一个陷阱状态(trap)。一般地，我们将陷阱状态用作在其他状态下发现输入串不可能是该$FA$所识别的语言的句子时进入的状态。在此状态下，$FA$读完输入串中剩余的字符。 
+		\item  在构造一个识别给定语言的$FA$时，用画图的方式比较方便、直观。我们可以先根据语言的主要特征画出该$FA$的“主体框架”，然后再去考虑画出一些细节要求的内容。
+		\item $FA$的状态具有一定的记忆功能：不同的状态对应于不同的情况，由于FA只有有穷个状态，所以，在识别一个语言的过程中，如果有无穷种情况需要记忆，我们肯定是无法构造出相应的$FA$的。 
+		
+	\end{enumerate}
+\end{example}
+
+\section{正则代换(regular substitution)}
+
+设$\Sigma,\Delta$是两个字母表，映射
+$$f:\Sigma \to 2^{\Delta^{\ast}}$$
+被称为是从$\Sigma$到$\Delta$的
+\textbf{代换}。如果对于$\forall a\in \Sigma,f(a)$是$\Delta$上的$RL$,则称\textbf{$f$为正则代换}。
+
+\begin{itemize}
+	\item 现将$f$的定义域扩展到$\Sigma^{\ast}$上:
+	\begin{enumerate}
+		\item $f(\epsilon) =\{\epsilon\}$
+		\item $f(xa)=f(x)f(a)$
+	\end{enumerate}
+    \item 再将$f$的定义域扩展到$2^{\Delta^{\ast}}$\\
+    对于$\forall L\subseteq \Sigma{\ast}$\\
+    $f(L) = \bigcup\limits_{x\in L} f(x)$
+    \item $f$是正则代换，则
+    \begin{enumerate}
+    	\item $f(\emptyset)=\emptyset$
+    	\item $f(\epsilon)=\epsilon$
+    	\item 对于$\forall a\in \Sigma,f(a)$是$\Delta$上的$RE$
+    	\item 如果$r,s$是$\Sigma$上的$RE$,则\\
+    	$f(r+s)=f(r)+f(s)$\\
+    	$f(rs)=f(r)f(s)$\\
+    	$f(r^{\ast}={f(r)}^{\ast}$\\
+    	是$\Delta$上的$RE$
+    \end{enumerate}
+\end{itemize}
+
+\begin{example}
+	设$\Sigma={0,1},\Delta={a,b},f(0)=a,f(1)=b^{\ast}$, 则
+	\begin{align*}
+		f(010) &= f(0)f(1)f(0)=ab^{\ast}a\\
+		f({11,00})&=f(11)\cup f(00) \\
+		          &=f(1)f(1)\cup f(0)f(0)\\
+		          &=b^{\ast}b^{\ast}+aa = b^{\ast}+aa \\
+		f(L(0^{\ast}(0+1)1^{\ast})) &= L(a^{\ast}(a+b^{\ast}){(b^{\ast})}^{\ast})\\
+		&= L(a^{\ast}(a+b^{\ast})b^{\ast})\\
+		&= L(a^{\ast}ab^{\ast} + a^{\ast}b^{\ast}b^{\ast})\\
+		&= L(a^{\ast}b^{\ast})
+	\end{align*}
+\end{example}
+
+\begin{theorem}
+	设$L$是$\Sigma$上的一个$RL$
+	$$f:\Sigma \to 2^{\Delta^{\ast}}$$
+	是正则代换，则$f(L)$也是$RL$. \hfill$\square$ 
+\end{theorem}
+\begin{proof}
+	描述工具$RE$
+	
+	对$r$中运算符的个数$n$施以归纳,证明$f(r)$是表示$f(L)$的$RE$.
+	\begin{itemize}
+		\item 当$n=0$时, 结论成立。
+		\item 当$n\le k$时，定理成立，即当$r$中运算符的个数不大于$k$时：$f(L(r)) = L(f(r))$。
+		\item 当$n=k+1$时，
+		\begin{enumerate}
+			\item $r=r_1 + r_2$
+			\begin{align*}
+			f(L) &= f(L(r)) \\
+			&=f(L(r_1 + r_2))\\
+			&=f(L(r_1)\cup L(r_2))  &\qquad  \text{$RE$的定义} \\
+			&=f(L(r_1))\cup f(L(r_2)) &\qquad \text{正则代换的定义} \\
+			&=L(f(r_1))\cup L(f(r_2)) &\qquad \text{归纳假设} \\
+			&=L(f(r_1)+f(r_2)) &\qquad RE\text{的定义} \\
+			&=L(f(r_1+r_2)) &\qquad RE\text{的正则代换的定义} \\
+			&=L(f(r))
+			\end{align*}
+			
+			\item $r=r_1r_2$
+			\begin{align*}
+			f(L) &=f(L(r)) \\
+			&=f(L(r_1r_2))\\
+			&=f(L(r_1)L(r2)) &\qquad \text{$RE$的定义}\\
+			&=f(L(r_1))f(L(r_2)) &\qquad \text{正则代换的定义}\\
+			&=L(f(r_1))L(f(r_2)) &\qquad \text{归纳假设} \\
+			&=L(f(r_1)f(r_2)) &\qquad \text{$RE$的定义}\\
+			&=L(f(r_1r_2)) &\qquad \text{$RE$的正则代换的定义}\\
+			&=L(f(r_1r_2))
+			\end{align*}
+			
+			\item $r={r_1}^{\ast}$
+			\begin{align*}
+			f(L) &=f(L(r)) \\
+			&=f(L({r_1}^{\ast}))\\
+			&=f(L({r_1})^{\ast}) &\qquad \text{$RE$的定义}\\
+			&={(f(L({r_1})))}^{\ast} &\qquad \text{正则代换的定义}\\
+			&={(L(f(r_1)))}^{\ast} &\qquad \text{归纳假设} \\
+			&=L(f(r_1)^{\ast}) &\qquad \text{$RE$的定义}\\
+			&=L(f({r_1}^{\ast})) &\qquad \text{$RE$的正则代换的定义}\\
+			&=L(f(r))
+			\end{align*}
+		\end{enumerate}
+	\end{itemize}  \hfill$\square$ 
+\end{proof}
+
+%\input{referenc}
+
+
