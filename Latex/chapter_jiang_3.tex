@@ -22,15 +22,27 @@
 \section{语言的识别}
 
 \begin{svgraybox}
-	推导和归约中的回溯问题将对系统的效率产生极大的影响 
+	设文法$G$有如下产生式: 
 	
-	$S\to aA|aB$
-	
-	$A\to aA|c$
-	
+	$S\to aA|aB$\\
+	$A\to aA|c$\\
 	$B\to aB|d$
 	
-	分析句子(word)$aaac$的过程中可能需要回溯。
+	分析句子(word)$aaad$的过程中可能需要回溯。
+	\begin{align}
+		S &\Rightarrow aA \quad &\text{使用产生式}S\to aA \\
+		  &\Rightarrow aaA \quad &\text{使用产生式}A\to aA \label{aA2}\\
+		  &\Rightarrow aaaA \quad &\text{使用产生式}A\to aA \label{aA3}\\
+		  &\Rightarrow aaaaA \quad &\text{使用产生式}A\to aA, \text{error! return to (\ref{aA3}) step.} \\
+		  &\Rightarrow aaac \quad &\text{使用产生式}A\to c, \text{error! return to (\ref{aA3})} step. \\
+		  &\cdots\\
+		  &\Rightarrow aB \quad &\text{使用产生式}S\to aB \\
+		  &\cdots\\
+	\end{align}
+	
+	每一步推导有两种不同的产生式可供选择，共有$2^4=16$种“需要考虑的”不同推导。
+
+	\emph{推导和归约中的回溯问题将对系统的效率产生极大的影响!} 
 \end{svgraybox}
 
 \begin{itemize}
@@ -62,7 +74,7 @@
 	\label{fig:anc}       % Give a unique label
 \end{figure}
 
-有穷状态自动机的物理模型
+\textbf{有穷状态自动机的物理模型}
 \begin{figure}[htbp]
 	\includegraphics*[scale=.4]{model}
 	\caption{有穷状态自动机的物理模型}
@@ -70,17 +82,23 @@
 \end{figure}
 
 \section{有穷状态自动机(finite automaton,FA)}
-\[M=(Q,\Sigma,\delta,q_0,F)\]
+\begin{definition}有穷状态自动机(finite automaton,$FA$)$M$是一个五元组
+	\[M=(Q,\Sigma,\delta,q_0,F)\]
+	
+	$Q$: 状态的非空有穷集合。$\forall\in Q,q$称为$M$的一个\emph{状态(state)}。
+	
+	$\Sigma$: \emph{输入字母表(Input alphabet)}。输入字符串都是$\Sigma$上的字符串。
+	
+	$q_0$: $q_0\in Q$,是$M$的\emph{开始状态(initial state)},也可叫做初始状态或者启动状态。
+	
+	$\delta$: 状态\emph{转移函数(transition function)}，有时候又叫做状态转换函数或者移动函数。$\delta: Q\times\Sigma\to Q$，对$\forall(q,a)\in Q\times\Sigma,\delta(q,a)=p$表示：$M$在状态$q$读入字符$a$，将状态变成$p$，并将读头向右移动一个带方格而指向输入字符串的下一个字符。
+	
+	$F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall q\in F, q$称为$M$的终止状态，又称为\emph{接受状态(accept state)}。  
+\end{definition}
 
-$Q$: 状态的非空有穷集合。$\forall\in Q,q$称为$M$的一个\emph{状态(state)}。
-
-$\Sigma$: \emph{输入字母表(Input alphabet)}。输入字符串都是$\Sigma$上的字符串。
-
-$q_0$: $q_0\in Q$,是$M$的\emph{开始状态(initial state)},也可叫做初始状态或者启动状态。
-
-$\delta$: 状态\emph{转移函数(transition function)}，有时候又叫做状态转换函数或者移动函数。$\delta: Q\times\Sigma\to Q$，对$\forall(q,a)\in Q\times\Sigma,\delta(q,a)=p$表示：$M$在状态$q$读入字符$a$，将状态变成$p$，并将读头向右移动一个带方格而指向输入字符串的下一个字符。
-
-$F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall q\in F, q$称为$M$的终止状态，又称为\emph{接受状态(accept state)}。  
+\begin{note}
+	应当指出的是，虽然将$F$中的状态称为，终止状态，并不是说$M$一旦进入这种状态就终止了，而是说$M$一旦在处理完输入字符串时到达这种状态，$M$就接受当前处理的字符串。所以，有时又称终止状态为接受状态。
+\end{note}
 
 将$\delta$扩充为
 \[\hat{\delta}: Q\times\Sigma^{\ast}\to Q\]
@@ -99,19 +117,35 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 两值相同，不用区分这两个符号。 
 
 \paragraph{\textbf{确定的有穷状态自动机}}
-
 由于对于任意的$q\in Q, a\in\Sigma, \delta(q,a)$均有确定的值，所以，将这种FA称为\emph{确定的有穷状态自动机(deterministic finite automaton，DFA) }
 
 \paragraph{\textbf{$M$接受(识别)的语言}}
 
-对于$\forall x\in\Sigma^{\ast}$如果$\delta(q,w)\in F$，则称$x$被$M$接受，如果$\delta(q,w)\notin F$, 则称$M$不接受$x$。
-\[L(M)=\{x|x\in\Sigma^{\ast},\text{且}\delta(q,w)\in F\}\]
+\begin{definition}
+	设$M=(Q,\Sigma,\delta,q_0,F)$是一个$FA$。对于$\forall x\in\Sigma^{\ast}$如果$\delta(q,w)\in F$，则称$x$被$M$接受，如果$\delta(q,w)\notin F$, 则称$M$不接受$x$。
+	\[L(M)=\{x|x\in\Sigma^{\ast},\text{且}\delta(q,w)\in F\}\]
+	称为由$M$接受(识别)的语言
+\end{definition}
 
-称为由$M$接受(识别)的语言 
+\begin{example}
+	\begin{align*} 
+		M_1=&(\{q_0,q_1,q_2\},\{0\},\\
+		&\{\delta(q_0,0)=q_1,\delta(q_1,0)=q_2,\delta(q_2,0)=q_1\},\\
+		&q_0,\{q_2\})\\
+		M_2=&(\{q_0,q_1,q_2,q_3\},\{0,1,2\},\\
+		&\{\delta(q_0,0)=q_1,\delta(q_1,0)=q_2,\delta(q_2,0)=q_3,\delta(q_3,0)=q_3\\
+		&\delta(q_0,1)=q_3,\delta(q_1,1)=q_3,\delta(q_2,1)=q_3,\delta(q_3,1)=q_3,\\
+		&\delta(q_0,2)=q_3,\delta(q_1,2)=q_3,\delta(q_2,2)=q_3,\delta(q_3,2)=q_3\},\\
+		&q_0,\{q_2\})\qquad \textit{$q_3$ is a trap/dump state.}  
+	\end{align*}
+	不难看出: $M_1,M_2$所接受的语言为:
+	\[L(M_1)=L(M_2)=\{0^{2n}|n\ge 1\}\]
+\end{example}
 
-\[L(M_1)=L(M_2)=\{2^{2^n}|n\ge 1\}\]
+\begin{definition}\label{M_equivalence}
+	如果$L(M_1)=L(M_2)$,则称$M_1$与$M_2$等价。
+\end{definition}
 
-如果$L(M_1)=L(M_2)$,则称$M_1$与$M_2$等价。
 
 \begin{example}构造一个$DFA$，它接受的语言为
 	\[\{x000y|x,y\in\{0,1\}^{\ast}\}\]
@@ -177,35 +211,39 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 \end{example}
 
 \paragraph{}
-\begin{note}\emph{几点值得注意}
+\begin{note}\emph{几点值得注意:}
 	\begin{enumerate}
 		\item 定义$FA$时，常常只给出$FA$相应的状态转移图就可以了。 
 		\item 对于$DFA$来说，并行的弧按其上的标记字符的个数计算，对于每个顶点来说，它的出度恰好等于输入字母表中所含的字符的个数。 
-		\item 不难看出，字符串$x$被$FA\quad M$接受的充分必要条件是，在$M$的状态转移图中存在一条从开始状态到某一个终止状态的有向路，该有向路上从第1条边到最后一条边的标记依次并置而构成的字符串$x$。简称此路的标记为$x$。 
+		\item 不难看出，字符串$x$被$FA\quad M$接受的充分必要条件是，在$M$的状态转移图中存在一条从开始状态到某一个终止状态的有向路，该有向路上从第1条边到最后一条边的标记依次并置(连接)而构成的字符串$x$。简称此路的标记为$x$。 
 		\item 一个$FA$可以有多于1个的终止状态。 
 	\end{enumerate}
 \end{note}
 
-\paragraph{\textbf{即时描述(instantaneous description，ID）}}
-
-\begin{itemize}
-	\item $x,y\in \Sigma^{\ast}, \delta(q_0,x)=q, xqy$称为$M$的一个即时描述，表示$xy$是$M$正在处理的一个字符串，$x$引导$M$从$q_0$启动并到达状态$q$，$M$当前正注视着$y$的首字符。 
+\begin{definition} 即时描述(instantaneous description，ID)
 	
-	\item 如果$xqay$是$M$的一个即时描述，且$\delta(q,a)=p$, 则$xqay\vdash_Mxapy$。
-	
-	\item $\alpha\vdash_{M^n}\beta$: 表示$M$从即时描述$\alpha$经过$n$次移动到达即时描述$\beta$。
-	
-	\item $M$存在即时描述$\alpha_1,\alpha_2,\alpha_{n-1}$，使得
-	\[\alpha\vdash_M\alpha_1,\alpha_1\vdash_M\alpha_2,\cdots,\alpha_{n-1}\vdash_M\beta\]
-	\subitem 当$n=0$时，有$\alpha=\beta$, 即$\alpha\vdash_{M^0}\alpha$
-	
-	\item $\alpha\vdash_{M^+}\beta$: 表示$M$从即时描述$\alpha$经过至少1次移动到达即时描述$\beta$。
-	
-	\item $\alpha\vdash_{M^{\ast}}\beta$: 表示$M$从即时描述$\alpha$经过若干步移动到达即时描述$\beta$。
-	
-	\item 当意义清楚时，我们将符号$\vdash_M, \vdash_{M^n}, \vdash_{M^{\ast}}, \vdash_{M^+}$中的$M$省去，分别用$\vdash, \vdash_n, \vdash_\ast, \vdash_+$表示。	
-\end{itemize}
-
+	设$M=(Q,\Sigma,\delta,q_0,F)$是一个$FA$,
+	\begin{itemize}
+		\item $x,y\in \Sigma^{\ast}, \delta(q_0,x)=q, xqy$称为$M$的一个\emph{即时描述(instantaneous description，ID)}，表示$xy$是$M$正在处理的一个字符串，$x$引导$M$从$q_0$启动并到达状态$q$，$M$当前正注视着$y$的首字符。 
+		
+		\item 如果$xqay$是$M$的一个即时描述，且$\delta(q,a)=p$, 则$xqay\vdash_Mxapy$。
+		\subitem 表示$M$在状态$q$时已经处理完$x$并且读头正指向输入字符a,此时它读入$a$并转入状态$p$，将读头向右移动一格指向$y$的首字符。
+		
+		\item $\vdash_{M}$看成是$M$的所有即时描述集合上的二元关系，并用$\vdash_M^{n},\vdash_M^{\ast},\vdash_M^{+}$分别表示$(\vdash_M)^{n},(\vdash_M)^{\ast},(\vdash_M)^{+}$,按照二元关系\emph{合成}的意义，有:
+		\subitem $M$存在即时描述$\alpha_1,\alpha_2,\alpha_{n-1}$，使得
+		\[\alpha\vdash_M\alpha_1,\alpha_1\vdash_M\alpha_2,\cdots,\alpha_{n-1}\vdash_M\beta\]
+		
+		\subitem $\alpha\vdash_M^n\beta$: 表示$M$从即时描述$\alpha$经过$n$次移动到达即时描述$\beta$。
+		
+		\subitem 当$n=0$时，有$\alpha=\beta$, 即$\alpha\vdash_M^0\alpha$
+		
+		\subitem $\alpha\vdash_M^+\beta$: 表示$M$从即时描述$\alpha$经过至少1次移动到达即时描述$\beta$。
+		
+		\subitem $\alpha\vdash_M^{\ast}\beta$: 表示$M$从即时描述$\alpha$经过若干步移动到达即时描述$\beta$。
+		
+		\subitem 当意义清楚时，我们将符号$\vdash_M, \vdash_M^n, \vdash_M^{\ast}, \vdash_M^+$中的$M$省去，分别用$\vdash, \vdash^n, \vdash^\ast, \vdash^+$表示。	
+	\end{itemize}
+\end{definition}
 \begin{example}
 	图(\ref{fig:x000ID})的DFA到即时描述(instantaneous description,ID)的转换
 	\begin{align*}
@@ -226,12 +264,12 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 		q_0101010001 &\vdash_{+}1010010001 q_0 \\
 		q_0101010001 &\vdash_{\ast}1010010001 q_0 
 	\end{align*}
-	对于$x\in\Sigma^{\ast}$,
+	不难证明，对于$x\in\Sigma^{\ast}$,
 	\begin{align*}
-	q_0x1 &\vdash_{+}x1q_0     \\
-	q_0x10 &\vdash_{+}x10q_1   \\
-	q_0x100 &\vdash_{+}x100q_2 \\
-	q_0x000 &\vdash_{+}x000q_3 
+	q_0x1 &\vdash^{+}x1q_0     \\
+	q_0x10 &\vdash^{+}x10q_1   \\
+	q_0x100 &\vdash^{+}x100q_2 \\
+	q_0x000 &\vdash^{+}x000q_3 
 	\end{align*}
 	
 	\begin{figure}[htbp]
@@ -241,8 +279,14 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 	\end{figure}
 \end{example}
 
-能引导$FA$从开始状态$q_0$到达$q$的字符串的集合为：
+\begin{definition}\label{set_q}
+	设$M=(Q,\Sigma,\delta,q_0,F)$是一个$FA$, 对$\forall q\in Q$，能引导$FA$从开始状态$q_0$到达$q$的字符串的集合为：
 \[set(q)=\{x|x\in\Sigma^{\ast},\delta(q_0,x)=q\}\]
+\end{definition}
+
+\begin{note}
+	根据定义\ref{set_q}，$DFA\quad M$按照语言的特点给出了$\Sigma^\ast$的一个划分，这种划分相当于$\Sigma^\ast$上的一个等价分类，$M$的每个状态实际上对应着相应的等价类。这就告诉我们，用一个状态去表示一个等价类是考虑问题的一个有效思路。	
+\end{note}
 
 \begin{example}
 	对图\ref{fig:x000ID}所给的$DFA$中的所有$q$，求$set(q)$。
@@ -253,18 +297,17 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 		set(q_3) &=\{x|x\in\Sigma^{\ast},\text{$x$以000结尾}\} \\
 		set(q_4) &=\{x|x\in\Sigma^{\ast},\text{$x$以001结尾}\}
 	\end{align*}
-	这5个集合是两两互不相交。
+	这5个集合是两两互不相交。而且这5个集合的并正好就是该$DFA$的输入字母表$\{0,1\}$的克林闭包。这就是说，这5个集合是$\{0,1\}^\ast$的一个划分。依照这个划分，可以定义一个等价关系，在同一集合中的字符串满足此等价关系，不在同一集合中的字符串不满足此等价关系。
 \end{example}
 
-对于任意一个$FA,\quad M=(Q,\Sigma,\delta,q_0,F)$ 我们可以按照如下方式定义关系$R_M$:
+一般地，对于任意一个$DFA,\quad M=(Q,\Sigma,\delta,q_0,F)$ 我们可以按照如下方式定义关系$R_M$:
 
 对$\forall x,y\in\Sigma^{\ast},xR_My \Leftrightarrow \exists q\in Q$，使得$x\in set(q)$和$y\in set(q)$同时成立。
 
-按照这个定义所得到的关系实际上是$\Sigma^{\ast}$上的一个等价关系。利用这个关系，可以将$\Sigma^{\ast}$划分成不多于|Q|个等价类。 
+按照这个定义所得到的关系实际上是$\Sigma^{\ast}$上的一个等价关系。利用这个关系，可以将$\Sigma^{\ast}$划分成\emph{不多于}|Q|\emph{个等价类}。 
 
 \begin{example}
 	构造一个$DFA$，它接受的语言为$\{0^n1^m2^k|n,m,k\ge 1\}$。 
-	
 	$q_0$: $M$的启动状态；
 	
 	$q_1$: $M$读到至少一个0，并等待读更多的0；
@@ -278,51 +321,60 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 	\end{itemize}
 	\begin{figure}[htbp]
 		\includegraphics*[scale=.4]{0n1m2k_1}
-		\caption{语言$\{0^n1^m2^k|n,m,k\ge 1\}$的主题框架}
+		\caption{接受语言$\{0^n1^m2^k|n,m,k\ge 1\}$的$DFA$的主题框架}
 		\label{fig:0n1m2k_1}       % Give a unique label
 	\end{figure}
 
 	\begin{figure}[htbp]
 		\includegraphics*[scale=.4]{0n1m2k_2}
-		\caption{语言$\{0^n1^m2^k|n,m,k\ge 1\}$的细节}
+		\caption{接受语言$\{0^n1^m2^k|n,m,k\ge 1\}$的$DFA$}
 		\label{fig:0n1m2k_2}       % Give a unique label
 	\end{figure}
 \end{example}
 
-\begin{enumerate}
-	\item 当$FA$一旦进入状态$q_t$，它就无法离开此状态。所以，$q_t$相当于一个陷阱状态(trap)。一般地，我们将陷阱状态用作在其他状态下发现输入串不可能是该$FA$所识别的语言的句子时进入的状态。在此状态下，$FA$读完输入串中剩余的字符。 
+本例中有以下几点值得注意：
+\begin{enumerate} 
+	\item 当$FA$一旦进入状态$q_t$，它就无法离开此状态。所以，$q_t$相当于一个\emph{陷阱状态(trap、dump)}。一般地，我们将陷阱状态用作在其他状态下发现输入串不可能是该$FA$所识别的语言的句子时进入的状态。在此状态下，$FA$读完输入串中剩余的字符。 
 	\item  在构造一个识别给定语言的$FA$时，用画图的方式比较方便、直观。我们可以先根据语言的主要特征画出该$FA$的“主体框架”，然后再去考虑画出一些细节要求的内容。
-	\item $FA$的状态具有一定的记忆功能：不同的状态对应于不同的情况，由于FA只有有穷个状态，所以，在识别一个语言的过程中，如果有无穷种情况需要记忆，我们肯定是无法构造出相应的$FA$的。 	
+	\item $FA$的状态具有一定的记忆功能：不同的状态对应于不同的情况，由于FA只有有穷个状态，所以，在识别一个语言的过程中，如果有无穷种情况需要记忆，我们肯定是无法构造出相应的$FA$的。如对语言$\{0^n1^n|n\ge 1\}$,当扫描到$n$个0时，需要去寻找$n$个1，由于$n$有无穷多个，所有需要记忆的0的个数有无穷多种。因此，无法构造出接受语言$\{0^n1^n|n\ge 1\}$的$FA$。也就是说，该语言不说属于$FA$可以接受的语言类。 	
 \end{enumerate}
 
 \begin{example}
 	构造一个$DFA$，它接受的语言为$\{x|x\in \{0,1\}^{\ast}, \text{且当把$x$看成二进制数时，$x$模3与0同余}\}$。 
 	
-	$q_0$: 对应除以3余数为0的$x$组成的等价类；
+	根据定义\ref{set_q}，$DFA\quad M$按照语言的特点给出了$\Sigma^\ast$的一个划分，这种划分相当于$\Sigma^\ast$上的一个等价分类，$M$的每个状态实际上对应着相应的等价类。这就告诉我们，用一个状态去表示一个等价类是考虑问题的一个有效思路。
 	
-	$q_1$: 对应除以3余数为1的$x$组成的等价类；
+	题目要求的是$x$模3与0同余，$x$除以3的余数只有3种:0,1,2: 任意一个$x$都不例外，因此可以考虑用3个状态与这3个等价类相联系。
 	
-	$q_2$: 对应除以3余数为2的$x$组成的等价类；
+	$q_0$: 对应除以3余数为0的$x$组成的等价类，表示十进制值($3n+0|n\in\mathbb{N}$)；
+	
+	$q_1$: 对应除以3余数为1的$x$组成的等价类，表示十进制值($3n+1|n\in\mathbb{N}$)；
+	
+	$q_2$: 对应除以3余数为2的$x$组成的等价类，表示十进制值($3n+2|n\in\mathbb{N}$)；
+	
+	此外，$x$作为一个二进制数，$x$是非空的字符串, 即$\epsilon\notin \{x\}$,所以还需要一个开始状态。
 	
 	$q_s$: $M$的开始状态。
 	
 	$q_s$: 在此状态下读入0时，有$x=0$，所以应该进入状态$q_0$；读入1时，有$x=1$，所以应该进入状态$q_1$。即：$\delta(q_s,0)= q_0; δ(q_s,1)= q_1$。
 	
-	$q_0$: 能引导$M$到达此状态的$x$除以3余0，所以有：$x=3\times n+0$。
+	$q_0$: 能引导$M$到达此状态的$x$除以3余0，所以有：$x=3n+0$。
 	
-	读入0时，引导$M$到达下一个状态的字符串为$x_0,x_0=2\times(3\times n+0)=3\times 2\times n+0$。所以，$\delta(q_0,0)= q_0$；
+	读入0时，引导$M$到达下一个状态的字符串为$x0,x0=2(3n+0)=3\times 2\times n+0$。这表明，$x0$应该属于$q_0$对应的等价类，所以，$M$在$q_0$状态下读入0后，应该继续保持在状态$q_0$,即$\delta(q_0,0)= q_0$；
 	
-	读入1时，$M$到达下一个状态的字符串为$x_1,x_1=2\times(3\times n+0)+1=3\times 2\times n+1$。所以，$\delta(q_0,1)= q_1$；
+	读入1时，$M$到达下一个状态的字符串为$x1,x1=2(3\times n+0)+1=3\times 2n+1$。这表明，$x1$应该属于$q_1$对应的等价类，所以，，$M$在$q_0$状态下读入1后，应该转到状态$q_1$，即$\delta(q_0,1)= q_1$；
 	
-	$q_1$: 能引导$M$到达此状态的$x$除以3余1，所以有：$x=3\times n+1$。
-	读入0时，引导$M$到达下一个状态的字符串为$x_0,x_0=2\times(3\times n+1)=3\times 2\times n+2$。所以即：$\delta(q_1,0)= q_2$；
+	$q_1$: 能引导$M$到达此状态的$x$除以3余1，所以有：$x=3n+1$。
 	
-	读入1时，引导$M$到达下一个状态的字符串为$x_1,x_1=2\times(3\times n+1)+1=3\times 2\times n+2+1=3\times(2\times n+1)$。所以$(q_1,1)= q_0$。 
+	读入0时，引导$M$到达下一个状态的字符串为$x0,x0=2(3n+1)=3\times 2n+2$。所以：$\delta(q_1,0)= q_2$；
 	
-	$q_2$: 能引导$M$到达此状态的$x$除以3余2，所以：$x=3\times n+2$。
-	读入0时，引导$M$到达下一个状态的字符串为$x_0,x_0=2\times (3\times n+2)=3\times 2\times n+4=3\times(2\times n+1)+1$。所以$\delta(q_2,0)= q_1$；
+	读入1时，引导$M$到达下一个状态的字符串为$x1,x1=2(3n+1)+1=3\times 2n+2+1=3(2n+1)$。所以$(q_1,1)= q_0$。 
 	
-	读入1时，引导$M$到达下一个状态的字符串为$x_1,x_1=2\times(3\times n+2)+1=3\times 2\times n+4+1=3\times(2\times n+1)+2$。所以，$\times(q_2,1)= q_2$。
+	$q_2$: 能引导$M$到达此状态的$x$除以3余2，所以：$x=3n+2$。
+	
+	读入0时，引导$M$到达下一个状态的字符串为$x0,x0=2(3n+2)=3\times 2n+4=3(2n+1)+1$。所以$\delta(q_2,0)= q_1$；
+	
+	读入1时，引导$M$到达下一个状态的字符串为$x1,x1=2(3n+2)+1=3\times 2n+4+1=3(2n+1)+2$。所以，$\delta(q_2,1)= q_2$。
 	
 	接受的语言$\{x|x\in \{0,1\}^{\ast}, \text{且当把$x$看成二进制数时，$x$模3与0同余}\}$的$DFA$。如图\ref{fig:mod3}。 
 	
@@ -332,6 +384,180 @@ $F$: $F\subseteq Q$，是$M$的\emph{终止状态(final state)}集合。$\forall
 		\label{fig:mod3}       % Give a unique label
 	\end{figure}
 \end{example}
+
+\begin{example}
+	构造一个DFA,它接受的语言$L=\{x|x\in\{0,1\}^\ast,\\
+	\text{且对$x$中任意一个长度不大于5的子串}a_1a_2\dots a_n,a_1+a_2+\cdots+a_n\le 3,n\le 5\}$。
+	
+	\begin{itemize}
+		\item 输入串$a_1a_2\cdots a_i\cdots a_{i+4}a_{i+5}\cdots a_m$
+		\item 当$i=1,2,3$，也就是$M$读到输入串的第1,2,3个字符时，它需要将这些字符记下来。因为$a_1\cdots a_i$可能需要用来判定输入串的最初$4\sim 5$个字符组成的子串是否满足语言的要求。 
+		\item 当$i=4,5$，也就是$M$读到输入串的第4,5个字符时，在$a_1+a_2+\cdots+a_i\le 3$的情况下，$M$需要将$a_1a_2\cdots a_i$记下来；在$a_1+a_2+\cdots+a_i>3$时，$M$应该进入陷阱状态$q_t$。 
+		\item 当$i=6$，也就是$M$读到输入串的第6个字符时，以前读到的第1个字符$a_1$就没用了，此时它要看$a_2+a_3+\cdots+a_6\le 3$是否成立，$M$需要将$a_2a_3\cdots a_6$记下来；在$a_1+a_2+\cdots+a_i>3$时，$M$应该进入陷阱状态$q_t$。
+		\item 当$M$完成对子串$a_1a_2\cdots a_i\cdots a_{i+4}$的考察，并发现它满足语言的要求时，$M$记下来的是$a_i\cdots a_{i+4}$，此时它读入输入串的第$i+5$个字符$a_{i+5}$，以前读到的第$i$个字符$a_i$就没有用了，此时它要看$a_{i+1}+a_{i+2}+\cdots+a_{i+5}\le 3$是否成立，如果成立，$M$需要将$a_{i+1},a_{i+2},\cdots,a_{i+5}$记下来；在$a_{i+1}+a_{i+2}+\cdots+a_{i+5}>3$时，$M$应该进入陷阱状态$q_t$。
+		
+		\item $M$需要记忆的内容是有限多种(共计$1+2+4+8+15+26+1=57$个状态)，分别用不同的状态对应要记忆的不同内容：
+		\begin{enumerate}
+			\item 什么都未读入——$2^0=1$种；
+			\item 记录有1个字符——$2^1=2$种；
+			\item 记录有2个字符——$2^2=4$种；
+			\item 记录有3个字符——$2^3=8$种；
+			\item 记录有4个字符——$2^4-1=15$种；
+			\item 记录有5个字符——$2^5-6=26种$；
+			\item 记录当前的输入串不是句子(word)——$1$种。 
+		\end{enumerate}
+	\end{itemize}
+
+	状态设置，为了便于理解，直接用要记忆的内容来区分这些状态:
+    \begin{align*}
+    	q[\epsilon]: &\text{ $M$还未读入任何字符；}\\
+    	q_t: &\text{ 陷阱状态；}\\
+    	q[a_1a_2\cdots a_i]: &\text{ $M$记录有$i$个字符}，1\le i\le 5; \quad a_1,a_2,\cdots,a_i \in \{0,1\}.
+    \end{align*}
+    取$DFA\quad M=(Q,\{0,1\},\delta,q[\epsilon],F)$
+    
+    $F \{q[\epsilon]\cup\{q[a_1a_2\cdots a_i]|a_1,a_2,\cdots a_i\in\{0,1\}\text{且}1\le i\le 5\text{且}a_1+a_2+\cdots+a_i\le 3\}$
+    
+    $Q=\{q_t\cup F\}$
+    
+    $\delta(q[\epsilon],a_1) = q[a_1]$
+    
+    $\delta(q[a_1],a_2) = q[a_1a_2]$
+    
+    $\delta(q[a_1a_2],a_3) = q[a_1a_2a_3]$	
+    
+    $\delta(q[a_1a_2a_3],a) = \begin{cases}
+    q[a_1a_2a_3a] &\text{如果$a_1+a_2+a_3+a\le 3$} \\
+    q_t &\text{如果$a_1+a_2+a_3+a > 3$}
+    \end{cases}$	
+    
+    $\delta(q[a_1a_2a_3a_4],a) = \begin{cases}
+    q[a_1a_2a_3a_4a] &\text{如果$a_1+a_2+a_3+a_4+a\le 3$} \\
+    q_t &\text{如果$a_1+a_2+a_3+a_4+a > 3$}
+    \end{cases}$
+    
+    $\delta(q[a_1a_2a_3a_4a_5],a) = \begin{cases}
+    q[a_1a_2a_3a_4a_5a] &\text{如果$a_2+a_3+a_4+a_5+a\le 3$} \\
+    q_t &\text{如果$a_2+a_3+a_4+a_5+a > 3$}
+    \end{cases}$	
+    
+    $\delta(q[a_t],a_1) = q_t$		
+    
+    以上各式中,$a,a_1,a_2,a_3,a_4,a_5\in\{0,1\}$。
+\end{example}
+
+\section{$NFA$}
+\begin{definition}
+	不确定的有穷状态自动机(non-deterministic finite automaton,NFA) \
+	$M$是一个五元组
+	\[M=(Q,\Sigma,\delta,q_0,F)\]
+	\begin{itemize}
+		\item $Q,\Sigma,q_0,F$的意义同$DFA$。
+		\item $Q\times\Sigma\to 2^Q$,对$\forall(q,a)\in Q\times\Sigma,\delta(q,a)=\{p_1,p_2,\cdots,p_m\}$表示$M$在状态$q$读入字符$a$,可以选择地将状态变成$p_1$,或者$p_2,\cdots$,或者$p_m$,并将渡头3向右移动一个带方格而指向输入字符串的下一个字符。
+	\end{itemize}
+\end{definition}
+
+\begin{note}
+	$FA$的状态转移图，$FA$的状态对应的等价类，$FA$的即时描述对$NFA$都有效。
+\end{note}
+
+将$\delta$扩充为$\hat{\delta}:Q\times\Sigma\to 2^Q$,对于任意的$q\in Q,w\in\Sigma^\ast,a\in\Sigma$,定义
+\begin{enumerate}
+	\item $\hat{\delta}(q,\epsilon)=q$
+	\item $\hat{\delta}(q,wa)=\{p|r\in(q,w),\text{使得}p\in\delta(r,a)\}$
+\end{enumerate}
+
+\begin{align*}
+\hat{\delta}(q,a) &=\hat{\delta}(q,\epsilon a)\\
+&=\{p|\exists r\in(q,\epsilon),p\in\delta(r,a)\} \\
+&=\{p|\exists r\in\{q\},p\in\delta(r,a)\} \\
+&=\{p|p\in\delta(q,a)\}\\
+&=\delta(q,a)
+\end{align*}
+
+和关于$DFA$的结论一样，两值相同，也不用区分这两个符号。 
+
+近一步 扩充$\delta$的定义域: $\delta: 2^Q\times\Sigma^\ast\to 2^Q$. 对任意的$P\subseteq Q,w\in\Sigma^\ast$
+\[\delta(P,w)=\bigcup_{q\in P}\delta(q,w)\]
+
+由于,对$\forall(q,w)\in Q\times\Sigma^\ast$
+\[\delta(\{q\},w) = \bigcup_{q\in\{q\}}\delta(q,w) = \delta(q,w)\]
+
+所以，不一定严格地区分$\delta$的第1个分量是一个状态还是一个含有一个元素的集合。
+
+对任意的$q\in Q,w\in\Sigma^\ast,a\in\Sigma$:
+
+$\delta(q,wa)=\delta(\delta(q,w),a)$
+
+对输入字符串$a_1a_2\cdots a_n$
+
+$\delta(q,a_1a_2\cdots a_n)=\delta((\cdots\delta(\delta(q,a_1),a_2),\cdots),a_n)$
+
+\begin{definition}
+	设$M=(Q,\Sigma,\delta,q_0,F)$是一个$NFA$,对于$\forall x\in\Sigma^\ast$,如果$\delta(q_0,w)\cap F\ne\emptyset$,则称$x$被$M$接受, 如果$\delta(q_0,w)\cap F=\emptyset$,则称$M$不接受$x$。
+	\[L(M)=\{x|x\in\Sigma^\ast\text{且}\delta(q_0,w)\cap\ne\emptyset\}\] 
+	称为由$M$接受(识别)的语言。
+\end{definition}
+
+关于$FA$的等价定义(\ref{M_equivalence})也适应$NFA$
+
+对于一个输入字符，$NFA$与$DFA$的差异是前者可以进入若干个状态，而后者只能进入一个惟一的状态。虽然从$DFA$看待问题的角度来说，$NFA$在某一时刻同时进入若干个状态，但是，这若干个状态合在一起的“总效果”相当于它处于这些状态对应的一个“综合状态”。因此，我们考虑让$DFA$用一个状态去对应$NFA$的一组状态。 
+
+$NFA\quad M_1=(Q,\Sigma,\delta_1,q_0,F_1)$与$DFA\quad M_2=(Q_2,\Sigma,\delta_2,q_0^\prime,F_2)$的对应关系：
+
+$NFA$从开始状态$q_0$启动，我们就让相应的$DFA$从状态$[q_0]$启动。所以$q_0^\prime=[ q_0]$。 
+
+对于$NFA$ 的一个状态组$\{q_1,q_2,\cdots,q_n\}$，如果$NFA$在此状态组时读入字符$a$后可以进入状态组$\{p_1,p_2,\cdots,p_m\}$,则让相应的$DFA$在状态$[q_1,q_2,\cdots,q_n]$读入字符$a$时，进入状态$[p_1,p_2,\cdots,p_m]$。  
+
+\begin{theorem}
+	$NFA$与$DFA$等价。
+\end{theorem}
+
+\begin{proof}
+	显然只需证明对于任给的$NFA$,存在与之等价的$DFA$。为此，设有$NFA:\quad M_1=(Q,\Sigma,\delta_1,q_0,F_1)$
+	\begin{enumerate}
+		\item 构造与$M_1$等价的$DFA\quad M_2$\\
+		取$DFA\quad M_2=(Q_2,\Sigma,\delta_2,[q_0],F_2)$\\
+		$Q_2=2^Q$\\
+		\footnote[1]{在表示状态集合时暂时将习惯的"\{"和"\}"改为用"["和"]",表示把集合的元素汇集成整体。}
+		$F_2=\{[p_1,p_2,\cdots,p_m]|\{p_1,p_2,\cdots,p_m\}\subseteq Q \& \{p_1,p_2,\cdots,p_m\}\cap F_1\ne\emptyset\}$\\
+		$\delta_2([q_1,q_2,\cdots,q_n],a)=[p_1,p_2,\cdots,p_m] \Leftrightarrow
+		\delta_1(\{q_1,q_2,\cdots,q_n\},a)=\{p_1,p_2,\cdots,p_m\}$
+		
+		\item[\label{delta_2}] 证明$\delta_1(q_0,x)=\{p_1,p_2,\cdots,p_m\}\Leftrightarrow\delta_2([q_0],x)=[p_1,p_2,\cdots,p_m]$.\\
+		设$x\in\Sigma^\ast$,施归纳于$|x|$\\
+		$x=\epsilon,\delta_1(q_0,\epsilon)=\{q_0\},\delta_2([q_0],\epsilon)=[q_0]$\\
+		设当$|x|=n$时结论成立。下面证明当$|x|=n+1$时结论也成立。不妨设$x=wa,|w|=n,a\in\Sigma$
+		\begin{align*}
+		\delta_1(q_0,wa) &=\delta_1(\delta_1(q_0,w),a)\\
+		&= \delta_1(\{q_1,q_2,\cdots,q_n\},a)\\
+		&= \{p_1,p_2,\cdots,p_m\}
+		\end{align*}
+		由归纳假设，\\
+		$\delta_1(q_0,w)=\{q_1,q_2,\cdots,q_n\}\Leftrightarrow\delta_2([q_0],w)=[q_1,q_2,\cdots,q_n]$\\
+		根据$\delta_2$的定义, \\
+		$\delta_2([q_1,q_2,\cdots,q_n],a)=[p_1,p_2,\cdots,p_m]\Leftrightarrow\delta_1(\{q_1,q_2,\cdots,q_n\},a)=\{p_1,p_2,\cdots,p_m\}$\\
+		所以，
+		\begin{align*}
+		\delta_2([q_0],wa) &=\delta_2(\delta_2([q_0],w),a)\\
+		&= \delta_2(\{q_1,q_2,\cdots,q_n\},a)\\
+		&= [p_1,p_2,\cdots,p_m]
+		\end{align*}
+		故，如果$\delta_1([q_0],wa)=\{p_1,p_2,\cdots,p_m\}$则必有$\delta_2([q_0],wa)=[p_1,p_2,\cdots,p_m]$.
+		
+		由上述推导可知，反向的推导也成立。这就是说，结论对$|x|=n+1$也成立。
+		
+		由归纳法原理，结论对$x\in\Sigma^\ast$成立。
+		
+		\item 证明$L(M_1)=L(M_2)$\\
+		设$x\in L(M_1)$,且$\delta_1(q_0,x)=\{p_1,p_2,\cdots,p_m\}$,从而$\delta_1(q_0,x)\cap\ne\emptyset$,这就是说，$\{p_1,p_2,\cdots,p_m\}\cap F_1\ne\emptyset$,由$F_2$的定义，$[p_1,p_2,\cdots,p_m]\in F_2$.\\
+		再由(\ref{delta_2})知，$\delta_2([q_0],wa)=[p_1,p_2,\cdots,p_m]$.\\
+		所以,$x\in L(M_2)$. 故$L(M_1)\subseteq L(M_2)$.\\
+		反过来推,可得$L(M_2\subseteq L(M_1))$.\\
+		从而$L(M_1)=L(M_2)$得证。
+	\end{enumerate}
+	综上所述，定理成立。\hfill\square
+\end{proof}
 
 \section{正则代换(regular substitution)}
 
