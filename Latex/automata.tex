@@ -293,6 +293,59 @@ Part(2) is Known as Arden's rule. Taken with Part(1) it says that if $\epsilon\n
 
 \end{solution}
 
+From \cite[definition 2.3]{R.Su and Wonham2004}
+
+\begin{definition}\label{def:epimorphic} Let
+	
+	$G_A=(X_A,\Sigma,\xi_A,x_{A,0},X_{A,m})$
+	
+	$G_A=(X_B,\Sigma,\xi_B,x_{B,0},X_{B,m})$\\
+	$G_B$ is a DES-epimorphic image(满射像) of $G_A$ under DES-epimorphism $\theta: X_A \to X_B$ if
+	\begin{enumerate}
+		\item $\theta:X_A\to X_B$ is surjective(满射)
+		\item $\theta(x_{A,0})=x_{B,0}$ and $\theta(X_{A,m})=X_{B,m}$
+		\item $(\forall x\in X_A)(\forall \sigma\in\Sigma)\xi_A(x,\sigma)! \Rightarrow [\xi_B(\theta(x),\sigma)!\&\xi_B(\theta(x),\sigma)=\theta(\xi_A(x,\theta))]$ \label{item3}
+		\item $(\forall x\in X_B)(\forall\sigma\in\Sigma)\xi_B(x,\sigma)!\Rightarrow [(\exists x^\prime\in X_A)\xi_A(x^\prime,\sigma)!\&\theta(x^\prime)=x]$ \label{item4}
+	\end{enumerate}
+	
+	In particular,$G_B$ is DES-isomorphic(同构) to $G_A$ if $\theta:X_A\to X_B$ is bijective(双射).
+	
+	see figure \ref{fig:epimorphic}.
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\flushleft{$\theta(x_{A,0})=x_{B,0}$ and $\theta(X_{A,m})=X_{B,m}$\\
+	$\theta(x_A)=x_B$ and $\theta(x_A^\prime)=x_B^\prime$\\
+	$\xi_A(x_A,\sigma)=x_A^\prime$ and $\xi_B(x_B,\sigma)=x_B^\prime \Rightarrow$  definition \ref{def:epimorphic} (\ref{item3},\ref{item4}) 
+	\\
+    } 
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (A0) {$x_{A,0}$};
+	\node[state](A1) [right=of A0] {$x_A$};
+	\node[state](A2) [right=of A1] {$x_A^\prime$};
+	\node[state,accepting] (A3) [right=of A2] {$X_{A,m}$};
+	\node[state,initial] (B0) [below=of A0]{$x_{B,0}$};
+	\node[state](B1) [right=of B0] {$x_B$};
+	\node[state](B2) [right=of B1] {$x_B^\prime$};
+	\node[state,accepting] (B3) [right=of B2] {$X_{B,m}$};
+	\path[->]
+	(A0) edge node {$\cdots$} (A1)
+	(A1) edge node {$\sigma$} (A2)
+	(A2) edge node {$\cdots$} (A3)
+	(B0) edge node {$\cdots$} (B1)
+	(B1) edge node {$\sigma$} (B2)
+	(B2) edge node {$\cdots$} (B3)
+	(A0) edge node {$\theta$} (B0)
+	(A1) edge node {$\theta$} (B1)
+	(A2) edge node {$\theta$} (B2)
+	(A3) edge node {$\theta$} (B3)
+	;
+	\end{tikzpicture}
+	\caption{definition \ref{def:epimorphic}, $G_B$ is a DES-epimorphic image(满射像) of $G_A$ under DES-epimorphism $\theta: X_A \to X_B$ }
+	\label{fig:epimorphic}	
+\end{figure}
+
 %\input{referenc}
 
 \begin{thebibliography}{99}
@@ -324,11 +377,14 @@ Part(2) is Known as Arden's rule. Taken with Part(1) it says that if $\epsilon\n
 	蒋宗礼,姜守旭, \textit{形式语言与自动机理论（第3版）}, 清华大学出版社,2013.05
 	
 	
-	\bibitem{Lipschutz2007}
+	\bibitem[Lipschutz2007]{Lipschutz2007}
 	S. Lipschutz and M. L. Lipson, \textit{Schaum's Outline of Theory and Problems of Discrete Mathematics}, Third Edition, New York: McGraw-Hill, 2007.
 	
-	\bibitem{Rosen2007}
+	\bibitem[Rosen2007]{Rosen2007}
 	K. H. Rosen, \textit{Discrete Mathematics and Its Applications}, Seventh Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem[R.Su and Wonham2004]{R.Su and Wonham2004}
+	R. Su and W. M. Wonham, \textit{Supervisor reduction for discrete-event systems}, Discrete Event Dyn. Syst., vol. 14, no. 1, pp. 31–53, Jan. 2004.
 	
 	\bibitem{Maclane1988}
 	S. Maclane and G. Birkhoff, \textit{Algebra}, Third Edition, New York: Bchelsea Publishing Company, 1988.

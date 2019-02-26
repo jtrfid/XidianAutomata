@@ -556,104 +556,684 @@ $NFA$从开始状态$q_0$启动，我们就让相应的$DFA$从状态$[q_0]$启�
 		反过来推,可得$L(M_2\subseteq L(M_1))$.\\
 		从而$L(M_1)=L(M_2)$得证。
 	\end{enumerate}
-	综上所述，定理成立。\hfill\square
+	综上所述，定理成立。\hfill$\square$
 \end{proof}
 
-\section{正则代换(regular substitution)}
-
-设$\Sigma,\Delta$是两个字母表，映射
-$$f:\Sigma \to 2^{\Delta^{\ast}}$$
-被称为是从$\Sigma$到$\Delta$的
-\textbf{代换}。如果对于$\forall a\in \Sigma,f(a)$是$\Delta$上的$RL$,则称\textbf{$f$为正则代换}。
-
-\begin{itemize}
-	\item 现将$f$的定义域扩展到$\Sigma^{\ast}$上:
+\section{Exercise and Solution}
+\begin{exercise}
+	构造识别下列语言的$DFA$(给出相应的$DFA$的形式描述或者画出它们的状态转移图)。
 	\begin{enumerate}
-		\item $f(\epsilon) =\{\epsilon\}$
-		\item $f(xa)=f(x)f(a)$
+		\item $\{0,1\}^+$。
+		\item $\{x|x\in\{0,1\}^+\text{且$x$中不含形如$00$的子串}\}$。
+		\item $\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\\ 
+			  要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}。
+        \item $\{x|x\in\{0,1\}^+\text{且$x$以0开头以1结尾}\}$。
 	\end{enumerate}
-    \item 再将$f$的定义域扩展到$2^{\Delta^{\ast}}$\\
-    对于$\forall L\subseteq \Sigma{\ast}$\\
-    $f(L) = \bigcup\limits_{x\in L} f(x)$
-    \item $f$是正则代换，则
-    \begin{enumerate}
-    	\item $f(\emptyset)=\emptyset$
-    	\item $f(\epsilon)=\epsilon$
-    	\item 对于$\forall a\in \Sigma,f(a)$是$\Delta$上的$RE$
-    	\item 如果$r,s$是$\Sigma$上的$RE$,则\\
-    	$f(r+s)=f(r)+f(s)$\\
-    	$f(rs)=f(r)f(s)$\\
-    	$f(r^{\ast}={f(r)}^{\ast}$\\
-    	是$\Delta$上的$RE$
-    \end{enumerate}
-\end{itemize}
-
-\begin{example}
-	设$\Sigma={0,1},\Delta={a,b},f(0)=a,f(1)=b^{\ast}$, 则
-	\begin{align*}
-		f(010) &= f(0)f(1)f(0)=ab^{\ast}a\\
-		f({11,00})&=f(11)\cup f(00) \\
-		          &=f(1)f(1)\cup f(0)f(0)\\
-		          &=b^{\ast}b^{\ast}+aa = b^{\ast}+aa \\
-		f(L(0^{\ast}(0+1)1^{\ast})) &= L(a^{\ast}(a+b^{\ast}){(b^{\ast})}^{\ast})\\
-		&= L(a^{\ast}(a+b^{\ast})b^{\ast})\\
-		&= L(a^{\ast}ab^{\ast} + a^{\ast}b^{\ast}b^{\ast})\\
-		&= L(a^{\ast}b^{\ast})
-	\end{align*}
-\end{example}
-
-\begin{theorem}
-	设$L$是$\Sigma$上的一个$RL$
-	$$f:\Sigma \to 2^{\Delta^{\ast}}$$
-	是正则代换，则$f(L)$也是$RL$. \hfill$\square$ 
-\end{theorem}
-\begin{proof}
-	描述工具$RE$
+\end{exercise}
 	
-	对$r$中运算符的个数$n$施以归纳,证明$f(r)$是表示$f(L)$的$RE$.
-	\begin{itemize}
-		\item 当$n=0$时, 结论成立。
-		\item 当$n\le k$时，定理成立，即当$r$中运算符的个数不大于$k$时：$f(L(r)) = L(f(r))$。
-		\item 当$n=k+1$时，
+\begin{solution} 构造相应语言的$DFA$	
+\begin{enumerate}
+	\item 构造$\{0,1\}^+$语言的$DFA$,见下表(\ref{tab:s1})。
+	\item $\{x|x\in\{0,1\}^+\text{且$x$中不含形如$00$的子串}\}$语言的$DFA$,见下表(\ref{tab:s1})。
+	\begin{table}[htbp]
+		\caption{构造相应语言的$DFA$}
+		\label{tab:s1}
+		\centering
+	\begin{tabular}{|p{5cm}|p{6cm}|}
+		\hline 
+		构造$\{0,1\}^+$语言的$DFA$。
+		\newline 
+		本题的关键是保证接受的串的长度至少为1.
+		&
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state,initial] (q0) {$q_0$};
+		\node[state,accepting](q1) [right=of q0] {$q_1$};
+		\path[->]
+		(q1) edge [loop above] node {$0,1$} (q1) 
+		(q0) edge node {$0,1$} (q1);
+		\end{tikzpicture} \\
+		\hline 
+		构造$\{x|x\in\{0,1\}^+ \newline \text{且$x$中不含形如$00$的子串}\}$语言的$DFA$。 
+		\newline 
+		构造要点是，自动机启动并读入一个字符后，就将"精力"集中在考察是否出现$00$子串上，一旦发现子串$00$，就进入陷阱状态。
+		&
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state,initial] (q0) {$q_0$};
+		\node[state,accepting](q1) [above right=of q0] {$q_1$};
+		\node[state,accepting] (q2) [below=of q1] {$q_2$};
+		\node[state](dump) [right=of q2] {$d$};
+		\path[->]
+		(q0) edge node {$1$} (q1)
+		(q0) edge node {$0$} (q2)
+		(q1) edge [loop above] node {$1$} (q1)
+		(q1) edge [swap] node {$0$} (q2)
+		(q2) edge [bend right,swap] node {$1$} (q1)
+		(q2) edge node {$0$} (dump)
+		(dump) edge [loop above] node {0,1} (dump) ;
+		\end{tikzpicture} \\
+		\hline
+	\end{tabular} 
+	\end{table}
+\item $\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\\ 
+	要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}。\\
+	$DFA$见图(\ref{fig:mod_5}),状态转移表见(\ref{tab:mod_5},\ref{tab:mod_5_1})。构造要点如下:
+    \begin{enumerate}
+    	\item 以0开头的串都不能被$DFA$接受，包括字符串0，所以，如果$DFA$在启动状态读入的符号为0，则直接进入陷阱状态。
+    	\item 该$DFA$共有7种状态：开始状态、陷阱状态、终止状态各一个。在状态转移图中，终止状态和其余4种状态构成最大的强连通子图。
+    	\item 模5的等价类：$5n,5n+1,5n+2,5n+3,5n+4$, 其中$n\ge 0$
+    \end{enumerate}
+    \begin{figure}[htbp]
+    	\centering
+	    \begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		    \node[state] (q0) {$q_0$};
+		    \node[state,](q1) [below=of q0] {$q_1$};
+		    \node[state,accepting] (q3) [below left=of q1] {$q_3$};
+		    \node[state] (q2) [below right=of q1] {$q_2$};
+		    \node[state] (q4) [below left=of q2] {$q_4$};
+		    \node[state,initial] (s) [left=of q1] {$s$};
+		    \node[state](dump) [above=of s] {$d$};
+		    \path[->]
+		    (s) edge node {$0$} (dump)
+		    (s) edge node [bend left] {$1$} (q1)
+		    (q0) edge [loop above] node {$0$} (q0)
+		    (q0) edge [swap] node {$1$} (q1)
+		    (q1) edge node {$0$} (q2)
+		    (q2) edge node {$0$} (q4)
+		    (q4) edge node {$0$} (q3)
+		    (q3) edge [bend right,swap] node {$0$} (q1)
+		    (q1) edge [swap] node {$1$} (q3)
+		    (q2) edge [bend right] node {$1$} (q0)
+		    (q3) edge [bend right] node {$1$} (q2)
+		    (q4) edge [loop below] node {$1$} (q4)
+		    (dump) edge [loop above] node {$0,1$} (dump);
+		\end{tikzpicture} 
+	\caption{$\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\newline
+		要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}语言对应的$DFA$}
+	\label{fig:mod_5}
+	\end{figure}
+    \begin{table}[htbp]
+    	\caption{$\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\newline 
+    		要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}语言对应的$DFA$,状态$q_0,\cdots,q_4$转移表}
+    	\label{tab:mod_5}
+    	\centering
+    	\begin{tabular}{|c||c|c|c|c|c|}
+    		\hline
+    		state&$q_0$&$q_1$&$q_2$&$q_3$&$q_4$\\
+    		\hline
+    		意义&$5n$&$5n+1$&$5n+2$&$5n+3(marked)$&$5n+4$\\
+    	    \hline
+    	    \cline{1-6}  % 画一条横线在1-6列之间
+    	    输入字符0&$q_0$&$q_2$&$q_4$&$q_1$&$q_3$\\
+    	    \hline
+    	    $sx,x=0$&$(5n)\times 2=10n$&$(5n+1)\times 2=10n+2$&$(5n+2)\times 2=10n+4$&$(5n+3)\times 2=10n+6$&$(5n+4)\times 2=10n+8$\\
+    	    \hline
+    	    \cline{1-6}  % 画一条横线在1-6列之间
+    	    输入字符1&$q_1$&$q_3$&$q_0$&$q_2$&$q_4$\\
+    	    \hline
+    	    $sx,x=1$&$(5n)\times 2+1$&$(5n+1)\times 2+1$&$(5n+2)\times 2+1$&$(5n+3)\times 2+1$&$(5n+4)\times 2+1$\\
+    	    %\hline
+    	            &$=10n+1$&$=10n+3$&$=10n+5$&$=10n+7$&$=10n+9$\\
+    	    \hline
+   		\end{tabular} 
+	\end{table}	
+    \begin{table}[htbp]
+    	\caption{$\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\newline 
+    		要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}语言对应的$DFA$,状态$s,d$转移表}
+    	\label{tab:mod_5_1}
+    	\centering
+    	\begin{tabular}{|c||c|c|}
+    		\hline
+    		state&$s$&$d$\\
+    		\hline
+    		意义&开始状态&$dump/trap$状态\\
+    		\hline
+    		\cline{1-3}  % 画一条横线在1-3列之间
+    		输入字符0&$d$&$d$\\
+    		\hline
+    		$sx,x=0$&以0开头的串都不能被$DFA$接受，进入陷阱状态&在陷阱状态输入$0,1$,仍然离不开陷阱状态\\
+    		\hline
+    		\cline{1-3}  % 画一条横线在1-3列之间
+    		输入字符1&$q_1$&$d$\\
+    		\hline
+    		$sx,x=1$&余1,进入$q_1$&在陷阱状态输入$0,1$,仍然离不开陷阱状态\\
+    		\hline
+    	\end{tabular} 
+    \end{table}	
+\item $\{x|x\in\{0,1\}^+\text{且$x$以0开头以1结尾}\}$。\\
+	$DFA$见图(\ref{fig:01})。构造要点如下:
+	\begin{enumerate}
+		\item 启动时，只要考虑开始符号是否为0。
+		\item 以1开头的字符串都是不可接受的。
+		\item 在读入一个字符0之后，当读到1时，可将这个1先当成结尾的1，如果是，就停止并接受；如果不是，就继续向前扫描。
+		\item 被接受串的长度至少为2。
+	\end{enumerate}
+	\begin{figure}[htbp]
+		\centering
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state,initial] (q0) {$q_0$};
+		\node[state,](q1) [right=of q0] {$q_1$};
+		\node[state,accepting] (q2) [right=of q1] {$q_2$};
+		\node[state](dump) [below right=of q0] {$d$};
+		\path[->]
+		(q0) edge node {$0$} (q1)
+		(q1) edge node {$1$} (q2)
+		(q2) edge [bend left] node {$1$} (q1)
+		(q1) edge [loop above] node {$0$} (q1)
+		(q2) edge [loop above] node {$1$} (q2)
+		(dump) edge [loop below] node {$0,1$} (dump)
+		(q0) edge node {$1$} (dump);
+		\end{tikzpicture} 
+		\caption{$\{x|x\in\{0,1\}^+\text{且$x$以0开头以1结尾}\}$语言对应的$DFA$}
+		\label{fig:01}
+	\end{figure}
+\item $\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$。\\
+	$DFA$见图(\ref{fig:odd_even})。构造要点如下:
+	\begin{enumerate}
+		\item 语言根据word长度的奇偶性对字符串的结尾提出要求，因此，它将$\{0,1\}^+$中的字符串分成4个等价类，这4个等价类依次为：
+			\begin{enumerate}
+				\item \text{[奇0]:} $\{x|x\in\{0,1\}^+ \text{不仅长度为奇数，而且以0结尾}\}$,用$[o0]$表示此等价类及其对应的状态,是终止状态。
+				\item \text{[奇1]:} $\{x|x\in\{0,1\}^+ \text{不仅长度为奇数，而且以1结尾}\}$,用$[o1]$表示此等价类及其对应的状态。
+				\item \text{[偶0]:} $\{x|x\in\{0,1\}^+ \text{不仅长度为偶数，而且以0结尾}\}$,用$[e0]$表示此等价类及其对应的状态。
+				\item \text{[偶1]:} $\{x|x\in\{0,1\}^+ \text{不仅长度为偶数，而且以1结尾}\}$,用$[e1]$表示此等价类及其对应的状态,是终止状态。
+			\end{enumerate}
+		\item $\epsilon$不属于上述任何一个等价类，所以她自己构成独立地构成一个等价类，而且它是语言的句子($\epsilon \in L(M)$)，该等价类对应的状态为终止状态，用$[\epsilon]$表示此等价类及其对应的状态。
+		\item $M=(\{[\epsilon],[o0],[o1],[e0],[e1]\},\{0,1\},\delta,\{[\epsilon],[o0],[e1]\})$,其中$\delta$是状态转移函数，见表(\ref{tab:odd_even})。\\
+		如果将长度0看成偶数长，从此表可以明显地看出，在读入一个字符时，已处理的输入串的相应前缀长度的奇偶性“交替变化”：奇变偶，偶变奇。而0,1区分正好体现了读进来的符号:是0就是0，是1就是1.
+		\item 如果认为$\epsilon$不属于语言($\epsilon \notin L(M)$)，则只要将$[\epsilon]$从终止状态集中删除即可。	
+	\end{enumerate}
+	\begin{table}[htbp]
+		\caption{$\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$转移表}
+		\label{tab:odd_even}
+		\centering
+		\begin{tabular}{|c||c|c|c|c|c|}
+			\hline
+			state&$[\epsilon]$&$[o0]$&$[o1]$&$[e0]$&$[e1]$\\
+			\hline
+			意义&空字符串(marked)&奇长,0尾(marked)&奇长,1尾&偶长,0尾&偶长,1尾(marked)\\
+			\hline
+			\cline{1-6}  % 画一条横线在1-6列之间
+			输入字符0&$[o0]$&$[e0]$&$[e0]$&$[o0]$&$[o0]$\\
+			\hline
+			\cline{1-6}  % 画一条横线在1-6列之间
+		    输入字符1&$[o1]$&$[e1]$&$[e1]$&$[o1]$&$[o1]$\\
+			\hline
+		\end{tabular} 
+	\end{table}	
+	\begin{figure}[htbp]
+		\centering
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state,accepting] (o0) {$o0$};
+		\node[state](e0) [below=of o0] {$e0$};
+		\node[state,accepting] (e1) [right=of o0] {$e1$};
+		\node[state] (o1) [below=of e1] {$o1$};
+		\node[state,initial] (s) [below left=of e0] {$[\epsilon]$};
+		\path[->]
+		(s) edge [bend left] node {$0$} (o0)
+		(s) edge [bend right] node {$1$} (o1)
+		(e0) edge [bend left] node {$0$} (o0)
+		(o0) edge [bend left] node {$0$} (e0)
+		(e1) edge [bend left] node {$1$} (o1)
+		(o1) edge [bend left] node {$1$} (e1)
+	
+		(o0) edge [bend left] node {$1$} (e1)
+		(e1) edge [bend left] node {$0$} (o0)
+		
+		(e0) edge [bend left] node {$1$} (o1)
+		(o1) edge [bend left] node {$0$} (e0);
+		\end{tikzpicture} 
+		\caption{$\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$语言对应的$DFA$($[o0]$奇0,$[o1]$奇1;$[e0]$偶0,$[e1]$偶1)}
+		\label{fig:odd_even}
+	\end{figure}
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+	设$DFA$ $M=(Q,\Sigma,\delta,q_0,F)$，证明：对于$\forall x,y\in\Sigma^\ast,q\in Q$，
+	$$\delta(q,xy)=\delta(\delta(q,x),y)$$
+\end{exercise}
+
+\begin{solution}
+	\begin{proof}
+		设$x,y\in\Sigma^\ast,q\in Q$,现对$|y|$施归纳。
 		\begin{enumerate}
-			\item $r=r_1 + r_2$
-			\begin{align*}
-			f(L) &= f(L(r)) \\
-			&=f(L(r_1 + r_2))\\
-			&=f(L(r_1)\cup L(r_2))  &\qquad  \text{$RE$的定义} \\
-			&=f(L(r_1))\cup f(L(r_2)) &\qquad \text{正则代换的定义} \\
-			&=L(f(r_1))\cup L(f(r_2)) &\qquad \text{归纳假设} \\
-			&=L(f(r_1)+f(r_2)) &\qquad RE\text{的定义} \\
-			&=L(f(r_1+r_2)) &\qquad RE\text{的正则代换的定义} \\
-			&=L(f(r))
-			\end{align*}
+			\item 当$|y|=0$时，$y=\epsilon$,由于对任意的$q\in Q$, 均有\\
+			$\delta(q,\epsilon)=q$\\
+			所以
+			\begin{equation}\label{key_1}
+			\delta(q,x)=\delta(\delta(q,x),\epsilon)
+			\end{equation}
+			另一方面，$x=x\epsilon$, 使得下式成立
+			\begin{equation}\label{key_2}
+			\delta(q,x\epsilon)=\delta(q,x)
+			\end{equation}
+			综合这两个等式(\ref{key_1},\ref{key_2})得
+			$$\delta(q,x\epsilon)=\delta(\delta(q,x),\epsilon)$$
+			即结论对$|y|=0$成立。
 			
-			\item $r=r_1r_2$
-			\begin{align*}
-			f(L) &=f(L(r)) \\
-			&=f(L(r_1r_2))\\
-			&=f(L(r_1)L(r2)) &\qquad \text{$RE$的定义}\\
-			&=f(L(r_1))f(L(r_2)) &\qquad \text{正则代换的定义}\\
-			&=L(f(r_1))L(f(r_2)) &\qquad \text{归纳假设} \\
-			&=L(f(r_1)f(r_2)) &\qquad \text{$RE$的定义}\\
-			&=L(f(r_1r_2)) &\qquad \text{$RE$的正则代换的定义}\\
-			&=L(f(r_1r_2))
-			\end{align*}
-			
-			\item $r={r_1}^{\ast}$
-			\begin{align*}
-			f(L) &=f(L(r)) \\
-			&=f(L({r_1}^{\ast}))\\
-			&=f(L({r_1})^{\ast}) &\qquad \text{$RE$的定义}\\
-			&={(f(L({r_1})))}^{\ast} &\qquad \text{正则代换的定义}\\
-			&={(L(f(r_1)))}^{\ast} &\qquad \text{归纳假设} \\
-			&=L(f(r_1)^{\ast}) &\qquad \text{$RE$的定义}\\
-			&=L(f({r_1}^{\ast})) &\qquad \text{$RE$的正则代换的定义}\\
-			&=L(f(r))
-			\end{align*}
+			\item 设结论对$|y|=n$成立，且$|ya|=n+1,a\in\Sigma^\ast$，此时由$\delta$的定义\\
+			$\delta(q,xya)=\delta(\delta(q,xy),a)$\\
+			由归纳假设，$\delta(q,xy)=\delta(\delta(q,x),y)$\\
+			从而\\
+			$\delta(q,xya)=\delta(\delta(q,xy),a)=\delta(\delta(\delta(q,x),y),a)$\\
+			注意到$\delta(q,x)$为一个状态，再由$\delta$的定义\\
+			$\delta(\delta(\delta(q,x),y),a)=\delta(\delta(q,x),ya)$\\
+			所以\\
+			$\delta(\delta(q,xy),a)=\delta(\delta(q,x),ya)$\\
+			表明结论对$|ya|=n+1$成立。
 		\end{enumerate}
-	\end{itemize}  \hfill$\square$ 
-\end{proof}
+		由归纳法原理，结论对任意的$x,y\in\Sigma^\ast,q\in Q$成立。$\hfill\square$
+	\end{proof} 
+\end{solution}
+
+\begin{exercise}\label{ex:co}
+	证明：对于任意的$DFA$ $M_1=(Q,\Sigma,\delta,q_0,F_1)$,存在$DFA$ $M_2=(Q,\Sigma,\delta,q_0,F_2)$,使得$L(M_2)=\Sigma^\ast-L(M_1)$。
+\end{exercise}
+
+\begin{solution}
+	\begin{proof}
+		分两步证明。
+		\begin{enumerate} 
+			\item 构造$M_2$\\
+			设$DFA$ $M_1=(Q,\Sigma,\delta,q_0,F_1)$\\
+			取$DFA$ $M_1=(Q,\Sigma,\delta,q_0,Q-F_2)$
+			\item 证明$L(M_2)=\Sigma^\ast-L(M_1)$\\
+			对任意的$x\in\Sigma^\ast$,\\
+			$x\in L(M_2)=\Sigma^\ast-L(M_1)\Leftrightarrow\delta(q_0,x)\in Q-F\Leftrightarrow\delta(q_0,x)\in Q$并且$\delta(q_0,x)\notin F_1\Leftrightarrow x\in\Sigma^\ast$并且$x\notin L(M_1)\Leftrightarrow x\in\Sigma^\ast-L(M_1)$ $\hfill\square$
+		\end{enumerate}
+	\end{proof}
+\end{solution}	
+
+\begin{exercise}
+	对于任意的$DFA$ $M_1=(Q_1,\Sigma,\delta_1,q_{01},F_1)$,请构造$DFA$ $M_2=(Q_2,\Sigma,\delta_2,q_{02},F_2)$,使得$L(M_2)=L(M_1)^T$其中$L(M)^T=\{x|x^T \in L(M)\}$。
+\end{exercise}
+
+\begin{solution}
+	\begin{proof}
+		分三步证明。
+		\begin{enumerate} 
+			\item 构造$\epsilon-NFA$ $M$使得$L(M)=L(M_1)$\\
+			设$DFA$ $M_1=(Q_1,\Sigma,\delta_1,q_{01},F_1)$\\
+			先取$\epsilon-NFA$ $M=(Q,\Sigma,\delta,q_0,\{q_{01}\})$,其中\\
+			$Q=Q_1\cup\{q_0\},q_0\notin Q_1$\\
+			对于任意的$q,p\in Q,a\in\Sigma$,\\
+			$q\in\delta(p,a)\Leftrightarrow\delta_1(q,a)=p$\\
+			$\delta(q_0,\epsilon)=F_1$
+			
+			\item 证明$L(M)=L(M_1)^T$\\
+			对任意的$a_1a_2\cdots a_n\in\Sigma^\ast$,\\
+		    $a_1a_2\cdots a_n\in L(M)\Leftrightarrow q_0a_1a_2\cdots a_n\vdash q_fa_1a_2\cdots a_n\vdash a_1q_1a_2\cdots a_n\vdash a_1a_2q_2\cdots a_n\vdash \cdots \vdash a_1a_2\cdots q_{n-1}a_n\vdash a_1a_2\cdots q_{01}$并且$q_f\in F_1$\\
+		    $\Leftrightarrow q_f\in \delta(q_0,\epsilon),q_1\in\delta(q_f,a_1),q_2\in\delta(q_1,a_2),\cdots,q_{01}\in(q_{n-1},a_n)$,并且$q_f\in\delta(F_1)$\\
+		    $\Leftrightarrow \delta(q_1,a_1)=q_f,\delta(q_2,a_2)=q_1,\cdots,\delta(q_{01},a_n)=q_{n-1}$,并且$q_f\in F_1$\\
+		    $\Leftrightarrow q_{01}a_na_{n-1}\cdots a_1\vdash a_nq_{n-1}a_{n-1}\cdots a_1\vdash\cdots\vdash a_na_{n-1}\cdots q_2a_2a_1\vdash a_na_{n-1}\cdots a_2q_1a_1\vdash a_na_{n-1}\cdots a_2a_1q_f$\\
+		    $\Leftrightarrow a_na_{n-1}\cdots a_2a_1\Leftrightarrow x\in L(M_1)$
+		    
+		    \item 按照将$\epsilon-NFA$转换成等价的$NFA$,再将$NFA$转换成等价的$DFA$的方法，将此$\epsilon-NFA$转换成满足要求的$DFA$ $M_2=(Q_2,\Sigma,\delta_2,q_{02},F_2)$。
+		\end{enumerate}
+	\end{proof}
+\end{solution}
+
+\begin{exercise}
+	构造识别下列语言的$NFA$。
+	\begin{enumerate}
+		\item $\{x|x\in\{0,1\}^+\text{并且$x$中含形如$10110$的子串}\}$。
+		\item $\{x|x\in\{0,1\}^+\text{并且$x$中不含形如$10110$的子串}\}$。
+		\item $\{x|x\in\{0,1\}^+\text{$x$以0开头以1结尾}\}$。
+		\item $\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$。
+		$\{x|x\in\{0,1\}^+\text{$x$首字符和尾字符形同}\}$。
+	\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+	构造识别下列语言的$NFA$。
+	\begin{enumerate}
+		\item 构造$\{x|x\in\{0,1\}^+\text{并且$x$中含形如$10110$的子串}\}$语言的$NFA$。构造结果如图(\ref{fig:10110})所示。
+		\begin{figure}[htbp]
+			\centering
+			\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+			\node[state,initial](q0) {$q_0$};
+			\node[state](q1) [right of=q0] {$q_1$};
+			\node[state](q2) [right of=q1] {$q_2$};
+			\node[state](q3) [right of=q2] {$q_3$};
+			\node[state](q4) [right of=q3] {$q_4$};
+			\node[state,accepting](q5) [right of=q4] {$q_5$};
+			\path[->]
+			(q0) edge [loop above] node {$0,1$} (q0)
+			(q0) edge node {$1$} (q1)
+			(q1) edge node {$0$} (q2)
+			(q2) edge node {$1$} (q3)
+			(q3) edge node {$1$} (q4)
+			(q4) edge node {$0$} (q5)
+			(q5) edge [loop above] node {$0,1$} (q5);
+			\end{tikzpicture} 
+			\caption{$\{x|x\in\{0,1\}^+\text{并且$x$中含形如$10110$的子串}\}$语言的$NFA$}
+			\label{fig:10110}
+		\end{figure}
+	
+		\item 构造$\{x|x\in\{0,1\}^+\text{并且$x$中不含形如$10110$的子串}\}$语言的$NFA$。\\
+		构造要点如下:
+		\begin{enumerate}
+			\item 虽然本小题的语言是上一小题语言的补，决不能通过将上一小题的所给出的$NFA$的终止状态和非终止状态互换来构造本小题的$NFA$。就是说\textbf{Exercise \ref{ex:co}}所给的方法仅适用于$DFA$,不适用于$NFA$。
+			\item 需要构造相应语言的$DFA$,即一种特殊的NFA。如图(\ref{fig:Not10110})所示。
+			\item 根据\textbf{Exercise \ref{ex:co}}和上一小题的结果构造主体框架，然后逐步补充。
+			\begin{figure}[htbp]
+				\centering
+				\flushleft{step 1: $F = Q-F$}
+				\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+				\node[state,accepting,initial](q0) {$q_0$};
+				\node[state,accepting](q1) [right of=q0] {$q_1$};
+				\node[state,accepting](q2) [right of=q1] {$q_2$};
+				\node[state,accepting](q3) [right of=q2] {$q_3$};
+				\node[state,accepting](q4) [right of=q3] {$q_4$};
+				\node[state](q5) [right of=q4] {$q_5$};
+				\path[->]
+				(q0) edge [loop above] node {$0,1$} (q0)
+				(q0) edge node {$1$} (q1)
+				(q1) edge node {$0$} (q2)
+				(q2) edge node {$1$} (q3)
+				(q3) edge node {$1$} (q4)
+				(q4) edge node {$0$} (q5)
+				(q5) edge [loop above] node {$0,1$} (q5);
+				\end{tikzpicture} 
+				\newline
+				\flushleft{step 2: Add new state d, 拆分$q_0$的自环\{0,1\}}
+				\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+				\node[state,initial](q0) {$q_0$};
+				\node[state,accepting](q1) [right of=q0] {$q_1$};
+				\node[state,accepting](q2) [right of=q1] {$q_2$};
+				\node[state,accepting](q3) [right of=q2] {$q_3$};
+				\node[state,accepting](q4) [right of=q3] {$q_4$};
+				\node[state](q5) [right of=q4] {$q_5$};
+				\node[state,accepting](d) [below of=q1] {$d$};
+				\path[->]
+				%(q0) edge [loop above] node {$0,1$} (q0)
+				(q0) edge node {$1$} (q1)
+				(q1) edge node {$0$} (q2)
+				(q2) edge node {$1$} (q3)
+				(q3) edge node {$1$} (q4)
+				(q4) edge node {$0$} (q5)
+				(q5) edge [loop above] node {$0,1$} (q5)
+				(q0) edge [bend right] node {$0$} (d);
+				\end{tikzpicture} 
+				\newline
+				\flushleft{step 3: Add self loop in state $q_1$ and $d$。$q_1$表示接受0个或多个$1$的状态，$d$表示接受0个或多个$0$的状态，}
+				\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+				\node[state,initial](q0) {$q_0$};
+				\node[state,accepting](q1) [right of=q0] {$q_1$};
+				\node[state,accepting](q2) [right of=q1] {$q_2$};
+				\node[state,accepting](q3) [right of=q2] {$q_3$};
+				\node[state,accepting](q4) [right of=q3] {$q_4$};
+				\node[state](q5) [right of=q4] {$q_5$};
+				\node[state,accepting](d) [below of=q1] {$d$};
+				\path[->]
+				(q0) edge node {$1$} (q1)
+				(q1) edge node {$0$} (q2)
+				(q2) edge node {$1$} (q3)
+				(q3) edge node {$1$} (q4)
+				(q4) edge node {$0$} (q5)
+				(q5) edge [loop above] node {$0,1$} (q5)
+				(q0) edge [bend right] node {$0$} (d)
+				(q1) edge [loop above] node {$1$} (q1)
+				(d) edge [loop below] node {$0$} (d);
+				\end{tikzpicture} 
+				\newline
+				\flushleft{step 4: Add other edges,成为最终的$DFA$}
+				\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+				\node[state,initial](q0) {$q_0$};
+				\node[state,accepting](q1) [right of=q0] {$q_1$};
+				\node[state,accepting](q2) [right of=q1] {$q_2$};
+				\node[state,accepting](q3) [right of=q2] {$q_3$};
+				\node[state,accepting](q4) [right of=q3] {$q_4$};
+				\node[state](q5) [right of=q4] {$q_5$};
+				\node[state,accepting](d) [below of=q1] {$d$};
+				\path[->]
+				(q0) edge node {$1$} (q1)
+				(q1) edge node {$0$} (q2)
+				(q2) edge node {$1$} (q3)
+				(q3) edge node {$1$} (q4)
+				(q4) edge node {$0$} (q5)
+				(q5) edge [loop above] node {$0,1$} (q5)
+				(q0) edge [bend right] node {$0$} (d)
+				(q1) edge [loop above] node {$1$} (q1)
+				(d) edge [loop below] node {$0$} (d)
+				(d) edge node {$1$} (q1)
+				(q2) edge node {$0$} (d)
+				(q3) edge [bend left] node {$0$} (q2)
+				(q4) edge [bend right,swap] node {$1$} (q1);
+				\end{tikzpicture} 
+				\caption{$\{x|x\in\{0,1\}^+\text{并且$x$中不含形如$10110$的子串}\}$语言的$NFA$}
+				\label{fig:Not10110}
+			\end{figure}
+		\end{enumerate}
+		
+		\item 构造$\{x|x\in\{0,1\}^+\text{$x$以0开头以1结尾}\}$, $DFA$见图(\ref{fig:01})。$NFA$见图(\ref{fig:01NFA})。
+		\begin{figure}[htbp]
+			\centering
+			\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+			\node[state,initial](q0) {$q_0$};
+			\node[state](q1) [right of=q0] {$q_1$};
+			\node[state,accepting](q2) [right of=q1] {$q_2$};
+			\path[->]
+			(q1) edge [loop above] node {$0,1$} (q1)
+			(q0) edge node {$0$} (q1)
+			(q1) edge node {$1$} (q2);
+			\end{tikzpicture}
+			\caption{$\{x|x\in\{0,1\}^+\text{$x$以0开头以1结尾}\}$语言的$NFA$}
+			\label{fig:01NFA}
+		\end{figure} 
+	
+		\item $\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$。\\
+		$DFA$见图(\ref{fig:odd_even})。$NFA$见图(\ref{fig:odd_evenNFA})。
+		\begin{figure}[htbp]
+			\centering
+			\flushleft{(1) $\epsilon\in L(M)$}
+			\newline
+			\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+			\node[state,accepting,initial](q0) {$q_0$};
+			\node[state](q1) [right of=q0] {$q_1$};
+			\node[state](q2) [right of=q1] {$q_2$};
+			\node[state,accepting](q3) [right of=q2] {$q_3$};
+			\node[state,accepting](q4) [below of=q0] {$q_4$};
+			\node[state,accepting](q5) [below of=q1] {$q_5$};
+			\path[->]
+			(q2) edge [bend left] node {$0,1$} (q1)
+			(q0) edge node {$0,1$} (q1)
+			(q1) edge node {$0,1$} (q2)
+			(q2) edge node {$0$} (q3)
+			(q0) edge node {$0$} (q4)
+			(q1) edge node {$1$} (q5);
+			\end{tikzpicture}
+			\newline
+			\flushleft{(2) $\epsilon\notin L(M)$}
+			\newline
+			\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+			\node[state,initial](q0) {$q_0$};
+			\node[state](q1) [right of=q0] {$q_1$};
+			\node[state,accepting](q2) [right of=q1] {$q_2$};
+			\node[state,accepting](q3) [below of=q0] {$q_3$};
+			\path[->]
+			(q1) edge [bend left] node {$0,1$} (q0)
+			(q0) edge node {$0,1$} (q1)
+			(q1) edge node {$1$} (q2)
+			(q0) edge node {$0$} (q3);
+			\end{tikzpicture}
+			\caption{$\{x|x\in\{0,1\}^\ast\text{且如果$x$以1结尾,则它的长度为偶数;如果$x$以0结尾,则长度为奇数}\}$语言的$NFA$}
+			\label{fig:odd_evenNFA}
+		\end{figure} 
+	
+	\item 构造$\{x|x\in\{0,1\}^+\text{$x$首字符和尾字符形同}\}$语言的$NFA$见图(\ref{fig:se})。
+		\begin{figure}[htbp]
+			\centering
+			\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+			\node[state,initial](q0) {$q_0$};
+			\node[state](q1) [right of=q0] {$q_1$};
+			\node[state,accepting](q2) [right of=q1] {$q_2$};
+			\node[state](q3) [below of=q1] {$q_3$};
+			\node[state,accepting](q4) [right of=q3] {$q_4$};
+			\node[state,accepting](q5) [below of=q0] {$q_5$};
+			\path[->]
+			(q1) edge [loop above] node {$0,1$} (q1)
+			(q0) edge node {$1$} (q1)
+			(q1) edge node {$1$} (q2)
+			(q0) edge node {$0$} (q3)
+			(q3) edge node {$0$} (q4)
+			(q0) edge [swap] node {$0,1$} (q5)
+			(q3) edge [loop below] node {$0,1$} (q3);
+			\end{tikzpicture}
+			\caption{$\{x|x\in\{0,1\}^+\text{$x$首字符和尾字符形同}\}$语言的$NFA$}
+			\label{fig:se}
+		\end{figure} 
+	\end{enumerate}
+\end{solution}		
+
+\begin{exercise}
+	证明：对于任意的$NFA$，存在与之等价的$NFA$，该$NFA$最多只有一个终止状态。
+\end{exercise}
+
+\begin{solution}
+	证明提示：
+	
+	一般的，$NFA$会有多个状态，当该$NFA$的可达的终止状态数小于等于1时，删除所有的不可达状态即可；否则，先删除所有不可达状态，再构造与之等价的只有一个终止状态的$NFA$。
+	
+	最简单的办法是对不含不可达状态的$NFA$，将原来的终止状态均改为非终止状态，然后增加一个终止状态，并将原来存在的到达原来终止状态弧进行复制，使之也可以到达新的终止状态。
+\end{solution}
+
+\begin{exercise}构造识别下列语言的$\epsilon-NFA$:
+	
+	$\{x|x\in\{0,1\}^+\text{且$x$中不含形如$00$的子串}\}\cap\{x|x\in\{0,1\}^+\text{且$x$中不含形如$11$的子串}\}$
+\end{exercise}
+
+\begin{solution}
+	分步构造，如图(\ref{fig:cap})。
+	\begin{figure}[htbp]
+		\centering
+		\flushleft{step 1: 构造$\{x|x\in\{0,1\}^+ \text{且$x$中不含形如$00$的子串}\}$语言的$DFA$。} 
+		构造要点是，自动机启动并读入一个字符后，就将"精力"集中在考察是否出现$00$子串上，一旦发现子串$00$，就进入陷阱状态。
+		\newline
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.7in, on grid, auto]
+		\node[state,initial] (q0) {$q_0$};
+		\node[state,accepting](q1) [above right=of q0] {$q_1$};
+		\node[state,accepting] (q2) [below=of q1] {$q_2$};
+		\node[state](dump) [right=of q2] {$d$};
+		\path[->]
+		(q0) edge node {$1$} (q1)
+		(q0) edge node {$0$} (q2)
+		(q1) edge [loop above] node {$1$} (q1)
+		(q1) edge [swap] node {$0$} (q2)
+		(q2) edge [bend right,swap] node {$1$} (q1)
+		(q2) edge node {$0$} (dump)
+		(dump) edge [loop above] node {0,1} (dump) ;
+		\end{tikzpicture}
+		%\newline
+		\flushleft{step 2: 构造$\{x|x\in\{0,1\}^+ \text{且$x$中不含形如$11$的子串}\}$语言的$DFA$。} 
+		构造要点是，自动机启动并读入一个字符后，就将"精力"集中在考察是否出现$11$子串上，一旦发现子串$11$，就进入陷阱状态。
+		\newline
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.7in, on grid, auto]
+		\node[state,initial] (q0) {$q_0$};
+		\node[state,accepting](q1) [above right=of q0] {$q_1$};
+		\node[state,accepting] (q2) [below=of q1] {$q_2$};
+		\node[state](dump) [right=of q2] {$d$};
+		\path[->]
+		(q0) edge node {$0$} (q1)
+		(q0) edge node {$1$} (q2)
+		(q1) edge [loop above] node {$0$} (q1)
+		(q1) edge [swap] node {$1$} (q2)
+		(q2) edge [bend right,swap] node {$0$} (q1)
+		(q2) edge node {$1$} (dump)
+		(dump) edge [loop above] node {0,1} (dump) ;
+		\end{tikzpicture}	
+		%\newline
+		\flushleft{step 3: 构造$DFA_1\cap DFA_2$, 其中step 1 DFA = $DFA_1$, step 2 DFA = $DFA_2$。\\ \qquad state: $\forall (p,q)| p\in DFA_1,q\in DFA_2$; marked state: $p\in F_1$ and $q\in F_2$} 
+		\newline	
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.7in, on grid, auto]
+		\node[state,initial] (q0) {$q_0,q_0$};
+		\node[state,accepting](q1) [above right=of q0] {$q_1,q_2$};
+	    \node[state,accepting](q2) [below right=of q0] {$q_2,q_1$};
+	    \node[state](q3) [right=of q1] {$q_1,d$};
+	    \node[state](q4) [right=of q2] {$d,q_1$};
+	    \node[state](q5) [right=of q3] {$q_2,d$};
+	    \node[state](q6) [right=of q4] {$d,q_2$};
+	    \node[state](q7) [above right=of q6] {$d,d$};
+		\path[->]
+		(q0) edge node {$1$} (q1)
+		(q0) edge [swap] node {$0$} (q2)
+		(q1) edge [swap] node {$0$} (q2)
+		(q1) edge node {$1$} (q3)
+		(q2) edge node {$0$} (q4)
+		(q2) edge [bend right,swap] node {$1$} (q1)
+		(q3) edge node {$0$} (q5)
+		(q3) edge [loop above] node {$1$} (q3)
+		(q4) edge node {$1$} (q6)
+		(q4) edge [loop below] node {$0$} (q4)
+		(q5) edge [bend left] node {$1$} (q3)
+		(q5) edge node {$0$} (q7)
+		(q6) edge [bend left] node {$0$} (q4)
+		(q6) edge node {$1$} (q7)
+		(q7) edge [loop right] node {$0,1$} (q7)
+		;
+		\end{tikzpicture}
+		%\newline
+		\flushleft{step 4: 归约(reduce) $DFA_1\cap DFA_2$} 
+		\newline	
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.7in, on grid, auto]
+		\node[state,initial] (q0) {$q_0,q_0$};
+		\node[state,accepting](q1) [above right=of q0] {$q_1,q_2$};
+		\node[state,accepting](q2) [below right=of q0] {$q_2,q_1$};
+		\node[state](dump) [right=of q2] {$dump$};
+		\path[->]
+		(q0) edge node {$1$} (q1)
+		(q0) edge [swap] node {$0$} (q2)
+		(q1) edge [swap] node {$0$} (q2)
+		(q2) edge [bend right,swap] node {$1$} (q1)
+		(q1) edge [bend left] node {$1$} (dump)
+		(q2) edge node {$0$} (dump)
+		(dump) edge [loop right] node {$0,1$} (dump)
+		;
+		\end{tikzpicture}			
+		\caption{$\{x|x\in\{0,1\}^+\text{且$x$中不含形如$00$的子串}\}\cap\{x|x\in\{0,1\}^+\text{且$x$中不含形如$11$的子串}\}$语言的$\epsilon-NFA$}
+		\label{fig:cap}	
+	\end{figure}
+\end{solution}
+
+\begin{exercise}
+	证明: 对于任意的$FA$ $M_1=(Q_1,\Sigma_1,\delta_1,q_{01},F_1)$, $FA$ $M_1=(Q_1,\Sigma_2,\delta_1,q_{02},F_1)$, 存在$FA$ $M$，使得$L(M)=L(M_1)\cup L(M_2)$。
+\end{exercise}
+
+\begin{solution}
+	构造新的$FA$ $M=(Q,\Sigma,\delta,q_{0},F)$。
+	\begin{enumerate}
+		\item 新$FA$的输入字母表是原来两个字母表的并。$\Sigma = \Sigma_1\cup\Sigma_2$。
+		\item 保留原来两个$FA$的所有状态，并增加一个新的开始状态$q_0$。$Q=Q_1\cup Q_2\cup \{q_0\},q_0\notin Q_1,Q_2$。
+		\item 从新的开始状态$q_0$做$\epsilon$移动，分别到达原来两个$FA$的启动状态: $\delta(q_0,\epsilon) = \{q_{01},q_{02}\}$。
+		\item 保留原来两个$FA$的所有移动。即$\delta = \delta_1\cup\delta_2\cup\{q_0\times\{q_{01},q_{02}\}\}$。
+		\item 新的$FA$的终止状态是原来两个$FA$的并。$F=F_1\cup F_2$。
+	\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+	证明: 对于任意的$FA$ $M_1=(Q_1,\Sigma_1,\delta_1,q_{01},F_1)$, $FA$ $M_1=(Q_1,\Sigma_2,\delta_1,q_{02},F_1)$, 存在$FA$ $M$，使得$L(M)=L(M_1)L(M_2)$。
+\end{exercise}
+
+\begin{solution}
+	构造新的$FA$ $M=(Q,\Sigma,\delta,q_{0},F)$。
+	\begin{enumerate}
+		\item 新$FA$的输入字母表是原来两个字母表的并。$\Sigma = \Sigma_1\cup\Sigma_2$。
+		\item 保留原来两个$FA$的所有状态。$Q=Q_1\cup Q_2\cup \{q_0\}$。
+		\item $M_1$的开始状态为新的$FA$ $M$的启动状态。$q=q_{01}$。
+		\item 保留原来两个$FA$的所有移动。并对$M_1$的所有终止状态$f$，增加一个到$M_2$的开始状态$q_{02}$的$\epsilon$移动：$\delta = \delta_1\cup\delta_2\cup\{f\times\{q_{02}\}\}$, $\delta(f,\epsilon)=q_{02},f\in F_1$。
+		\item 新的$FA$的终止状态是原来两个$FA$ $M_2$的终止状态。$F=F_1$。
+	\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+	证明: 对于任意的$FA$ $M_1=(Q_1,\Sigma_1,\delta_1,q_{01},F_1)$, $FA$ $M_1=(Q_1,\Sigma_2,\delta_1,q_{02},F_1)$, 存在$FA$ $M$，使得$L(M)=L(M_1)\cap L(M_2)$。
+\end{exercise}
+
+\begin{solution}
+	不妨将这些$FA$均看成$DFA$\\
+	取$DFA$ $M=(Q_1\times Q_2,\Sigma_1\cap\Sigma_2,\delta,[q_{01},q_{02},F_1\times F_2)$。\\
+	$\forall a\in\Sigma_1\cap\Sigma_2,(q,p)\in Q_1\times Q_2$,\\
+	$\delta([q,p],a)=[\delta_1(q,a),\delta_2(q,a)]$
+\end{solution}
 
 %\input{referenc}
 
