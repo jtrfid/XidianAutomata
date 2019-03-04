@@ -1,55 +1,499 @@
 \chapter{automata abstract}
 
-$\emph{P}$ $\texttt{P}$ $\P$  $\mathrm{P}$  $\mathcal{P}$ $\mathit{P}$  $\mathnormal{P}$  $\boldsymbol{P}$  $\mathbf{P}$
+\section{Finite automata}
+\begin{definition}[Finite automation] 
+	A finite automaton(an FA) is a 6-tuple $(Q,V,T,E,S,F)$ where
+	\begin{itemize}
+		\item $Q$ is a finite set of states,
+		\item $V$ is an alphabet,
+		\item $T\in \mathbb{P}(Q\times V\times Q)$ is a transition relation,
+		\item $E\in\mathbb{P}(Q\times Q)$ is an $\epsilon$-transition relation
+		\item $S\subseteq Q$ is a set of start states, and
+		\item $F\subseteq Q$ is a set of final states.
+	\end{itemize}   $\hfill\square$
+\end{definition}
 
-\hfill
+\begin{lstlisting}
+class FA:virtual public FAabs {
+	// Q is a finite set of states
+	StatePool Q;    
+	// S is a set of start states, F is a set of final states
+	StateSet S, F;  
+	// Transitions maps each State to its out-transitions.
+	TransRel Transitions;
+	// E is the epsilon transition relation.
+	StateRel E;
+}
+\end{lstlisting}
 
-\section*{}
+\textbf{StatePool}:All states in an automaton are allocated from a StatePool. StatePool's can be merged together to form a larger one. (Care must be taken to rename any relations or sets (during merging) that depend on the one StatePool.)
+State is in [0,next)
+\begin{lstlisting}
+class StatePool {
+	int next; // The next one to be allocated.
+}
+\end{lstlisting}
+
+\textbf{StateSet}:The StateSet is normally associated (implicitly) with a particular StatePool; whenever a StuteSet is to interact with another (from a different StatePool), its States must be renamed (to avoid a name clash). The capacity of a StateSet must be explicitly managed; many set operations are not bounds-checked when assert() is turned off.
+\begin{lstlisting}
+class StateSet :protected BitVec {
+	// How many States can this set contain?
+	// [O, domain()) can be contained in *this.
+	inline int domain() const;
+	
+	// set How many States can this set contain.
+	// [O, r) can be contained in *this.
+	inline void set_domain(const int r);
+}
+class BitVec {
+	// uesd max number bits in data, denote width(domain),[0,bits_in_use) == > [0,width)
+	int bits_in_use; 
+	// number of words，1,2,3,...
+	int words; 
+	// save bytes of words,[0,1,2,...width(domain)]
+	unsigned int *data;
+}
+\end{lstlisting}
+
+\textbf{transition relation:} $T \in Q \to \mathbb{P}(V \times Q),T(p)=\{(a,q)|(p,a,q)\in T\}$,表示状态$p$的out-transitions. see Fig \ref{fig:outT} 
+\begin{lstlisting}
+// V --> Q
+struct TransPair {
+CharRange transition_label;
+State transition_destination;
+}
+class TransImpl { TransPair *data; }
+class Trans:protected TransIml { }
+
+// map: state(r) --> (T=Trans) out-transitions of r  
+// SteteTo::data[r] = out-transitions of state r
+class TransRel:public StateTo<Trans> {}
+
+// map: state(r) --> T
+// data[r] = T
+template <class T> class SteteTo {
+T *data; // 动态数组的index(即状态的index)状态的out-transitions 
+}
+class FA:virtual public FAabs {
+TransRel Transitions;// maps each State to its out-transitions.
+}
+\end{lstlisting}
+
+\textbf{$\epsilon$-relation}: $E\in \mathbb{P}(Q\times  Q) \Rightarrow E\in Q \to \mathbb{P}(Q),E(p)=\{q|(p,q)\in E\}$,表示$\epsilon$连接状态$p$和状态$q$.
+\begin{lstlisting}
+// Implement binary relations on States. This is most often used for epsilon transitions.
+// map: state(r) --> {StateSet} 
+// StateTo::data[r] = {StateSet}, 表示状态r与{StateSet}的二元关系
+class StateRel :protected StateTo<StateSet> {
+}
+
+class FA:virtual public FAabs {
+// E is the epsilon transition relation.
+StateRel E;
+}
+\end{lstlisting}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[>=latex, shorten >=1pt,
+	node distance=0.75in, on grid, auto]
+	\node[state, initial] (q0) {$q_0$};
+	\node[state](q1) [right=of q0] {$q_1$};
+	\node[state,accepting] (q2) [right=of q1] {$q_2$};
+	\node[state] (q3) [below right=of q1] {$q_3$};
+	\path[->] 
+	(q0) edge node {$a$} (q1)
+	(q1) edge node {$b$} (q2)
+	(q1) edge [bend right] node {$c$} (q3)
+	;
+	\end{tikzpicture}
+	\caption{$q_1$ in-transition: $\{(q_0,a,q_1)\}$;
+	$q_1$ out-transition: $\{(q_1,b,q_2),(q_1,c,q_3)\}$}
+    \label{fig:outT}
+\end{figure}
+
 \cite[p6]{WATSON93a} $\textbf{the signatures of the transition relations:}$
 
 $T \in \mathbb{P}(Q \times V \times Q)$
 
-$T \in V \to P(Q \times Q)$
+$T \in V \to \mathbb{P}(Q \times Q)$
 
-$T \in Q\times Q \to P(V)$
+$T \in Q\times Q \to \mathbb{P}(V)$
 
-$T \in Q \times V \to P(Q)$
+$T \in Q \times V \to \mathbb{P}(Q)$
 
-$T \in Q \to P(V \times Q)$
+$T \in Q \to \mathbb{P}(V \times Q)$
 
-for example, the function $T \in Q \to P(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
+for example, the function $T \in Q \to \mathbb{P}(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
 
-\hfill
-
-$\textbf{$\epsilon$-transition relation:}$
-
-$E \in P(Q\times Q)$
-
-$E \in Q \to P(Q)$
 
 \hfill
 
-$T \in P(Q \times V \times Q), T = \{(s,a,q) \}$
+$T \in \mathbb{P}(Q \times V \times Q), T = \{(s,a,q) \}$
 
-$T(s)\in Q \to P(V\times Q), T(s) = \{(a,q):(s,a,q) \in T\}$
+$T(p)\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(s,a,q) \in T\}$
 
-$Q_{map}: P(Q\times V), Q_{map} = \{(q,a): (s,a,q) \in T\}$
+\hfill
+
+$p,q\in Q, a\in V$
+
+$T:Q\times V\to Q$
+
+$T(p,a)={q}$
+
+\hfill
+
+$Q_{map}:\mathbb{P}(Q\times V), Q_{map} = \{(q,a): (s,a,q) \in T\}$
 
 $Q_{map}(q) = \{a: (s,a,q)\in T\}$
 
-${Q_{map}}^{-1}: V \nrightarrow P(Q), {Q_{map}}^{-1} = \{(a,q): (s,a,q) \in T\}$
+${Q_{map}}^{-1}: V \nrightarrow \mathbb{P}(Q), {Q_{map}}^{-1} = \{(a,q): (s,a,q) \in T\}$
 
-According to \cite[Convention A.4]{WATSON93a} (Tuple projection):
+\section{Properties of finite automata}
 
-$\bar{\pi}_2(T) = \{(s,q): (s,a,q)\in T \}$
+$M=(Q,V,T,E,S,F),M_0=(Q_0,V_0,T_0,E_0,S_0,F_0),M_1=(Q_1,V_1,T_1,E_1,S_1,F_1)$
 
-$Q_{map} = (\bar{\pi}_1(T))^R, Q_{map} = \{(a,q):(s,a,q) \in T\}^R = \{(q,a):(s,a,q) \in T\}$
+\begin{definition}[Size of an $FA$] 
+	Define the size of an $FA$ as $|M|=|Q|$
+\end{definition}
+
+\begin{definition}[Isomorphism同构 $(\cong)$ of $FA's$]
+	We define isomorphism $(\cong)$ as an equivalence relation on FA's. $M_0$ and $M_1$ are isomorphic (written $M_0\cong M_1$) if and only if $V_0=V_1$ and there exists a bijection双射 $g\in Q_0\to Q_1$ such that
+	\begin{itemize}
+		\item $T_1=\{(g(p),a,g(q)|(p,a,q)\in T_0\}$
+		\item $E_1=\{(g(p),g(q)|(p,q)\in E_0\}$
+		\item $S_1=\{g(s)|s\in S_0\}$ and
+		\item $F_1=\{g(f)|f\in F_0\}$
+	\end{itemize} (see Fig \ref{fig:Isomorphism}). $\hfill\square$
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (A0) {$s$};
+	\node[state](A1) [right=of A0] {$p$};
+	\node[state](A2) [right=of A1] {$q$};
+	\node[state,accepting] (A3) [right=of A2] {$f$};
+	\node[state,initial] (B0) [below=of A0] {$g(s)$};
+	\node[state](B1) [right=of B0] {$g(p)$};
+	\node[state](B2) [right=of B1] {$g(q)$};
+	\node[state,accepting] (B3) [right=of B2] {$g(f)$};
+	\path[->]
+	(A0) edge node {$\cdots$} (A1)
+	(A1) edge node {$a$} (A2)
+	(A2) edge node {$\cdots$} (A3)
+	(B0) edge node {$\cdots$} (B1)
+	(B1) edge node {$a$} (B2)
+	(B2) edge node {$\cdots$} (B3)
+	(A0) edge node {$g$} (B0)
+	(A1) edge node {$g$} (B1)
+	(A2) edge node {$g$} (B2)
+	(A3) edge node {$g$} (B3)
+	;
+	\end{tikzpicture}
+	\caption{Isomorphism$M_0\cong M_1$ if and only if $V_0=V_1$ and there exists a bijection $g\in Q_0\to Q_1$}
+	\label{fig:Isomorphism}	
+\end{figure}
+
+\begin{definition}[Extending the transition relation $T$]
+	We extend transition relation $T\in V\to\mathbb{P}(Q\times Q)$ to $T^\ast\in V^\ast\to \mathbb{P}(Q\times Q)$ as follows:
+	
+	$T^\ast(\epsilon)=E^\ast$\\
+	and (for $a\in V,w\in V^\ast$)
+	
+	$T^\ast(aw)=E^\ast\circ T(a)\circ T^\ast(w)$\\
+	Operator $\circ$ (composition is defined in Convention \ref{con:comp}). 
+	
+	This definition could also have been presented symmetrically. $\hfill\square$	
+\end{definition}
+
+\begin{note} 
+	$s_1,s_2,s_3,s_4\in Q,a\in V, w\in V^\ast$
+	
+	$E = T(\epsilon) = \{(s_1,s_2)\},T(a)=\{(s_2,s_3)\},T^\ast(w)=\{(s_3,s_4)\}$
+	\begin{align*}
+	   T^\ast(aw)&= E^\ast\circ T(a)\circ T^\ast(w) \\
+	   &= \{(s_1,s_2)\} \circ \{(s_2,s_3)\} \circ \{(s_3,s_4)\}
+	   &= \{(s_1,s_3)\} \circ \{(s_3,s_4)\}
+	   &= \{(s_1,s_4)\}
+	\end{align*}
+\end{note}
+
+\begin{note}
+	$T\in Q\times V\to \mathbb{P}(Q)$,	extend to: $T^\ast \in Q\times V^\ast \to \mathbb{P}(Q)$
+	
+	$\forall q\in Q, w\in V^{\ast}, a\in V$，
+	\begin{enumerate}
+		\item $T^\ast(q,\epsilon) = q$
+		\item $T^\ast(q,wa) = T(T^\ast(q,w),a)$
+	\end{enumerate}
+	\begin{align*}
+	T^\ast(q,a) &= T^\ast(q,\epsilon a) \\
+	&= T(T^\ast(q,\epsilon),a) \\
+	&= T(q,a)
+	\end{align*}
+	两值相同，不用区分这两个符号。 
+\end{note}
+
+\begin{convention}[Relation composition]\label{con:comp} Given sets $A,B,C$ (not necessarily different) and two relations, $E\subseteq A\times B$ and $F\subseteq B\times C$, we define relation composition (infix operator中缀操作符 $\circ$) as:
+
+$E\circ F = \{(a,c)|(\exists b\in B),(a,b)\in E\land (b,c)\in F)\}$  $\hfill\square$
+\end{convention}
+
+\begin{note} if $\exists b\in B,(a,b)\in E,(b,c)\in F,$ then
+	
+	$E:A\to B\Rightarrow E(a)=b$
+	
+	$F:B\to C\Rightarrow F(b)=c$
+	
+	$E\circ F =\{(a,b)\}\circ \{(b,c)\}=\{a,c\}$
+	\begin{align*}
+	(E\circ F)(a) &=F(E(a)) \\
+	&=F(b) = c
+	\end{align*}
+\end{note}
+
+\begin{remark}
+	We also sometimes use the signature $T^\ast\in Q\times Q\to \mathbb{P}(V^\ast)$ $\hfill\square$
+\end{remark}
+
+\begin{note}
+	$T(p,q)=\{w|p,q\in Q,w\in V^\ast\}$
+\end{note}
+
+\begin{remark}
+	if $E=\emptyset$ then $E^\ast=\emptyset^\ast=I_Q$ where $I_Q$ is the identity relation单位关系 on the states of $M$.
+\end{remark}
+
+\begin{definition}[The language between states] 
+	The language between any two states $q_0,q_1\in Q$ is $T^\ast(q_0,q_1)$. $\hfill\square$
+\end{definition}
+
+\begin{definition}[Left and right languages]
+	The left language of a state (in $M$) is given by function, $\overleftarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$,where
+	
+	$\overleftarrow{L}_M(q)=(\cup s:s\in S:T^\ast(s,q))$
+	
+	The right language of a state (in $M$) is given by function $\overrightarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$, where
+	
+	$\overrightarrow{L}_M(q)=(\cup f:f\in F:T^\ast(q,f))$
+	
+	The subscript $M$ is usually dropped when no ambiguity can arise.$\hfill\square$
+\end{definition}
+
+\begin{example}
+	$T^\ast\in Q\times Q\to \mathbb{P}(V^\ast)$,$\overleftarrow{L}_M,\overrightarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$. 
+	
+	$\overleftarrow{L}_M(q)=$\{所有开始状态到$q$状态的字符串集合\}, (从$q$往左看)
+	
+	$\overrightarrow{L}_M(q)=$\{所有从$q$状态到接受状态的字符串集合\}, (从$q$往右看)
+	
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (s) {$s$};
+	\node[state](q) [right=of s] {$q$};
+	\node[state,accepting] (f) [right=of q] {$f$};
+	\path[->]
+	(s) edge node {$\overleftarrow{L}_M(q)$} (q)
+	(q) edge node {$\overrightarrow{L}_M(q)$} (f)
+	;
+	\end{tikzpicture} 
+	
+	see Fig \ref{fig:mod_53}.
+	\begin{align*}
+	   \overleftarrow{L}_M(q_2) &=(s\to q_1\to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_1 \to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   &=[(s\to q_1\to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_1 \to q_2)] \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   & =(s\to (q_1\to q_3)^\ast\to q_1 \to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   &=\{1(10)^\ast 0,1(10)^\ast 1\}\\ 
+	   \overrightarrow{L}_M(q_2) &=\{01^\ast0,10^\ast1(001^\ast 0 + (10)^\ast 1)\} 
+	\end{align*}
+	\begin{figure}[htbp] 
+		%\sidecaption
+		%\flushleft{$\overleftarrow{L}_M(q_2) =\{10,11,1(10)^\ast1\}$}
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state] (q0) {$q_0$};
+		\node[state,](q1) [below=of q0] {$q_1$};
+		\node[state,accepting] (q3) [below left=of q1] {$q_3$};
+		\node[state] (q2) [below right=of q1] {$q_2$};
+		\node[state] (q4) [below left=of q2] {$q_4$};
+		\node[state,initial] (s) [left=of q1] {$s$};
+		\node[state](dump) [above=of s] {$d$};
+		\path[->]
+		(s) edge node {$0$} (dump)
+		(s) edge node [bend left] {$1$} (q1)
+		(q0) edge [loop above] node {$0$} (q0)
+		(q0) edge [swap] node {$1$} (q1)
+		(q1) edge node {$0$} (q2)
+		(q2) edge node {$0$} (q4)
+		(q4) edge node {$0$} (q3)
+		(q3) edge [bend right,swap] node {$0$} (q1)
+		(q1) edge [swap] node {$1$} (q3)
+		(q2) edge [bend right] node {$1$} (q0)
+		(q3) edge [bend right] node {$1$} (q2)
+		(q4) edge [loop below] node {$1$} (q4)
+		(dump) edge [loop above] node {$0,1$} (dump);
+		\end{tikzpicture} 
+		\caption{$\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\newline
+			要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}语言对应的$DFA$}
+		\label{fig:mod_53}
+	\end{figure}
+\end{example}
+
+\begin{definition}[Language of an $FA$]
+	The language of a finite automaton (with alphabet $V$) is given by the function $L_{FA}\to \mathbb{P}(V^\ast)$ defined as:
+	
+	$L_{FA}(M)=(\cup s,f:s\in S\land f\in F:T^\ast(s,f))$ (所有从开始状态到接受状态的字符串集合)
+	$\hfill\square$
+\end{definition}
+
+\begin{property}[Language of an $FA$]
+	From the definition of left and right languages (of a state), we can also write:
+	
+	$L_{FA}(M) = (\cup f:f\in F:\overleftarrow{L}(f))$ (所有从s到f的字符串集合，从f向左看)\\
+	and
+	
+	$L_{FA}(M) = (\cup s:s\in S:\overrightarrow{L}(s))$ (所有从s到f的字符串集合，从s向右看) 
+	$\hfill\square$
+\end{property}
+
+\begin{definition}[$\epsilon$-$free$ 无$\epsilon$转移]
+	Automaton $M$ is $\epsilon$-$free$ if and only if $E=\emptyset$.$\hfill\square$
+\end{definition}
+
+\begin{remark}
+	Even if $M$ is $\epsilon$-$free$ it is still possible that $\epsilon\in L_{FA}(M): in this case S\cap F \ne \emptyset$. (开始状态也是接受状态) $\hfill\square$
+\end{remark}
+
+
+Form \cite[Convention A.4]{WATSON93a} (Tuple projection).
+
+\begin{convention}[Tuple projection]\label{con:project}
+	For an $n$-tuple $t=(x_1,x_2,\dots,x_n)$ we use the notation
+	$\pi_i(t) (1\le i\le n)$ to denote tuple element $x_i$; we use the notation $\bar{\pi}_i(t) (1\le i\le n)$ to denote the $(n-1)$-tuple $(x_1,\dots,x_{i-1},x_{i+1},\dots,x_n)$. Both $\pi$and $\bar{\pi}$ extend naturally to sets of tuples. $\hfill\square$
+\end{convention}
+
+Form \cite[Definition A.20]{WATSON93a} (Tuple and relation reversal).
+
+\begin{definition}[Tuple and relation reversal] \label{def:reversal}
+	For an $n$-tuple $(x_1,x_2,\dots,x_n)$ define reversal as (postfix and superscript) function R:
+	
+	$(x_1,x_2,\dots,x_n)^R = (x_n,x_n-1,\dots,x_2,x_1)$ \\ 
+	Given a set $A$ of tuples, we define $A^R=\{x^R:x\in A\}. \hfill\square$
+\end{definition}
+
+\begin{definition}[Reachable states]
+	For $M$ we can define a reachability relation $Reach(M)\subseteq (Q\times Q)$ defined as
+	
+	$Reach(M) = (\bar{\pi}_2(T)\cup E)^\ast$        see\footnote{\{$(p_1,q_1),(p_2,q_2),\dots$\}}\\
+	Functions $\pi$ and $\bar{\pi}$ are defined in Convention \ref{con:project}. Similarly the set of start-reachable states is defined to be:
+	
+	$SReachable(M)=Reach(M)(S)$ see\footnote{从start state可以到达的状态集合}\\
+	and the set of final-reachable states is defined to be:
+	
+	$FReachable(M)=(Reach(M))^R(F)$ see\footnote{可以到达final state的状态集合}\\
+	Reversal of a relation is defined in Definition \ref{def:reversal}. The set of useful states is:
+	$Reachable(M)=SReachable(M)\cap FReachable(M)$ $\hfill\square$
+\end{definition}
+
+\begin{remark} For $FA$ $M=(Q,V,T,E,S,F)$,function $SReachable$ satisfies the following interesting property:
+	
+	$q\in SReachable(M)\equiv\overleftarrow{L}_M(q)\ne\emptyset$\\
+	$FReachable$ satisfies a similar property:
+	
+	$q\in FReachable(M)\equiv\overrightarrow{L}_M(q)\ne\emptyset\hfill\square$
+\end{remark}
+
+\begin{example} 
+	$T\in \mathbb{P}(Q\times V\times Q), T = \{(p,a,q)|p,q\in Q,a\in V\}$,
+	
+	$\bar{\pi}_2(T) = \{(p,q)|(p,a,q)\in T \}$	
+	
+	$Q_{map} = (\bar{\pi}_1(T))^R, Q_{map} = \{(a,q)|(p,a,q) \in T\}^R = \{(q,a)|(p,a,q) \in T\}$
+	
+	
+	$\hfill\square$
+\end{example}
+
+
+\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=1.0in, on grid, auto]
+\node[state,initial] (s) {$s$};
+\node[state] (q0) [above right=of s] {$q_0$};
+\node[state] (q1) [below right=of s] {$q_1$};
+\node[state,accepting] (f) [below right =of q0]{$f$};
+\path[->]
+(s) edge node {$\overleftarrow{L}_M(q_0)$} (q0)
+(s) edge [swap] node {$\overleftarrow{L}_M(q_1)$} (q1)
+(q0) edge node {$\overrightarrow{L}_M(q_0)$} (f)
+(q1) edge [swap] node {$\overrightarrow{L}_M(q_1)$} (f)
+;
+\end{tikzpicture} 
 
 \hfill
 
-$f(a)=(f(a^R))^R$
+e.g. $p=\{1,2\}\in Q_1\subseteq \mathbb{P}(Q_0),\overrightarrow{L}_{M_1}(p)=\overrightarrow{L}_{M_0}(1)\cup\overrightarrow{L}_{M_0}(2)$
 
 \hfill
+
+\begin{figure}[hbtp]
+	\begin{tikzpicture}
+		\matrix (a) [matrix of math nodes,row sep=3em,
+		column sep=3em, nodes in empty cells]
+		{ Q &  P(Q) \\ 
+			&  D \\};
+		\path[>=latex,->] 
+		(a-1-1) edge node [auto] {$subset$} (a-1-2)
+		        edge node [auto,swap] {$f$} (a-2-2)
+		(a-1-2) edge node [auto] {$useful_s$} (a-2-2)
+		;
+	\end{tikzpicture}
+	\caption{$subset\circ usefus_s= usefus_s(subset(Q,V,\emptyset,S,F))=(D,V,T^\prime,\emptyset,S^\prime,F^\prime)$}
+\end{figure}
+
+\section{$\Sigma$-algebras and regular expressions}
+
+\noindent $X$集合中的元素与有序集$S$中的元素一一对应,称$X$是$S$-sorted.
+$S=\{1,3,7,9\},X=\{d,a,c,f\},s\in S,X_s\in X$\\
+$S$是有序的,$S_{s_1}=1,S_{s_2}=3,S_{s_3}=7,S_{s_4}=9$\\
+$X$与$S$中的元素一一对应。$X_{s_1}=d,X_{s_2}=a,X_{s_3}=c,X_{s_4}=f$\\
+
+\paragraph{$\Sigma$-homomorphism}
+$\Sigma$-同态: $(V,F) \Leftrightarrow (W,G)$,载体$(V,W)$和操作$(F,G)$一一对应。
+
+\noindent $V := \{re_1,re_2\}$ $RE$(正则表达式), $W := \{fa_1,fa_2\}$ $FA$(有限自动机)\\
+$F:$RG运算，二元: union(or),concat; 一元: star,plus,question; 常量:epsilon,empty,symbol\\ 
+$G:$FA运算, 同上\\
+$V_{s_1}=re_1,V_{s_2} =re_2; W_{s_1}=fa_1,W_{s_2} =fa_2$
+
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=3em,column sep=3em]
+{ re_1 & re_2  & RE_{concat}(re_1,re_2)\\
+  fa_1	& fa_2 & FA_{concat}(fa_1,fa_2)\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[descr] {$ h_{s_1} $} (m-2-1)
+(m-1-2) edge node[descr] {$ h_{s_2} $} (m-2-2)
+(m-1-3) edge node[auto,swap] {$ h_{s} $} (m-2-3)
+;
+\end{tikzpicture}
+
+
+\begin{lstlisting}
+//Sigma.h
+template<class T>
+class Reg :public T {
+// Helper for constructing the homomorphic image of a regular expression.
+// T is carrier set: RE,FA,RFA，
+// 各自的操作，分别在Sig-RE.cpp,Sig-FA.cpp,Sig-RFA.cpp中定义
+inline void homomorphic_image(const RE& r);
+Reg<T>& epsilon();
+Reg<T>& empty();
+Reg<T>& symbol(const CharRange r);
+Reg<T>& Or(const Reg<T>& r);
+Reg<T>& concat(const Reg<T>& r);
+Reg<T>& star();
+Reg<T>& plus();
+Reg<T>& question();
+}
+\end{lstlisting}
+
+\section{Others}
 
 \begin{definition}[Prefix-closure\cite{Chrison2007}]
 	Let $L\subseteq V^*$,then

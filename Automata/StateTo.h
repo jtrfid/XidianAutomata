@@ -36,6 +36,9 @@
 // Map State's to class T. Used to implement transitions(TransRel and DTransRel)
 // and State relations(StateRel and StateEqRel).
 
+// map: state(r) --> T
+// data[r] = T
+
    StateTo<T> 描述state to T(eg. StateSet)的映射(map)关系。
    T *data; 内部使用data[state]表示这种映射关系。
    set_domain(const int r)设置动态数组data的大小，表示存储这种关系的容量,对*data分配了存储空间。

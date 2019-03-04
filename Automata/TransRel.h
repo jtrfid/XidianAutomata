@@ -15,8 +15,10 @@
 #include "StateTo.h"
 #include "Trans.h"
 
-// Implement a transition relation, using a function from States to Trans(which, in turn are char -> State).
+// Implement a transition relation, using a function from States to Trans(which, in turn are CharRange -> State).
 // This is used for transition relations in normal FA's.
+// map: state(r) --> (T=Trans) out-transitions of r  
+// SteteTo::data[r] = out-transitions of state r
 class TransRel :public StateTo<Trans>
 {
 public:

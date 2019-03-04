@@ -26,6 +26,8 @@
 
 // Implement binary relations on States.This is most often used for epsilon transitions
 // and follow relations.
+// map: state(r) --> {StateSet} 
+// StateTo::data[r] = {StateSet}, 表示状态r与{StateSet}的二元关系
 class StateRel :protected StateTo<StateSet>
 {
 public:
