@@ -20,7 +20,14 @@
 	  and its inverse as Qmap^-1 in V --/--> P(Q)[the set of all partial functions from V to P(Q)]).
  ***********************************************************************************/
 
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_RFA_H
+#define AUTOMATA_RFA_H
+
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -48,28 +55,28 @@ public:
 	RFA();
 	// Need a copy constructor:
 	RFA(const RFA& r);
-	
+
 	// The Sigma-homomorphism constructor(see Definition 4.30): RE --> RFA
 	RFA(const RE& e);
 
 	// Default destr, opemtor = are okay.
 
 	// Normal FAabs member functions(don't override acceptable()):
-	
+
 	virtual int num_states() const;
 	virtual void restart();
 	virtual void advance(char a);
 	virtual int in_final() const;
 	virtual int stuck();
 	virtual DFA determinism2() const;
-	
+
 	// An alternate implementation of determinism() using the LBFA interpretation.
 	virtual DFA determinism() const;
-	
+
 	// Special members:
 
 	inline friend std::ostream& operator<<(std::ostream& os, const RFA& r);
-	
+
 	// These two must be friends so that they can construct themselves properly.
 	friend class LBFA;
 	friend class RBFA;
@@ -77,13 +84,13 @@ public:
 	inline int class_invariant() const;
 
 protected:
-		// A helper: compute all of the components into place.
-		//        for use in the constructor.
+	// A helper: compute all of the components into place.
+	//        for use in the constructor.
 
-	// Implement a top down version of Sigma homomorphism rfa(Definition 4.30): RE-->RFA
-	// 参见：Definition 4.29 (Sigma-algebra of RFA's): p33-35
-	// N: Nullable, {true,flase} ==> {1,0}
-	// Qm: V --> P(Q)
+// Implement a top down version of Sigma homomorphism rfa(Definition 4.30): RE-->RFA
+// 参见：Definition 4.29 (Sigma-algebra of RFA's): p33-35
+// N: Nullable, {true,flase} ==> {1,0}
+// Qm: V --> P(Q)
 	void rfa_into(const RE& e,
 		StatePool& Qp,
 		StateSet& f,
@@ -91,10 +98,10 @@ protected:
 		Trans& Qm,
 		StateRel& foll,
 		int& N);
-	
+
 	// Recycle *this:
 	void reincarnate();
-	
+
 	// Implementation details, protected for Reg<RFA> use.
 	// Q is a finite set of states,
 	StatePool Q;
@@ -115,8 +122,8 @@ protected:
 	// null (in {true,false}) is a Boolean value (encoding s in F in an LBFA)
 	// if epsilon属于LBFA, true; final set中包含s
 	// {true, flase} == > {1, 0}
-	int Nullable; 
-	
+	int Nullable;
+
 	// Some simulation stuff.
 	int final;
 	StateSet current;
@@ -150,3 +157,6 @@ inline std::ostream& operator<<(std::ostream& os, const RFA& r)
 	os << "\ncurrent = " << r.current << '\n';
 	return(os);
 }
+
+
+#endif // !AUTOMATA_RFA_H

@@ -9,7 +9,13 @@ item set construction [Wat93a, Construction 5.82J. The optimized item set constr
 (called Oconstr in [Wat93a]) can yield much smaller DFAs than either the normal item set
 construction or DeRemer's construction.
 ***********************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AOTOMATA_DSISOPT_H
+#define AOTOMATA_DSISOPT_H
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -116,6 +122,12 @@ inline int DSISopt::class_invariant() const
 	// and that they are optimized.
 	return(ISImpl::class_invariant());
 }
+
+
+
+
+
+#endif // !AOTOMATA_DSISOPT_H
 
 
 

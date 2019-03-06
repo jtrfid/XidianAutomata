@@ -14,7 +14,14 @@ Description: A StateEqRel is a binary equivalence relation on States. They are u
 	used to iterate over the set of representatives, thereby iterating over the set of equivalence
 	classes.
 ****************************************************************************/
-#pragma once
+//#pragma once
+
+
+
+#ifndef AUTOMATA_STATEQREL_H
+#define AUTOMATA_STATEQREL_H
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -29,51 +36,51 @@ class StateEqRel :protected StateTo<StateSet *>
 {
 public:
 	// Some constructors etc :
-	
+
 	// Construct the total eq. relation of domain r.
 	StateEqRel(const int r);
 	inline StateEqRel(const StateEqRel& r);
 
 	inline const StateEqRel& operator=(const StateEqRel& r);
-	
+
 	// Some members for changing the relation:
-	
+
 	// Make two States equivalent:
 	StateEqRel& equivalize(const State p, const State q);
-	
+
 	// Split an equivalence class into two(assuming that r is entirely contained in a class):
 	StateEqRel& split(const StateSet& r);
-	
+
 	// Make *this the identity relation:
 	StateEqRel& identity();
-		
+
 	// Basic access members:
-	
+
 	// Are States p and q equivalent?
 	inline int equivalent(const State p, const State q) const;
-	
+
 	// What is the equivalence class [p]?
 	inline const StateSet& equiv_class(const State p) const;
-	
+
 	// What is the unique representative of eq. class [p]?
 	inline State eq_class_representative(const State p) const;
-	
+
 	// What is the set of representatives of equivalence classes of *this?
 	StateSet representatives() const;
 
 	// Special members:
-	
+
 	// Domain setting stuff:
-	void set_domain(int r);	
+	void set_domain(int r);
 	inline int domain() const;
 
-	friend std::ostream& operator<<(std::ostream& os, const StateEqRel& r );
+	friend std::ostream& operator<<(std::ostream& os, const StateEqRel& r);
 
 	inline int class_invariant() const;
 };
 
 // Construct the total eq. relation of domain r.
-inline StateEqRel::StateEqRel(const StateEqRel& r):StateTo<StateSet *>(r)
+inline StateEqRel::StateEqRel(const StateEqRel& r) :StateTo<StateSet *>(r)
 {
 	assert(class_invariant());
 }
@@ -137,3 +144,7 @@ inline int StateEqRel::class_invariant() const
 	return(result);
 }
 
+
+
+
+#endif // !AUTOMATA_STATEQREL_H

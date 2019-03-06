@@ -7,7 +7,13 @@ Description: Class DSIS provides the full abstract state interface of an item se
 DSIS inherits from ISImpl for implementation. It only adds the out_transition member
 function. It is used in the item set construction [Wat93a, Construction 5.69].
  ***********************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSIS_H
+#define AUTOMATA_DSIS_H
+
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -51,7 +57,7 @@ inline DSIS::DSIS() :ISImpl()
 
 }
 
-inline DSIS::DSIS(const RE *r) :ISImpl(r)
+inline DSIS::DSIS(const RE *r) : ISImpl(r)
 {
 	assert(r->class_invariant() && class_invariant());
 }
@@ -93,4 +99,11 @@ inline int DSIS::class_invariant() const
 	// Should really check that before and after are fully closed.
 	return(ISImpl::class_invariant());
 }
+
+
+
+
+#endif // !AUTOMATA_DSIS_H
+
+
 

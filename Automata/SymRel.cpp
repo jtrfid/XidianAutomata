@@ -2,7 +2,7 @@
 	Implementation: SymRel inherits for implementation from StateRel. All of the member functions
 simply call through to StateRel.
  **********************************************************************/
-#include "stdafx.h"
+
 #include "SymRel.h"
 
 // Make *this into the identity relation.

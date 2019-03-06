@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "Dconstrs.h"
+﻿#include "Dconstrs.h"
 //#include "Constrs.h"
 //#include "Dconstrs.h"
 #include "DSRE.h"

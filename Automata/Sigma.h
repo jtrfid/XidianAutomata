@@ -56,7 +56,14 @@ Reg<RFA>& Reg<RFA>::epsilon(); Reg<RFA>& Reg<RFA>::empty();Reg<RFA>& Reg<RFA>::s
 Reg<RFA>& Reg<RFA>::Or(const Reg<RFA>& r); Reg<RFA>& Reg<RFA>::concat(const Reg<RFA>& r);
 Reg<RFA>& Reg<RFA>::star();Reg<RFA>& Reg<RFA>::plus();Reg<RFA>& Reg<RFA>::question();
  ************************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_SIGMA_H
+#define AUTOMATA_SIGMA_H
+
+
+
 #include<iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -80,7 +87,7 @@ template<class T>
 class Reg :public T {
 public:
 	// Some constructors
-	
+
 	// An argumentless constructor, a copy constructor, and an assignment operator 
 	// (assuming that T has all three).Usually pass control back to the base class.
 	Reg() :T()
@@ -88,7 +95,7 @@ public:
 
 	// An argumentless constructor, a copy constructor, and an assignment operator 
 	// (assuming that T has all three).Usually pass control back to the base class.
-	Reg(const Reg<T>& r) :T(r) 
+	Reg(const Reg<T>& r) :T(r)
 	{ }
 
 	// An argumentless constructor, a copy constructor, and an assignment operator 
@@ -101,8 +108,8 @@ public:
 	}
 
 	// Construction 4.3 (Thompson): Thompson's construction is the (unique) homomorphism Th(The operators (with subscript Th, for Thompson))
-    // from RE to Thompson's Sigma-algebra of FA's.
-    // C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
+	// from RE to Thompson's Sigma-algebra of FA's.
+	// C(epsilon,Th),C(empty,Th),C(a,Th),C(.,Th([M0],[M1])),C(union,Th([M0],[M1])),C(star,Th([M])),C(star,Th([M])),C(plus,Th([M])),C(question,Th([M]))
 	// Construct the homomorphic image of regular expression r, using the Sigma-algebra operators
 	// (corresponding to the operators of the regular expression).
 	// A constructor from RE (a regular expression). Given that regular expressions are the Sigma-term algebra, 
@@ -115,7 +122,7 @@ public:
 		homomorphic_image(r);
 		assert(T::class_invariant());
 	}
-	
+
 	// Default destructor falls through to the ~T()
 
 	// Now the Sigma-algebra signature:
@@ -132,7 +139,7 @@ public:
 	// 与RE::symbol()同名，Reg<RE>对象仅能调用symbol(const CharRange r)函数
 	// ==> thist -> op = SYMBOL, this->symbol = r, this->left = this->right = 0
 	Reg<T>& symbol(const CharRange r);
-	
+
 	// Sigma-algebra binary ops,原文为or,与C++关键字冲突，改为Or
 	// or takes another Reg<T> r, and makes *this accept the language of *this union the language of r.
 	// ==> thist = (shallow_copy(this) union r)
@@ -140,7 +147,7 @@ public:
 	// concat takes another Reg<T> r, and makes *this accept the language of *this concatenated (on the right) with the language of r.  
 	// ==> thist = (shallow_copy(this) concat r)
 	Reg<T>& concat(const Reg<T>& r);
-	
+
 	// Sigma-algebra unary ops
 	// star makes *this accept the Kleene closure of the language of *this.
 	// ==> this->left = shallow_copy(this), this->op = STAR, this->right = 0;
@@ -193,7 +200,7 @@ void Reg<T>::homomorphic_image(const RE& r)
 		// by constructing a T for the right subexpression.
 		homomorphic_image(r.left_subexpr());
 		// Make *this accept the (left or right) language.
-		Or(Reg<T>(r.right_subexpr())); 
+		Or(Reg<T>(r.right_subexpr()));
 		break;
 	case CONCAT:
 		// See OR case
@@ -217,3 +224,6 @@ void Reg<T>::homomorphic_image(const RE& r)
 		break;
 	}
 }
+
+
+#endif // !AUTOMATA_SIGMA_H

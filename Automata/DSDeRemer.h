@@ -7,7 +7,14 @@ Description: Class DSDeRemer provides the full abstract state interface of an it
 DSDeRemer inherits from ISImpl for implementation. It is used in DeRemer's construction [Wat93a, Construction 5.75J. 
 DeRemer's construction can yield smaller DFAs than the item set construction.
 ***********************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSDREMER_H
+#define AUTOMATA_DSDREMER_H
+
+
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -109,4 +116,12 @@ inline int DSDeRemer::class_invariant() const
 	// and that they are optimized.
 	return(ISImpl::class_invariant());
 }
+
+
+
+
+
+#endif // !AUTOMATA_DSDREMER_H
+
+
 

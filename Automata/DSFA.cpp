@@ -4,7 +4,7 @@ a DFA state in the subset construction (see [Wat93a, p. 12-13] for an explanatio
 subset construction). The implementation follows directly from the way in which an FA
 processes an input string.
  **********************************************************************************/
-#include "stdafx.h"
+
 #include "DSFA.h"
 
 // A special constructor:

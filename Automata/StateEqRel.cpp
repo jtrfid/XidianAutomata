@@ -2,7 +2,7 @@
 	Implementation: StateEqRelinherits for implementation from StateTo<StateSet *>. Two equivalent
 States are mapped by the StateTo to pointers to the same StateSet.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "StateEqRel.h"
 
 

@@ -13,75 +13,164 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Constructions">
-      <UniqueIdentifier>{d7355ad6-b00b-47c1-b3c5-1ef0ac5d4b5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Test">
-      <UniqueIdentifier>{e2193656-7c41-44d5-87e0-0fa5078e202b}</UniqueIdentifier>
+      <UniqueIdentifier>{16a6a079-4c76-44b3-a208-a13aef10889b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClCompile Include="BitVec.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CharRange.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Constrs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CRSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Dconstrs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Deriv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSDeRemer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSDFARev.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSIS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSISopt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSLBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSREopt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSRFA2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DTrans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DTransRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Iconstrs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ISImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RBFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-FA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-re.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sig-RFA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateEqRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SymRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Trans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransRel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\AutomataTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\CRSetTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\StateSetTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\StateTo(StateSet)Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\StateRelTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TransTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\RFATest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\ThompsonTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Automata.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BitVec.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CharRange.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Constrs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="CRSet.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BitVec.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StatePool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StateSet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StateTo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransImpl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Trans.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DTrans.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StateRel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SymRel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StateEqRel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransRel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DTransRel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="REops.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RE.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sigma.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="FAabs.h">
+    <ClInclude Include="Dconstrs.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DFA.h">
@@ -93,37 +182,31 @@
     <ClInclude Include="DFAseed.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DSDFARev.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DSRE.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransPair.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DSREopt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ISImpl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DSIS.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="DSDeRemer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DSISopt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="FA.h">
+    <ClInclude Include="DSDFARev.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DSFA.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RFA.h">
+    <ClInclude Include="DSIS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSISopt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSLBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRBFA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSRE.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSREopt.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DSRFA.h">
@@ -132,169 +215,77 @@
     <ClInclude Include="DSRFA2.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="LBFA.h">
+    <ClInclude Include="DTrans.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DSLBFA.h">
+    <ClInclude Include="DTransRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FAabs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Iconstrs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ISImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LBFA.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RBFA.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DSRBFA.h">
+    <ClInclude Include="RE.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Dconstrs.h">
-      <Filter>Constructions</Filter>
+    <ClInclude Include="REops.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Constrs.h">
-      <Filter>Constructions</Filter>
+    <ClInclude Include="RFA.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Iconstrs.h">
-      <Filter>Constructions</Filter>
+    <ClInclude Include="Sigma.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateEqRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StatePool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SymRel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Trans.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransPair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransRel.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Automata.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CharRange.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CRSet.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BitVec.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="StateSet.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TransImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Trans.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DTrans.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="StateRel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SymRel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="StateEqRel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TransRel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DTransRel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RE.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Deriv.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSDFARev.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSRE.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSREopt.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ISImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSIS.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSDeRemer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSISopt.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="FA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sig-FA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sig-RE.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSRFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSRFA2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sig-RFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LBFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSLBFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RBFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSRBFA.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Dconstrs.cpp">
-      <Filter>Constructions</Filter>
-    </ClCompile>
-    <ClCompile Include="Constrs.cpp">
-      <Filter>Constructions</Filter>
-    </ClCompile>
-    <ClCompile Include="Iconstrs.cpp">
-      <Filter>Constructions</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateSetTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\AutomataTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateRelTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateTo(StateSet)Test.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\TransTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\CRSetTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\ThompsonTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\RFATest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
+    <None Include="..\Makefile" />
   </ItemGroup>
 </Project>

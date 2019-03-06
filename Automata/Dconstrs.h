@@ -25,7 +25,14 @@ All of the function declarations (or prototypes) are accompanied by their corres
 in [Wat93a].
  ***********************************************************************************/
 
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DCONSTRS_H
+#define AUTOMATA_DCONSTRS_H
+
+
+
+
 #include "RE.h"
 #include "DFA.h"
 
@@ -38,3 +45,9 @@ DFA Brz(const RE& r);
 
 // With strong similarity(Construction 5.34 + Remark 5.32)
 DFA Brz_optimized(const RE& r);
+
+
+
+#endif // !AUTOMATA_DCONSTRS_H
+
+

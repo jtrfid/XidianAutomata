@@ -1,6 +1,4 @@
-//#include "../stdafx.h"  // fatal error C1010: ÔÚ²éÕÒÔ¤±àÒëÍ·Ê±Óöµ½ÒâÍâµÄÎÄ¼ş½áÎ²¡£ÊÇ·ñÍü¼ÇÁËÏòÔ´ÖĞÌí¼Ó¡°#include "stdafx.h"¡±?
-#include "stdafx.h"  // ËäÈ»ÔÚTestÄ¿Â¼ÏÂÎŞ´ËÎÄ¼ş£¬µ«ÊÇÈ´Æ­È¡ÁË±àÒëÆ÷£¬ÎŞÉÏÊö´íÎóÁË
-#include <iostream>
+ï»¿#include <iostream>
 #include "../StateSet.h"
 
 using namespace std;
@@ -11,11 +9,11 @@ class StateSetTestClass
 {
 public:
 	/**********************************************************************
-	   set_domain(const int r)ÉèÖÃ×î´ó°üº¬µÄ×´Ì¬Êı£¬state of index = [0,r)
-	   int domain()return ÉÏÊöº¯ÊıÉèÖÃµÄÈİÁ¿
-	   int size() return ×´Ì¬Êı£¬this StateSetÖĞÒÑ¾­bit±»ÉèÖÃµÄ×´Ì¬×ÜºÍ¡£ states index = [0,size())
-	   add(const int r), r = [0,domain()),Ìí¼Ó×´Ì¬r
-	   smallest(),·µ»Ø×îĞ¡×´Ì¬µÄindex[0,domain())
+	   set_domain(const int r)è®¾ç½®æœ€å¤§åŒ…å«çš„çŠ¶æ€æ•°ï¼Œstate of index = [0,r)
+	   int domain()return ä¸Šè¿°å‡½æ•°è®¾ç½®çš„å®¹é‡
+	   int size() return çŠ¶æ€æ•°ï¼Œthis StateSetä¸­å·²ç»bitè¢«è®¾ç½®çš„çŠ¶æ€æ€»å’Œã€‚ states index = [0,size())
+	   add(const int r), r = [0,domain()),æ·»åŠ çŠ¶æ€r
+	   smallest(),è¿”å›æœ€å°çŠ¶æ€çš„index[0,domain())
 	************************************************************************/
 	void basicStateSetTest()
 	{
@@ -23,8 +21,8 @@ public:
 		StateSet st1;
 		// set How many States can this set contain.
 		// [O, domain()) can be contained in *this.
-		// ·ÖÅäÁËÈİÄÉ5¸ö×´Ì¬µÄStateSet
-		st1.set_domain(5); // State index = 0,1£¬..., 4
+		// åˆ†é…äº†å®¹çº³5ä¸ªçŠ¶æ€çš„StateSet
+		st1.set_domain(5); // State index = 0,1ï¼Œ..., 4
 		cout << "domain = " << st1.domain() << endl; // 5
 		cout << "empty = " << st1.empty() << endl; // 0
 		// inserts a State.[0,domain())
@@ -32,16 +30,16 @@ public:
 		st1.add(2);
 		st1.add(4);
 
-		// ×´Ì¬Êı£¬ÓĞĞ§×´Ì¬index = [0,size)
+		// çŠ¶æ€æ•°ï¼Œæœ‰æ•ˆçŠ¶æ€index = [0,size)
 		cout << "number of states: " << st1.size() << endl;  // 3
 
-		cout << "×îĞ¡×´Ì¬index[0,domain()): " << st1.smallest() << endl; // 0
+		cout << "æœ€å°çŠ¶æ€index[0,domain()): " << st1.smallest() << endl; // 0
 		cout << "st1 states: " << st1 << endl;  // {0,2,4}
 	}
 
 	/******************************************************
-	  int constins(const State r); r = [0,domain()),r×´Ì¬ÊÇ·ñ°üº¬ÔÚthisÖĞ¡£
-	  int contains(const StateSet &r); rµÄ¡¾ËùÓĞ×´Ì¬¡¿ÊÇ·ñ°üº¬ÔÚthisÖĞ¡£precondition: this.domain() == r.domain
+	  int constins(const State r); r = [0,domain()),rçŠ¶æ€æ˜¯å¦åŒ…å«åœ¨thisä¸­ã€‚
+	  int contains(const StateSet &r); rçš„ã€æ‰€æœ‰çŠ¶æ€ã€‘æ˜¯å¦åŒ…å«åœ¨thisä¸­ã€‚precondition: this.domain() == r.domain
 	 ******************************************************/
 	void containsTest()
 	{
@@ -60,9 +58,9 @@ public:
 		cout << "st2 states: " << st2 << endl;  // {1}
 		cout << "st3 states: " << st3 << endl;  // {0,4}
 
-		// thisÊÇ·ñº¬ÓĞ×´Ì¬ r = [0,domain())
-		cout << "st1 º¬×´Ì¬2: ? " << st1.contains(2) << endl;  // 1
-		cout << "st1 º¬×´Ì¬1: £¿" << st1.contains(1) << endl;  // 0
+		// thisæ˜¯å¦å«æœ‰çŠ¶æ€ r = [0,domain())
+		cout << "st1 å«çŠ¶æ€2: ? " << st1.contains(2) << endl;  // 1
+		cout << "st1 å«çŠ¶æ€1: ï¼Ÿ" << st1.contains(1) << endl;  // 0
 
 		cout << "st1 contains st2: " << st1.contains(st2) << endl; // 0
 		cout << "st1 contains st3: " << st1.contains(st3) << endl; // 1
@@ -119,18 +117,18 @@ public:
 		cout << "st2 - st1: " << st2.remove(old_st1) << endl; // { 1 }
 	}
 
-	// complement() thisµÄ²¹¼¯£¬this½«±»ĞŞ¸ÄÎªËüµÄ²¹¼¯ 
+	// complement() thisçš„è¡¥é›†ï¼Œthiså°†è¢«ä¿®æ”¹ä¸ºå®ƒçš„è¡¥é›† 
 	void complementTest()
 	{
 		cout << "====complementTest()" << endl;
 		StateSet st1;
-		st1.set_domain(5); // State index = 0,1£¬..., 4
+		st1.set_domain(5); // State index = 0,1ï¼Œ..., 4
 		st1.add(2);
 		st1.add(4);
 		cout << "st1:" << endl; // {2,4}
 
 		StateSet old_st1 = st1;
-		// st1±»ĞŞ¸ÄÎªËüµÄ²¹¼¯
+		// st1è¢«ä¿®æ”¹ä¸ºå®ƒçš„è¡¥é›†
 		cout << "st1 complement: " << st1.complement() << endl; // {0,1,3}
 		cout << st1 << endl;  // {0,1,3}
 		cout << old_st1 << endl; // {2,4}
@@ -165,15 +163,15 @@ public:
 	}
 
 	/****************************************************************************
-	  set_union()ºÍdisjointing_union()¶¼ÊÇ¼ÆËãÁ½¸öStateSet¼¯ºÏµÄ²¢¼¯
-	  set_union(const State& r) Á½¸öStateSet¼¯ºÏµÄÈİÁ¿(domain)±ØĞë²»Í¬£¬×´Ì¬index½»¼¯²¿·Ö±»ºÏ²¢, ×´Ì¬index²»ÖØÃüÃû¡£
-	  disjointing_union(const State& r) Á½¸öStateSet¼¯ºÏµÄÈİÁ¿(domain)¿ÉÒÔ²»Í¬£¬×´Ì¬index¿ÉÒÔÓĞ½»¼¯¡£½»¼¯²¿·Ö²»ºÏ²¢£¬²¢¼¯ºóµÄ×´Ì¬index±»ÖØÃüÃû£¬×´Ì¬ÊıÊÇ¶şÕßµÄºÍ¡£
+	  set_union()å’Œdisjointing_union()éƒ½æ˜¯è®¡ç®—ä¸¤ä¸ªStateSeté›†åˆçš„å¹¶é›†
+	  set_union(const State& r) ä¸¤ä¸ªStateSeté›†åˆçš„å®¹é‡(domain)å¿…é¡»ä¸åŒï¼ŒçŠ¶æ€indexäº¤é›†éƒ¨åˆ†è¢«åˆå¹¶, çŠ¶æ€indexä¸é‡å‘½åã€‚
+	  disjointing_union(const State& r) ä¸¤ä¸ªStateSeté›†åˆçš„å®¹é‡(domain)å¯ä»¥ä¸åŒï¼ŒçŠ¶æ€indexå¯ä»¥æœ‰äº¤é›†ã€‚äº¤é›†éƒ¨åˆ†ä¸åˆå¹¶ï¼Œå¹¶é›†åçš„çŠ¶æ€indexè¢«é‡å‘½åï¼ŒçŠ¶æ€æ•°æ˜¯äºŒè€…çš„å’Œã€‚
 	******************************************************************************/
 
 	// set_union(const DateSet& r); Set union, precondition: this.domain() == r.domain(). this will be modified. 
 	void set_unionTest1()
 	{
-		cout << "====set_unionTest1(), Á½¸öStateSetµÄstateÎŞ½»¼¯¡£" << endl;
+		cout << "====set_unionTest1(), ä¸¤ä¸ªStateSetçš„stateæ— äº¤é›†ã€‚" << endl;
 		StateSet st1;
 		st1.set_domain(5);
 		st1.add(2);
@@ -195,7 +193,7 @@ public:
 	// set_union(const DateSet& r); Set union, precondition: this.domain() == r.domain(). this will be modified. 
 	void set_unionTest2()
 	{
-		cout << "====set_unionTest2()£¬Á½¸öStateSetµÄstateÓĞ½»¼¯¡£" << endl;
+		cout << "====set_unionTest2()ï¼Œä¸¤ä¸ªStateSetçš„stateæœ‰äº¤é›†ã€‚" << endl;
 		StateSet st1;
 		st1.set_domain(5);
 		st1.add(2);
@@ -217,7 +215,7 @@ public:
 	// disjointing_union() test
 	void disjointing_unionTest1()
 	{
-		cout << "====disjointing_unionTest(), Á½¸öStateSetµÄstateÎŞ½»¼¯¡£" << endl;
+		cout << "====disjointing_unionTest(), ä¸¤ä¸ªStateSetçš„stateæ— äº¤é›†ã€‚" << endl;
 		StateSet st1, st2;
 		// ok st1.domain() maybe != st2.domain()
 		st1.set_domain(40);
@@ -239,7 +237,7 @@ public:
 	// disjointing_union() test
 	void disjointing_unionTest2()
 	{
-		cout << "====disjointing_unionTest(), Á½¸öStateSetµÄstateÓĞ½»¼¯¡£" << endl;
+		cout << "====disjointing_unionTest(), ä¸¤ä¸ªStateSetçš„stateæœ‰äº¤é›†ã€‚" << endl;
 		StateSet st1, st2;
 		// ok st1.domain() maybe != st2.domain()
 		st1.set_domain(40);
@@ -281,8 +279,8 @@ public:
 		cout << "st1.size(),st2.size(): " << st1.size() << "," << st2.size() << endl; // 3,2
 		cout << "st1.smallest(),st2.smallest(): " << st1.smallest() << "," << st2.smallest() << endl; // 0,1
 
-		cout << "st1.st_rename(5): " << st1.st_rename(5) << endl;     // { 5 7 9 } index±»×óÒÆ5Î»
-		cout << "st2.st_rename(10): " << st2.st_rename(10) << endl; // { 11 12 } index±»×óÒÆ10Î»
+		cout << "st1.st_rename(5): " << st1.st_rename(5) << endl;     // { 5 7 9 } indexè¢«å·¦ç§»5ä½
+		cout << "st2.st_rename(10): " << st2.st_rename(10) << endl; // { 11 12 } indexè¢«å·¦ç§»10ä½
 
 		cout << "st1.domain(),st2.domain(): " << st1.domain() << "," << st2.domain() << endl; // 45,15
 		cout << "st1.size(),st2.size(): " << st1.size() << "," << st2.size() << endl; // 3,2

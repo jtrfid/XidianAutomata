@@ -9,7 +9,12 @@ more likely that two derivatives (denoting the same language) will be found to b
 the DSREopt equality operator) in template function construct_components, thus giving
 a DFA with fewer States.
  ***********************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSREOPT_H
+#define AUTOMATA_DSREOPT_H
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -24,7 +29,7 @@ a DFA with fewer States.
 // are optimized(redundant information is removed - see deriv.cpp)
 // Most member functions are calls through to the corresponding RE members.
 // DSREopt inherits from RE for implementation.
-class DSREopt :	protected RE
+class DSREopt : protected RE
 {
 public:
 	// Must always have an argument-less constructor.
@@ -43,7 +48,7 @@ public:
 	inline int operator!=(const DSREopt& r) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const DSREopt& r);
-	
+
 	inline int class_invariant() const;
 };
 
@@ -107,4 +112,10 @@ inline int DSREopt::class_invariant() const
 {
 	return(RE::class_invariant() && RE::in_snf());
 }
+
+
+
+#endif // !AUTOMATA_DSREOPT_H
+
+
 

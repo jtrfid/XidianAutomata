@@ -20,8 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{76C1188A-BD39-4230-AFAB-449087403440}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3E999D09-EDF1-4E93-A6C5-007095B65EEA}</ProjectGuid>
     <RootNamespace>Automata</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -30,27 +29,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -71,81 +70,110 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>./;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>./;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>./;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>./;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Automata.cpp" />
+    <ClCompile Include="BitVec.cpp" />
+    <ClCompile Include="CharRange.cpp" />
+    <ClCompile Include="Constrs.cpp" />
+    <ClCompile Include="CRSet.cpp" />
+    <ClCompile Include="Dconstrs.cpp" />
+    <ClCompile Include="Deriv.cpp" />
+    <ClCompile Include="DFA.cpp" />
+    <ClCompile Include="DSDeRemer.cpp" />
+    <ClCompile Include="DSDFARev.cpp" />
+    <ClCompile Include="DSFA.cpp" />
+    <ClCompile Include="DSIS.cpp" />
+    <ClCompile Include="DSISopt.cpp" />
+    <ClCompile Include="DSLBFA.cpp" />
+    <ClCompile Include="DSRBFA.cpp" />
+    <ClCompile Include="DSRE.cpp" />
+    <ClCompile Include="DSREopt.cpp" />
+    <ClCompile Include="DSRFA.cpp" />
+    <ClCompile Include="DSRFA2.cpp" />
+    <ClCompile Include="DTrans.cpp" />
+    <ClCompile Include="DTransRel.cpp" />
+    <ClCompile Include="FA.cpp" />
+    <ClCompile Include="Iconstrs.cpp" />
+    <ClCompile Include="ISImpl.cpp" />
+    <ClCompile Include="LBFA.cpp" />
+    <ClCompile Include="RBFA.cpp" />
+    <ClCompile Include="RE.cpp" />
+    <ClCompile Include="RFA.cpp" />
+    <ClCompile Include="Sig-FA.cpp" />
+    <ClCompile Include="Sig-re.cpp" />
+    <ClCompile Include="Sig-RFA.cpp" />
+    <ClCompile Include="StateEqRel.cpp" />
+    <ClCompile Include="StateRel.cpp" />
+    <ClCompile Include="StateSet.cpp" />
+    <ClCompile Include="SymRel.cpp" />
+    <ClCompile Include="Test\AutomataTest.cpp" />
+    <ClCompile Include="Test\CRSetTest.cpp" />
+    <ClCompile Include="Test\RFATest.cpp" />
+    <ClCompile Include="Test\StateRelTest.cpp" />
+    <ClCompile Include="Test\StateSetTest.cpp" />
+    <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />
+    <ClCompile Include="Test\ThompsonTest.cpp" />
+    <ClCompile Include="Test\TransTest.cpp" />
+    <ClCompile Include="Trans.cpp" />
+    <ClCompile Include="TransImpl.cpp" />
+    <ClCompile Include="TransRel.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitVec.h" />
     <ClInclude Include="CharRange.h" />
@@ -184,67 +212,14 @@
     <ClInclude Include="StateRel.h" />
     <ClInclude Include="StateSet.h" />
     <ClInclude Include="StateTo.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="SymRel.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="TransPair.h" />
     <ClInclude Include="Trans.h" />
     <ClInclude Include="TransImpl.h" />
+    <ClInclude Include="TransPair.h" />
     <ClInclude Include="TransRel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Automata.cpp" />
-    <ClCompile Include="BitVec.cpp" />
-    <ClCompile Include="CharRange.cpp" />
-    <ClCompile Include="Constrs.cpp" />
-    <ClCompile Include="CRSet.cpp" />
-    <ClCompile Include="Dconstrs.cpp" />
-    <ClCompile Include="Deriv.cpp" />
-    <ClCompile Include="DFA.cpp" />
-    <ClCompile Include="DSDeRemer.cpp" />
-    <ClCompile Include="DSDFARev.cpp" />
-    <ClCompile Include="DSFA.cpp" />
-    <ClCompile Include="DSIS.cpp" />
-    <ClCompile Include="DSISopt.cpp" />
-    <ClCompile Include="DSLBFA.cpp" />
-    <ClCompile Include="DSRBFA.cpp" />
-    <ClCompile Include="DSRE.cpp" />
-    <ClCompile Include="DSREopt.cpp" />
-    <ClCompile Include="DSRFA.cpp" />
-    <ClCompile Include="DSRFA2.cpp" />
-    <ClCompile Include="DTrans.cpp" />
-    <ClCompile Include="DTransRel.cpp" />
-    <ClCompile Include="FA.cpp" />
-    <ClCompile Include="Iconstrs.cpp" />
-    <ClCompile Include="ISImpl.cpp" />
-    <ClCompile Include="LBFA.cpp" />
-    <ClCompile Include="RBFA.cpp" />
-    <ClCompile Include="RE.cpp" />
-    <ClCompile Include="RFA.cpp" />
-    <ClCompile Include="Sig-FA.cpp" />
-    <ClCompile Include="Sig-RE.cpp" />
-    <ClCompile Include="StateEqRel.cpp" />
-    <ClCompile Include="StateRel.cpp" />
-    <ClCompile Include="StateSet.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="SymRel.cpp" />
-    <ClCompile Include="Test\AutomataTest.cpp" />
-    <ClCompile Include="Test\CRSetTest.cpp" />
-    <ClCompile Include="Test\RFATest.cpp" />
-    <ClCompile Include="Test\StateRelTest.cpp" />
-    <ClCompile Include="Test\StateSetTest.cpp" />
-    <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />
-    <ClCompile Include="Test\ThompsonTest.cpp" />
-    <ClCompile Include="Test\TransTest.cpp" />
-    <ClCompile Include="Trans.cpp" />
-    <ClCompile Include="TransImpl.cpp" />
-    <ClCompile Include="TransRel.cpp" />
-    <ClCompile Include="Sig-RFA.cpp" />
+    <None Include="..\Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

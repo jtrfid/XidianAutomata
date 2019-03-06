@@ -1,4 +1,4 @@
-/**********************************************************************************
+ï»¿/**********************************************************************************
 	Implementation: Regular expressions are implemented as expression trees. The comparison of
 regular expressions is defined recursively and uses a depth-first traversal.
 
@@ -6,7 +6,7 @@ regular expressions is defined recursively and uses a depth-first traversal.
 be stored as a prefix-form string, as in [RW93J; this could give some problems with the heavy
 use of members such as left_subexpr and right_subexpr.
  **********************************************************************************/
-#include "stdafx.h"
+
 #include <iostream>
 #include <iomanip>
 #include "RE.h"
@@ -85,7 +85,7 @@ const RE& RE::operator = (const RE& e)
 int RE::num_symbols() const
 {
 	assert(class_invariant());
-	int ret;
+	int ret;  //warning: 'ret' may be used uninitialized in this function [-Wmaybe-uninitialized]|
 	switch (op)
 	{
 	case EPSILON:
@@ -150,7 +150,7 @@ std::ostream& operator<<(std::ostream& os, const RE& r)
 	case SYMBOL:
 		os << r.symbol(); break;
 	case OR:
-		os << "| " << r.left_subexpr() << ' ' << r.right_subexpr(); 
+		os << "| " << r.left_subexpr() << ' ' << r.right_subexpr();
 		break;
 	case CONCAT:
 		os << ". " << r.left_subexpr() << ' ' << r.right_subexpr();
@@ -162,7 +162,7 @@ std::ostream& operator<<(std::ostream& os, const RE& r)
 		os << "+ " << r.left_subexpr();
 		break;
 	case QUESTION:
-		os << "£¿ " << r.left_subexpr();
+		os << "? " << r.left_subexpr();  //convert "ï¼Ÿ"   to "?"
 		break;
 	default:
 		// Shold throw() something!
@@ -182,7 +182,7 @@ std::istream& operator>>(std::istream& is, RE& r)
 	r.op = EMPTY;
 	char c;
 	// If could be that there is nothing in th input.
-	if (!(is >> c)) 
+	if (!(is >> c))
 	{
 		is.clear(std::ios::badbit | is.rdstate());
 	}

@@ -7,7 +7,13 @@ Description : Class DSRBFA implements the abstract class interface required to c
 from an RBFA. A DSRBFA is constructed in the RBFA member function determinism, and
 then passed to template function construcLcomponents, which constructs the components of the DFA.
 ***********************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSRBFA_H
+#define AUTOMATA_DSRBFA_H
+
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -122,3 +128,8 @@ inline int DSRBFA::class_invariant()const
 		&& which.domain() == Qmap_inverse->range()
 		&& which.domain() == follow->domain());
 }
+
+
+#endif // !AUTOMATA_DSRBFA_H
+
+

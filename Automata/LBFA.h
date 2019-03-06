@@ -30,7 +30,14 @@ provides an alternative way of constructing an LBFA from an RFA (see [Wat93a, p.
 	LBFA lbfa = BerrySethi(re);
  ************************************************************************************/
 
-#pragma once
+//#pragma once
+
+
+
+#ifndef AUTOMATA_LBFA_H
+#define AUTOMATA_LBFA_H
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -132,3 +139,6 @@ inline std::ostream& operator<<(std::ostream& os, const LBFA& r)
 	return(os);
 }
 
+
+
+#endif // !AUTOMATA_LBFA_H

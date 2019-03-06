@@ -10,7 +10,11 @@
 	Performance : The template function construc_components should really be a constructor template
 	of DFA.This would avoid needing DFA_components, and the overhead of passing the structure by value.
 *******************************************************************************/
-#pragma once
+
+#ifndef AUTOMATA_DFA_COMPONENTS_H
+#define AUTOMATA_DFA_COMPONENTS_H
+
+
 #include "StatePool.h"
 #include "StateSet.h"
 #include "DTransRel.h"
@@ -22,3 +26,11 @@ struct DFA_components
 	DTransRel T;
 	StateSet F;
 };
+
+
+
+
+#endif // AUTOMATA_DFA_COMPONENTS_H
+
+
+

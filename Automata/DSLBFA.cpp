@@ -3,7 +3,7 @@ Implementation: A DSLBFA contains a StateSet, representing the set of LBFA State
 up a DFA state in the subset construction. It also includes pointers to some components of
 the LBFA that constructed it.
  ***********************************************************************************/
-#include "stdafx.h"
+
 #include "DSLBFA.h"
 
 

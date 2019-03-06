@@ -20,7 +20,12 @@
 		unary operator(star,plus,question): this ==> left = this, right = 0
 		binary operator(union(or),concat(dot)): this ==> left(this) operator right
 ******************************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_RE_H
+#define AUTOMATA_RE_H
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -152,7 +157,7 @@ protected:
 };
 
 // By default, create the RE denoting the empty language.
-RE::RE() :op(EMPTY),left(0),right(0)
+RE::RE() :op(EMPTY), left(0), right(0)
 {
 	assert(class_invariant());
 }
@@ -246,3 +251,7 @@ inline void RE::set_symbol(const CharRange r)
 	sym = r;
 }
 
+
+
+
+#endif // !AUTOMATA_RE_H

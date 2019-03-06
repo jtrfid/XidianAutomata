@@ -3,7 +3,7 @@ Implementation: A DSRBFA contains a StateSet, representing the set of RBFA State
 up a DFA state in the subset construction. It also includes pointers to some components of
 the RBFA that constructed it.
 ***********************************************************************************/
-#include "stdafx.h"
+
 #include "DSRBFA.h"
 
 

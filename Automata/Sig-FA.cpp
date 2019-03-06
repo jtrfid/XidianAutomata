@@ -25,14 +25,14 @@ M0 = {Q0,V,T0,E0,S0,F0}, M1 = {Q1,V,T1,E1,S1,F1}
 // Definition 2.6 (Isomorphism of FA's)
 // Definition 3.7 (Sigma-homomorphism): Given E-a1gebras (V,F) and (W,G), a Sigma-homomorphism from(V, F) to(W, G)
  ***********************************************************************************/
-#include "stdafx.h"
+
 #include "CharRange.h"
 #include "FA.h"
 #include "Sigma.h"
 
 // Implement the Sigma-algebra operators(Definition 4.1 of the Taxonomy).
 // *this: add new states for start and final state(s,f), E: {s,f}
-Reg<FA>& Reg<FA>::epsilon() {
+template<> Reg<FA>& Reg<FA>::epsilon() {
 	// *this may have been something in a previous life.
 	// Wipe out all previous components;
 	reincarnate();
@@ -45,7 +45,7 @@ Reg<FA>& Reg<FA>::epsilon() {
 
 	F.set_domain(Q.size());
 	F.add(f);
-	
+
 	Transitions.set_domain(Q.size());
 
 	E.set_domain(Q.size());
@@ -58,7 +58,7 @@ Reg<FA>& Reg<FA>::epsilon() {
 }
 
 // *this: add new states for start and final state
-Reg<FA>& Reg<FA>::empty() {
+template<> Reg<FA>& Reg<FA>::empty() {
 	// See epsilon case.
 	reincarnate();
 
@@ -72,17 +72,17 @@ Reg<FA>& Reg<FA>::empty() {
 	F.add(f);
 
 	Transitions.set_domain(Q.size());
-	
+
 	E.set_domain(Q.size());
-	
+
 	current.set_domain(Q.size());
-	
+
 	assert(class_invariant());
 	return(*this);
 }
 
 // *this: add new states for start and final state; T(s) = {(r,f)}
-Reg<FA>& Reg<FA>::symbol(const CharRange r) {
+template<> Reg<FA>& Reg<FA>::symbol(const CharRange r) {
 	// See epsilon case.
 	reincarnate();
 
@@ -109,11 +109,11 @@ Reg<FA>& Reg<FA>::symbol(const CharRange r) {
 // *this = *this union r
 // set new states for start and final state
 // binary operator，Q0和Q1无交集，disjoint state sets
-Reg<FA>& Reg<FA>::Or(const Reg<FA>& r) {
+template<> Reg<FA>& Reg<FA>::Or(const Reg<FA>& r) {
 	assert(class_invariant());
 	assert(r.class_invariant());
 	// All state-related stuff in r must be adjusted.
-	
+
 	//binary operator，Q0和Q1无交集，disjoint state sets
 	// Q = Q0 ∪ Q1 ∪ {q0,q1}
 	Q.incorporate(r.Q); // Incorporate another StatePool by making it disjoint
@@ -135,7 +135,7 @@ Reg<FA>& Reg<FA>::Or(const Reg<FA>& r) {
 	E.set_domain(Q.size());   // 并集后，调整domain
 	E.union_cross(s, S);  // {q0} × (S0 ∪ S1), map(s).add(S)
 	E.union_cross(F, f);  // (F0 ∪ F1) × {q1}, map(F).add(f)
-	
+
 	S.clear();  // 清除以前的S
 	S.add(s);   // S = { q0 }
 
@@ -150,7 +150,7 @@ Reg<FA>& Reg<FA>::Or(const Reg<FA>& r) {
 
 // *this = *this concatenate r
 // binary operator，Q0和Q1无交集，disjoint state sets
-Reg<FA>& Reg<FA>::concat(const Reg<FA>& r) {
+template<> Reg<FA>& Reg<FA>::concat(const Reg<FA>& r) {
 	assert(class_invariant());
 	assert(r.class_invariant());
 	// Q = Q0 ∪ Q1，T = T0 ∪ T1, E = E0 ∪ E1 ∪ (F0 × S1)，S = S0, F = F1
@@ -192,7 +192,7 @@ Reg<FA>& Reg<FA>::concat(const Reg<FA>& r) {
 
 // *this重复0次或多次，表示Kleene闭包, 包含epsilon语言
 // *this: add new states for start and final state
-Reg<FA>& Reg<FA>::star() {
+template<> Reg<FA>& Reg<FA>::star() {
 	assert(class_invariant());
 
 	// Q = Q∪{q0,q1}，T, E = E∪({q0}×S)∪(F×S)∪(F×{q1})∪{(q0,q1)，S = {q0}, F = {q1}
@@ -223,7 +223,7 @@ Reg<FA>& Reg<FA>::star() {
 
 // *this至少重复1次，不包含epsilon语言
 // *this: set new states for start and final state
-Reg<FA>& Reg<FA>::plus()
+template<> Reg<FA>& Reg<FA>::plus()
 {
 	assert(class_invariant());
 	// Q = Q∪{q0,q1}，T, E = E∪({q0}×S)∪(F×S)∪(F×{q1})，S = {q0}, F = {q1}
@@ -253,7 +253,7 @@ Reg<FA>& Reg<FA>::plus()
 
 // *this重复0次或1次，包含epsilon语言
 // *this: set new states for start and final state
-Reg<FA>& Reg<FA>::question() {
+template<> Reg<FA>& Reg<FA>::question() {
 	assert(class_invariant());
 	// Q = Q∪{q0,q1}，T, E = E∪({q0}×S)∪(F×{q1})∪{(q0,q1)}，S = {q0}, F = {q1}
 

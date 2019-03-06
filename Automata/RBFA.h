@@ -14,7 +14,13 @@ mapping provides an alternative way of constructing an RBFA from an RFA (see (Wa
 p. 42-43]).
 ************************************************************************************/
 
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_RBFA_H
+#define AUTOMATA_RBFA_H
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -102,3 +108,6 @@ inline std::ostream& operator<<(std::ostream& os, const RBFA& r)
 	return(os);
 }
 
+
+
+#endif // !AUTOMATA_RBFA_H

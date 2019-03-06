@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿//#pragma once
+
+#ifndef AUTOMATA_CRSET_H
+#define AUTOMATA_CRSET_H
+
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -57,13 +63,13 @@ public:
 	inline int size() const;
 
 	// Some iterators :
-    
+
 	// Fetch the it'th CharRange in *this.
 	inline const CharRange& iterator(const int it) const;
 
 	// Is there even in it'th CharRange?
 	inline int iter_end(const int it) const;
-	
+
 	//Some special members :
 	inline int class_invariant() const;
 	friend std::ostream& operator<<(std::ostream& os, const CRSet& r);
@@ -76,13 +82,13 @@ private:
 	// Add a CharRange to this set, splitting it as required.
 	// Adding begins at i.This is used in CRSet: add().
 	void add_at(const CharRange a, int i);
-	
+
 	// Is r covered by this set?
 	int covered(const CharRange& r) const;
-	
+
 	// A class constant: must be at least 1.
 	enum { expansion_size = 5 };
-	
+
 	// Some implementation details:
 	int howmany;
 	int in_use;
@@ -165,3 +171,8 @@ inline int CRSet::class_invariant() const
 	}
 	return(result);
 }
+
+#endif // !AUTOMATA_CRSET_H
+
+
+

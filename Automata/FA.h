@@ -12,7 +12,14 @@
 
 	Definition 2.1 (Finite automaton): A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F)
  ***********************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_FA_H
+#define AUTOMATA_FA_H
+
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -36,12 +43,12 @@ public:
 
 	// Provide a copy constructor:
 	FA(const FA& r);
-	
+
 	// A special constructor, implementing the Thompson's top-down construction
 	// (see Construction 4.5).  td(const State s, const RE& e, const State f);
 	// This constructor can be more efficient than using the Σ- algebra Reg<FA>.
 	FA(const RE& e);
-	
+
 	// Default operator= is okay.
 
 	///////////////////////////////////////////////////////////////
@@ -49,7 +56,7 @@ public:
 
 	// Return the number of stales(or some reasonably close measure).
 	virtual int num_states() const;
-	
+
 	// Reset the current state  (to start stsates) before beginning to process a string.
 	// This is not the default condition for most of the derived classes.
 	virtual void restart();
@@ -69,7 +76,7 @@ public:
 
 	// Special member functions:
 	inline friend std::ostream& operator<<(std::ostream& os, const FA& r);
-	
+
 	inline int class_invariant() const;
 
 protected:
@@ -104,17 +111,17 @@ protected:
 
 	// A finite automaton (an FA) is a 6-tuple (Q,V,T,E,S,F)
 	// Q is a finite set of states
-	StatePool Q;    
+	StatePool Q;
 
 	// S is a set of start states, F is a set of final states
-	StateSet S, F;  
-	
+	StateSet S, F;
+
 	// Transitions maps each State to its out-transitions.
 	TransRel Transitions;
-	
+
 	// E is the epsilon transition relation.
 	StateRel E;
-	
+
 	// Simulation stuff:
 	StateSet current;
 };
@@ -146,4 +153,9 @@ inline std::ostream& operator<<(std::ostream& os, const FA& r)
 	os << "current = " << r.current << '\n';
 	return(os);
 }
+
+
+#endif // !AUTOMATA_FA_H
+
+
 

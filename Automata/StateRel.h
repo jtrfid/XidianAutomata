@@ -15,7 +15,14 @@
 	which take a StateSet or StateRel as parameter expect the parameter to have the same
 	domain as *this.
 ****************************************************************************/
-#pragma once
+//#pragma once
+
+
+
+#ifndef AUTOMATA_STATEREL_H
+#define AUTOMATA_STATEREL_H
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -26,29 +33,27 @@
 
 // Implement binary relations on States.This is most often used for epsilon transitions
 // and follow relations.
-// map: state(r) --> {StateSet} 
-// StateTo::data[r] = {StateSet}, 表示状态r与{StateSet}的二元关系
 class StateRel :protected StateTo<StateSet>
 {
 public:
 	// Constructors, destructors) operator=:
-	
+
 	// Default argument-less constructor calls to the base class.
 	inline StateRel();
-	
+
 	// Copy constructor does too.
 	inline StateRel(const StateRel& r);
-	
+
 	// Default destructor is okay
-		
+
 	inline const StateRel& operator=(const StateRel& r);
-	
+
 	// Some relational operators:
-	
+
 	// Compute(Lookup) the image of r under *this. precondition: this.domain() = r.domain()
 	// Note: map: states -> states(images)
 	StateSet image(const StateSet& r) const;
-	
+
 	// Compute(Lookup) the image of a single State. precondition: r = [0,this.domain())
 	// Note: map: states -> states(images)
 	inline const StateSet& image(const State r) const;
@@ -58,7 +63,7 @@ public:
 	StateSet closure(const StateSet& r) const;
 
 	// Some functions updating *this:
-	
+
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
 	// with A times B(Cartesian cross product).
 	// Map p to q. precondition: p,q = [0,this.domain())
@@ -72,15 +77,15 @@ public:
 	inline StateRel& union_cross(State st, const StateSet& S);
 
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
-    // with A times B(Cartesian cross product).
-    // Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
+	// with A times B(Cartesian cross product).
+	// Map all members of S to st as well. precondition: this.domain() == S.domain(), st = [0,this.domain())
 	// S X {st}
 	StateRel& union_cross(const StateSet& S, State st);
 
 	// Member functions union_cross(A,B) makes *this the union (relation-wise) of *this 
-    // with A times B(Cartesian cross product).
-    // Map A to B . precondition: this.domain() == A.domain() == B.domain()
-    // This could probably have made use of union_cross(State,StateSet).
+	// with A times B(Cartesian cross product).
+	// Map A to B . precondition: this.domain() == A.domain() == B.domain()
+	// This could probably have made use of union_cross(State,StateSet).
 	// A X B
 	StateRel& union_cross(const StateSet& A, const StateSet& B);
 
@@ -90,45 +95,45 @@ public:
 
 	// Remove map: P -> Q 
 	StateRel& remove_pairs(const StateSet& P, const StateSet& Q);
-	
+
 	// Clear out this relation, without changing the domain.
 	void clear();
-	
+
 	// Perform normal union of two relations.
 	// *this X r
 	StateRel& set_union(const StateRel& r);
-	
+
 	// Some domain members:
-	
+
 	// What is the domain of this relation.
 	inline int domain() const;
-	
+
 	// Change the domain of this relation.
 	void set_domain(const int r);
-	
+
 	// Recycle this entire relation. domain() = 0
 	void reincarnate();
 
 	// Union relation r into *this, while adjusting r.调整domain + r.domain, 确保无交集
 	StateRel& disjointing_union(const StateRel& r);
-	
+
 	// Some special members:
 
 	// 修改为inline, 并在.h文件中定义，否则连接器找不到StateTo<StateRel>
 	inline friend std::ostream& operator<<(std::ostream& os, const StateRel& r);
-	
+
 	inline int class_invariant() const;
 };
 
 // Default argument-less constructor calls to the base class.
-inline StateRel::StateRel():
+inline StateRel::StateRel() :
 	StateTo<StateSet>()
 {
 	assert(class_invariant());
 }
 
 // Copy constructor does too.
-inline StateRel::StateRel(const StateRel& r):
+inline StateRel::StateRel(const StateRel& r) :
 	StateTo<StateSet>(r)
 {
 	assert(class_invariant());
@@ -214,3 +219,7 @@ inline std::ostream& operator<<(std::ostream& os, const StateRel& r)
 	return(os << (const StateTo<StateSet>&)r);
 }
 
+
+
+
+#endif // !AUTOMATA_STATEREL_H

@@ -4,7 +4,7 @@
 	member.
 	Performance: See the base class Translmpl.
  ******************************************************************************/
-#include "stdafx.h"
+
 #include "Trans.h"
 
 

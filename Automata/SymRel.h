@@ -6,7 +6,13 @@
 	DFA minimization algorithms. Member functions are provided to add and remove pairs of
 	States from the relation, as well as to test for membership in the relation.
 ****************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_SYMREL_H
+#define AUTOMATA_SYMREL_H
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -27,44 +33,44 @@ public:
 	inline const SymRel& operator=(const SymRel& r);
 
 	// Some relation operators.
-	
+
 	// Make *this into the identity relation.
 	SymRel& identity();
-	
+
 	// What is the image of a State under *this
 	inline const StateSet& image(const State p) const;
-	
+
 	// Add a pair of States.
 	inline SymRel& add_pair(const State p, const State q);
 	inline SymRel& add_pairs(const StateSet& P, const StateSet& Q);
-	
+
 	// Remove a pair of States.
 	inline SymRel& remove_pair(const State p, const State q);
 	inline SymRel& remove_pairs(const StateSet& P, const StateSet& Q);
-	
+
 	// Are a pair of States present?
 	inline int contains_pair(const State p, const State q) const;
-	
+
 	// Complement *this.
 	SymRel& complement();
-	
+
 	// Some domain related members.
 	inline int domain() const;
 	inline void set_domain(const int r);
-	
+
 	// Special members.
 	friend std::ostream& operator<<(std::ostream& os, const SymRel& r);
-	
+
 	inline int class_invariant() const;
 };
 
 // Constructors etc.
-inline SymRel::SymRel():StateRel()
+inline SymRel::SymRel() :StateRel()
 {
 	assert(class_invariant());
 }
 
-inline SymRel::SymRel(const SymRel& r):StateRel(r)
+inline SymRel::SymRel(const SymRel& r) : StateRel(r)
 {
 	assert(class_invariant());
 }
@@ -145,3 +151,6 @@ inline int SymRel::class_invariant() const
 	// This should also assert symmetry of the reation.
 	return(StateRel::class_invariant());
 }
+
+
+#endif // !AUTOMATA_SYMREL_H

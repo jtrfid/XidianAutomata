@@ -1,4 +1,8 @@
-#pragma once
+//#pragma once
+#ifndef AUTOMATA_BITVEC_H
+#define AUTOMATA_BITVEC_H
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -11,7 +15,7 @@
  Bit Vec's.
  Bit Vec's clients are StateSet and the item set's (ISImpl).
  Files: bitVec.h, bitVec.cpp
- Uses: 
+ Uses:
  Description: Bit vectors wider than a single word are used in implementing sets without a
  compiled-in size bound. In addition to many of the standard bit level operators, iterators
  are also provided. The vectors have a width(domain) that is adjustable through a member function.
@@ -44,13 +48,13 @@ public:
 	// Default operator creates the emptyset,with little effort.
 	// This assumes that delete[]0 is okay(when it is deleted later).
 	inline BitVec();
-	
+
 	// Normal copy constructor.
 	BitVec(const BitVec& r);
-	
+
 	// Normal non-virtual destructor.
 	inline ~BitVec();
-	
+
 	// Needs a special operator=.
 	const BitVec& operator=(const BitVec& r);
 
@@ -60,16 +64,16 @@ public:
 
 	// Inequality operator.
 	inline int operator!=(const BitVec& r) const;
-	
+
 	// Is there a bit set ?
 	int something_set() const;
-	
+
 	// Howmany bits are set ?
 	// return (max index of bit is set to 1) + 1; [0,bits_in_use(width)]
 	int bits_set() const;
-	
+
 	// Bit vector operators :
-	
+
 	// set a bit
 	inline BitVec& set_bit(const int r);
 
@@ -90,14 +94,14 @@ public:
 	// Is a bit set?
 	// return true(1), if r index of bit is set to 1; else return false(0)  
 	inline int contains(const int r) const;
-		
+
 	// Does *this have a bit in common with r ?
 	int something_common(const BitVec& r) const;
-    
+
 	// Make *this the empty vector.
 	void clear();
 
-    // What is the set bit with the smallest index in *this?
+	// What is the set bit with the smallest index in *this?
 	int smallest() const;
 
 	// Some width related members:
@@ -108,31 +112,31 @@ public:
 
 	// domain = with = bit_in_use, [0,domain)
 	void set_width(const int r);
-		
+
 	// Recycle this BitVec.
 	inline void reincarnate();
-		
+
 	// Shift *this left, zero filling.
 	BitVec& left_shift(const int r);
-		
+
 	// Append another bit-vector.
 	BitVec& append(const BitVec& r);
 
 	// iterators:
-		
+
 	// Place the index of the first set bit in the iteration in reference r.
 	// r == -1 if there is no first one.
 	inline int iter_start(int& r) const;
-	
+
 	// Is r the last set bit in an iteration sequence.
 	// if (r== -1) retrun 1; else return 0
 	inline int iter_end(int r) const;
 
 	// Place the next set bit, after r(in the iteration sequence), in reference r.
 	int iter_next(int& r) const;
-	
+
 	// Other special members:
-		
+
 	friend std::ostream& operator<<(std::ostream& os, const BitVec& r);
 
 	// Structural invariant on the BitVec.
@@ -140,25 +144,25 @@ public:
 
 private:
 	// Some trivial helpers:
-	
+
 	// Compute the number of words required to hold st bits.
 	inline int words_required(const int st) const;
-	
+
 	// Compute the word index of a particular bit r.
 	inline int word_index(const int r) const;
-	
+
 	// Compute the hit index(from the LSB) of a hit r.
 	inline int bit_index(const int r) const;
-	
+
 	// Actual representation:
 
 	// uesd max number bits in data, denote width(domain),[0,bits_in_use) == > [0,width)
-	int bits_in_use; 
+	int bits_in_use;
 	// number of words，1,2,3,...
-	int words; 
+	int words;
 	// save bytes of words,[0,1,2,...width(domain)]
 	unsigned int *data;
-	
+
 	// A class constant, used for bit-vector width.
 	enum { bits_per_word = (sizeof(unsigned int) * 8) };
 };
@@ -167,7 +171,7 @@ private:
 
 // Default operator creates the emptyset,with little effort.
 // This assumes that delete[]0 is okay(when it is deleted later).
-inline BitVec::BitVec():bits_in_use(0),words(0),data(0)
+inline BitVec::BitVec() :bits_in_use(0), words(0), data(0)
 {
 	assert(class_invariant());
 }
@@ -249,10 +253,10 @@ inline int BitVec::iter_end(int r) const
 // Structural invariant on the BitVec.
 inline int BitVec::class_invariant() const
 {
-	return((width() <= words * bits_per_word) 
-		    && (width() >= 0) 
-		    && (words >= 0) 
-		    && (words == 0 ? data == 0 : data != 0));
+	return((width() <= words * bits_per_word)
+		&& (width() >= 0)
+		&& (words >= 0)
+		&& (words == 0 ? data == 0 : data != 0));
 }
 
 // Compute the number of words required to hold st bits.
@@ -273,3 +277,6 @@ inline int BitVec::bit_index(const int r) const
 {
 	return(r % bits_per_word);
 }
+
+
+#endif // !AUTOMATA_BITVEC_H

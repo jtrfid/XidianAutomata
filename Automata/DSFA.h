@@ -7,7 +7,13 @@ Description: Class DSFA implements the abstract class interface required to cons
 from an FA. A DSFA is constructed in the FA member function determinism, and then
 passed to template function construct_components, which constructs the DFA components.
  **********************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_DSFA_H
+#define AUTOMATA_DSFA_H
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -58,12 +64,12 @@ private:
 };
 
 // Must always have an argument-less constructor.
-inline DSFA::DSFA() :which(),T(0),E(0),F(0)
+inline DSFA::DSFA() :which(), T(0), E(0), F(0)
 {
 	// No assertion of the class invariant, since it won't qualify.
 }
 
-inline DSFA::DSFA(const DSFA& r) :which(r.which), T(r.T), E(r.E), F(r.F)
+inline DSFA::DSFA(const DSFA& r) : which(r.which), T(r.T), E(r.E), F(r.F)
 {
 	assert(class_invariant());
 }
@@ -114,3 +120,9 @@ inline std::ostream& operator<<(std::ostream& os, const DSFA& r)
 	os << "\nDSF\n" << r.which << *r.T << *r.E << *r.F << '\n';
 	return(os);
 }
+
+
+
+#endif // !AUTOMATA_DSFA_H
+
+

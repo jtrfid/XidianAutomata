@@ -8,7 +8,13 @@
 	can be added to the relation, but not removed.The client must ensure that the relation
 	remains deterministic.
 ****************************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DTRANSREL_H
+#define AUTOMATA_DTRANSREL_H
+
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -22,24 +28,24 @@ class DTransRel :public StateTo<DTrans>
 {
 public:
 	// Constructors, destructors, operator= :
-	
+
 	// Argument-less constructor:
 	inline DTransRel();
 
 	inline DTransRel(const DTransRel& r);
-	
+
 	// Default destructor is okay :
-	
+
 	inline const DTransRel& operator=(const DTransRel& r);
-	
+
 	// Some relational operators :
-	
+
 	// Compute the image of r, and a under *this. [image = T(r,a)]
 	inline State image(const State r, const char a) const;
-	
+
 	// Compute the image of r, and CharRange it under *this.
 	inline State transition_on_range(const State r, const CharRange a) const;
-	
+
 	// Compute the reverse transition on a range under *this:
 	StateSet reverse_transition(const State r, const CharRange a) const;
 
@@ -51,20 +57,20 @@ public:
 
 	// What are all States reverse reachable from r?
 	StateSet reverse_closure(const StateSet& r) const;
-	
+
 	// Some functions updating *this:
 	inline DTransRel& add_transition(const State p, const CharRange a, const State q);
 
 	// Some domain members:
 	// What is the domain of this relation.
 	inline int domain() const;
-	
+
 	// Change the domain of this relation.
 	inline void set_domain(const int r);
-	
+
 	// Recycle this entire structure.
 	void reincarnate();
-	
+
 	// Some special members:
 	friend std::ostream& operator<<(std::ostream& os, const DTransRel& r);
 
@@ -77,7 +83,7 @@ inline DTransRel::DTransRel() :StateTo<DTrans>()
 	assert(class_invariant());
 }
 
-inline DTransRel::DTransRel(const DTransRel& r) :StateTo<DTrans>(r)
+inline DTransRel::DTransRel(const DTransRel& r) : StateTo<DTrans>(r)
 {
 	assert(class_invariant());
 }
@@ -165,3 +171,10 @@ inline std::ostream& operator<<(std::ostream& os, const DTransRel& r)
 	assert(r.class_invariant());
 	return(operator<<(os, (const StateTo<DTrans>&)r));
 }
+
+
+
+#endif // !AUTOMATA_DTRANSREL_H
+
+
+

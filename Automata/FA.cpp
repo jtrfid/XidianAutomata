@@ -8,7 +8,7 @@ properties (see [Wat93a, end of Definition 4.1]), a special "Thompson's construc
 class could be efficiently implemented, instead of the general finite automaton structure
 defined in FA.
  ***********************************************************************************/
-#include "stdafx.h"
+
 #include "FA.h"
 #include "DFAseed.h"
 #include "DSFA.h"

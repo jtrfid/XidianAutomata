@@ -9,7 +9,13 @@ RFA States, instead of the right-biased interpretation used in DSRFA. A DSRFA2 i
 in the RFA member function determinism2, and then passed to template function
 construcLcomponents, which constructs the components of the DFA.
 **********************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSRFA2_H
+#define AUTOMATA_DSRFA2_H
+
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -55,7 +61,7 @@ public:
 
 private:
 	// Another special constructor, for use in out_transitions():
-	DSRFA2( const StateSet& rq,
+	DSRFA2(const StateSet& rq,
 		const Trans *rQmap_inverse,
 		const StateRel *rfollow,
 		const StateSet *rfirst,
@@ -63,7 +69,7 @@ private:
 
 	// This stuff may vary from object to object.
 	StateSet which;
-	int finalness;
+	
 
 	// This stuff should be the same for all objects corresponding
 	// to a particular RFA.
@@ -71,6 +77,8 @@ private:
 	const StateRel *follow;
 	const StateSet *first;
 	const StateSet *last;
+
+	int finalness;
 };
 
 // Must always have an argument-less constructor.
@@ -149,3 +157,10 @@ inline std::ostream& operator<<(std::ostream& os, const DSRFA2& r)
 		<< *r.first << *r.last << r.finalness << '\n';
 	return(os);
 }
+
+
+
+#endif // !AUTOMATA_DSRFA2_H
+
+
+

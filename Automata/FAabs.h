@@ -27,7 +27,12 @@ they inherit from abstract class FAabs, and do not leave any of the member funct
 Implementation: Since it is an abstract base class (pure virtual), all except one of the member
 functions are pure virtual; the acceptable member function is defined.
  ***********************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_FABS_H
+#define AUTOMATA_FABS_H
+
 
 // Just mention DFA here, since circularity would be a problem if we include DFA.h.
 class DFA;
@@ -39,32 +44,36 @@ class FAabs
 public:
 	// Return the number of stales(or some reasonably close measure).
 	virtual int num_states() const = 0;
-	
+
 	// Reset the current state (to start stsates) before beginning to process a string.
 	// This is not the default condition for most of the derived classes.
 	virtual void restart() = 0;
-	
+
 	// Advance the current state by processing a character.
 	// advance the automaton by one char in the input string
 	virtual void advance(char a) = 0;
-	
+
 	// Is the current state an accepting(final) one?
 	virtual int in_final() const = 0;
-	
+
 	// Is the automaton stuck(unable to make further transitions)?
 	virtual int stuck() = 0;
-	
+
 	// the string w acceptable?
 	virtual int acceptable(const char *w)
 	{
 		for (restart(); !stuck() && *w; advance(*(w++)))
 		{
 		}
-	    // It's acceptable if *this is final, and the whole of w was consumed.
+		// It's acceptable if *this is final, and the whole of w was consumed.
 		return(in_final() && !*w);
 	}
-	
+
 	// Return a DFA accepting the same language as *this.
 	virtual DFA determinism() const = 0;
 };
+
+
+
+#endif // !AUTOMATA_FABS_H
 

@@ -3,7 +3,7 @@
 maintains pointers to the components of the DFA from which it was created. 
 	Two DSDFARevs are equal if their StateSets are equal.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSDFARev.h"
 
 CRSet DSDFARev::out_labels() const

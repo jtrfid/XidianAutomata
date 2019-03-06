@@ -7,7 +7,12 @@ Description: A DSRE represents a derivative of a regular expression. A derivativ
 expression is again a regular expression; a DSRE simply provides an abstract state interface
 to the derivatives.
  ************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSRE_H
+#define AUTOMATA_DSRE_H
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -21,7 +26,7 @@ to the derivatives.
 // Brzozowski's construction). Most member functions are calls through to the
 // corresponding RE members.
 // DSRE inherits from RE for implementation.
-class DSRE  :protected RE
+class DSRE :protected RE
 {
 public:
 	// Must always have an argument-less constructor.
@@ -40,7 +45,7 @@ public:
 	inline int operator!=(const DSRE& r) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const DSRE& r);
-	
+
 	inline int class_invariant() const;
 };
 
@@ -101,4 +106,9 @@ inline int DSRE::class_invariant() const
 {
 	return(RE::class_invariant() && RE::in_snf());
 }
+
+
+
+#endif // !AUTOMATA_DSRE_H
+
 

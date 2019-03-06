@@ -3,7 +3,7 @@
 	are simply calls to the corresponding TransImpl member.
 	Performance : See the base class TransImpl.
 ***************************************************************************************/
-#include "stdafx.h"
+
 #include "DTrans.h"
 
 // Map a char to the unique next state.

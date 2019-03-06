@@ -5,7 +5,7 @@ the left-biased or the right-biased interpretation (see the bottom of p.73 in [W
 a brief explanation of the different interpretations). 
 The interpretation chosen here is the right-biased one, since it appears to be the most efficient one in practice.
  ************************************************************************************/
-#include "stdafx.h"
+
 #include "RFA.h"
 #include "DSRFA.h"
 #include "DSRFA2.h"
@@ -102,7 +102,7 @@ DFA RFA::determinism() const
 	// Make sure that *this is structurally sound.
 	assert(class_invariant());
 	// Now construct the DFA components
-	return(construct_components(DSRFA(first, &Qmap_inverse, &follow, &first,&last,Nullable)));
+	return(construct_components(DSRFA(first, Nullable, &Qmap_inverse, &follow, &first,&last)));
 }
 
 DFA RFA::determinism2() const

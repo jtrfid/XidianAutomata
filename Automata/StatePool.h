@@ -10,7 +10,14 @@
 	Implementation: An integer counter is maintained, indicating the next State to be allocated.
 	The class is really too simple to have a class invariant.
  ************************************************************************/
-#pragma once
+//#pragma once
+
+
+
+#ifndef AUTOMATA_STATEPOOL_H
+#define AUTOMATA_STATEPOOL_H
+
+
 #include<iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -28,7 +35,7 @@ class StatePool
 public:
 	// By default, start allocating states at 0:
 	inline StatePool();
-	
+
 	// A copy-constructed StatePool starts at the same point.
 	inline StatePool(const StatePool& r);
 
@@ -37,20 +44,20 @@ public:
 	// How many states are already allocated(one more than that last allocated one,
 	// since it begins at 0).
 	inline int size() const;
-	
+
 	// Incorporate another StatePool by making it disjoint.Anything
 	// associated with the other pool must be renamed explicitly.
 	inline StatePool& incorporate(const StatePool r);
-	
+
 	// Allocate a new state.
 	inline State allocate();
-    
+
 	// Clear all states that were allocated; start again at O.
 	inline StatePool& reincarnate();
 
 	// Does this State Pool contain State r. i.e it's in [0,next)
 	inline int contains(const State r) const;
-	
+
 	// Output a StatePool.
 	friend std::ostream& operator<<(std::ostream& os, const StatePool& r);
 
@@ -102,7 +109,7 @@ inline StatePool& StatePool::reincarnate()
 // Does this State Pool contain State r. i.e it's in [0,next)
 inline int StatePool::contains(const State r) const
 {
-	return(0 <= r && r < next); 
+	return(0 <= r && r < next);
 }
 
 // Output a StatePool.
@@ -111,3 +118,6 @@ inline std::ostream& operator<<(std::ostream& os, const StatePool& r)
 	return(os << "[0," << r.next << ")");
 }
 
+
+
+#endif // !AUTOMATA_STATEPOOL_H

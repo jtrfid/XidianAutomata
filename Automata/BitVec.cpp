@@ -9,7 +9,7 @@
 	be avoided by use - counting.The left shift operator and the iteration operators could be
 	implemented more efficiently.
 ************************************************************************************************/
-#include "stdafx.h"
+
 #include "BitVec.h"
 
 

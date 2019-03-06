@@ -24,7 +24,13 @@ and correspond to those given in [Wat93a, Section 5.5].
 All of the function declarations (or prototypes) are accompanied by their corresponding reference
 in [Wat93a].
 *******************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_ICONSTRS_H
+#define AUTOMATA_ICONSTRS_H
+
+
 #include "RE.h"
 #include "DFA.h"
 
@@ -39,4 +45,6 @@ DFA DeRemer(const RE *r);
 
 //  Oconstr(Construction 5.82)
 DFA Oconstr(const RE *r);
+
+#endif // !AUTOMATA_ICONSTRS_H
 

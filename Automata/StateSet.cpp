@@ -3,7 +3,7 @@
 are inline dummies, calling the BitVec members.
 	Performance: StateSet would benefit from use-counting in BitVec.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "StateSet.h"
 
 std::ostream& operator<<(std::ostream& os, const StateSet& r)

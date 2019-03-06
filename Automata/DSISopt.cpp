@@ -8,7 +8,7 @@ The reason why the optimized item set construction yields smaller DFAs than DeRe
 construction is that the Y filter is more effective at removing redundant information than
 the X filter used in DeRemer's construction (see [Wat93a, Remark 5.81]).
 ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSISopt.h"
 
 DSISopt DSISopt::out_transition(const CharRange a) const

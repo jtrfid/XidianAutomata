@@ -1,7 +1,7 @@
 /***********************************************************************
 Implementation: Most of the implementation is provided by class ISImpl.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSIS.h"
 
 DSIS DSIS::out_transition(const CharRange a) const

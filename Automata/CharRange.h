@@ -1,4 +1,9 @@
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_CHARTANGE_H
+#define AUTOMATA_CHARTANGE_H
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -34,7 +39,7 @@ public:
 	inline CharRange(const CharRange& r);
 
 	// the upper and lower(inclusive) bounds of a character range, and yields the CharRange denoting the range 
-    // (since the empty range is not permitted, the upper bound must not be less than the lower bound)
+	// (since the empty range is not permitted, the upper bound must not be less than the lower bound)
 	inline CharRange(const char l, const char h);
 
 	// takes a char and yields the singleton character range 
@@ -46,27 +51,27 @@ public:
 	// Some normal member functions:
 	// Is char a in the range'?
 	inline int contains(const char a) const;
-	
+
 	// Access to the representation:
 	inline char low()const;
 	inline char high()const;
-	
+
 	// Standard comparison operators.
 	inline int operator==(const CharRange& r) const;
 	inline int operator!=(const CharRange& r) const;
-	
+
 	// Containment operators.
 	inline int operator<=(const CharRange& r) const;
 	inline int operator>=(const CharRange& r) const;
-	
+
 	// Is there something in common between *this and r'?
 	inline int not_disjoint(const CharRange& r) const;
-	
+
 	// Do *this and r overlap, or are they adjacent?
 	inline int overlap_or_adjacent(const CharRange& r) const;
-	
+
 	// Some operators on CharRanges.
-    // Merge two CharRanges if they're adjacent:
+	// Merge two CharRanges if they're adjacent:
 	inline CharRange& merge(const CharRange& r);
 
 	// Make *this the intersection of *this and r.
@@ -75,7 +80,7 @@ public:
 	// Return the left and right excess of *this with r(respectively):
 	inline CharRange left_excess(const CharRange& r) const;
 	inline CharRange right_excess(const CharRange& r) const;
-	
+
 	// Define an ordering on CharRange's, used mainly in RE::ordering().
 	// this == r: return 0; this > r: return > 0; else return < 0  
 	int ordering(const CharRange& r) const;
@@ -101,27 +106,27 @@ public:
 
 // The default is the empty range of characters.
 // and this does not satisfy the class invariant,i.e. one that is invalid.
-inline CharRange::CharRange::CharRange():lo(1),hi(0)
+inline CharRange::CharRange::CharRange() :lo(1), hi(0)
 {
 }
 
 // Copy constructor is standard.
-inline CharRange::CharRange(const CharRange& r):
-	lo(r.lo),hi(r.hi)
+inline CharRange::CharRange(const CharRange& r) :
+	lo(r.lo), hi(r.hi)
 {
 	assert(class_invariant());
 }
 
 // the upper and lower(inclusive) bounds of a character range, and yields the CharRange denoting the range 
 // (since the empty range is not permitted, the upper bound must not be less than the lower bound)
-inline CharRange::CharRange(const char l, const char h):
-	lo(l),hi(h)
+inline CharRange::CharRange(const char l, const char h) :
+	lo(l), hi(h)
 {
 	assert(class_invariant());
 }
 
-inline CharRange::CharRange(const char a):
-	lo(a),hi(a)
+inline CharRange::CharRange(const char a) :
+	lo(a), hi(a)
 {
 	assert(class_invariant());
 }
@@ -235,4 +240,8 @@ inline int CharRange::class_invariant() const
 	return(lo <= hi);
 }
 
+
+
+
+#endif // !AUTOMATA_CHARTANGE_H
 

@@ -4,7 +4,7 @@ in the constructor from an RE.
 
 Performance: See DSRE.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSREopt.h"
 
 std::ostream& operator<<(std::ostream& os, const DSREopt& r)

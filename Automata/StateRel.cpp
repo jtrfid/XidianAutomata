@@ -3,7 +3,7 @@
 functions are simply calls to the corresponding member of StateTo. Member functions such
 as reincarnate first reincarnates all of the StateSets, followed by the StateTo.
  **********************************************************************************/
-#include "stdafx.h"
+
 #include "StateRel.h"
 
 // Compute(Lookup) the image of r under *this. precondition: this.domain() = r.domain()

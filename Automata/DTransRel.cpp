@@ -2,7 +2,7 @@
 	Implementation: DTransRel inherits for implementation from StateTo<DTrans>. Many of the
 member functions are simply calls to the members of State To or DTrans.
  **********************************************************************************/
-#include "stdafx.h"
+
 #include "DTransRel.h"
 
 

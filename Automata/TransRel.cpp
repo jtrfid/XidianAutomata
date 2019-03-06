@@ -2,7 +2,7 @@
 	Implementation: TransRel inherits for implementation from StateTo< Trans>. Many of the
 	member functions simply call the corresponding members functions of StateTo or Trans.
  *********************************************************************************/
-#include "stdafx.h"
+
 #include "TransRel.h"
 
 // Compute the image of r, and a under *this. return T(r,a) = { image }

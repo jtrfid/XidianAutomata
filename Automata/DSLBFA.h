@@ -7,7 +7,13 @@
 	from an LBFA. A DSLBFA is constructed in the LBFA member function determinism, and
 	then passed to template function construcLcomponents, which constructs the components of the DFA.
  ***********************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSLBFA_H
+#define AUTOMATA_DSLBFA_H
+
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -29,7 +35,7 @@ public:
 	inline DSLBFA();
 
 	inline DSLBFA(const DSLBFA& r);
-	
+
 	// A special constructor:
 	DSLBFA(const StateSet& rq,
 		const Trans *rQmap_inverse,
@@ -37,16 +43,16 @@ public:
 		const StateSet *rF);
 
 	inline const DSLBFA& operator=(const DSLBFA& r);
-	
+
 	// The required member functions :
 	inline int final() const;
 	CRSet out_labels() const;
 	DSLBFA out_transition(const CharRange a) const;
 	inline int operator==(const DSLBFA& r) const;
 	inline int operator!=(const DSLBFA& r) const;
-	
-	inline friend std::ostream& operator<<(std::ostream& os, const DSLBFA& r );
-	
+
+	inline friend std::ostream& operator<<(std::ostream& os, const DSLBFA& r);
+
 	inline int class_invariant()const;
 
 private:
@@ -67,7 +73,7 @@ inline DSLBFA::DSLBFA() :
 
 }
 
-inline DSLBFA::DSLBFA(const DSLBFA& r):
+inline DSLBFA::DSLBFA(const DSLBFA& r) :
 	which(r.which),
 	Qmap_inverse(r.Qmap_inverse),
 	follow(r.follow),
@@ -122,3 +128,7 @@ inline int DSLBFA::class_invariant()const
 		&& which.domain() == follow->domain()
 		&& which.domain() == F->domain());
 }
+
+#endif // !AUTOMATA_DSLBFA_H
+
+

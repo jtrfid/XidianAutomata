@@ -12,7 +12,15 @@ deterministic finite automaton is not necessarily deterministic). A DSDFARev is 
 in the DFA member function reverse. Member functions support all of the required interface
 of an abstract state.
  *************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSDFAREV_H
+#define AUTOMATA_DSDFAREV_H
+
+
+
+
+
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -32,21 +40,21 @@ public:
 	inline DSDFARev();
 
 	inline DSDFARev(const DSDFARev& r);
-	
+
 	// A special constructor:
 	inline DSDFARev(const StateSet& rq, const DTransRel *rT, const StateSet *rS);
-	
+
 	inline const DSDFARev& operator = (const DSDFARev& r);
-	
+
 	// The required member functions :
 	inline int final() const;
 	CRSet out_labels() const;
 	DSDFARev out_transition(const CharRange a) const;
 	inline int operator == (const DSDFARev& r) const;
-	inline int operator != (const DSDFARev& r ) const;
-		
+	inline int operator != (const DSDFARev& r) const;
+
 	friend std::ostream& operator<<(std::ostream& os, const DSDFARev& r);
-	
+
 	inline int class_invariant() const;
 
 private:
@@ -56,19 +64,19 @@ private:
 };
 
 // Must always have an argument-less constructor.
-inline DSDFARev::DSDFARev() :which(),T(0),S(0)
+inline DSDFARev::DSDFARev() :which(), T(0), S(0)
 {
 
 }
 
-inline DSDFARev::DSDFARev(const DSDFARev& r) :which(r.which),T(r.T),S(r.S)
+inline DSDFARev::DSDFARev(const DSDFARev& r) : which(r.which), T(r.T), S(r.S)
 {
 	assert(class_invariant());
 }
 
 // A special constructor:
 inline DSDFARev::DSDFARev(const StateSet& rq, const DTransRel *rT, const StateSet *rS)
-	:which(rq),T(rT),S(rS)
+	:which(rq), T(rT), S(rS)
 {
 	assert(class_invariant());
 }
@@ -97,7 +105,7 @@ inline int DSDFARev::operator == (const DSDFARev& r) const
 	return(which == r.which);
 }
 
-inline int DSDFARev::operator != (const DSDFARev& r ) const
+inline int DSDFARev::operator != (const DSDFARev& r) const
 {
 	return(!operator==(r));
 }
@@ -107,3 +115,9 @@ inline int DSDFARev::class_invariant() const
 	return(T != 0 && S != 0 && which.domain() == T->domain()
 		&& which.domain() == S->domain());
 }
+
+
+
+#endif // !AUTOMATA_DSDFAREV_H
+
+

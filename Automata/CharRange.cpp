@@ -6,7 +6,7 @@ Performance: In most functions that take a CharRange, the parameter passing is b
 	a pair of characters fit into the parameter passing registers on most processors).On some
 	machines, performance can be improved by passing a const reference.
 **************************************************************************/
-#include "stdafx.h"
+
 #include "CharRange.h"
 
 

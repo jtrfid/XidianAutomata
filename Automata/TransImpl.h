@@ -8,7 +8,12 @@
 	of a TransPair already in the set, and the destination State of the two TransPairs is the
 	same, then the two TransPairs are merged into one.
  ************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_TRANSIMPL_H
+#define AUTOMATA_TRANSIMPL_H
+
+
 #include<iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -38,7 +43,7 @@ protected:
 	const TransImpl& operator=(const TransImpl& r);
 
 	// Some member functions for making transitions:
-	
+
 	// What are all of the labels on transitions in *this?
 	CRSet out_labels() const;
 
@@ -67,7 +72,7 @@ protected:
 
 	// Implementation details:
 
-    // How many transitions are there.index of TransPair *data (include expansion_extra)
+	// How many transitions are there.index of TransPair *data (include expansion_extra)
 	int howmany;
 
 	// How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition()
@@ -78,13 +83,13 @@ protected:
 	TransPair *data;
 
 	// For efficiency of the expansion helper function.
-	enum{ expansion_extra = 5 };
+	enum { expansion_extra = 5 };
 };
 
 // Some inline members:
 
 // Assume that delete[] 0 is okay.
-inline TransImpl::TransImpl():
+inline TransImpl::TransImpl() :
 	howmany(0),
 	in_use(0),
 	data(0)
@@ -122,3 +127,6 @@ inline int TransImpl::class_invariant() const
 	return(ret);
 }
 
+
+
+#endif // !AUTOMATA_TRANSIMPL_H

@@ -2,7 +2,7 @@
 Implementation: Class LBFA is a friend of class RFA. Most of the member functions are
 implemented in a straight-forward manner.
  ***********************************************************************************/
-#include "stdafx.h"
+
 #include "DSLBFA.h"
 #include "DFAseed.h"
 #include "LBFA.h"

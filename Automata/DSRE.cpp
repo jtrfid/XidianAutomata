@@ -9,7 +9,7 @@ Performance: RE member function derivative returns an RE by value, which is then
 the DSRE constructor. Use-counting RE could eliminate the overhead of copy constructor
 and destructor calls.
  ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSRE.h"
 
 

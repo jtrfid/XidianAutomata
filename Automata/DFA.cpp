@@ -9,7 +9,7 @@ construcLcomponents will be inlined in the constructor.
 Performance: Use-counting the classes used in the automata (such as DTransRel and StateSet)
 would improve performance on copy construction and assignment.
  ************************************************************************/
-#include "stdafx.h"
+
 #include "DFA.h"
 
 // Member functions required by class FAabs :

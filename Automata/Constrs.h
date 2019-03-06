@@ -38,7 +38,12 @@ and correspond to those given in [Wat93a, Section 5.5].
 All of the function declarations (or prototypes) are accompanied by their corresponding reference
 in [Wat93a].
 *******************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_CONSTRS_H
+#define AUTOMATA_CONSTRS_H
+
 #include "RE.h"
 #include "FA.h"
 #include "RFA.h"
@@ -172,4 +177,13 @@ inline DFA ASU(const RE& r)
 {
 	return(BS_variation_dual(r).determinism());
 }
+
+
+
+
+
+
+#endif // !AUTOMATA_CONSTRS_H
+
+
 

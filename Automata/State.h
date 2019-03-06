@@ -9,9 +9,20 @@
 	   in a state, and a State can be silently converted to an into int.
 *****************************************************************************************************/
 
+
+#ifndef AUTOMATA_STATE_H
+#define AUTOMATA_STATE_H
+
+
 // Encode automata states as integers.
 typedef signed int State;
 
 // Invalid states mean something bad is about to happen.
 const State Invalid = -1;
+
+#endif // !AUTOMATA_STATE_H
+
+
+
+
 

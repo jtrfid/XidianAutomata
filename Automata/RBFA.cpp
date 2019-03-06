@@ -2,7 +2,7 @@
 Implementation: Class RBFA is a friend of class RFA. Most of the member functions are
 implemented in a straight-forward manner.
 ***********************************************************************************/
-#include "stdafx.h"
+
 #include "DSRBFA.h"
 #include "DFAseed.h"
 #include "RBFA.h"

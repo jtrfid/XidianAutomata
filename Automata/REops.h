@@ -16,7 +16,10 @@
 
 	Implementation: REops is defined as an enum.
  ***********************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_REOPS_H
+#define AUTOMATA_REOPS_H
 
 // Define the regular operators as an enumerated type.These correspond to the
 // Sigma algebra operators(see Definition 3.12 of the Taxonomy, and Sigma.h).
@@ -31,3 +34,7 @@ enum REops
 	PLUS,    // unary operator, +: Reg --> Reg
 	QUESTION // unary operator, ?: Reg --> Reg
 };
+
+#endif // !AUTOMATA_REOPS_H
+
+

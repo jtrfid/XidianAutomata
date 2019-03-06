@@ -11,14 +11,14 @@ class Reg) can be used to construct the homomorphic image of the regular express
 
 Implementation: The implementation follows directly from [Wat93a, Definition 4.29].
 ***********************************************************************************/
-#include "stdafx.h"
+
 #include "CharRange.h"
 #include "RFA.h"
 #include "Sigma.h"
 
 // Implement the Sigma-algebra operators(Definition 4.29 of the Taxonomy).
 // Definition 4.29 (Sigma-algebra of RFA's): The carrier set is [RFA], p33-35
-Reg<RFA>& Reg<RFA>::epsilon() {
+template<> Reg<RFA>& Reg<RFA>::epsilon() {
 	// This RFA may have been something in a previous life.
 	// Wipe out all previous info in this components;
 	reincarnate();
@@ -29,7 +29,7 @@ Reg<RFA>& Reg<RFA>::epsilon() {
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::empty() {
+template<> Reg<RFA>& Reg<RFA>::empty() {
 	// See epsilon case.
 	reincarnate();
 
@@ -39,7 +39,7 @@ Reg<RFA>& Reg<RFA>::empty() {
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::symbol(const CharRange r) {
+template<> Reg<RFA>& Reg<RFA>::symbol(const CharRange r) {
 	// See epsilon case.
 	reincarnate();
 
@@ -56,7 +56,7 @@ Reg<RFA>& Reg<RFA>::symbol(const CharRange r) {
 
 	follow.set_domain(Q.size());
 	// Nothing to add to follow.
-	
+
 	Nullable = 0;
 
 	current.set_domain(Q.size());
@@ -65,29 +65,29 @@ Reg<RFA>& Reg<RFA>::symbol(const CharRange r) {
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::Or(const Reg<RFA>& r) {
+template<> Reg<RFA>& Reg<RFA>::Or(const Reg<RFA>& r) {
 	assert(class_invariant());
 	assert(r.class_invariant());
 	// All state-related stuff in r must be adjusted.
 
 	Q.incorporate(r.Q);
 
-	first.disjointing_union(r.first); 
-	
+	first.disjointing_union(r.first);
+
 	last.disjointing_union(r.last);
-	
+
 	Qmap_inverse.disjointing_union(r.Qmap_inverse);
-	
+
 	follow.disjointing_union(r.follow);
-	
+
 	Nullable = Nullable || r.Nullable;
-	
+
 	current.set_domain(Q.size());
 	assert(class_invariant());
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::concat(const Reg<RFA>& r) {
+template<> Reg<RFA>& Reg<RFA>::concat(const Reg<RFA>& r) {
 	assert(class_invariant());
 	assert(r.class_invariant());
 	// See the or operator.
@@ -125,9 +125,9 @@ Reg<RFA>& Reg<RFA>::concat(const Reg<RFA>& r) {
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::star() {
+template<> Reg<RFA>& Reg<RFA>::star() {
 	assert(class_invariant());
-	
+
 	// Nothing to do to Q, first, last, Qmap_inverse.
 	follow.union_cross(last, first);
 	Nullable = 1;
@@ -135,19 +135,19 @@ Reg<RFA>& Reg<RFA>::star() {
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::plus()
+template<> Reg<RFA>& Reg<RFA>::plus()
 {
 	assert(class_invariant());
-	
+
 	// Don't change Q, first, last, Qmap_inverse, Nullable.
 	follow.union_cross(last, first);
 	assert(class_invariant());
 	return(*this);
 }
 
-Reg<RFA>& Reg<RFA>::question() {
+template<> Reg<RFA>& Reg<RFA>::question() {
 	assert(class_invariant());
-	
+
 	// Don't change Q, first, last, Qmap_inverse, follow.
 	Nullable = 1;
 	assert(class_invariant());

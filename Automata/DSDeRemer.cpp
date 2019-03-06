@@ -6,7 +6,7 @@ RE expression tree. By applying the filter, it becomes more likely that template
 construct_components will find two item sets (denoting the same language) to be equal (this
 will result in fewer states in the constructed DFA).
 ***********************************************************************/
-#include "stdafx.h"
+
 #include "DSDeRemer.h"
 
 DSDeRemer DSDeRemer::out_transition(const CharRange a) const

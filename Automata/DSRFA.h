@@ -8,7 +8,13 @@ from an RFA. A DSRFA is constructed in the RFA member function determinism, and 
 passed to template function construc_components, which constructs the components of the
 DFA.
  **********************************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_DSRFA_H
+#define AUTOMATA_DSRFA_H
+
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -30,13 +36,15 @@ public:
 
 	inline DSRFA(const DSRFA& r);
 
+	// // 初始化列表的初始化顺序应该与变量声明顺序相同 "warning will be initialized after [-Wreorder]"
 	// A special constructor:
 	DSRFA(const StateSet& rq,
+		const int rfinalness,
 		const Trans *rQmap_inverse,
 		const StateRel *rfollow,
 		const StateSet *rfirst,
-		const StateSet *rlast,
-		const int rfinalness);
+		const StateSet *rlast
+		);
 
 	inline const DSRFA& operator = (const DSRFA& r);
 
@@ -65,25 +73,28 @@ private:
 	const StateSet *last;
 };
 
+// 初始化列表的初始化顺序应该与变量声明顺序相同 "warning will be initialized after [-Wreorder]"
 // Must always have an argument-less constructor.
 inline DSRFA::DSRFA() :
-	which(),
+	which(), 
+	finalness(0),
 	Qmap_inverse(0),
 	follow(0),
 	first(0),
-	last(0),
-	finalness(0)
+	last(0)
 {
 	// No assert since it won't satisfy the class invariant
 }
 
+//// 初始化列表的初始化顺序应该与变量声明顺序相同 "warning will be initialized after [-Wreorder]"
 inline DSRFA::DSRFA(const DSRFA& r) :
 	which(r.which),
+	finalness(r.finalness),
 	Qmap_inverse(r.Qmap_inverse),
 	follow(r.follow),
 	first(r.first),
-	last(r.last),
-	finalness(r.finalness)
+	last(r.last)
+	
 {
 	assert(class_invariant());
 }
@@ -91,7 +102,7 @@ inline DSRFA::DSRFA(const DSRFA& r) :
 inline const DSRFA& DSRFA::operator = (const DSRFA& r)
 {
 	assert(r.class_invariant());
-    // *this may not satisfy the class invariant yet.
+	// *this may not satisfy the class invariant yet.
 	which = r.which;
 	Qmap_inverse = r.Qmap_inverse;
 	follow = r.follow;
@@ -141,4 +152,10 @@ inline std::ostream& operator<<(std::ostream& os, const DSRFA& r)
 		<< *r.first << *r.last << r.finalness << '\n';
 	return(os);
 }
+
+
+
+
+#endif // !AUTOMATA_DSRFA_H
+
 

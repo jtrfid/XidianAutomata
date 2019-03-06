@@ -12,7 +12,13 @@
 	returning a CRSet. Another member takes a StateSet and returns the set of all transition
 	labels on transitions with the destination in the StateSet.
 ****************************************************************************/
-#pragma once
+//#pragma once
+
+
+#ifndef AUTOMATA_DTRANS_H
+#define AUTOMATA_DTRANS_H
+
+
 #include<iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -30,23 +36,23 @@ class DTrans :protected TransImpl
 {
 public:
 	// Constructors, destructors, operator=:
-	
+
 	// By default, don't introduce any transitions.
 	inline DTrans();
-	
+
 	// Copy constructor does a dynamic memory copy.
 	inline DTrans(const DTrans& r);
 	inline const DTrans& operator=(const DTrans& r);
-	
+
 	// Normal member functions :
-	
+
 	// Map a char to the unique next state.
 	State operator[](const char a) const;
 
 	// Map a CharRange to the corresponding State
 	// assuming that the CharRange is entirely contained in the label of a transition.
 	State range_transition(const CharRange a) const;
-	
+
 	// What are the labels of transitions out of *this.
 	inline CRSet out_labels() const;
 
@@ -59,15 +65,15 @@ public:
 	// What is the range(States) of this map?
 	// return a StateSet with domain dom.
 	StateSet range(int dom) const;
-	
+
 	// Special member functions:
-	
+
 	// Recycle this entire structure.
 	inline void reincarnate();
 
 	// Create a new out-transition.
 	inline DTrans& add_transition(const CharRange a, const State q);
-	
+
 	friend std::ostream& operator<<(std::ostream& os, const DTrans& r);
 
 	inline int class_invariant() const;
@@ -75,13 +81,13 @@ public:
 
 // Inlines(mostly calling the base class):
 // By default, don't introduce any transitions.
-inline DTrans::DTrans():TransImpl()
+inline DTrans::DTrans() :TransImpl()
 {
 	assert(class_invariant());
 }
 
 // Copy constructor does a dynamic memory copy.
-inline DTrans::DTrans(const DTrans& r):TransImpl(r)
+inline DTrans::DTrans(const DTrans& r) :TransImpl(r)
 {
 	assert(class_invariant());
 }
@@ -128,3 +134,11 @@ inline int DTrans::class_invariant() const
 	// should also check that all transitions are on diffenert symbols.
 	return(TransImpl::class_invariant());
 }
+
+
+
+#endif // !AUTOMATA_DTRANS_H
+
+
+
+

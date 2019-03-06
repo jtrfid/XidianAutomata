@@ -13,7 +13,12 @@
 	the functionality of "derivatives of item sets" (as defined in [Wat93a, Definition 5.61]), while
 	member function D implements the dot closure relation D defined in [Wat93a, Definition 5.63].
  ***********************************************************************/
-#pragma once
+//#pragma once
+
+#ifndef AUTOMATA_ISIMPL_H
+#define AUTOMATA_ISIMPL_H
+
+
 #include <iostream>
  // 去下行注释则禁用 assert()
  // #define NDEBUG
@@ -32,33 +37,33 @@ class ISImpl
 public:
 	// Must always have an argument-less constructor.
 	inline ISImpl();
-	
+
 	// A special constructor :
 	ISImpl(const RE *r);
-	
+
 	const ISImpl& operator=(const ISImpl& r);
-	
+
 	// The required member functions :
 	inline int final() const;
 	inline CRSet out_labels() const;
-	
+
 	inline int operator==(const ISImpl& r) const;
 	inline int operator!=(const ISImpl& r) const;
-	
+
 	// Move the dots across sym nodes.
 	inline void move_dots(const CharRange& r);
 
 	friend std::ostream& operator<<(std::ostream& os, const ISImpl& r);
-	
+
 	inline int class_invariant() const;
-	
+
 	// Some implementation details:
-	
+
 	// Which RE is this with-respect-to:
 	const RE *e;
-	
+
 	// Where are the dots:
-    // The indices in the BitVec's are the pre-order traversal orders of
+	// The indices in the BitVec's are the pre-order traversal orders of
 	// the nodes in *e.
 	// before indicates the nodes with a dot before them;
 	// after indicates the nodes with a dot after them.
@@ -143,3 +148,7 @@ inline int ISImpl::class_invariant() const
 		&& before.width() == e->num_operators()
 		&& after.width() == before.width());
 }
+
+
+
+#endif // !AUTOMATA_ISIMPL_H

@@ -9,7 +9,7 @@ dot is present). Two ISImpls are equal if these two BitVecs are equal, i.e. thei
 and after are equal. The member functions move_dots and D both make prefix traversals of
 the RE expression tree, keeping track of the prefix number of each subexpression.
  ************************************************************************/
-#include "stdafx.h"
+
 #include "ISImpl.h"
 
 // A special constructor :

@@ -3,7 +3,7 @@
  an integer representing the size of the array, and an integer representing the number of elements
  in the array that are in use. The member add_at is a good candidate for optimization.
  *******************************************************/
-#include "stdafx.h"
+
 #include "CRSet.h"
 
 // The singleton set :

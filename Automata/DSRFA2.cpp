@@ -5,7 +5,7 @@ It also contains an integer indicating if the abstract state is a final one.
 
 Performance: For higher performance in constructing a DFA, use class DSRFA instead.
 ************************************************************************************/
-#include "stdafx.h"
+
 #include "DSRFA2.h"
 
 // Use the LBFA interpretation of State's (Section 4.2 of the Taxonomy).
