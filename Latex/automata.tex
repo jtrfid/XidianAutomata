@@ -136,9 +136,9 @@ $T(p)\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(s,a,q) \in T\}$
 
 $p,q\in Q, a\in V$
 
-$T:Q\times V\to Q$
+$T:Q\times V\to \mathbb{P}(Q)$
 
-$T(p,a)={q}$
+$T(p,a)=\{q\}$
 
 \hfill
 
@@ -250,6 +250,20 @@ $E\circ F = \{(a,c)|(\exists b\in B),(a,b)\in E\land (b,c)\in F)\}$  $\hfill\squ
 	(E\circ F)(a) &=F(E(a)) \\
 	&=F(b) = c
 	\end{align*}
+	\begin{figure}[hbtp]
+		\begin{tikzpicture}
+		\matrix (a) [matrix of math nodes,row sep=3em,
+		column sep=3em, nodes in empty cells]
+		{ A &  B \\ 
+			&  C \\};
+		\path[>=latex,->] 
+		(a-1-1) edge node [auto] {$E$} (a-1-2)
+		edge node [auto,swap] {$f$} (a-2-2)
+		(a-1-2) edge node [auto] {$F$} (a-2-2)
+		;
+		\end{tikzpicture}
+		\caption{$E\circ F= (F\circ E)(a)=F(E(a)) = {c} =f(a)$}
+	\end{figure}
 \end{note}
 
 \begin{remark}
@@ -458,12 +472,12 @@ $X$与$S$中的元素一一对应。$X_{s_1}=d,X_{s_2}=a,X_{s_3}=c,X_{s_4}=f$\\
 $\Sigma$-同态: $(V,F) \Leftrightarrow (W,G)$,载体$(V,W)$和操作$(F,G)$一一对应。
 
 \noindent $V := \{re_1,re_2\}$ $RE$(正则表达式), $W := \{fa_1,fa_2\}$ $FA$(有限自动机)\\
-$F:$RG运算，二元: union(or),concat; 一元: star,plus,question; 常量:epsilon,empty,symbol\\ 
+$F:$RE运算，二元: union(or),concat; 一元: star,plus,question;\\ 常量:epsilon,empty,symbol\\ 
 $G:$FA运算, 同上\\
 $V_{s_1}=re_1,V_{s_2} =re_2; W_{s_1}=fa_1,W_{s_2} =fa_2$
 
 \begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
-\matrix (m) [matrix of math nodes, row sep=3em,column sep=3em]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=1em]
 { re_1 & re_2  & RE_{concat}(re_1,re_2)\\
   fa_1	& fa_2 & FA_{concat}(fa_1,fa_2)\\ };
 \path[->,font=\scriptsize]
