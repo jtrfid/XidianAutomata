@@ -6,7 +6,7 @@
 	\begin{itemize}
 		\item $Q$ is a finite set of states,
 		\item $V$ is an alphabet,
-		\item $T\in \mathbb{P}(Q\times V\times Q)$ is a transition relation,
+		\item $T\in \mathbb{P}(Q\times V\times Q)$ is a transition relation, 
 		\item $E\in\mathbb{P}(Q\times Q)$ is an $\epsilon$-transition relation
 		\item $S\subseteq Q$ is a set of start states, and
 		\item $F\subseteq Q$ is a set of final states.
@@ -297,9 +297,9 @@ $E\circ F = \{(a,c)|(\exists b\in B),(a,b)\in E\land (b,c)\in F)\}$  $\hfill\squ
 \begin{example}
 	$T^\ast\in Q\times Q\to \mathbb{P}(V^\ast)$,$\overleftarrow{L}_M,\overrightarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$. 
 	
-	$\overleftarrow{L}_M(q)=$\{所有开始状态到$q$状态的字符串集合\}, (从$q$往左看)
+	$\overleftarrow{L}_M(q)=$\{能引导M从开始状态到达q状态的字符串集合\}, (从$q$往左看)
 	
-	$\overrightarrow{L}_M(q)=$\{所有从$q$状态到接受状态的字符串集合\}, (从$q$往右看)
+	$\overrightarrow{L}_M(q)=$\{能引导M从开始状态到达q状态的字符串集合\}, (从$q$往右看)
 	
 	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
 	\node[state,initial] (s) {$s$};
@@ -463,30 +463,133 @@ e.g. $p=\{1,2\}\in Q_1\subseteq \mathbb{P}(Q_0),\overrightarrow{L}_{M_1}(p)=\ove
 
 \section{$\Sigma$-algebras and regular expressions}
 
+\paragraph{$\Sigma$-homomorphism}
+
 \noindent $X$集合中的元素与有序集$S$中的元素一一对应,称$X$是$S$-sorted.
 $S=\{1,3,7,9\},X=\{d,a,c,f\},s\in S,X_s\in X$\\
 $S$是有序的,$S_{s_1}=1,S_{s_2}=3,S_{s_3}=7,S_{s_4}=9$\\
 $X$与$S$中的元素一一对应。$X_{s_1}=d,X_{s_2}=a,X_{s_3}=c,X_{s_4}=f$\\
 
-\paragraph{$\Sigma$-homomorphism}
-$\Sigma$-同态: $(V,F) \Leftrightarrow (W,G)$,载体$(V,W)$和操作$(F,G)$一一对应。
 
-\noindent $V := \{re_1,re_2\}$ $RE$(正则表达式), $W := \{fa_1,fa_2\}$ $FA$(有限自动机)\\
-$F:$RE运算，二元: union(or),concat; 一元: star,plus,question;\\ 常量:epsilon,empty,symbol\\ 
-$G:$FA运算, 同上\\
-$V_{s_1}=re_1,V_{s_2} =re_2; W_{s_1}=fa_1,W_{s_2} =fa_2$
+$\Sigma$-homomorphism同态: $(V,F) \Leftrightarrow (W,G)$,载体$(V,W)$和操作$(F,G)$一一对应。\\
+$\Sigma$-homomorphism function: $h\in V\to W$\\
+$L(v)=(h\circ f)(v)=h(f(v))=g(w)=L_{reg}=L_V=L_W$ \\
+$L(v)=(g\circ h)(v)=g(h(v))=g(w)=L_{reg}=L_V=L_W$ \\
+$\Rightarrow h(f(v)) = g(h(v))$
 
+\begin{figure}[htbp]
 \begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
-\matrix (m) [matrix of math nodes, row sep=2em,column sep=1em]
-{ re_1 & re_2  & RE_{concat}(re_1,re_2)\\
-  fa_1	& fa_2 & FA_{concat}(fa_1,fa_2)\\ };
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ V     & h(v)   \\
+  f(v) & g(h(v))\\ };
 \path[->,font=\scriptsize]
-(m-1-1) edge node[descr] {$ h_{s_1} $} (m-2-1)
-(m-1-2) edge node[descr] {$ h_{s_2} $} (m-2-2)
-(m-1-3) edge node[auto,swap] {$ h_{s} $} (m-2-3)
+(m-1-1) edge node[auto] {$h$} (m-1-2)
+(m-1-1) edge node[auto] {$L$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$f$} (m-2-1)
+(m-1-2) edge node[auto] {$g$} (m-2-2)
+(m-2-1) edge node[auto] {$h$} (m-2-2)
 ;
 \end{tikzpicture}
+\caption{$(h\circ f)(v)=(g \circ h)(v) \Rightarrow h(f(v))=g(h(v))$}
+\end{figure}
 
+\begin{figure}[htbp]
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+	{ (e_1,e_2)     & (h(e_1),h(e_2))   \\
+	  f(e_1,e_2)\circ & g(h(e_1),h(e_2))\\ };
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$h$} (m-1-2)
+	(m-1-1) edge node[auto] {$L$} (m-2-2)
+	(m-1-1) edge node[auto,swap] {$f$} (m-2-1)
+	(m-1-2) edge node[auto] {$g$} (m-2-2)
+	(m-2-1) edge node[auto] {$h$} (m-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$(h\circ f)(e_1,e_2)=(g \circ h)(e_1,e_2) \Rightarrow h(f(e_1,e_2))=g(h(e_1),h(e_2))$}
+\end{figure}
+
+\begin{example}
+$\Sigma=(S,\Gamma)$, sort: $expr$, $\Gamma :=\{a,plus\},a$ is a constant. operator $plus: expr\times expr\to expr$.\\
+$\Sigma-$term algebra: $plus[a,a],plus[plus[a,plus[a,a]],a]$\\
+$\Sigma-$algebra $X$,carrier set: natural number, constant 0. operator $f_{plus}(x,y)=(x\quad max\quad y) +1$\\
+$\Sigma$-homomorphism function("expression tree height"): $h_expr:\Sigma-$term algebra $\to X$\\
+\begin{align*}
+(h_{expr}\circ plus)(s)&=(f_{plus} \circ h_{expr})(s) \\
+h_{expr}(plus(s))&=f_{plus}(h_{expr}(s)) \\
+left: s\leftarrow e,f\quad &\Rightarrow \quad plus[e,f]\\
+right: s\leftarrow e,f\quad &\Rightarrow \quad f_{plus}(h_{expr}(e),h_{expr}(f)\\
+h_{expr}(plus(e,f))&=f_{plus}(h_{expr}(e),h_{expr}(f))\\
+&=(h_{expr}(e)\quad max \quad h_{expr}(f))+1)\\
+and,&\\
+h_{expr}(a)&=0
+\end{align*}
+
+\begin{figure}[htbp]
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=3em]
+{ S     & X    \\
+  \circ & \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$h_{expr}$} (m-1-2)
+(m-1-1) edge node[auto] {$L$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$plus$} (m-2-1)
+(m-1-2) edge node[auto] {$f_{plus}$} (m-2-2)
+(m-2-1) edge node[auto] {$h_{expr}$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$(h_{expr}\circ plus)(s)=(f_{plus} \circ h_{expr})(s) \Rightarrow
+	h_{expr}(plus(s))=f_{plus}(h_{expr}(s))$}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=3em]
+	{ (e,f)     & (h_{expr}(e),h_{expr}(f))    \\
+	  plus[e,f] & f_{plus}(h_{expr}(e),h_{expr}(f))\\ };
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$h_{expr}$} (m-1-2)
+	(m-1-1) edge node[auto] {$L$} (m-2-2)
+	(m-1-1) edge node[auto,swap] {$plus$} (m-2-1)
+	(m-1-2) edge node[auto] {$f_{plus}$} (m-2-2)
+	(m-2-1) edge node[auto] {$h_{expr}$} (m-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$(h_{expr}\circ plus)(e,f)=(f_{plus} \circ h_{expr})(e,f) \Rightarrow
+		h_{expr}(plus[e,f])=f_{plus}(h_{expr}(e),h_{expr}(f))$}
+\end{figure}
+
+\end{example}
+
+\begin{definition}[Regular expressions]
+	We define regular expressions (over alphabet $V$) as the $\Sigma -$term algebra over signature $\Sigma=(S,O)$ where
+	\begin{itemize}
+		\item $S$ consists of a single sort Reg (for regular expression), and
+		\item $O$ is a set of several constans: $\epsilon,\emptyset,a_1,a_2,\dots,a_n$; $Reg$ (where $V=\{a_1,a_2,\dots,a_n\}$) and five operators $.:Reg\times Reg\to Reg$ (the dot operator), $\cup : Reg\times Reg\to Reg, \ast : Reg\to Reg,+:Reg\to Reg,\text{and} ?:Reg\to Reg$.
+	\end{itemize}
+\end{definition}
+
+$V := RE$(正则表达式), $W := FA$(有限自动机)\\
+$\Sigma$-homomorphism function: $f\in RE\to FA$ \\
+$F:RE_{opt}$运算，二元: union(or),concat; 一元: star,plus,question;\\ 常量:epsilon,empty,symbol\\ 
+$G:FA_{opt}$运算, 同上\\
+
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & FA      & & (re_1,re_2) & (f(re_1),f(re_2))\\
+     & L_{reg} & & RE_{opt}(re_1,re_2) & FA_{opt}(f(re_1),f(re_2))\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$f$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$L_{RE}$} (m-2-2)
+(m-1-2) edge node[auto] {$L_{FA}$} (m-2-2)
+
+(m-1-4)  edge node[auto] {$f$} (m-1-5)
+(m-1-4) edge node[auto,swap] {$$} (m-2-5)
+(m-1-4) edge node[auto,swap] {$RE_{opt}$} (m-2-4)
+(m-1-5) edge node[auto] {$FA_{opt}$} (m-2-5)
+(m-2-4) edge node[auto] {$f$} (m-2-5)
+;
+\end{tikzpicture}
 
 \begin{lstlisting}
 //Sigma.h
@@ -506,6 +609,44 @@ Reg<T>& plus();
 Reg<T>& question();
 }
 \end{lstlisting}
+
+\begin{definition}[The $nullable$ $\Sigma-$algebra]
+	We define the $nullable$ $\Sigma-$algebra as follows:
+	\begin{itemize}
+	\item The carrier set is $\{true,false\}$.
+	\item $a\in V,E_1,E_2\in RE, \epsilon\in E_1^\ast,\epsilon\in E_1^?,\epsilon\notin E_1^+$
+		\begin{align*}
+			nullable(\epsilon) &= true \\
+			nullable(\emptyset)&=nullable(a)=false \\
+			nullable(E_1\lor E_2) &=nullable(E_1\cup E_2)\\
+			nullable(E_1\land E_2) &=nullable(E_1\cdot E_2) \\
+			nullable(E_1^\ast) &= true\\
+			nullable(E_1^+) &=nullable(E_1) \\
+			nullable(E_1^?) &=true\\
+			nullable(E_1) &=
+			\begin{cases}
+				true   & \epsilon\in E_1\\
+				false  & \epsilon\notin E_1
+			\end{cases}
+		\end{align*} 
+	\end{itemize}
+\end{definition}
+
+
+\section{Constructing $\epsilon$-lookahead automata}
+
+\begin{figure}[htbp]
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (s)  {};
+\node[state] (f)  [right of=s] {};
+\path 
+(s) edge [bend left] node {$a(First(E))$} (f)
+(s) edge [bend right,swap] node {$L$(if $\epsilon\in L_{RE}(E)$)} (f)
+;
+\end{tikzpicture}
+\caption{Lookahead function:$look(E,L)=First\cup\text{ if }(Null(E))\text{ then }L \text{ else } \emptyset \text{ fi }$}
+\end{figure}
 
 \section{Others}
 
