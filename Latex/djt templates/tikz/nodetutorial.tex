@@ -7,7 +7,7 @@
 \usepackage[version=0.96]{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri}
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
 \usepackage{verbatim}
 
 \begin{document}
@@ -64,10 +64,9 @@ This example is from the tutorial: A Petri-net for Hagen.
 
   \begin{scope}[xshift=6cm]
     % Second net
-    \node [place,tokens=1]
-                      (w1')                                                {};
-    \node [place]     (c1') [below of=w1']                                 {};
-    \node [red place] (s1') [below of=c1',xshift=-5mm,label=left:$s$]      {};
+    \node [place,tokens=1] (w1')            {};
+    \node [place]     (c1') [below of=w1']  {};
+    \node [red place] (s1') [below of=c1',xshift=-5mm,label=left:$s$]  {};
     \node [red place,tokens=3]
                       (s2') [below of=c1',xshift=5mm,label=right:$\bar s$] {};
     \node [place]     (c2') [below of=s1',xshift=5mm]                      {};

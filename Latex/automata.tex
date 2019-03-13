@@ -128,9 +128,9 @@ for example, the function $T \in Q \to \mathbb{P}(V \times Q)$ is defined as $T(
 
 \hfill
 
-$T \in \mathbb{P}(Q \times V \times Q), T = \{(s,a,q) \}$
+$T \in \mathbb{P}(Q \times V \times Q), T = \{(p,a,q) \}$
 
-$T(p)\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(s,a,q) \in T\}$
+$T\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(p,a,q) \in T\}$
 
 \hfill
 
@@ -140,13 +140,20 @@ $T:Q\times V\to \mathbb{P}(Q)$
 
 $T(p,a)=\{q\}$
 
+
 \hfill
 
-$Q_{map}:\mathbb{P}(Q\times V), Q_{map} = \{(q,a): (s,a,q) \in T\}$
+According to Convention A.4 (Tuple projection):\\
+$T \in \mathbb{P}(Q \times V \times Q), T = \{(p,a,q) \}$\\
+$\pi_2(T)=\{a|(p,a,q)\in T\}, \bar{\pi}_2(T)=\{(p,q)|(p,a,q)\in T\}$\\
+$T\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(p,a,q) \in T\}$\\
+$\pi_2(T(p))=\{q|(p,a,q)\in T\}, \bar{\pi}_2(T(p))=\{a|(p,a,q)\in T\}$\\
+$Q_{map}:Q\times V,T(p) = \{(a,q):(p,a,q) \in T\}$\\
+$Q_{map}(q)=\{a\}$\\
+$Q_{map}:Q\times V,T \in \mathbb{P}(Q \times V \times Q$\\
+$\pi_1(T)=\{p|(p,a,q)\in T\}, \bar{\pi}_1(T)=\{(a,q)|(p,a,q)\in T\}$\\
+$Q_{map}=(\bar{\pi}_1(T))^R=\{(a,q)|(p,a,q)\in T\}^R=\{(q,a)|(p,a,q)\in T\}$
 
-$Q_{map}(q) = \{a: (s,a,q)\in T\}$
-
-${Q_{map}}^{-1}: V \nrightarrow \mathbb{P}(Q), {Q_{map}}^{-1} = \{(a,q): (s,a,q) \in T\}$
 
 \section{Properties of finite automata}
 
@@ -513,7 +520,7 @@ $\Rightarrow h(f(v)) = g(h(v))$
 $\Sigma=(S,\Gamma)$, sort: $expr$, $\Gamma :=\{a,plus\},a$ is a constant. operator $plus: expr\times expr\to expr$.\\
 $\Sigma-$term algebra: $plus[a,a],plus[plus[a,plus[a,a]],a]$\\
 $\Sigma-$algebra $X$,carrier set: natural number, constant 0. operator $f_{plus}(x,y)=(x\quad max\quad y) +1$\\
-$\Sigma$-homomorphism function("expression tree height"): $h_expr:\Sigma-$term algebra $\to X$\\
+$\Sigma$-homomorphism function("expression tree height"): $h_{expr}:\Sigma-$term algebra $\to X$\\
 \begin{align*}
 (h_{expr}\circ plus)(s)&=(f_{plus} \circ h_{expr})(s) \\
 h_{expr}(plus(s))&=f_{plus}(h_{expr}(s)) \\
@@ -648,6 +655,179 @@ Reg<T>& question();
 \caption{Lookahead function:$look(E,L)=First\cup\text{ if }(Null(E))\text{ then }L \text{ else } \emptyset \text{ fi }$}
 \end{figure}
 
+
+\section{Towards the Berry-Sethi construction}
+
+\begin{figure}[htbp]
+	$\epsilon\in L_{FA}(M)\equiv s\in F$ \\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm] 
+	\node[state,initial,accepting] (s)  {$s$};
+	\path 
+	;
+	\end{tikzpicture}
+	\caption{$\epsilon\in L_{FA}(M)\equiv s\in F$}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (s3)  {$q$};
+	\node[state] (s1)  [above left of=s3] {$q_1$};
+	\node[state] (s2)  [below left of=s3] {$q_2$};
+	\path 
+	(s1) edge [] node {$a$} (s3)
+	(s2) edge [] node {$a$} (s3)
+	;
+	\end{tikzpicture}
+	\caption{All in-transitions to a state are on the same symbol (in V)}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}
+	\matrix (a) [matrix of math nodes,row sep=2em,
+	column sep=3em, nodes in empty cells]
+	{ q_1 & q_3  \\ 
+	  q_2 & q_4 \\};
+	\path[>=latex,->] 
+	(a-1-1) edge node [auto] {$v_1$} (a-1-2)
+	edge node [auto] {$v_2$} (a-2-2)
+	(a-2-1) edge node [auto] {$v_2$} (a-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$q_4(in-transition)=\{(q_1,b),(q_2,b)\},q_1(out-transition)=\{(a,q_3),(b,q_4)\}$}
+\end{figure}
+
+\begin{tabular}{|c|c|c|}
+	\hline 
+	a & b & c \\ 
+	\hline 
+	\multicolumn{2}{|c|}{} &  \\ 
+	\hline 
+\end{tabular} 
+\begin{figure}[htbp] 
+	\begin{tikzpicture}
+	\matrix (a) [matrix of math nodes,row sep=2em,
+	column sep=3em, nodes in empty cells]
+	{ q_1 & v_1  & & q_1 & v_1 & & q_3 & q_1\\ 
+	  q_2 & v_2 & & q_2 & v_2& & q_4 & q_2\\
+    };
+	\path[>=latex,->] 
+	(a-1-1) edge node [auto] {} (a-1-2)
+	(a-2-1) edge node [auto] {} (a-2-2)
+	(a-1-5) edge node [auto] {} (a-1-4)
+	(a-2-5) edge node [auto] {} (a-1-4)
+	(a-2-5) edge node [auto] {} (a-2-4)
+	(a-1-7) edge node [auto] {$v_1$} (a-1-8)
+	(a-1-7) edge node [auto] {$v_2$} (a-2-8)
+	(a-2-7) edge node [auto] {$v_2$} (a-2-8)
+	;
+	\end{tikzpicture}
+	\\
+	(a) $Q\to V$一一对应关系\quad (b) $V \nrightarrow \mathbb{P}(Q)$一对多的关系\quad (c) 物理含义,进入状态的字母是唯一的。\\
+	$Q_{map}(q_1)=\{v_1\},Q_{map}^{-1}(v_1)=\{q_1\},(q_3,v_1,q_1)\in T$\\
+	$Q_{map}(q_2)=\{v_2\},Q_{map}^{-1}(v_2)=\{q_2\},(q_3,v_2,q_2)\in T,(q_4,v_2,q_2)\in T$
+	
+	\caption{$Q_{map},Q_{map}^{-1}$}
+\end{figure}
+
+\begin{definition}[RFA] 
+	A reduced FA (RFA) is a 7-tuple $(Q,V,follow,first,last,null,Q_{map})$ where
+	\begin{itemize}
+		\item $Q$ is a finite set of states,
+		\item $V$ is an alphabet,
+		\item $follow\in \mathbb{P}(Q\times Q)$ is a follow relation (relpace the transition relation:  $T\in \mathbb{P}(Q\times V\times Q)$) , 
+		\item $first\subseteq Q$ is a set of initial states (replacing T(s) in an LBFA),
+		\item $null\in \{true,false\}$ is a Boolean value (encoding $s\in F$ in an LBFA,$\epsilon\in L_{FA}(M)\equiv s\in F$), and
+		\item $Q_{map}\in\mathbb{P}(Q\times V),Q_{map}(q)=\{v\},one\to one.$ maps
+		each state to exactly one symbol. i.e. $Q_{map}\in Q\to V$.\\
+		$Q_{map}(q) = \{a | (p,a,q) \in T\}$表示(q,v)的一一对应关系。物理含义是进入$q$状态的唯一字母$a$\\	
+	    class RFA中表示its inverse: $Q_{map}^{-1}: V \nrightarrow \mathbb{P}(Q),\text{部分函数} Q_{map}^{-1}(a) = \{q|(p,a,q) \in T\}$\\
+	\end{itemize}   $\hfill\square$
+\end{definition}
+
+\begin{lstlisting}
+class RFA : virtual public FAabs{
+// Q is a finite set of states
+StatePool Q;  
+  
+// first(subset Q) is a set of initial states(replacing T(s) in an LBFA),
+// last(subset Q) is a set of final states,
+StateSet first, last;
+
+// Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V, 
+// and its inverse as Qmap^-1 in V --/-->P(Q)[the set of all partial functions from V to P(Q)]).
+// Trans用struct TransPair 表示:T(a) = { q | (p,a,q) in T },
+// 因此这里表示Qmap的inverse，V --> P(Q)
+Trans Qmap_inverse;
+
+// follow(in P(Q x Q)) is a follow relation(replacing the transition relation),
+StateRel follow;
+
+// null (in {true,false}) is a Boolean value (encoding s in F in an LBFA)
+// if epsilon属于LBFA, true; final set中包含s
+// {true, flase} == > {1, 0}
+int Nullable;
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+// V --> Q
+struct TransPair {
+	CharRange transition_label;
+	State transition_destination;
+}
+
+class TransImpl { TransPair *data; }
+class Trans:protected TransIml { }
+
+}
+\end{lstlisting}
+
+
+\begin{figure}[htbp] 
+$rfa\circ R(E) = R\circ rfa(E)$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ E & RFA \\
+  \circ	&  \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$$} (m-2-2)
+(m-1-2) edge node[auto] {$R$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$R$} (m-2-1)
+(m-2-1) edge node[auto,swap] {$rfa$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$rfa\circ R(E) = R\circ rfa(E)$}
+\end{figure}
+
+\begin{definition} (Dual of a function) 
+We assume two sets $A$ and $B$ whose reversal operators are $R$ and $R^\prime$ respectively. Two functions, $f\in A\to B$ and $f_d \in A\to B$ are one another's dual if and only if
+
+$f(a)=(f_d(a^R))^{R^\prime}$
+
+In some cases we relax the equality to isomorphism (when isomorphism is defined on $B$). $\hfill\square$
+\end{definition}
+
+\begin{figure}[htbp] 
+$f_d\circ R(a) = R^\prime \circ f(a) \Rightarrow f_d(R(a)) = R^\prime(f(a))\Rightarrow$\\
+$f_d(a^R) = (f(a))^{R^\prime} \Rightarrow f(a)=(f_d(a^R))^{R^\prime}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ A & B \\
+ \circ	&  \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$f$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$$} (m-2-2)
+(m-1-2) edge node[auto] {$R^\prime$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$R$} (m-2-1)
+(m-2-1) edge node[auto,swap] {$f_d$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$f(a)=(f_d(a^R))^{R^\prime})$}
+\end{figure}
+
 \section{Others}
 
 \begin{definition}[Prefix-closure\cite{Chrison2007}]
@@ -682,6 +862,80 @@ Sometimes derivatives are written as $D_{w}A$ or as $\frac{dA}{dw}$. Right deriv
 \begin{example}
 $A = \{a,aab,baa\},a^{-1}A = D_{a}A = \frac{dA}{da} =\{\epsilon,ab,\emptyset\} = \{\epsilon,ab\}$ \hfill$\square$ 
 \end{example}
+
+\begin{figure}[htbp] 
+$L = \{a,aab,baa\}$
+\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state,initial] (q0)  {};
+\node[state,accepting] (q1) [right of=q0] {};
+\node[state]           (q2) [right of=q1] {};
+\node[state,accepting] (q3) [right of=q2] {};
+\node[state]           (q4) [below of=q1] {};
+\node[state]           (q5) [below of=q2] {};
+\path 
+(q0) edge node {$a$} (q1)
+(q1) edge node {$a$} (q2)
+(q2) edge node {$b$} (q3)
+(q0) edge [swap] node {$b$} (q4)
+(q4) edge [swap] node {$a$} (q5)
+(q5) edge [swap] node {$a$} (q3)
+;
+\end{tikzpicture}
+\\
+$a^{-1}L =\{\epsilon,ab,\emptyset\} = \{\epsilon,ab\}$ \\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[initial,state,accepting] (q6) {};
+\node[state]           (q7) [right of=q6] {};
+\node[state,accepting] (q8) [right of=q7] {};
+\path 
+(q6) edge node {$a$} (q7)
+(q7) edge node {$b$} (q8)
+;
+\end{tikzpicture}
+\caption{$a^{-1}L$}
+\end{figure}
+
+\begin{figure}[htbp] 
+	$L = \{a,aab,baa\}$
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,initial] (q0)  {};
+	\node[state,accepting] (q1) [right of=q0] {};
+	\node[state]           (q2) [right of=q1] {};
+	\node[state,accepting] (q3) [right of=q2] {};
+	\node[state]           (q4) [below of=q1] {};
+	\node[state]           (q5) [below of=q2] {};
+	\path 
+	(q0) edge node {$a$} (q1)
+	(q1) edge node {$a$} (q2)
+	(q2) edge node {$b$} (q3)
+	(q0) edge [swap] node {$b$} (q4)
+	(q4) edge [swap] node {$a$} (q5)
+	(q5) edge [swap] node {$a$} (q3)
+	;
+	\end{tikzpicture}
+	\\
+	$V^{-1}L =\{\epsilon,aa,ab\},V\in\{a,b\}$ \\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,accepting,initial] (q1) {};
+	\node[state]           (q2) [right of=q1] {};
+	\node[state,accepting] (q3) [right of=q2] {};
+	\node[state,initial]   (q4) [below of=q1] {};
+	\node[state]           (q5) [below of=q2] {};
+	\path 
+	(q1) edge node {$a$} (q2)
+	(q2) edge node {$b$} (q3)
+	(q4) edge [swap] node {$a$} (q5)
+	(q5) edge [swap] node {$a$} (q3)
+	;
+	\end{tikzpicture}
+	\caption{$V^{-1}L$}
+\end{figure}
 
 \begin{example}
 	$L = \{ba,baa,baab,ca\}, w = \{ba\},$
