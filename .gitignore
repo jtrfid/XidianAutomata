@@ -309,6 +309,7 @@ $RECYCLE.BIN/
 *.fls
 *.out
 *.toc
+*.synctex.gz
 
 ## Auxiliary and intermediate files from other packages:
 

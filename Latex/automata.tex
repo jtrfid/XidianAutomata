@@ -828,6 +828,91 @@ $f_d(a^R) = (f(a))^{R^\prime} \Rightarrow f(a)=(f_d(a^R))^{R^\prime}$\\
 \caption{$f(a)=(f_d(a^R))^{R^\prime})$}
 \end{figure}
 
+\section{The Berry-Sethi construction}
+
+\begin{figure}[htbp] 
+$C_{\cdot,RFA}(rfa(\$),rfa(E)) = C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=L_{RE}(\$E)=\{\$\}L_{RE}(E)$\\
+$covert$ 简单剔除$E$的第一个字符。$L_{FA}\circ convert\circ rfa(E) = V^{-1}L_{RE}(E)$\\
+$convert(C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=rfa(E)$\\
+\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & RFA      & & (\$,E) & (rfa(\$),rfa(E))\\
+	& L_{reg} & & \$ \cdot E & rfa(\$) \cdot rfa(E)\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$L_{RE}$} (m-2-2)
+(m-1-2) edge node[auto] {$L_{FA}$} (m-2-2)
+
+(m-1-4)  edge node[auto] {$rfa$} (m-1-5)
+(m-1-4) edge node[auto,swap] {$$} (m-2-5)
+(m-1-4) edge node[auto,swap] {$RE {\cdot}$} (m-2-4)
+(m-1-5) edge node[auto] {$FA {\cdot}$} (m-2-5)
+(m-2-4) edge node[auto] {$rfa$} (m-2-5)
+;
+\end{tikzpicture}
+\caption{$convert(C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=rfa(E)$}
+\end{figure}
+
+Algorithm 2.45(impements $useful_s\circ subset$):\\
+initial: $D=\emptyset,U={S}$\\
+
+$d:=\bigcup_{q\in u}T(q,a)$\\
+%$u=\{q_1,q_2\},d=\{T(q_1,a),T(q_2,a)\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{q_1,q_2\} & \{T(q_1,a),T(q_2,a)\} \\
+\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+
+using Algorithm 2.45 for decode(RFA$\to$ LBFA)\\
+$d:=\bigcup\{q|q\in first\land Q_{map}(q)=a\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{s\} & \{d\} \\
+	\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+note:\\
+$d:=\bigcup_{p\in u}\{q|(p,q)\in follow\land Q_{map}(q)=a\}$\\
+$u=\{p_1,p_2\},d=\{q_1,q_2\},$\\
+$follow(p_1)=q_1,follow(p_2)=q_2,Q_{map}(q_1)=Q_{map}(q_2)=a$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{p_1,p_2\} & \{q_1,q_2\} \\
+	\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+\section{The McNaughton-Yamada-Clushkov construction}
+
+\begin{figure}[htbp] 
+$RE\to {[DFA]}_{\cong}$\\
+$MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & {[RFA]}_{\cong} & {[NFA]}_{\cong} \\
+	&    {[DFA]}_{\cong} & P(Q)\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-2) edge node[auto] {$decode$} (m-1-3)
+(m-1-3) edge node[auto] {$subset$} (m-2-3)
+(m-2-3) edge node[auto,swap] {$useful_s$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$}
+\end{figure}
+
+
 \section{Others}
 
 \begin{definition}[Prefix-closure\cite{Chrison2007}]
