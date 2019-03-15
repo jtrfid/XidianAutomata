@@ -901,15 +901,37 @@ $MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$\\
 \begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
 \matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
 { RE & {[RFA]}_{\cong} & {[NFA]}_{\cong} \\
-	&    {[DFA]}_{\cong} & P(Q)\\ };
+  {[DFA]}_{\cong} & {[DFA]}_{\cong} & P(Q)\\ };
 \path[->,font=\scriptsize]
 (m-1-1) edge node[auto] {$rfa$} (m-1-2)
 (m-1-2) edge node[auto] {$decode$} (m-1-3)
 (m-1-3) edge node[auto] {$subset$} (m-2-3)
 (m-2-3) edge node[auto,swap] {$useful_s$} (m-2-2)
+(m-2-2) edge node[auto,swap] {$Complete$} (m-2-1)
 ;
 \end{tikzpicture}
 \caption{$MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$}
+\end{figure}
+
+\section{The dual of the Berry-Sethi construction}
+
+\begin{figure}[htbp] 
+	Dual construction: $R\circ f\circ R$ \qquad\qquad $f:FA$ construction \\
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+	{ RE & RE & FA & FA & & RE & FA\\
+	     &    &    &    & &    & L_{reg}\\};
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$R$} (m-1-2)
+	(m-1-2) edge node[auto] {$f$} (m-1-3)
+	(m-1-3) edge node[auto] {$R$} (m-1-4)
+	
+	(m-1-6) edge node[auto] {$f$} (m-1-7)
+	(m-1-6) edge node[auto,swap] {$L_{RE}$} (m-2-7)
+	(m-1-7) edge node[auto] {$L_{FA}$} (m-2-7)
+	;
+	\end{tikzpicture}
+	\caption{Dual construction: $R\circ f\circ R$}
 \end{figure}
 
 
