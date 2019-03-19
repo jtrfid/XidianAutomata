@@ -934,6 +934,180 @@ $MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$\\
 	\caption{Dual construction: $R\circ f\circ R$}
 \end{figure}
 
+$R\circ R$ is the identity $\Rightarrow R\circ R(A) = A$
+
+\section{Algorithm 4.52 (Aho-Sethi-Ullman)}
+
+note:\\
+$d:=\bigcup_{q\in u}\{follow(q)|Q_{map}(q)=a\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ q & follow(q) \\
+	\\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+note:\\
+$T_0(b)=(p,p^\prime),T_1(b)=(q,q^\prime)$\\
+$\pi_2(T_0(b))=p^\prime,\pi_2(T_1(b))=q^\prime$\\
+$T_0(s_0,a)=p,T_1(s_1,a)=q$\\
+$Q^\prime=\{q_0\}\cup (\bigcup_{b\in V)}\{\pi_2(T_0(b)\times \pi_2(T_1(b))\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=1em,column sep=2em]
+{ M_0: s_{0} & p & p^{\prime} \\
+  M_1: s_1 & q & q^\prime \\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+(m-2-1) edge node[auto] {$a$} (m-2-2)
+(m-1-2) edge node[auto] {$b$} (m-1-3)
+(m-2-2) edge node[auto] {$b$} (m-2-3)
+;
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+\node[state]         (q0) {$q_0$};
+\path 
+(q0) edge  [loop above]  node {} (q0)
+;
+\end{tikzpicture}
+
+\begin{figure}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+\node[state,initial] (s) {$s$};
+\node[state] (p) [right of=s] {$p$};
+\node[state] (q) [right of=p] {$q$};
+\path 
+(s) edge  node {$\overleftarrow{L}(p)$} (p)
+(p) edge  node {$a$} (q)
+;
+\end{tikzpicture}
+\caption{text111}
+\end{figure}
+
+\begin{figure}
+	$T([w]_E,a)=\{[wa]_E\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+	\node[state,initial] (s) {$s$};
+	\node[state] (p) [right of=s] {$[w]_E$};
+	\node[state] (q) [right of=p] {$[wa]_E$};
+	\path 
+	(s) edge  node {$w$} (p)
+	(p) edge  node {$a$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$T([w]_E,a)=\{[wa]_E\}$}
+\end{figure}
+
+\begin{figure}
+	$T([w]_{R_L},a)=\{[wa]_{R_L}\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+	\node[state,initial] (s) {$s$};
+	\node[state] (p) [right of=s] {$[w]_{R_L}$};
+	\node[state] (q) [right of=p] {$[wa]_{R_L}$};
+	\path 
+	(s) edge  node {$w$} (p)
+	(p) edge  node {$a$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$T([w]_{R_L},a)=\{[wa]_{R_L}\}$}
+\end{figure}
+
+\begin{figure}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (s) {$$};
+	\node[state] (p) [right of=s] {$$};
+	\node[state] (q) [right of=p] {$$};
+	\path 
+	(s) edge  node {$a$} (p)
+	(p) edge  node {$b$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$a,b\in V,(a,b)\in Follow(E)$}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (s) {$s$};
+\node[state] (p) [right of=s] {$a$};
+\node[state] (q) [right of=p] {$b$};
+\path 
+(s) edge  node {$a$} (p)
+(p) edge  node {$b$} (q)
+;
+\end{tikzpicture}
+\caption{$BSenc(E)$}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=1em,column sep=2em]
+{  \circ & \circ q_0 \\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+\caption{text}
+\end{figure}
+
+notes:\\
+$[V^\ast]_{R_L} = V^\ast / R_L$ 表示右不变的等价关系，每个等价关系对应一个状态。\\
+$[\epsilon]_{R_L}$ 表示$\epsilon$所在的等价类对应的状态,就是开始状态\\
+\\
+$[V^\ast]_{E} = V^\ast / R_E$ 表示右不变的等价关系，每个等价关系对应一个状态。\\
+$[\epsilon]_{E}$ 表示$\epsilon$所在的等价类对应的状态,就是开始状态
+
+\begin{align*}
+	First((a\cup \epsilon)b^\ast)&=(Defn.\quad First(E\cdot F),\epsilon \in (a \cup \epsilon),Null(E)=true)\\
+	&=(\Rightarrow First(E)\cup First(F))\\
+	&=First(a\cup \epsilon)\cup First(b^\ast)\\
+	&=(Defn.\quad First(E\cup F)=First(E)\cup First(F),First(E^\ast)=First(E))\\
+	&=(First(a)\cup First(\epsilon))\cup First(b)\\
+	&=\{a\cup \emptyset\}\cup \{b\}=\{a,b\} 
+\end{align*}
+
+\begin{align*}
+First((a\cup \epsilon)b^\ast)&=First(ab^\ast \cup \epsilon b^\ast)\\
+&= (Defn.\quad Fitst(E\cup F) = First(E)\cup First(F))\\
+&=First(ab^\ast) \cup First(b^\ast)\\
+&=(Defn.\quad First(E\cdot F),\epsilon \notin \{a\},Null(E)=false\Rightarrow First(ab^\ast)=First(a)\cup \emptyset = \{a\})\\
+&=First(a)\cup First(b)=\{a,b\} 
+\end{align*}
+
+\begin{align*}
+Last((a\cup \epsilon)b^\ast)&=(Defn.\quad Last(E\cdot F),\epsilon \in (a \cup \epsilon),Null(E)=true)\\
+&=(\Rightarrow Last(E)\cup Last(F))\\
+&=Last(a\cup \epsilon)\cup Last(b^\ast)\\
+&=(Defn.\quad Last(E\cup F)=Last(E)\cup Last(F),Last(E^\ast)=Last(E))\\
+&=(Last(a)\cup Last(\epsilon))\cup Last(b)\\
+&=\{a\cup \emptyset\}\cup \{b\}=\{a,b\} 
+\end{align*}
+
+\begin{align*}
+Null((a\cup \epsilon)b^\ast)&=(Defn.\quad Null(E\cdot F)=Null(E\land F)),\epsilon\in L_{RE} \equiv Null(E))\\
+&=Null(a\cup \epsilon) \land Null(b^\ast)\\
+&=(Defn.\quad Null(E\cup F) = Null(E\lor F),Null(E^\ast)=true)\\
+&=(Null(a)\lor Null(\epsilon)) \land true\\
+&=true \land true = true
+\end{align*}
+
+\begin{align*}
+	Last(a\cup \epsilon) &= Last(a) \cup Last(\epsilon)=\{a\} \cup \emptyset=\{a\}\\
+	First(b^\ast) &= First(b) = \{b\}\\
+	Follow(a\cup \epsilon)&=Follow(a)\cup Follow(\epsilon)=\emptyset \cup \emptyset = \emptyset\\
+	Follow(b^\ast)&=Follow(b)\cup (Last(b)\times First(b)))=\emptyset\cup \{(b,b)\}=\{(b,b)\}\\
+\end{align*}
+\begin{align*}
+Follow((a\cup \epsilon)b^\ast)&=Follow(a\cup\epsilon)\cup Follow(b^\ast)\cup (Last(a\cup\epsilon)\times First(b^\ast))\\
+&=\emptyset\cup \{(b,b)\}\cup\{(\{a\}\times \{b\})\}\\
+&=\{(b,b)\}\cup\{(a,b)\}\\
+&=\{(a,b),(b,b)\}
+\end{align*}
+
 
 \section{Others}
 

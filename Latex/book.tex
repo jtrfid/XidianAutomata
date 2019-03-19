@@ -48,6 +48,7 @@
 % figure目录
 \graphicspath{{fig/},} 
 
+
 %%%% 插入程序代码
 \usepackage{listings}
 \usepackage{xcolor}
@@ -65,6 +66,9 @@
 	breaklines=true,  % automatic line breaking only at whitespace
 } 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%书签
+\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
 
 \newtheorem{convention}{Convention} 
 
@@ -109,11 +113,12 @@
 %\include{chapter}   % Springer's sample chapter
 %\include{chapter_1} % Zhiwu Li
 %\include{appendix}  % appendix of your book in the Springer layout.
+%\include{supervisor}
 
 %\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\include{glossary}
 %\include{solutions} % Solutions
-\printindex
+%\printindex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
