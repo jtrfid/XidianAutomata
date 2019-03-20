@@ -1,129 +1,1190 @@
-\documentclass[graybox,envcountchap,sectrefs]{svmono1}
+\chapter{automata abstract}
 
-% choose options for [] as required from the list
-% in the Reference Guide
+\section{Finite automata}
+\begin{definition}[Finite automation]
+	A finite automaton(an FA) is a 6-tuple $(Q,V,T,E,S,F)$ where
+	\begin{itemize}
+		\item $Q$ is a finite set of states,
+		\item $V$ is an alphabet,
+		\item $T\in \mathbb{P}(Q\times V\times Q)$ is a transition relation,
+		\item $E\in\mathbb{P}(Q\times Q)$ is an $\epsilon$-transition relation
+		\item $S\subseteq Q$ is a set of start states, and
+		\item $F\subseteq Q$ is a set of final states.
+	\end{itemize}   $\hfill\square$
+\end{definition}
 
-\usepackage{mathptmx}
-\usepackage{helvet}
-\usepackage{courier}
-\usepackage{amsmath}
-\usepackage{ctex}
-\usepackage{amssymb}
-\usepackage{mathrsfs}
-\usepackage{amsfonts}
-%
-\usepackage{type1cm}
+\begin{lstlisting}
+class FA:virtual public FAabs {
+	// Q is a finite set of states
+	StatePool Q;
+	// S is a set of start states, F is a set of final states
+	StateSet S, F;
+	// Transitions maps each State to its out-transitions.
+	TransRel Transitions;
+	// E is the epsilon transition relation.
+	StateRel E;
+}
+\end{lstlisting}
 
-\usepackage{makeidx}         % allows index generation
-\usepackage{graphicx}        % standard LaTeX graphics tool
-                             % when including figure files
-\usepackage{multicol}        % used for the two-column index
-\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\textbf{StatePool}:All states in an automaton are allocated from a StatePool. StatePool's can be merged together to form a larger one. (Care must be taken to rename any relations or sets (during merging) that depend on the one StatePool.)
+State is in [0,next)
+\begin{lstlisting}
+class StatePool {
+	int next; // The next one to be allocated.
+}
+\end{lstlisting}
 
-\usepackage{wrapfig}
-\usepackage{picins}
-%xxx\usepackage{custom}
-\usepackage{tikz}
-\usetikzlibrary{shapes,backgrounds}
+\textbf{StateSet}:The StateSet is normally associated (implicitly) with a particular StatePool; whenever a StuteSet is to interact with another (from a different StatePool), its States must be renamed (to avoid a name clash). The capacity of a StateSet must be explicitly managed; many set operations are not bounds-checked when assert() is turned off.
+\begin{lstlisting}
+class StateSet :protected BitVec {
+	// How many States can this set contain?
+	// [O, domain()) can be contained in *this.
+	inline int domain() const;
+	
+	// set How many States can this set contain.
+	// [O, r) can be contained in *this.
+	inline void set_domain(const int r);
+}
+class BitVec {
+	// uesd max number bits in data, denote width(domain),[0,bits_in_use) == > [0,width)
+	int bits_in_use;
+	// number of words，1,2,3,...
+	int words;
+	// save bytes of words,[0,1,2,...width(domain)]
+	unsigned int *data;
+}
+\end{lstlisting}
 
-\usepackage{CJK}  %����
+\textbf{transition relation:} $T \in Q \to \mathbb{P}(V \times Q),T(p)=\{(a,q)|(p,a,q)\in T\}$,表示状态$p$的out-transitions. see Fig \ref{fig:outT}
+\begin{lstlisting}
+// V --> Q
+struct TransPair {
+CharRange transition_label;
+State transition_destination;
+}
+class TransImpl { TransPair *data; }
+class Trans:protected TransIml { }
 
-\renewcommand{\thefootnote}{}
+// map: state(r) --> (T=Trans) out-transitions of r
+// SteteTo::data[r] = out-transitions of state r
+class TransRel:public StateTo<Trans> {}
 
-% see the list of further useful packages
-% in the Reference Guide
+// map: state(r) --> T
+// data[r] = T
+template <class T> class SteteTo {
+T *data; // 动态数组的index(即状态的index)状态的out-transitions
+}
+class FA:virtual public FAabs {
+TransRel Transitions;// maps each State to its out-transitions.
+}
+\end{lstlisting}
 
-\makeindex             % used for the subject index
-                       % please use the style svind.ist with
-                       % your makeindex program
+\textbf{$\epsilon$-relation}: $E\in \mathbb{P}(Q\times  Q) \Rightarrow E\in Q \to \mathbb{P}(Q),E(p)=\{q|(p,q)\in E\}$,表示$\epsilon$连接状态$p$和状态$q$.
+\begin{lstlisting}
+// Implement binary relations on States. This is most often used for epsilon transitions.
+// map: state(r) --> {StateSet}
+// StateTo::data[r] = {StateSet}, 表示状态r与{StateSet}的二元关系
+class StateRel :protected StateTo<StateSet> {
+}
 
-%%%%%%x%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+class FA:virtual public FAabs {
+// E is the epsilon transition relation.
+StateRel E;
+}
+\end{lstlisting}
 
-\begin{document}
+\begin{figure}[htbp]
+	\begin{tikzpicture}[>=latex, shorten >=1pt,
+	node distance=0.75in, on grid, auto]
+	\node[state, initial] (q0) {$q_0$};
+	\node[state](q1) [right=of q0] {$q_1$};
+	\node[state,accepting] (q2) [right=of q1] {$q_2$};
+	\node[state] (q3) [below right=of q1] {$q_3$};
+	\path[->]
+	(q0) edge node {$a$} (q1)
+	(q1) edge node {$b$} (q2)
+	(q1) edge [bend right] node {$c$} (q3)
+	;
+	\end{tikzpicture}
+	\caption{$q_1$ in-transition: $\{(q_0,a,q_1)\}$;
+	$q_1$ out-transition: $\{(q_1,b,q_2),(q_1,c,q_3)\}$}
+    \label{fig:outT}
+\end{figure}
 
-\author{Zhiwu Li}
-\title{Basics of Discrete Event Systems}
-%\subtitle{-- Monograph --}
-%\maketitle
-%\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%\include{dedic}
-%%\include{foreword}
-%%\include{preface}
-%%\include{acknow}
+\cite[p6]{WATSON93a} $\textbf{the signatures of the transition relations:}$
 
-%\tableofcontents
+$T \in \mathbb{P}(Q \times V \times Q)$
 
-%%\include{acronym}
-%%\include{symbol}
+$T \in V \to \mathbb{P}(Q \times Q)$
 
+$T \in Q\times Q \to \mathbb{P}(V)$
 
-%\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\include{part}
-%\include{chapter_1}
-%\include{chapter_21}
-%\include{chapter_2_function}
-%\include{appendix}
+$T \in Q \times V \to \mathbb{P}(Q)$
 
-%\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\include{glossary}
-%\include{solutions}
-%\printindex
+$T \in Q \to \mathbb{P}(V \times Q)$
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for example, the function $T \in Q \to \mathbb{P}(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
 
-$\emph{P}$ $\texttt{P}$ $\P$  $\mathrm{P}$  $\mathcal{P}$ $\mathit{P}$  $\mathnormal{P}$  $\boldsymbol{P}$  $\mathbf{P}$
 
 \hfill
 
-$\textbf{the signatures of the transition relations:}$
+$T \in \mathbb{P}(Q \times V \times Q), T = \{(p,a,q) \}$
 
-$T \in P(Q \times V \times Q)$
-
-$T \in V \to P(Q \times Q)$
-
-$T \in Q\times Q \to P(V)$
-
-$T \in Q \times V \to P(Q)$
-
-$T \in Q \to P(V \times Q)$
-
-for example, the function $T \in Q \to P(V \times Q)$ is defined as $T(p) = \{(a,q):(p,a,q) \in T\}$
+$T\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(p,a,q) \in T\}$
 
 \hfill
 
-$\textbf{$\epsilon$-transition relation:}$
+$p,q\in Q, a\in V$
 
-$E \in P(Q\times Q)$
+$T:Q\times V\to \mathbb{P}(Q)$
 
-$E \in Q \to P(Q)$
+$T(p,a)=\{q\}$
 
-\hfill
-
-$T \in P(Q \times V \times Q), T = \{(s,a,q) \}$
-
-$T(s)\in Q \to P(V\times Q), T(s) = \{(a,q):(s,a,q) \in T\}$
-
-$Q_{map}: P(Q\times V), Q_{map} = \{(q,a): (s,a,q) \in T\}$
-
-$Q_{map}(q) = \{a: (s,a,q)\in T\}$
-
-${Q_{map}}^{-1}: V \nrightarrow P(Q), {Q_{map}}^{-1} = \{(a,q): (s,a,q) \in T\}$
-
-According to Convention A.4 (Tuple projection):
-
-$\bar{\pi}_2(T) = \{(s,q): (s,a,q)\in T \}$
-
-$Q_{map} = (\bar{\pi}_1(T))^R, Q_{map} = \{(a,q):(s,a,q) \in T\}^R = \{(q,a):(s,a,q) \in T\}$
 
 \hfill
 
-$f(a)=(f(a^R))^R$
+According to Convention A.4 (Tuple projection):\\
+$T \in \mathbb{P}(Q \times V \times Q), T = \{(p,a,q) \}$\\
+$\pi_2(T)=\{a|(p,a,q)\in T\}, \bar{\pi}_2(T)=\{(p,q)|(p,a,q)\in T\}$\\
+$T\in Q \to \mathbb{P}(V\times Q), T(p) = \{(a,q):(p,a,q) \in T\}$\\
+$\pi_2(T(p))=\{q|(p,a,q)\in T\}, \bar{\pi}_2(T(p))=\{a|(p,a,q)\in T\}$\\
+$Q_{map}:Q\times V,T(p) = \{(a,q):(p,a,q) \in T\}$\\
+$Q_{map}(q)=\{a\}$\\
+$Q_{map}:Q\times V,T \in \mathbb{P}(Q \times V \times Q$\\
+$\pi_1(T)=\{p|(p,a,q)\in T\}, \bar{\pi}_1(T)=\{(a,q)|(p,a,q)\in T\}$\\
+$Q_{map}=(\bar{\pi}_1(T))^R=\{(a,q)|(p,a,q)\in T\}^R=\{(q,a)|(p,a,q)\in T\}$
+
+
+\section{Properties of finite automata}
+
+$M=(Q,V,T,E,S,F),M_0=(Q_0,V_0,T_0,E_0,S_0,F_0),M_1=(Q_1,V_1,T_1,E_1,S_1,F_1)$
+
+\begin{definition}[Size of an $FA$]
+	Define the size of an $FA$ as $|M|=|Q|$
+\end{definition}
+
+\begin{definition}[Isomorphism同构 $(\cong)$ of $FA's$]
+	We define isomorphism $(\cong)$ as an equivalence relation on FA's. $M_0$ and $M_1$ are isomorphic (written $M_0\cong M_1$) if and only if $V_0=V_1$ and there exists a bijection双射 $g\in Q_0\to Q_1$ such that
+	\begin{itemize}
+		\item $T_1=\{(g(p),a,g(q)|(p,a,q)\in T_0\}$
+		\item $E_1=\{(g(p),g(q)|(p,q)\in E_0\}$
+		\item $S_1=\{g(s)|s\in S_0\}$ and
+		\item $F_1=\{g(f)|f\in F_0\}$
+	\end{itemize} (see Fig \ref{fig:Isomorphism}). $\hfill\square$
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (A0) {$s$};
+	\node[state](A1) [right=of A0] {$p$};
+	\node[state](A2) [right=of A1] {$q$};
+	\node[state,accepting] (A3) [right=of A2] {$f$};
+	\node[state,initial] (B0) [below=of A0] {$g(s)$};
+	\node[state](B1) [right=of B0] {$g(p)$};
+	\node[state](B2) [right=of B1] {$g(q)$};
+	\node[state,accepting] (B3) [right=of B2] {$g(f)$};
+	\path[->]
+	(A0) edge node {$\cdots$} (A1)
+	(A1) edge node {$a$} (A2)
+	(A2) edge node {$\cdots$} (A3)
+	(B0) edge node {$\cdots$} (B1)
+	(B1) edge node {$a$} (B2)
+	(B2) edge node {$\cdots$} (B3)
+	(A0) edge node {$g$} (B0)
+	(A1) edge node {$g$} (B1)
+	(A2) edge node {$g$} (B2)
+	(A3) edge node {$g$} (B3)
+	;
+	\end{tikzpicture}
+	\caption{Isomorphism$M_0\cong M_1$ if and only if $V_0=V_1$ and there exists a bijection $g\in Q_0\to Q_1$}
+	\label{fig:Isomorphism}	
+\end{figure}
+
+\begin{definition}[Extending the transition relation $T$]
+	We extend transition relation $T\in V\to\mathbb{P}(Q\times Q)$ to $T^\ast\in V^\ast\to \mathbb{P}(Q\times Q)$ as follows:
+	
+	$T^\ast(\epsilon)=E^\ast$\\
+	and (for $a\in V,w\in V^\ast$)
+	
+	$T^\ast(aw)=E^\ast\circ T(a)\circ T^\ast(w)$\\
+	Operator $\circ$ (composition is defined in Convention \ref{con:comp}).
+	
+	This definition could also have been presented symmetrically. $\hfill\square$	
+\end{definition}
+
+\begin{note}
+	$s_1,s_2,s_3,s_4\in Q,a\in V, w\in V^\ast$
+	
+	$E = T(\epsilon) = \{(s_1,s_2)\},T(a)=\{(s_2,s_3)\},T^\ast(w)=\{(s_3,s_4)\}$
+	\begin{align*}
+	   T^\ast(aw)&= E^\ast\circ T(a)\circ T^\ast(w) \\
+	   &= \{(s_1,s_2)\} \circ \{(s_2,s_3)\} \circ \{(s_3,s_4)\}
+	   &= \{(s_1,s_3)\} \circ \{(s_3,s_4)\}
+	   &= \{(s_1,s_4)\}
+	\end{align*}
+\end{note}
+
+\begin{note}
+	$T\in Q\times V\to \mathbb{P}(Q)$,	extend to: $T^\ast \in Q\times V^\ast \to \mathbb{P}(Q)$
+	
+	$\forall q\in Q, w\in V^{\ast}, a\in V$，
+	\begin{enumerate}
+		\item $T^\ast(q,\epsilon) = q$
+		\item $T^\ast(q,wa) = T(T^\ast(q,w),a)$
+	\end{enumerate}
+	\begin{align*}
+	T^\ast(q,a) &= T^\ast(q,\epsilon a) \\
+	&= T(T^\ast(q,\epsilon),a) \\
+	&= T(q,a)
+	\end{align*}
+	两值相同，不用区分这两个符号。
+\end{note}
+
+\begin{convention}[Relation composition]\label{con:comp} Given sets $A,B,C$ (not necessarily different) and two relations, $E\subseteq A\times B$ and $F\subseteq B\times C$, we define relation composition (infix operator中缀操作符 $\circ$) as:
+
+$E\circ F = \{(a,c)|(\exists b\in B),(a,b)\in E\land (b,c)\in F)\}$  $\hfill\square$
+\end{convention}
+
+\begin{note} if $\exists b\in B,(a,b)\in E,(b,c)\in F,$ then
+	
+	$E:A\to B\Rightarrow E(a)=b$
+	
+	$F:B\to C\Rightarrow F(b)=c$
+	
+	$E\circ F =\{(a,b)\}\circ \{(b,c)\}=\{a,c\}$
+	\begin{align*}
+	(E\circ F)(a) &=F(E(a)) \\
+	&=F(b) = c
+	\end{align*}
+	\begin{figure}[hbtp]
+		\begin{tikzpicture}
+		\matrix (a) [matrix of math nodes,row sep=3em,
+		column sep=3em, nodes in empty cells]
+		{ A &  B \\
+			&  C \\};
+		\path[>=latex,->]
+		(a-1-1) edge node [auto] {$E$} (a-1-2)
+		edge node [auto,swap] {$f$} (a-2-2)
+		(a-1-2) edge node [auto] {$F$} (a-2-2)
+		;
+		\end{tikzpicture}
+		\caption{$E\circ F= (F\circ E)(a)=F(E(a)) = {c} =f(a)$}
+	\end{figure}
+\end{note}
+
+\begin{remark}
+	We also sometimes use the signature $T^\ast\in Q\times Q\to \mathbb{P}(V^\ast)$ $\hfill\square$
+\end{remark}
+
+\begin{note}
+	$T(p,q)=\{w|p,q\in Q,w\in V^\ast\}$
+\end{note}
+
+\begin{remark}
+	if $E=\emptyset$ then $E^\ast=\emptyset^\ast=I_Q$ where $I_Q$ is the identity relation单位关系 on the states of $M$.
+\end{remark}
+
+\begin{definition}[The language between states]
+	The language between any two states $q_0,q_1\in Q$ is $T^\ast(q_0,q_1)$. $\hfill\square$
+\end{definition}
+
+\begin{definition}[Left and right languages]
+	The left language of a state (in $M$) is given by function, $\overleftarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$,where
+	
+	$\overleftarrow{L}_M(q)=(\cup s:s\in S:T^\ast(s,q))$
+	
+	The right language of a state (in $M$) is given by function $\overrightarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$, where
+	
+	$\overrightarrow{L}_M(q)=(\cup f:f\in F:T^\ast(q,f))$
+	
+	The subscript $M$ is usually dropped when no ambiguity can arise.$\hfill\square$
+\end{definition}
+
+\begin{example}
+	$T^\ast\in Q\times Q\to \mathbb{P}(V^\ast)$,$\overleftarrow{L}_M,\overrightarrow{L}_M\in Q\to\mathbb{P}(V^\ast)$.
+	
+	$\overleftarrow{L}_M(q)=$\{能引导M从开始状态到达q状态的字符串集合\}, (从$q$往左看)
+	
+	$\overrightarrow{L}_M(q)=$\{能引导M从开始状态到达q状态的字符串集合\}, (从$q$往右看)
+	
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (s) {$s$};
+	\node[state](q) [right=of s] {$q$};
+	\node[state,accepting] (f) [right=of q] {$f$};
+	\path[->]
+	(s) edge node {$\overleftarrow{L}_M(q)$} (q)
+	(q) edge node {$\overrightarrow{L}_M(q)$} (f)
+	;
+	\end{tikzpicture}
+	
+	see Fig \ref{fig:mod_53}.
+	\begin{align*}
+	   \overleftarrow{L}_M(q_2) &=(s\to q_1\to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_1 \to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   &=[(s\to q_1\to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_1 \to q_2)] \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   & =(s\to (q_1\to q_3)^\ast\to q_1 \to q_2) \cup (s\to (q_1\to q_3)^\ast\to q_3 \to q_2) \\
+	   &=\{1(10)^\ast 0,1(10)^\ast 1\}\\
+	   \overrightarrow{L}_M(q_2) &=\{01^\ast0,10^\ast1(001^\ast 0 + (10)^\ast 1)\}
+	\end{align*}
+	\begin{figure}[htbp]
+		%\sidecaption
+		%\flushleft{$\overleftarrow{L}_M(q_2) =\{10,11,1(10)^\ast1\}$}
+		\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+		\node[state] (q0) {$q_0$};
+		\node[state,](q1) [below=of q0] {$q_1$};
+		\node[state,accepting] (q3) [below left=of q1] {$q_3$};
+		\node[state] (q2) [below right=of q1] {$q_2$};
+		\node[state] (q4) [below left=of q2] {$q_4$};
+		\node[state,initial] (s) [left=of q1] {$s$};
+		\node[state](dump) [above=of s] {$d$};
+		\path[->]
+		(s) edge node {$0$} (dump)
+		(s) edge node [bend left] {$1$} (q1)
+		(q0) edge [loop above] node {$0$} (q0)
+		(q0) edge [swap] node {$1$} (q1)
+		(q1) edge node {$0$} (q2)
+		(q2) edge node {$0$} (q4)
+		(q4) edge node {$0$} (q3)
+		(q3) edge [bend right,swap] node {$0$} (q1)
+		(q1) edge [swap] node {$1$} (q3)
+		(q2) edge [bend right] node {$1$} (q0)
+		(q3) edge [bend right] node {$1$} (q2)
+		(q4) edge [loop below] node {$1$} (q4)
+		(dump) edge [loop above] node {$0,1$} (dump);
+		\end{tikzpicture}
+		\caption{$\{x|x\in \{0,1\}^+ \text{且当把$x$看成二进制数时，$x$模5与3同余，}$\newline
+			要求当$x$为0时，$|x|=1$,且当$x\ne 0$时，$x$的首字符为1\}语言对应的$DFA$}
+		\label{fig:mod_53}
+	\end{figure}
+\end{example}
+
+\begin{definition}[Language of an $FA$]
+	The language of a finite automaton (with alphabet $V$) is given by the function $L_{FA}\to \mathbb{P}(V^\ast)$ defined as:
+	
+	$L_{FA}(M)=(\cup s,f:s\in S\land f\in F:T^\ast(s,f))$ (所有从开始状态到接受状态的字符串集合)
+	$\hfill\square$
+\end{definition}
+
+\begin{property}[Language of an $FA$]
+	From the definition of left and right languages (of a state), we can also write:
+	
+	$L_{FA}(M) = (\cup f:f\in F:\overleftarrow{L}(f))$ (所有从s到f的字符串集合，从f向左看)\\
+	and
+	
+	$L_{FA}(M) = (\cup s:s\in S:\overrightarrow{L}(s))$ (所有从s到f的字符串集合，从s向右看)
+	$\hfill\square$
+\end{property}
+
+\begin{definition}[$\epsilon$-$free$ 无$\epsilon$转移]
+	Automaton $M$ is $\epsilon$-$free$ if and only if $E=\emptyset$.$\hfill\square$
+\end{definition}
+
+\begin{remark}
+	Even if $M$ is $\epsilon$-$free$ it is still possible that $\epsilon\in L_{FA}(M): in this case S\cap F \ne \emptyset$. (开始状态也是接受状态) $\hfill\square$
+\end{remark}
+
+
+Form \cite[Convention A.4]{WATSON93a} (Tuple projection).
+
+\begin{convention}[Tuple projection]\label{con:project}
+	For an $n$-tuple $t=(x_1,x_2,\dots,x_n)$ we use the notation
+	$\pi_i(t) (1\le i\le n)$ to denote tuple element $x_i$; we use the notation $\bar{\pi}_i(t) (1\le i\le n)$ to denote the $(n-1)$-tuple $(x_1,\dots,x_{i-1},x_{i+1},\dots,x_n)$. Both $\pi$and $\bar{\pi}$ extend naturally to sets of tuples. $\hfill\square$
+\end{convention}
+
+Form \cite[Definition A.20]{WATSON93a} (Tuple and relation reversal).
+
+\begin{definition}[Tuple and relation reversal] \label{def:reversal}
+	For an $n$-tuple $(x_1,x_2,\dots,x_n)$ define reversal as (postfix and superscript) function R:
+	
+	$(x_1,x_2,\dots,x_n)^R = (x_n,x_n-1,\dots,x_2,x_1)$ \\
+	Given a set $A$ of tuples, we define $A^R=\{x^R:x\in A\}. \hfill\square$
+\end{definition}
+
+\begin{definition}[Reachable states]
+	For $M$ we can define a reachability relation $Reach(M)\subseteq (Q\times Q)$ defined as
+	
+	$Reach(M) = (\bar{\pi}_2(T)\cup E)^\ast$        see\footnote{\{$(p_1,q_1),(p_2,q_2),\dots$\}}\\
+	Functions $\pi$ and $\bar{\pi}$ are defined in Convention \ref{con:project}. Similarly the set of start-reachable states is defined to be:
+	
+	$SReachable(M)=Reach(M)(S)$ see\footnote{从start state可以到达的状态集合}\\
+	and the set of final-reachable states is defined to be:
+	
+	$FReachable(M)=(Reach(M))^R(F)$ see\footnote{可以到达final state的状态集合}\\
+	Reversal of a relation is defined in Definition \ref{def:reversal}. The set of useful states is:
+	$Reachable(M)=SReachable(M)\cap FReachable(M)$ $\hfill\square$
+\end{definition}
+
+\begin{remark} For $FA$ $M=(Q,V,T,E,S,F)$,function $SReachable$ satisfies the following interesting property:
+	
+	$q\in SReachable(M)\equiv\overleftarrow{L}_M(q)\ne\emptyset$\\
+	$FReachable$ satisfies a similar property:
+	
+	$q\in FReachable(M)\equiv\overrightarrow{L}_M(q)\ne\emptyset\hfill\square$
+\end{remark}
+
+\begin{example}
+	$T\in \mathbb{P}(Q\times V\times Q), T = \{(p,a,q)|p,q\in Q,a\in V\}$,
+	
+	$\bar{\pi}_2(T) = \{(p,q)|(p,a,q)\in T \}$	
+	
+	$Q_{map} = (\bar{\pi}_1(T))^R, Q_{map} = \{(a,q)|(p,a,q) \in T\}^R = \{(q,a)|(p,a,q) \in T\}$
+	
+	
+	$\hfill\square$
+\end{example}
+
+
+\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=1.0in, on grid, auto]
+\node[state,initial] (s) {$s$};
+\node[state] (q0) [above right=of s] {$q_0$};
+\node[state] (q1) [below right=of s] {$q_1$};
+\node[state,accepting] (f) [below right =of q0]{$f$};
+\path[->]
+(s) edge node {$\overleftarrow{L}_M(q_0)$} (q0)
+(s) edge [swap] node {$\overleftarrow{L}_M(q_1)$} (q1)
+(q0) edge node {$\overrightarrow{L}_M(q_0)$} (f)
+(q1) edge [swap] node {$\overrightarrow{L}_M(q_1)$} (f)
+;
+\end{tikzpicture}
 
 \hfill
 
-$\textbf{Prefix-closure:}$ Let $L\subseteq V^*$,then
-$$\overline{L} := \{s\in V^*:(\exists t\in V^*)[st\in L]\}$$
+e.g. $p=\{1,2\}\in Q_1\subseteq \mathbb{P}(Q_0),\overrightarrow{L}_{M_1}(p)=\overrightarrow{L}_{M_0}(1)\cup\overrightarrow{L}_{M_0}(2)$
 
+\hfill
+
+\begin{figure}[hbtp]
+	\begin{tikzpicture}
+		\matrix (a) [matrix of math nodes,row sep=3em,
+		column sep=3em, nodes in empty cells]
+		{ Q &  P(Q) \\
+			&  D \\};
+		\path[>=latex,->]
+		(a-1-1) edge node [auto] {$subset$} (a-1-2)
+		        edge node [auto,swap] {$f$} (a-2-2)
+		(a-1-2) edge node [auto] {$useful_s$} (a-2-2)
+		;
+	\end{tikzpicture}
+	\caption{$subset\circ usefus_s= usefus_s(subset(Q,V,\emptyset,S,F))=(D,V,T^\prime,\emptyset,S^\prime,F^\prime)$}
+\end{figure}
+
+\section{$\Sigma$-algebras and regular expressions}
+
+\paragraph{$\Sigma$-homomorphism}
+
+\noindent $X$集合中的元素与有序集$S$中的元素一一对应,称$X$是$S$-sorted.
+$S=\{1,3,7,9\},X=\{d,a,c,f\},s\in S,X_s\in X$\\
+$S$是有序的,$S_{s_1}=1,S_{s_2}=3,S_{s_3}=7,S_{s_4}=9$\\
+$X$与$S$中的元素一一对应。$X_{s_1}=d,X_{s_2}=a,X_{s_3}=c,X_{s_4}=f$\\
+
+
+$\Sigma$-homomorphism同态: $(V,F) \Leftrightarrow (W,G)$,载体$(V,W)$和操作$(F,G)$一一对应。\\
+$\Sigma$-homomorphism function: $h\in V\to W$\\
+$L(v)=(h\circ f)(v)=h(f(v))=g(w)=L_{reg}=L_V=L_W$ \\
+$L(v)=(g\circ h)(v)=g(h(v))=g(w)=L_{reg}=L_V=L_W$ \\
+$\Rightarrow h(f(v)) = g(h(v))$
+
+\begin{figure}[htbp]
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ V     & h(v)   \\
+  f(v) & g(h(v))\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$h$} (m-1-2)
+(m-1-1) edge node[auto] {$L$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$f$} (m-2-1)
+(m-1-2) edge node[auto] {$g$} (m-2-2)
+(m-2-1) edge node[auto] {$h$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$(h\circ f)(v)=(g \circ h)(v) \Rightarrow h(f(v))=g(h(v))$}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+	{ (e_1,e_2)     & (h(e_1),h(e_2))   \\
+	  f(e_1,e_2)\circ & g(h(e_1),h(e_2))\\ };
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$h$} (m-1-2)
+	(m-1-1) edge node[auto] {$L$} (m-2-2)
+	(m-1-1) edge node[auto,swap] {$f$} (m-2-1)
+	(m-1-2) edge node[auto] {$g$} (m-2-2)
+	(m-2-1) edge node[auto] {$h$} (m-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$(h\circ f)(e_1,e_2)=(g \circ h)(e_1,e_2) \Rightarrow h(f(e_1,e_2))=g(h(e_1),h(e_2))$}
+\end{figure}
+
+\begin{example}
+$\Sigma=(S,\Gamma)$, sort: $expr$, $\Gamma :=\{a,plus\},a$ is a constant. operator $plus: expr\times expr\to expr$.\\
+$\Sigma-$term algebra: $plus[a,a],plus[plus[a,plus[a,a]],a]$\\
+$\Sigma-$algebra $X$,carrier set: natural number, constant 0. operator $f_{plus}(x,y)=(x\quad max\quad y) +1$\\
+$\Sigma$-homomorphism function("expression tree height"): $h_{expr}:\Sigma-$term algebra $\to X$\\
+\begin{align*}
+(h_{expr}\circ plus)(s)&=(f_{plus} \circ h_{expr})(s) \\
+h_{expr}(plus(s))&=f_{plus}(h_{expr}(s)) \\
+left: s\leftarrow e,f\quad &\Rightarrow \quad plus[e,f]\\
+right: s\leftarrow e,f\quad &\Rightarrow \quad f_{plus}(h_{expr}(e),h_{expr}(f)\\
+h_{expr}(plus(e,f))&=f_{plus}(h_{expr}(e),h_{expr}(f))\\
+&=(h_{expr}(e)\quad max \quad h_{expr}(f))+1)\\
+and,&\\
+h_{expr}(a)&=0
+\end{align*}
+
+\begin{figure}[htbp]
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=3em]
+{ S     & X    \\
+  \circ & \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$h_{expr}$} (m-1-2)
+(m-1-1) edge node[auto] {$L$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$plus$} (m-2-1)
+(m-1-2) edge node[auto] {$f_{plus}$} (m-2-2)
+(m-2-1) edge node[auto] {$h_{expr}$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$(h_{expr}\circ plus)(s)=(f_{plus} \circ h_{expr})(s) \Rightarrow
+	h_{expr}(plus(s))=f_{plus}(h_{expr}(s))$}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=3em]
+	{ (e,f)     & (h_{expr}(e),h_{expr}(f))    \\
+	  plus[e,f] & f_{plus}(h_{expr}(e),h_{expr}(f))\\ };
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$h_{expr}$} (m-1-2)
+	(m-1-1) edge node[auto] {$L$} (m-2-2)
+	(m-1-1) edge node[auto,swap] {$plus$} (m-2-1)
+	(m-1-2) edge node[auto] {$f_{plus}$} (m-2-2)
+	(m-2-1) edge node[auto] {$h_{expr}$} (m-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$(h_{expr}\circ plus)(e,f)=(f_{plus} \circ h_{expr})(e,f) \Rightarrow
+		h_{expr}(plus[e,f])=f_{plus}(h_{expr}(e),h_{expr}(f))$}
+\end{figure}
+
+\end{example}
+
+\begin{definition}[Regular expressions]
+	We define regular expressions (over alphabet $V$) as the $\Sigma -$term algebra over signature $\Sigma=(S,O)$ where
+	\begin{itemize}
+		\item $S$ consists of a single sort Reg (for regular expression), and
+		\item $O$ is a set of several constans: $\epsilon,\emptyset,a_1,a_2,\dots,a_n$; $Reg$ (where $V=\{a_1,a_2,\dots,a_n\}$) and five operators $.:Reg\times Reg\to Reg$ (the dot operator), $\cup : Reg\times Reg\to Reg, \ast : Reg\to Reg,+:Reg\to Reg,\text{and} ?:Reg\to Reg$.
+	\end{itemize}
+\end{definition}
+
+$V := RE$(正则表达式), $W := FA$(有限自动机)\\
+$\Sigma$-homomorphism function: $f\in RE\to FA$ \\
+$F:RE_{opt}$运算，二元: union(or),concat; 一元: star,plus,question;\\ 常量:epsilon,empty,symbol\\
+$G:FA_{opt}$运算, 同上\\
+
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & FA      & & (re_1,re_2) & (f(re_1),f(re_2))\\
+     & L_{reg} & & RE_{opt}(re_1,re_2) & FA_{opt}(f(re_1),f(re_2))\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$f$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$L_{RE}$} (m-2-2)
+(m-1-2) edge node[auto] {$L_{FA}$} (m-2-2)
+
+(m-1-4)  edge node[auto] {$f$} (m-1-5)
+(m-1-4) edge node[auto,swap] {$$} (m-2-5)
+(m-1-4) edge node[auto,swap] {$RE_{opt}$} (m-2-4)
+(m-1-5) edge node[auto] {$FA_{opt}$} (m-2-5)
+(m-2-4) edge node[auto] {$f$} (m-2-5)
+;
+\end{tikzpicture}
+
+\begin{lstlisting}
+//Sigma.h
+template<class T>
+class Reg :public T {
+// Helper for constructing the homomorphic image of a regular expression.
+// T is carrier set: RE,FA,RFA，
+// 各自的操作，分别在Sig-RE.cpp,Sig-FA.cpp,Sig-RFA.cpp中定义
+inline void homomorphic_image(const RE& r);
+Reg<T>& epsilon();
+Reg<T>& empty();
+Reg<T>& symbol(const CharRange r);
+Reg<T>& Or(const Reg<T>& r);
+Reg<T>& concat(const Reg<T>& r);
+Reg<T>& star();
+Reg<T>& plus();
+Reg<T>& question();
+}
+\end{lstlisting}
+
+\begin{definition}[The $nullable$ $\Sigma-$algebra]
+	We define the $nullable$ $\Sigma-$algebra as follows:
+	\begin{itemize}
+	\item The carrier set is $\{true,false\}$.
+	\item $a\in V,E_1,E_2\in RE, \epsilon\in E_1^\ast,\epsilon\in E_1^?,\epsilon\notin E_1^+$
+		\begin{align*}
+			nullable(\epsilon) &= true \\
+			nullable(\emptyset)&=nullable(a)=false \\
+			nullable(E_1\lor E_2) &=nullable(E_1\cup E_2)\\
+			nullable(E_1\land E_2) &=nullable(E_1\cdot E_2) \\
+			nullable(E_1^\ast) &= true\\
+			nullable(E_1^+) &=nullable(E_1) \\
+			nullable(E_1^?) &=true\\
+			nullable(E_1) &=
+			\begin{cases}
+				true   & \epsilon\in E_1\\
+				false  & \epsilon\notin E_1
+			\end{cases}
+		\end{align*}
+	\end{itemize}
+\end{definition}
+
+
+\section{Constructing $\epsilon$-lookahead automata}
+
+\begin{figure}[htbp]
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (s)  {};
+\node[state] (f)  [right of=s] {};
+\path
+(s) edge [bend left] node {$a(First(E))$} (f)
+(s) edge [bend right,swap] node {$L$(if $\epsilon\in L_{RE}(E)$)} (f)
+;
+\end{tikzpicture}
+\caption{Lookahead function:$look(E,L)=First\cup\text{ if }(Null(E))\text{ then }L \text{ else } \emptyset \text{ fi }$}
+\end{figure}
+
+
+\section{Towards the Berry-Sethi construction}
+
+\begin{figure}[htbp]
+	$\epsilon\in L_{FA}(M)\equiv s\in F$ \\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,initial,accepting] (s)  {$s$};
+	\path
+	;
+	\end{tikzpicture}
+	\caption{$\epsilon\in L_{FA}(M)\equiv s\in F$}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (s3)  {$q$};
+	\node[state] (s1)  [above left of=s3] {$q_1$};
+	\node[state] (s2)  [below left of=s3] {$q_2$};
+	\path
+	(s1) edge [] node {$a$} (s3)
+	(s2) edge [] node {$a$} (s3)
+	;
+	\end{tikzpicture}
+	\caption{All in-transitions to a state are on the same symbol (in V)}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{tikzpicture}
+	\matrix (a) [matrix of math nodes,row sep=2em,
+	column sep=3em, nodes in empty cells]
+	{ q_1 & q_3  \\
+	  q_2 & q_4 \\};
+	\path[>=latex,->]
+	(a-1-1) edge node [auto] {$v_1$} (a-1-2)
+	edge node [auto] {$v_2$} (a-2-2)
+	(a-2-1) edge node [auto] {$v_2$} (a-2-2)
+	;
+	\end{tikzpicture}
+	\caption{$q_4(in-transition)=\{(q_1,b),(q_2,b)\},q_1(out-transition)=\{(a,q_3),(b,q_4)\}$}
+\end{figure}
+
+\begin{tabular}{|c|c|c|}
+	\hline
+	a & b & c \\
+	\hline
+	\multicolumn{2}{|c|}{} &  \\
+	\hline
+\end{tabular}
+\begin{figure}[htbp]
+	\begin{tikzpicture}
+	\matrix (a) [matrix of math nodes,row sep=2em,
+	column sep=3em, nodes in empty cells]
+	{ q_1 & v_1  & & q_1 & v_1 & & q_3 & q_1\\
+	  q_2 & v_2 & & q_2 & v_2& & q_4 & q_2\\
+    };
+	\path[>=latex,->]
+	(a-1-1) edge node [auto] {} (a-1-2)
+	(a-2-1) edge node [auto] {} (a-2-2)
+	(a-1-5) edge node [auto] {} (a-1-4)
+	(a-2-5) edge node [auto] {} (a-1-4)
+	(a-2-5) edge node [auto] {} (a-2-4)
+	(a-1-7) edge node [auto] {$v_1$} (a-1-8)
+	(a-1-7) edge node [auto] {$v_2$} (a-2-8)
+	(a-2-7) edge node [auto] {$v_2$} (a-2-8)
+	;
+	\end{tikzpicture}
+	\\
+	(a) $Q\to V$一一对应关系\quad (b) $V \nrightarrow \mathbb{P}(Q)$一对多的关系\quad (c) 物理含义,进入状态的字母是唯一的。\\
+	$Q_{map}(q_1)=\{v_1\},Q_{map}^{-1}(v_1)=\{q_1\},(q_3,v_1,q_1)\in T$\\
+	$Q_{map}(q_2)=\{v_2\},Q_{map}^{-1}(v_2)=\{q_2\},(q_3,v_2,q_2)\in T,(q_4,v_2,q_2)\in T$
+	
+	\caption{$Q_{map},Q_{map}^{-1}$}
+\end{figure}
+
+\begin{definition}[RFA]
+	A reduced FA (RFA) is a 7-tuple $(Q,V,follow,first,last,null,Q_{map})$ where
+	\begin{itemize}
+		\item $Q$ is a finite set of states,
+		\item $V$ is an alphabet,
+		\item $follow\in \mathbb{P}(Q\times Q)$ is a follow relation (relpace the transition relation:  $T\in \mathbb{P}(Q\times V\times Q)$) ,
+		\item $first\subseteq Q$ is a set of initial states (replacing T(s) in an LBFA),
+		\item $null\in \{true,false\}$ is a Boolean value (encoding $s\in F$ in an LBFA,$\epsilon\in L_{FA}(M)\equiv s\in F$), and
+		\item $Q_{map}\in\mathbb{P}(Q\times V),Q_{map}(q)=\{v\},one\to one.$ maps
+		each state to exactly one symbol. i.e. $Q_{map}\in Q\to V$.\\
+		$Q_{map}(q) = \{a | (p,a,q) \in T\}$表示(q,v)的一一对应关系。物理含义是进入$q$状态的唯一字母$a$\\	
+	    class RFA中表示its inverse: $Q_{map}^{-1}: V \nrightarrow \mathbb{P}(Q),\text{部分函数} Q_{map}^{-1}(a) = \{q|(p,a,q) \in T\}$\\
+	\end{itemize}   $\hfill\square$
+\end{definition}
+
+\begin{lstlisting}
+class RFA : virtual public FAabs{
+// Q is a finite set of states
+StatePool Q;
+
+// first(subset Q) is a set of initial states(replacing T(s) in an LBFA),
+// last(subset Q) is a set of final states,
+StateSet first, last;
+
+// Qmap (in P( Q x V)) maps each state to exactly one symbol (it is also viewed as Qmap in Q --> V,
+// and its inverse as Qmap^-1 in V --/-->P(Q)[the set of all partial functions from V to P(Q)]).
+// Trans用struct TransPair 表示:T(a) = { q | (p,a,q) in T },
+// 因此这里表示Qmap的inverse，V --> P(Q)
+Trans Qmap_inverse;
+
+// follow(in P(Q x Q)) is a follow relation(replacing the transition relation),
+StateRel follow;
+
+// null (in {true,false}) is a Boolean value (encoding s in F in an LBFA)
+// if epsilon属于LBFA, true; final set中包含s
+// {true, flase} == > {1, 0}
+int Nullable;
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+// V --> Q
+struct TransPair {
+	CharRange transition_label;
+	State transition_destination;
+}
+
+class TransImpl { TransPair *data; }
+class Trans:protected TransIml { }
+
+}
+\end{lstlisting}
+
+
+\begin{figure}[htbp]
+$rfa\circ R(E) = R\circ rfa(E)$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ E & RFA \\
+  \circ	&  \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$$} (m-2-2)
+(m-1-2) edge node[auto] {$R$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$R$} (m-2-1)
+(m-2-1) edge node[auto,swap] {$rfa$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$rfa\circ R(E) = R\circ rfa(E)$}
+\end{figure}
+
+\begin{definition} (Dual of a function)
+We assume two sets $A$ and $B$ whose reversal operators are $R$ and $R^\prime$ respectively. Two functions, $f\in A\to B$ and $f_d \in A\to B$ are one another's dual if and only if
+
+$f(a)=(f_d(a^R))^{R^\prime}$
+
+In some cases we relax the equality to isomorphism (when isomorphism is defined on $B$). $\hfill\square$
+\end{definition}
+
+\begin{figure}[htbp]
+$f_d\circ R(a) = R^\prime \circ f(a) \Rightarrow f_d(R(a)) = R^\prime(f(a))\Rightarrow$\\
+$f_d(a^R) = (f(a))^{R^\prime} \Rightarrow f(a)=(f_d(a^R))^{R^\prime}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ A & B \\
+ \circ	&  \circ\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$f$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$$} (m-2-2)
+(m-1-2) edge node[auto] {$R^\prime$} (m-2-2)
+(m-1-1) edge node[auto,swap] {$R$} (m-2-1)
+(m-2-1) edge node[auto,swap] {$f_d$} (m-2-2)
+;
+\end{tikzpicture}
+\caption{$f(a)=(f_d(a^R))^{R^\prime})$}
+\end{figure}
+
+\section{The Berry-Sethi construction}
+
+\begin{figure}[htbp]
+$C_{\cdot,RFA}(rfa(\$),rfa(E)) = C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=L_{RE}(\$E)=\{\$\}L_{RE}(E)$\\
+$covert$ 简单剔除$E$的第一个字符。$L_{FA}\circ convert\circ rfa(E) = V^{-1}L_{RE}(E)$\\
+$convert(C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=rfa(E)$\\
+\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & RFA      & & (\$,E) & (rfa(\$),rfa(E))\\
+	& L_{reg} & & \$ \cdot E & rfa(\$) \cdot rfa(E)\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-1) edge node[auto,swap] {$L_{RE}$} (m-2-2)
+(m-1-2) edge node[auto] {$L_{FA}$} (m-2-2)
+
+(m-1-4)  edge node[auto] {$rfa$} (m-1-5)
+(m-1-4) edge node[auto,swap] {$$} (m-2-5)
+(m-1-4) edge node[auto,swap] {$RE {\cdot}$} (m-2-4)
+(m-1-5) edge node[auto] {$FA {\cdot}$} (m-2-5)
+(m-2-4) edge node[auto] {$rfa$} (m-2-5)
+;
+\end{tikzpicture}
+\caption{$convert(C_{\cdot,RFA}(C_{\$,RFA},rfa(E))=rfa(E)$}
+\end{figure}
+
+Algorithm 2.45(impements $useful_s\circ subset$):\\
+initial: $D=\emptyset,U={S}$\\
+
+$d:=\bigcup_{q\in u}T(q,a)$\\
+%$u=\{q_1,q_2\},d=\{T(q_1,a),T(q_2,a)\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{q_1,q_2\} & \{T(q_1,a),T(q_2,a)\} \\
+\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+
+using Algorithm 2.45 for decode(RFA$\to$ LBFA)\\
+$d:=\bigcup\{q|q\in first\land Q_{map}(q)=a\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{s\} & \{d\} \\
+	\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+note:\\
+$d:=\bigcup_{p\in u}\{q|(p,q)\in follow\land Q_{map}(q)=a\}$\\
+$u=\{p_1,p_2\},d=\{q_1,q_2\},$\\
+$follow(p_1)=q_1,follow(p_2)=q_2,Q_{map}(q_1)=Q_{map}(q_2)=a$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ \{p_1,p_2\} & \{q_1,q_2\} \\
+	\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+\section{The McNaughton-Yamada-Clushkov construction}
+
+\begin{figure}[htbp]
+$RE\to {[DFA]}_{\cong}$\\
+$MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ RE & {[RFA]}_{\cong} & {[NFA]}_{\cong} \\
+  {[DFA]}_{\cong} & {[DFA]}_{\cong} & P(Q)\\ };
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$rfa$} (m-1-2)
+(m-1-2) edge node[auto] {$decode$} (m-1-3)
+(m-1-3) edge node[auto] {$subset$} (m-2-3)
+(m-2-3) edge node[auto,swap] {$useful_s$} (m-2-2)
+(m-2-2) edge node[auto,swap] {$Complete$} (m-2-1)
+;
+\end{tikzpicture}
+\caption{$MYG(E) = useful_s\circ subset \circ decode \circ rfa(E)$}
+\end{figure}
+
+\section{The dual of the Berry-Sethi construction}
+
+\begin{figure}[htbp]
+	Dual construction: $R\circ f\circ R$ \qquad\qquad $f:FA$ construction \\
+	\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+	\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+	{ RE & RE & FA & FA & & RE & FA\\
+	     &    &    &    & &    & L_{reg}\\};
+	\path[->,font=\scriptsize]
+	(m-1-1) edge node[auto] {$R$} (m-1-2)
+	(m-1-2) edge node[auto] {$f$} (m-1-3)
+	(m-1-3) edge node[auto] {$R$} (m-1-4)
+	
+	(m-1-6) edge node[auto] {$f$} (m-1-7)
+	(m-1-6) edge node[auto,swap] {$L_{RE}$} (m-2-7)
+	(m-1-7) edge node[auto] {$L_{FA}$} (m-2-7)
+	;
+	\end{tikzpicture}
+	\caption{Dual construction: $R\circ f\circ R$}
+\end{figure}
+
+$R\circ R$ is the identity $\Rightarrow R\circ R(A) = A$
+
+\section{Algorithm 4.52 (Aho-Sethi-Ullman)}
+
+note:\\
+$d:=\bigcup_{q\in u}\{follow(q)|Q_{map}(q)=a\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=2em,column sep=2em]
+{ q & follow(q) \\
+	\\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+
+note:\\
+$T_0(b)=(p,p^\prime),T_1(b)=(q,q^\prime)$\\
+$\pi_2(T_0(b))=p^\prime,\pi_2(T_1(b))=q^\prime$\\
+$T_0(s_0,a)=p,T_1(s_1,a)=q$\\
+$Q^\prime=\{q_0\}\cup (\bigcup_{b\in V)}\{\pi_2(T_0(b)\times \pi_2(T_1(b))\}$\\
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=1em,column sep=2em]
+{ M_0: s_{0} & p & p^{\prime} \\
+  M_1: s_1 & q & q^\prime \\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+(m-2-1) edge node[auto] {$a$} (m-2-2)
+(m-1-2) edge node[auto] {$b$} (m-1-3)
+(m-2-2) edge node[auto] {$b$} (m-2-3)
+;
+\end{tikzpicture}
+
+
+\begin{figure}[htbp]
+$T_0(b)=(p,p^\prime),T_1(b)=(q,q^\prime)$\\
+$\pi_2(T_0(b))=p^\prime,\pi_2(T_1(b))=q^\prime$\\
+$T_0(s_0,a)=p,T_1(s_1,a)=q$\\
+$Q^\prime=\{q_0\}\cup \bigcup_{b\in V}(\pi_2(T_0(b))\times \pi_2(T_1(b)))$\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (p)  {$p$};
+\node[state] (p1)[right of=p] {$p^\prime$};
+\node[state] (q)  [below of =p]{$q$};
+\node[state] (q1)[right of=q] {$q^\prime$};
+\node[state] (s0)  [left of=p] {$s0$};
+\node[state] (s1)  [left of=q] {$s1$};
+\path
+(s0) edge  node {$a$} (p)
+(s1) edge  node {$a$} (q)
+(p) edge  node {$b$} (p1)
+(q) edge  node {$b$} (q1)
+;
+\end{tikzpicture}
+	\caption{Intersection of LBFA's}
+\end{figure}
+
+\begin{figure}[htbp]
+	$Q^\prime=\bigcup_{b\in V}(Q_{map_0}^{-1}(b)\times Q_{map_1}^{-1}(b))$\\
+	$follow^\prime=\{(p,q),(p^\prime,q^\prime)\}$\\
+	$first^\prime=\{(s_0,s_1)\}$ \\
+	$last^\prime=\{(last_0\times last_1)\cap Q^\prime\}$\\
+	$null^\prime=null_0\land null_1$\\
+	$Q_{map}^{\prime -1}(a)=\{(Q_{map_0}^{\prime -1}(a)\times Q_{map_1}^{\prime -1}(a))\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (p)  {$p$};
+	\node[state] (p1)[right of=p] {$p^\prime$};
+	\node[state] (q)  [below of =p]{$q$};
+	\node[state] (q1)[right of=q] {$q^\prime$};
+	\node[state] (s0)  [left of=p] {$s0$};
+	\node[state] (s1)  [left of=q] {$s1$};
+	\path
+	(s0) edge  node {$a$} (p)
+	(s1) edge  node {$a$} (q)
+	(p) edge  node {$b$} (p1)
+	(q) edge  node {$b$} (q1)
+	;
+	\end{tikzpicture}
+	\caption{Intersection of RFA's}
+\end{figure}
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+\node[state]         (q0) {$q_0$};
+\path
+(q0) edge  [loop above]  node {} (q0)
+;
+\end{tikzpicture}
+
+\begin{figure}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+\node[state,initial] (s) {$s$};
+\node[state] (p) [right of=s] {$p$};
+\node[state] (q) [right of=p] {$q$};
+\path
+(s) edge  node {$\overleftarrow{L}(p)$} (p)
+(p) edge  node {$a$} (q)
+;
+\end{tikzpicture}
+\caption{text111}
+\end{figure}
+
+\begin{figure}
+	$T([w]_E,a)=\{[wa]_E\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+	\node[state,initial] (s) {$s$};
+	\node[state] (p) [right of=s] {$[w]_E$};
+	\node[state] (q) [right of=p] {$[wa]_E$};
+	\path
+	(s) edge  node {$w$} (p)
+	(p) edge  node {$a$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$T([w]_E,a)=\{[wa]_E\}$}
+\end{figure}
+
+\begin{figure}
+	$T([w]_{R_L},a)=\{[wa]_{R_L}\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+	\node[state,initial] (s) {$s$};
+	\node[state] (p) [right of=s] {$[w]_{R_L}$};
+	\node[state] (q) [right of=p] {$[wa]_{R_L}$};
+	\path
+	(s) edge  node {$w$} (p)
+	(p) edge  node {$a$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$T([w]_{R_L},a)=\{[wa]_{R_L}\}$}
+\end{figure}
+
+\begin{figure}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (s) {$$};
+	\node[state] (p) [right of=s] {$$};
+	\node[state] (q) [right of=p] {$$};
+	\path
+	(s) edge  node {$a$} (p)
+	(p) edge  node {$b$} (q)
+	;
+	\end{tikzpicture}
+	\caption{$a,b\in V,(a,b)\in Follow(E)$}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (s) {$s$};
+\node[state] (p) [right of=s] {$a$};
+\node[state] (q) [right of=p] {$b$};
+\path
+(s) edge  node {$a$} (p)
+(p) edge  node {$b$} (q)
+;
+\end{tikzpicture}
+\caption{$BSenc(E)$}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[descr/.style={fill=white,inner sep=2.5pt}]
+\matrix (m) [matrix of math nodes, row sep=1em,column sep=2em]
+{  \circ & \circ q_0 \\};
+\path[->,font=\scriptsize]
+(m-1-1) edge node[auto] {$a$} (m-1-2)
+;
+\end{tikzpicture}
+\caption{text}
+\end{figure}
+
+notes:\\
+$[V^\ast]_{R_L} = V^\ast / R_L$ 表示右不变的等价关系，每个等价关系对应一个状态。\\
+$[\epsilon]_{R_L}$ 表示$\epsilon$所在的等价类对应的状态,就是开始状态\\
+\\
+$[V^\ast]_{E} = V^\ast / R_E$ 表示右不变的等价关系，每个等价关系对应一个状态。\\
+$[\epsilon]_{E}$ 表示$\epsilon$所在的等价类对应的状态,就是开始状态
+
+\begin{align*}
+	First((a\cup \epsilon)b^\ast)&=(Defn.\quad First(E\cdot F),\epsilon \in (a \cup \epsilon),Null(E)=true)\\
+	&=(\Rightarrow First(E)\cup First(F))\\
+	&=First(a\cup \epsilon)\cup First(b^\ast)\\
+	&=(Defn.\quad First(E\cup F)=First(E)\cup First(F),First(E^\ast)=First(E))\\
+	&=(First(a)\cup First(\epsilon))\cup First(b)\\
+	&=\{a\cup \emptyset\}\cup \{b\}=\{a,b\}
+\end{align*}
+
+\begin{align*}
+First((a\cup \epsilon)b^\ast)&=First(ab^\ast \cup \epsilon b^\ast)\\
+&= (Defn.\quad Fitst(E\cup F) = First(E)\cup First(F))\\
+&=First(ab^\ast) \cup First(b^\ast)\\
+&=(Defn.\quad First(E\cdot F),\epsilon \notin \{a\},Null(E)=false\Rightarrow First(ab^\ast)=First(a)\cup \emptyset = \{a\})\\
+&=First(a)\cup First(b)=\{a,b\}
+\end{align*}
+
+\begin{align*}
+Last((a\cup \epsilon)b^\ast)&=(Defn.\quad Last(E\cdot F),\epsilon \in (a \cup \epsilon),Null(E)=true)\\
+&=(\Rightarrow Last(E)\cup Last(F))\\
+&=Last(a\cup \epsilon)\cup Last(b^\ast)\\
+&=(Defn.\quad Last(E\cup F)=Last(E)\cup Last(F),Last(E^\ast)=Last(E))\\
+&=(Last(a)\cup Last(\epsilon))\cup Last(b)\\
+&=\{a\cup \emptyset\}\cup \{b\}=\{a,b\}
+\end{align*}
+
+\begin{align*}
+Null((a\cup \epsilon)b^\ast)&=(Defn.\quad Null(E\cdot F)=Null(E\land F)),\epsilon\in L_{RE} \equiv Null(E))\\
+&=Null(a\cup \epsilon) \land Null(b^\ast)\\
+&=(Defn.\quad Null(E\cup F) = Null(E\lor F),Null(E^\ast)=true)\\
+&=(Null(a)\lor Null(\epsilon)) \land true\\
+&=true \land true = true
+\end{align*}
+
+\begin{align*}
+	Last(a\cup \epsilon) &= Last(a) \cup Last(\epsilon)=\{a\} \cup \emptyset=\{a\}\\
+	First(b^\ast) &= First(b) = \{b\}\\
+	Follow(a\cup \epsilon)&=Follow(a)\cup Follow(\epsilon)=\emptyset \cup \emptyset = \emptyset\\
+	Follow(b^\ast)&=Follow(b)\cup (Last(b)\times First(b)))=\emptyset\cup \{(b,b)\}=\{(b,b)\}\\
+\end{align*}
+\begin{align*}
+Follow((a\cup \epsilon)b^\ast)&=Follow(a\cup\epsilon)\cup Follow(b^\ast)\cup (Last(a\cup\epsilon)\times First(b^\ast))\\
+&=\emptyset\cup \{(b,b)\}\cup\{(\{a\}\times \{b\})\}\\
+&=\{(b,b)\}\cup\{(a,b)\}\\
+&=\{(a,b),(b,b)\}
+\end{align*}
+
+\begin{figure}[htbp]
+新的
+\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state,initial] (q0)  {};
+\node[state,accepting] (q1) [right of=q0] {};
+\node[state]           (q2) [right of=q1] {};
+\node[state,accepting] (q3) [right of=q2] {};
+\node[state]           (q4) [below of=q1] {};
+\node[state]           (q5) [below of=q2] {};
+\path
+(q0) edge node {$a$} (q1)
+(q1) edge node {$a$} (q2)
+(q2) edge node {$b$} (q3)
+(q0) edge [swap] node {$b$} (q4)
+(q4) edge [swap] node {$a$} (q5)
+(q5) edge [swap] node {$a$} (q3)
+;
+\end{tikzpicture}
+\caption{更改}
+\end{figure}
+
+\section{Others}
+
+\begin{definition}[Prefix-closure\cite{Chrison2007}]
+	Let $L\subseteq V^*$,then
+	$$\overline{L} := \{s\in V^*:(\exists t\in V^*)[st\in L]\}$$
+\end{definition}
 In words, the prefix closure of L is the language denoted by $\overline{L}$ and consisting of all the prefixes in L. In general, $L\subseteq \overline{L}$.
 
 L is said to be prefix-closed if $L = \overline{L}$. Thus language L is prefix-closed if any prefix of any string in L is also an element of L.
@@ -134,24 +1195,402 @@ $L_2 = \{a,b,ab\}, \overline{L_2} = \{\epsilon,a,b,ab\}, L_2 \subset \overline{L
 
 \hfill
 
-$\textbf{Post-language:}$ Let $L\subseteq V^{\ast}$ and $s\in L$. Then the post-language of L after s, denoted by L/s, is the language
+\begin{definition}[Post-closure\cite{Chrison2007}]
+Let $L\subseteq V^{\ast}$ and $s\in L$. Then the post-language of L after s, denoted by L/s, is the language
 $$ L/s := \{t\in V^{\ast}:st\in L\}$$
 By definition, $L/s = \emptyset$ if $s \notin \overline{L}$.
+\end{definition}
 
 \hfill
 
-$\textbf{Definition A.15 (Left derivatives):}$ Given language $A\subseteq V^{\ast}$ and $w\in V^{\ast}$ we define the left derivative of A with respect to $w$ as:
+\begin{definition}[Left derivatives\cite{WATSON93a}] Given language $A\subseteq V^{\ast}$ and $w\in V^{\ast}$ we define the left derivative of A with respect to $w$ as:
 $$w^{-1}A = \{x\in V^{\ast}:wx\in A\}$$
+$A$关于$w$的左导数，就是$A$中： \{$w$的后缀组成的字符串集合\}。
+
 Sometimes derivatives are written as $D_{w}A$ or as $\frac{dA}{dw}$. Right derivatives are analogously defined. Derivatives can also be extended to $B^{-1}A$ where B is also a language.
+\end{definition}
 
-\hfill
+\begin{example}
+$A = \{a,aab,baa\},a^{-1}A = D_{a}A = \frac{dA}{da} =\{\epsilon,ab,\emptyset\} = \{\epsilon,ab\}$ \hfill$\square$
+\end{example}
 
-$\textbf{Kleene-closure:}$ Let $L\subseteq V^*$, then
-$$L^* := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$
+\begin{figure}[htbp]
+$L = \{a,aab,baa\}$
+\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state,initial] (q0)  {};
+\node[state,accepting] (q1) [right of=q0] {};
+\node[state]           (q2) [right of=q1] {};
+\node[state,accepting] (q3) [right of=q2] {};
+\node[state]           (q4) [below of=q1] {};
+\node[state]           (q5) [below of=q2] {};
+\path
+(q0) edge node {$a$} (q1)
+(q1) edge node {$a$} (q2)
+(q2) edge node {$b$} (q3)
+(q0) edge [swap] node {$b$} (q4)
+(q4) edge [swap] node {$a$} (q5)
+(q5) edge [swap] node {$a$} (q3)
+;
+\end{tikzpicture}
+\\
+$a^{-1}L =\{\epsilon,ab,\emptyset\} = \{\epsilon,ab\}$ \\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[initial,state,accepting] (q6) {};
+\node[state]           (q7) [right of=q6] {};
+\node[state,accepting] (q8) [right of=q7] {};
+\path
+(q6) edge node {$a$} (q7)
+(q7) edge node {$b$} (q8)
+;
+\end{tikzpicture}
+\caption{$a^{-1}L$}
+\end{figure}
+
+\begin{figure}[htbp]
+	$L = \{a,aab,baa\}$
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,initial] (q0)  {};
+	\node[state,accepting] (q1) [right of=q0] {};
+	\node[state]           (q2) [right of=q1] {};
+	\node[state,accepting] (q3) [right of=q2] {};
+	\node[state]           (q4) [below of=q1] {};
+	\node[state]           (q5) [below of=q2] {};
+	\path
+	(q0) edge node {$a$} (q1)
+	(q1) edge node {$a$} (q2)
+	(q2) edge node {$b$} (q3)
+	(q0) edge [swap] node {$b$} (q4)
+	(q4) edge [swap] node {$a$} (q5)
+	(q5) edge [swap] node {$a$} (q3)
+	;
+	\end{tikzpicture}
+	\\
+	$V^{-1}L =\{\epsilon,aa,ab\},V\in\{a,b\}$ \\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,accepting,initial] (q1) {};
+	\node[state]           (q2) [right of=q1] {};
+	\node[state,accepting] (q3) [right of=q2] {};
+	\node[state,initial]   (q4) [below of=q1] {};
+	\node[state]           (q5) [below of=q2] {};
+	\path
+	(q1) edge node {$a$} (q2)
+	(q2) edge node {$b$} (q3)
+	(q4) edge [swap] node {$a$} (q5)
+	(q5) edge [swap] node {$a$} (q3)
+	;
+	\end{tikzpicture}
+	\caption{$V^{-1}L$}
+\end{figure}
+
+\begin{example}
+	$L = \{ba,baa,baab,ca\}, w = \{ba\},$
+	
+	$w^{-1}L =\{\epsilon,a,ab,\emptyset\} = \{\epsilon,a,ab\}$
+	
+	${(wa)}^{-1}L = {(baa)}^{-1}L = \{\emptyset,\epsilon,b,\emptyset\} = \{\epsilon,b\}$
+	
+	$a^{-1}(w^{-1}L) = a^{-1}\{\epsilon,a,ab\} = \{\emptyset,\epsilon,b\} = \{\epsilon,b\}$
+	
+	$w\in L \equiv \epsilon \in w^{-1}L,and {(wa)}^{-1}L = a^{-1}(w^{-1}L)$ \hfill$\square$
+\end{example}
+
+\begin{example}
+	$a^{-1}\{a\} = \{\epsilon\}; \quad a^{-1}\{b\} = \emptyset,\quad\Leftarrow if (a\ne b)$ \hfill$\square$
+\end{example}
+
+\begin{example}
+	$L_0 = \{ab\},L_1 = \{ac\}, L_0L_1 = \{abac\}$
+	
+	$a^{-1}(L_0L_1) = \{bac\}$
+	
+	$a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup \emptyset \quad \Leftarrow(\epsilon \notin L_0)$
+	
+	$= \{b\}L_1 = \{bac\}$ \hfill$\square$
+\end{example}
+
+\begin{example}
+	$L_0 = \{\epsilon,ab\},L_1 = \{ac\}, L_0L_1 = \{ac,abac\}$
+	
+	$a^{-1}(L_0L_1) = \{c,bac\}$
+	
+	$a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup a^{-1}L_1 \quad\Leftarrow(\epsilon \in L_0)$
+	
+	$= \{\emptyset,b\}L_1 \cup \{c\} = \{c,bac\}$ \hfill$\square$
+\end{example}
+
+\begin{proof}
+	$a^{-1}(L_0L_1)$
+	
+	$1. if(\epsilon \in L_0) \Rightarrow a^{-1}(L_0L_1) = (a^{-1}L_0)L_1 \cup a^{-1}L_1 $
+	
+	$L_0 = (L_0 \backslash \{\epsilon\}) \cup \{\epsilon\}$
+	
+	$a^{-1}(L_0L_1) = a^{-1}(((L_0 \backslash \{\epsilon\}) \cup \{\epsilon\})L_1)$
+	
+	$=a^{-1}(L_0L_1\cup L_1)$
+	
+	$a^{-1}L_0 = a^{-1}((L_0 \backslash \{\epsilon\}) \cup \{\epsilon\})$
+	
+	$=a^{-1}(L_0\ \backslash \{\epsilon \}) \cup a^{-1}\{\epsilon \}$
+	
+	$=a^{-1}L_0 \cup \emptyset = a^{-1}L_0$
+\end{proof}
+	
+
+\clearpage
+
+From \cite[p99]{Hopcroft2008}
+
+(1)如果$L$是一个语言，$a$是一个符号，则$L/a$(称作$L$和$a$的商)是所有满足如下条件的串$w$的集合：$wa$属于$L$。
+例如，如果$L=\{a,aab,baa\}$,则$L/a = \{\epsilon,ba\}$, 证明：如果$L$是正则的，那么$L/a$也是。提示：从$L$的$DFA$出发，考虑接受状态的集合。
+
+(2)如果$L$是一个语言，$a$是一个符号，则$a\backslash L$是所有满足如下条件的串$w$的集合: $aw$属于$L$。例如，如果$L=\{a,aab,baa\}$,则$a\backslash L=\{\epsilon,ab\}$,证明：如果$L$是正则的，那么$a\backslash L$也是。提示：记得正则语言在反转运算下是封闭的，又由(1)知，正则语言的商运算下是封闭的。
+
+\begin{definition}[Kleene-closure\cite{Chrison2007}]
+	Let $L\subseteq V^{\ast}$, then
+	$$L^{\ast} := \{\epsilon\}\cup L \cup LL\cup LLL\cup \cdots$$
+\end{definition}
+
 This is the same operation that we defined above for the set V, except that now it is applied to set L whose elements may be strings of length greater than one. An element of $L^*$ is formed by the concatenation of a finite (but possibly arbitrarily large) number of elements of L; this includes the concatenation of "zero" elements, that is the empty string $\epsilon$. Note that $\ast$ operation is idempotent: ${(L^*)}^* = L^*$.
-%\bgein{CJK}
-%����
-%\end{CJK}
-��ÿ�ݴ�
-\end{document}
+\begin{align*}
+L^{\ast} &= \{\epsilon\} +L^{+} \\
+&=  \{\epsilon\}\cup (L\backslash \{\epsilon\})L^{\ast}\\ &=\{\epsilon\} + L + LL + LLL + \cdots
+\end{align*}
+
+\section{Linear equation}
+
+see \cite[5.3,p64]{Jean2018}.
+
+We give an algorithm to covert an automaton to a rational(regular) expression. The algorithm amounts to solving a system of linear equations on languages. We first consider an equation of the form
+\begin{equation}\label{Linear equation}
+X = KX + L
+\end{equation}
+
+\begin{proposition}[Arden's Lemma]
+	if $K$ does not contain the empty word, then $X = K^\star L$ is the unique solution of the equation $X = KX + L$.
+\end{proposition}
+where $K$ and $L$ are languages and $X$ is the unknown. When $K$ does not contain the empty word, the equation admits a unique solution.
+
+\begin{proof}
+	Replacing $X$ by $K^{\ast}L$ in the expression $KX+L$,one gets
+	$$K(K^{\ast})L + L = K^{+}L + L = (K^{+}L + L) = K^{\ast}L,$$
+	and hence $X = K^{\ast}L$ is a solution of (\ref{Linear equation}). see\footnote[1]{\begin{align*}
+		K^{\ast} &= \{\epsilon\} + K^{+} \\
+		&=  \{\epsilon\} + (K\backslash \{\epsilon\})K^{\ast}\\ &=\{\epsilon\} + K + KK + KKK + \cdots
+		\end{align*}}\label{star}
+	
+	To Prove uniqueness, consider two solutions $X_{1}$ and $X_{2}$ of (\ref{Linear equation}). By symmetry,it suffices to show that each word $u$ of $X_1$ also belongs to $X_2$. Let us prove this result by induction on the length of $u$.
+	
+	If $|u| = 0$, $u$ is the empty word\footnote[2]{The empty word = $\epsilon,|\epsilon| = 0$; if a language $M = \{\epsilon\}, |M| = 1$, The empty language $M = \emptyset, |M| = 0$. 文献\cite{Jean2018}用1表示$\epsilon$,因为$\epsilon K = K\epsilon = K$, 因此,$\epsilon$是连接运算的单位元，正是1表示的用意。0表示$\emptyset$,它是并运算的单位元,$K\cup \emptyset = \emptyset \cup K = K$.} and if $u \in X_1 = KX_1 + L$, then necessarily $u\in L$ since $\epsilon \notin K$. But in this case, $u\in KX_2 + L = X_2$. see\footnote[3]{In this case,$|u| = 0, X = \{\epsilon\},|X| = 1.\quad i.e.\quad\epsilon = K\epsilon + L, \epsilon = K + L$}
+	
+	For the induction step, consider a word $u$ of $X_1$ of length $n + 1$. Since $X_1 = KX_1 + L, u$ belongs either to $L$ or to $KX_1$. if $u\in L$, then $u\in KX_2 + L = X_2$. If $u\in KX_1$ then $u = kx$ for some $k\in K$ and $x\in X_1$. Since $k$ is not the empty word, one has necessarily $|x| \leq n$ and hence by induction $x\in X_2$.[see\footnote[4]{$u = kx,|u|=|kx|=n+1,\epsilon \notin K,|k|\ge 1,|x|\le n$,由假设知，$u$属于$X_1$,归纳$|x|=0,|x|=1,\cdots,n,x\in X_2$.}] It follows that $u\in KX_2$ and finally $u\in X_2$. This conclude the induction and the proof of the proposition.  \hfill$\square$
+\end{proof}
+
+\begin{svgraybox}
+	
+From \cite[p74]{Wonham2018}
+The \textit{length} $|s|$ of a string $s\in \Sigma^{\ast}$ is defined according to
+$$|\epsilon| = 0; |s| = k, \text{if }s = \sigma_1\sigma_2 \cdots\sigma_k\in \Sigma ^{+}$$
+Thus $|cat(s,t)| = |s| + |t|$.
+
+A \textit{language} over $\Sigma$ is any subset of $\Sigma^{\ast}$, i.e. an element of the power set $Pwr(\Sigma^{\ast})$; thus the definition includes both the empty language $\emptyset$, and $\Sigma^{\ast}$ itself.
+
+Note the distinction between $\emptyset$ (the language with no strings) and $\epsilon$ (the string with no symbols). For instance the language $\{\epsilon\}$ is nonempty, but contains only the empty string.
+\end{svgraybox}	
+
+From \cite[p78]{Wonham2018}
+\begin{proposition}[\cite{Wonham2018}]
+	\begin{enumerate}
+		\item If $L = M^{\ast}N$ then $L = ML + N$
+		\item If $\epsilon\notin M$ then $L = ML + N$ implies $L = M^{\ast}N$ \hfill$\square$
+	\end{enumerate}
+\end{proposition}
+Part(2) is Known as Arden's rule. Taken with Part(1) it says that if $\epsilon\notin M$ then $L = M^{\ast}N$ is the unique solution of $L = ML + N$; in particular if $L = ML$ (with $\epsilon \notin M$) then $L = \emptyset$
+
+\begin{exercise}
+	Show by counterexample that the restriction $\epsilon \notin M$ in Arden's rule cannot be dropped.
+\end{exercise}
+\begin{solution}
+	Examples text goes here.
+\end{solution}
+
+\begin{exercise}
+	Prove Arden's rule. Hint: If $L = ML + N$ then for every $k\geq 0$
+	$$L = M^{k+1}L + (M^{k} + M^{k-1} + \cdots + M + \epsilon)N$$
+\end{exercise}
+
+\begin{solution}
+	\begin{align*} Preliminaries:\\
+		M^{\ast} &= M^{k} + M^{k-1} + \cdots + M^{1} + M^{0} \qquad (k\geq 0)\\
+		         &= M^{k} + M^{k-1} + \cdots + M^{1} + \epsilon \\
+		         &= M^{+} + \epsilon\\
+		         &= MM^{*} + \epsilon\\
+		         &= (M\backslash\{\epsilon\})M^{*} + \epsilon\\
+		M^{+} &= M^{k} + M^{k-1} + \cdots + M^{1} \qquad (k > 0)\\
+		      &= M(M^{k} + M^{k-1} + \cdots + M^{1} + M^{0}) \\
+		      &= MM^{*}\\
+	    M^{0} &= \{\epsilon\} = 1\\
+	    M\epsilon &= \epsilon M = M\\
+	    \epsilon+\epsilon &=\epsilon\\
+	    M+M &= M
+	\end{align*}
+	\begin{proof}
+		$$L = ML + N \Rightarrow$$
+		\begin{align}
+			M^0L &= M^1L + M^0N \\
+			M^1L &= M^2L + M^1N \\
+			M^2L &= M^3L + M^2N \\
+		\end{align}
+		$$\cdots$$
+		$\Rightarrow\\ (M^0+M^1+M^2+\cdots)L = (M^1+M^2+M^3+\cdots)L + (M^0+M^1+M^2+\cdots)N \\ \Rightarrow$
+	
+	    so,if $L = ML +N$,then for every $k \ge 0$
+	
+		$L = M^{k+1}L + (M^k+M^{k-1}+\cdots+M+M^0)N \\ \Rightarrow$
+		
+		\begin{equation}\label{leq}
+			L = M^{k+1}L + (M^k+M^{k-1}+\cdots+M+\epsilon)N
+		\end{equation}
+		
+		(1) $k = 0$\\
+		$L = ML + (\epsilon)N = ML + N \\ \Rightarrow
+		(1-M)L = N \\
+		(\epsilon-M)L = N$\\
+		由于$\epsilon \notin M$,左端不会消去\{$\epsilon$\}.因此,只能在$N$中找$L$,仅有唯一解: $L
+		=\{\epsilon\} = \text{\{empty word\}} \subseteq N$.
+
+	\end{proof}
+%	Replacing L by $M^{\ast}N$ in the expression $ML + N$, one gets
+%	\begin{align*}
+%	     $L = ML + N$
+%	\end{align*}
+%	and hence $L = M^{*}N$ is a solution of $L = ML + N$.
+%	
+%	To Prove uniqueness, consider two solutions $L_{1}$ and $L_{2}$ of $ML + N$. By symmetry,it suffices to show that each string $s$ of $L_1$ also belongs to $L_2$. Let us prove this result by induction on the length of $s$.
+%	
+%	if $|s| = 0$, $s$ is the empty string($\epsilon$) and if $s\in L_1 = ML_1 + N$, then necessarily $s\in N$ since $\epsilon\notin M$. But in this case, $s\in ML_2 + N = L_2$. see\footnote[1]{In this case,$|s| = 0, L = \{\epsilon\},|L| = 1.\quad i.e.\quad\epsilon = M\epsilon + N,  \epsilon = M + N$}
+%	
+%	Replacing L by $M^{\ast}N$ in the expression $ML + N$, one gets
+%	\begin{align*}
+%	L = M(M^{\ast}N) + N &= M((M^{k} + M^{k-1} + \cdots + M^{1} + M^{0})N) + N \qquad (k\geq 0)\\
+%	&= \text{(by associative law)} \\
+%	&= (M(M^{k} + M^{k-1} + \cdots + M^{1} + M^{0}))N + N \\
+%	&= \text{(by distributive law)} \\
+%	&= (M^{k+1} + M^{k} + M^{k-1} + \cdots + M^{1})N + N \\
+%	&= \text{(by distributive law)} \\
+%	&= M^{k+1}N + (M^{k} + M^{k-1} + \cdots + M^{1})N + N \\
+%	&= M^{k+1}N + (M^{k} + M^{k-1} + \cdots + M^{1} + 1)N \\
+%	&= \text{by }(M^{0} = \epsilon = 1) \\
+%	&= M^{k+1}N + (M^{k} + M^{k-1} + \cdots + M^{1} + \epsilon)N \\
+%	&= M^{k+1}N + M^{*}N \\
+%	&= \text{(by $L = M^{*}N$)} \\
+%	&= M^{k+1}N + L
+%	\end{align*}
+%	$k\geq 0$
+%	$$L = M^{k+1}L + (M^{k} + M^{k-1} + \cdots + M + \epsilon)N$$
+
+\end{solution}
+
+From \cite[definition 2.3]{R.Su and Wonham2004}
+
+\begin{definition}\label{def:epimorphic} Let
+	
+	$G_A=(X_A,\Sigma,\xi_A,x_{A,0},X_{A,m})$
+	
+	$G_A=(X_B,\Sigma,\xi_B,x_{B,0},X_{B,m})$\\
+	$G_B$ is a DES-epimorphic image(满射像) of $G_A$ under DES-epimorphism $\theta: X_A \to X_B$ if
+	\begin{enumerate}
+		\item $\theta:X_A\to X_B$ is surjective(满射)
+		\item $\theta(x_{A,0})=x_{B,0}$ and $\theta(X_{A,m})=X_{B,m}$
+		\item $(\forall x\in X_A)(\forall \sigma\in\Sigma)\xi_A(x,\sigma)! \Rightarrow [\xi_B(\theta(x),\sigma)!\&\xi_B(\theta(x),\sigma)=\theta(\xi_A(x,\theta))]$ \label{item3}
+		\item $(\forall x\in X_B)(\forall\sigma\in\Sigma)\xi_B(x,\sigma)!\Rightarrow [(\exists x^\prime\in X_A)\xi_A(x^\prime,\sigma)!\&\theta(x^\prime)=x]$ \label{item4}
+	\end{enumerate}
+	
+	In particular,$G_B$ is DES-isomorphic(同构) to $G_A$ if $\theta:X_A\to X_B$ is bijective(双射).
+	
+	see figure \ref{fig:epimorphic}.
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\flushleft{$\theta(x_{A,0})=x_{B,0}$ and $\theta(X_{A,m})=X_{B,m}$\\
+	$\theta(x_A)=x_B$ and $\theta(x_A^\prime)=x_B^\prime$\\
+	$\xi_A(x_A,\sigma)=x_A^\prime$ and $\xi_B(x_B,\sigma)=x_B^\prime \Rightarrow$  definition \ref{def:epimorphic} (\ref{item3},\ref{item4})
+	\\
+    }
+	\begin{tikzpicture}[>=latex, shorten >=1pt,node distance=0.75in, on grid, auto]
+	\node[state,initial] (A0) {$x_{A,0}$};
+	\node[state](A1) [right=of A0] {$x_A$};
+	\node[state](A2) [right=of A1] {$x_A^\prime$};
+	\node[state,accepting] (A3) [right=of A2] {$X_{A,m}$};
+	\node[state,initial] (B0) [below=of A0]{$x_{B,0}$};
+	\node[state](B1) [right=of B0] {$x_B$};
+	\node[state](B2) [right=of B1] {$x_B^\prime$};
+	\node[state,accepting] (B3) [right=of B2] {$X_{B,m}$};
+	\path[->]
+	(A0) edge node {$\cdots$} (A1)
+	(A1) edge node {$\sigma$} (A2)
+	(A2) edge node {$\cdots$} (A3)
+	(B0) edge node {$\cdots$} (B1)
+	(B1) edge node {$\sigma$} (B2)
+	(B2) edge node {$\cdots$} (B3)
+	(A0) edge node {$\theta$} (B0)
+	(A1) edge node {$\theta$} (B1)
+	(A2) edge node {$\theta$} (B2)
+	(A3) edge node {$\theta$} (B3)
+	;
+	\end{tikzpicture}
+	\caption{definition \ref{def:epimorphic}, $G_B$ is a DES-epimorphic image(满射像) of $G_A$ under DES-epimorphism $\theta: X_A \to X_B$ }
+	\label{fig:epimorphic}	
+\end{figure}
+
+%\input{referenc}
+
+\begin{thebibliography}{99}
+	\bibitem[Hopcroft2008]{Hopcroft2008}
+	John E. Hopcroft,Rajeev Motwani,Jeffrey D. Ullman著,孙家骕等译,\textit{自动机理论、语言和计算机导论},Third Edition, 机械工业出版社,2008.7
+	
+	\bibitem[WATSON93a]{WATSON93a}
+	WATSON, B. W. \textit{A taxonomy of finite automata construction algorithms}, Computing Science Note 93/43, Eindhoven University of Technology, The Netherlands, 1993. Available by ftp from ftp.win.tue.nl in pub/techreports/pi.
+	
+	\bibitem[WATSON93b]{WATSON93b}
+	WATSON, B. W. \textit{A taxonomy of finite automata minimization algorithms}, Computing Science Note 93/44, Eindhoven University of Technology, The Netherlands, 1993. Available by ftp from ftp.win.tue.nl in pub/techreports/pi.
+	
+	\bibitem[WATSON94a]{WATSON94a}
+	WATSON, B. W. \textit{An introduction to the FIRE engine: A C++ toolkit for FInite automata and Regular Expressions}, Computing Science Note 94/21, Eindhoven University of Technology, The Netherlands, 1994. Available by ftp from ftp.win.tue.nl in pub/techreports/pi
+	
+	\bibitem[WATSON94b]{WATSON94b}
+	WATSON, B.W. \textit{The design. and implementation of the FIRE engine:	A C++ toolkit for FInite automata and Regular Expressions}, Computing Science Note 94/22, Eindhoven University of Technology, The Netherlands, 1994. Available by ftp from ftp.win.tue.nl in pub/techreports/pi.
+	
+	\bibitem[Chrison2007]{Chrison2007}
+	Christos G. Cassandras and St$\acute{e}$phane Lafortune, \textit{Introduction to Discrete Event Systems},Second Edition,New York,Springer,2007
+	
+	\bibitem[Wonham2018]{Wonham2018}
+	W. M. Wonham and Kai Cai,\textit{Supervisory Control of Discrete-Event Systems}, Revised 2018.01.01
+	
+	\bibitem[Jean2018]{Jean2018}
+	Jean-$\acute{E}$ric Pin, \textit{Mathematical Foundations of Automata Theory},Version of June 15,2018
+	
+	\bibitem[蒋宗礼2013]{蒋宗礼2013}
+	蒋宗礼,姜守旭, \textit{形式语言与自动机理论（第3版）}, 清华大学出版社,2013.05
+	
+	
+	\bibitem[Lipschutz2007]{Lipschutz2007}
+	S. Lipschutz and M. L. Lipson, \textit{Schaum's Outline of Theory and Problems of Discrete Mathematics}, Third Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem[Rosen2007]{Rosen2007}
+	K. H. Rosen, \textit{Discrete Mathematics and Its Applications}, Seventh Edition, New York: McGraw-Hill, 2007.
+	
+	\bibitem[R.Su and Wonham2004]{R.Su and Wonham2004}
+	R. Su and W. M. Wonham, \textit{Supervisor reduction for discrete-event systems}, Discrete Event Dyn. Syst., vol. 14, no. 1, pp. 31–53, Jan. 2004.
+	
+	\bibitem{Maclane1988}
+	S. Maclane and G. Birkhoff, \textit{Algebra}, Third Edition, New York: Bchelsea Publishing Company, 1988.
+\end{thebibliography}
 
