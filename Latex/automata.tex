@@ -967,6 +967,54 @@ $Q^\prime=\{q_0\}\cup (\bigcup_{b\in V)}\{\pi_2(T_0(b)\times \pi_2(T_1(b))\}$\\
 \end{tikzpicture}
 
 
+\begin{figure}[htbp]
+$T_0(b)=(p,p^\prime),T_1(b)=(q,q^\prime)$\\
+$\pi_2(T_0(b))=p^\prime,\pi_2(T_1(b))=q^\prime$\\
+$T_0(s_0,a)=p,T_1(s_1,a)=q$\\
+$Q^\prime=\{q_0\}\cup \bigcup_{b\in V}(\pi_2(T_0(b))\times \pi_2(T_1(b)))$\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+\tikzstyle{every state}=[minimum size=0.1mm]
+\node[state] (p)  {$p$};
+\node[state] (p1)[right of=p] {$p^\prime$};
+\node[state] (q)  [below of =p]{$q$};
+\node[state] (q1)[right of=q] {$q^\prime$};
+\node[state] (s0)  [left of=p] {$s0$};
+\node[state] (s1)  [left of=q] {$s1$};
+\path 
+(s0) edge  node {$a$} (p)
+(s1) edge  node {$a$} (q)
+(p) edge  node {$b$} (p1)
+(q) edge  node {$b$} (q1)
+;
+\end{tikzpicture}
+	\caption{Intersection of LBFA's}
+\end{figure}
+
+\begin{figure}[htbp]
+	$Q^\prime=\bigcup_{b\in V}(Q_{map_0}^{-1}(b)\times Q_{map_1}^{-1}(b))$\\
+	$follow^\prime=\{(p,q),(p^\prime,q^\prime)\}$\\
+	$first^\prime=\{(s_0,s_1)\}$ \\
+	$last^\prime=\{(last_0\times last_1)\cap Q^\prime\}$\\
+	$null^\prime=null_0\land null_1$\\
+	$Q_{map}^{\prime -1}(a)=\{(Q_{map_0}^{\prime -1}(a)\times Q_{map_1}^{\prime -1}(a))\}$\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (p)  {$p$};
+	\node[state] (p1)[right of=p] {$p^\prime$};
+	\node[state] (q)  [below of =p]{$q$};
+	\node[state] (q1)[right of=q] {$q^\prime$};
+	\node[state] (s0)  [left of=p] {$s0$};
+	\node[state] (s1)  [left of=q] {$s1$};
+	\path 
+	(s0) edge  node {$a$} (p)
+	(s1) edge  node {$a$} (q)
+	(p) edge  node {$b$} (p1)
+	(q) edge  node {$b$} (q1)
+	;
+	\end{tikzpicture}
+	\caption{Intersection of RFA's}
+\end{figure}
+
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
 \node[state]         (q0) {$q_0$};
 \path 
