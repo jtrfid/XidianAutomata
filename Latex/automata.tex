@@ -1050,7 +1050,7 @@ $Q^\prime=\{q_0\}\cup \bigcup_{b\in V}(\pi_2(T_0(b))\times \pi_2(T_1(b)))$\\
 \end{figure}
 
 \begin{figure}
-	$T([w]_{R_L},a)=\{[wa]_{R_L}\}$\\
+	$T([w]_{R_L},a)=\{[wa]_{R_L}\},(wa)^{-1}L=a^{-1}(w^{-1}L),\epsilon^{-1}L=L$\\
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
 	\node[state,initial] (s) {$s$};
 	\node[state] (p) [right of=s] {$[w]_{R_L}$};
@@ -1157,7 +1157,7 @@ Follow((a\cup \epsilon)b^\ast)&=Follow(a\cup\epsilon)\cup Follow(b^\ast)\cup (La
 \end{align*}
 
 \begin{figure}[htbp]
-$L_0=L,L_1=w^{-1}L,L_2=a^{-1}(w^{-1}L)$ \\
+$L_0=L,L_1=w^{-1}L,L_2=a^{-1}(w^{-1}L)=(aw)^{-1}L$ \\
 \\
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
 \tikzstyle{every state}=[minimum size=0.1mm]
@@ -1173,13 +1173,13 @@ $L_0=L,L_1=w^{-1}L,L_2=a^{-1}(w^{-1}L)$ \\
 \end{figure}
 
 \begin{figure}[htbp]
-$L_0=L,L_1=[v^{-1}E]_{\sim},L_2=\{a^{-1}[v^{-1}E]_{\sim}\}$ \\
+$E_0=E,E_1=[v^{-1}E]_{\sim},E_2=\{a^{-1}[v^{-1}E]_{\sim}\}=\{[va]_{\sim}^{-1}E\}$ \\
 \\
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
 \tikzstyle{every state}=[minimum size=0.1mm]
-\node[state,initial] (q0)  {$L_0$};
-\node[state] (q1) [right of=q0] {$L_1$};
-\node[state] (q2) [right of=q1]{$L_2$};
+\node[state,initial] (q0)  {$E_0$};
+\node[state] (q1) [right of=q0] {$E_1$};
+\node[state] (q2) [right of=q1]{$E_2$};
 \path
 (q0) edge node {$v$} (q1)
 (q1) edge node {$a$} (q2)
@@ -1187,6 +1187,81 @@ $L_0=L,L_1=[v^{-1}E]_{\sim},L_2=\{a^{-1}[v^{-1}E]_{\sim}\}$ \\
 \end{tikzpicture}
 \caption{Construction 5.34 (Brzozowski)}
 \end{figure}
+
+\begin{figure}[htbp]
+	$(\forall u,a,u\in V^\ast\land a\in V),(\exists v\in V^\ast,[u]_{E}\cdot{a}\subseteq [v]_{E})$ \\
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (u) {$[u]_{E}$};
+	\node[state] (v) [right of=q1]{$[v]_{E}$};
+	\path
+	(u) edge[bend left] node {$a$} (v)
+	(u) edge            node {$b$} (v)
+	(u) edge[bend right,swap] node {$c$} (v)
+	;
+	\end{tikzpicture}
+	\caption{Definition 5.2 (Right invariance of an equivalence relation) }
+\end{figure}
+
+\begin{figure}[htbp]
+	$u,w\in V^\ast,(\forall u,w,(\exists v\in V^\ast,[u]_{E}\cdot \{w\}\subseteq [v]_{E}))$ \\
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (u) {$[u]_{E}$};
+	\node[state] (v) [right of=q1]{$[v]_{E}$};
+	\path
+	(u) edge[] node {$w$} (v)
+	;
+	\end{tikzpicture}
+	\caption{Right invariance of an equivalence relation [u],[v]}
+\end{figure}
+
+
+\begin{figure}[htbp]
+	$M=(Q,V,E,{s},F),M$所确定的$V^\ast$上的关系$R_M$定义为:对于$\forall x,y\in V^\ast,$\\
+	$xR_My\Leftrightarrow T^\ast(s,x)=T^\ast(s,y)$ \\ $\Rightarrow$ \\
+	$xR_My \Leftrightarrow \exists q\in Q,x,y\in \overleftarrow{L}(q)$\\
+	按照这个定义所得的关系$R_M$，实际上是$V^\ast$上的等价关系，利用这个关系，可以将$V^\ast$划分成不多于$|Q|$个等价类。 
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,initial] (s) {$s$};
+	\node[state] (q) [right of=s]{$q$};
+	\path
+	(s) edge[bend left] node {$x$} (q)
+	(s) edge[bend right,swap] node {$y$} (q)
+	;
+	\end{tikzpicture}
+	\caption{Equivalence classes of an equivalence relation}
+\end{figure}
+
+\begin{figure}[htbp]
+	$\forall x,y\in V^\ast,$如果$xR_Ly$,则在$x$和$y$后无论接$V^\ast$中的任何字符串$z$,$xz$和$yz$要么都属于$L$,要么都不属于$L$。\\
+	$xR_Ly\Leftrightarrow(\forall z\in V^\ast,xz\in L\Leftrightarrow y\in L)$ 
+	\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,initial] (s) {$s$};
+	\node[state] (q) [right of=s]{$q$};
+	\node[state,accepting] (p) [right of=q]{$p$};
+	\path
+	(s) edge[bend left] node {$x$} (q)
+	(s) edge[bend right,swap] node {$y$} (q)
+	(q) edge[] node {$z$} (p)
+	;
+	\end{tikzpicture}
+	\caption{Equivalence classes of an equivalence relation}
+\end{figure}
+
+Def:\\
+$M=(Q,V,T,E,S,F),T^\ast\in (Q\times Q)\to \mathbb{P}(V^\ast)$\\
+$\overleftarrow{L}_M(q),\overrightarrow{L}_M(q)\in Q\to \mathbb{P}(V^\ast)$\\
+$\overleftarrow{L}_M(q)=\{x|x\in V^\ast,T^\ast(s,q)=x,s\in S\}$\\
+$\overrightarrow{L}_M(q)=\{x|x\in V^\ast,T^\ast(q,f)=x,f\in F\}$\\
+$L_{FA}(Q,V,T,E,S,F)=\bigcup_{f\in F}(\overleftarrow{L}(f))$\\
+
 
 \section{Others}
 
