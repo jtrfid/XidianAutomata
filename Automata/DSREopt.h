@@ -38,7 +38,7 @@ public:
 	// A special constructor:
 	inline DSREopt(const RE& r);
 
-	inline const DSREopt& operator==(const DSREopt& r);
+	inline const DSREopt& operator=(const DSREopt& r);
 
 	// The required member functions:
 	inline int final() const;
@@ -69,7 +69,7 @@ inline DSREopt::DSREopt(const RE& r) :RE(r)
 	assert(class_invariant());
 }
 
-inline const DSREopt& DSREopt::operator==(const DSREopt& r)
+inline const DSREopt& DSREopt::operator=(const DSREopt& r)
 {
 	assert(r.class_invariant());
 	RE::operator=(r);
