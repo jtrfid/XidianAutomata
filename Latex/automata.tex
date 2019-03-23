@@ -1239,8 +1239,8 @@ $E_0=E,E_1=[v^{-1}E]_{\sim},E_2=\{a^{-1}[v^{-1}E]_{\sim}\}=\{[va]_{\sim}^{-1}E\}
 
 \begin{figure}[htbp]
 	$\forall x,y\in V^\ast,$如果$xR_Ly$,则在$x$和$y$后无论接$V^\ast$中的任何字符串$z$,$xz$和$yz$要么都属于$L$,要么都不属于$L$。\\
-	$xR_Ly\Leftrightarrow(\forall z\in V^\ast,xz\in L\Leftrightarrow y\in L)$ 
-	\\
+	$xR_Ly\Leftrightarrow(\forall z\in V^\ast,xz\in L\Leftrightarrow yz\in L)$ \\
+	$q$是自动机的一个状态，从开始状态到达该状态的字符串($\overleftarrow{L}(q)$)是一个等价关系,用$[q]_E$表示。\\
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
 	\tikzstyle{every state}=[minimum size=0.1mm]
 	\node[state,initial] (s) {$s$};
