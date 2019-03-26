@@ -1255,6 +1255,42 @@ $E_0=E,E_1=[v^{-1}E]_{\sim},E_2=\{a^{-1}[v^{-1}E]_{\sim}\}=\{[va]_{\sim}^{-1}E\}
 	\caption{Equivalence classes of an equivalence relation}
 \end{figure}
 
+\begin{figure}[htbp]
+	$u\in V^\ast,[u]_E$表示与字符串$u$等价的一系列字符串。如果用自动机表示: $[u]_E=\overleftarrow{L}(q)$,表示引导自动机由开始状态到达$q$状态的所有字符串，构成对应于$q$状态的一个等价的字符串，等价类的指数(个数)=自动机的状态数：$\textbf{\#E=|Q|}$。如果用完全自动机表示，每个状态下，所有字母均可发生，所以对应每个字母，都有后续状态。\\
+	$M\in DFA, Complete(M), \forall p \in Q,a\in V,T(p,a) \ne\emptyset \Rightarrow$\\
+	$\overleftarrow{L}(p)\cdot \{a\} \subseteq \overleftarrow{L}(T(p,a))$\\
+	Let $[u]_E=\overleftarrow{L}(p),[v]_E=\overleftarrow{L}(T(p,a)),\Rightarrow$\\
+	$(\forall u,a |u\in V^\ast,a\in V) (\exists v|v\in V^\ast,[u]_E\cdot\{a\}\subseteq [v]_E)$\\
+	因此，\textbf{这些等价关系都是右不变的等价关系。任意一个字符串连接一个字符(或字符串)后，还是存在路径可以到达自动机的某个状态。}\\
+	$V=\{0,1\},	\text{三个状态，三个等价类，均属于右不变的等价关系：}m,n \ge 0,[u]_E=\overleftarrow{L}(q_0)=\{(00)^m\},[v]_E=\overleftarrow{L}(q_1)=\{0(00)^m\},[v^\prime]_E=\overleftarrow{L}(q_2)=\{(00)^m1,0(00)^n1\}$\\
+$[(00)^m,(00)^n] \in [u]_E,[0(00)^m,0(00)^n] \in [v]_E,[0(00)^m1,0(00)^n1] \in [v^\prime]_E$ \\
+	$[u]_E\cdot \{0\} = \overleftarrow{L}(q_1) \subseteq [v]_E,[u]_E\cdot \{1\} =  \overleftarrow{L}(q_2) \subseteq [v^\prime]_E,$ 因此$[u]_E$是右不变的等价关系。\\
+	考察$R_L$右不变等价关系:\\ 
+	$[u]_E\subseteq [v]_{R_L},[V^\ast]_E\sqsubseteq
+	[V^\ast]_{R_L},E\subseteq R_L,\#E\ge \#R_L$ 表示$E$关系是$R_L$关系的refinement(“加细”)划分。因此，$(x,y) \in E \Rightarrow (x,y) \in R_L,$ but $(x,y) \in R_L \nRightarrow (x,y) \in E$。\\
+	例如,$x=\overleftarrow{L}(q_0),y=\overleftarrow{L}(q_1)$\\
+	$(x,y)\in R_L,$ but $(x,y) \notin E$; $(x,x)\in E\Rightarrow (x,x) \in R_L$\\
+	Let $[u
+	]_E=\overleftarrow{L}(q_0),[v]_E=\overleftarrow{L}(q_1),$ \\ 
+	验证：$([u]_E,[v]_E)\in R_L$\\ 
+	$[u]_E\cdot \{0\} = \overleftarrow{L}(q_1) \notin L,[u]_E\cdot \{1\} =  \overleftarrow{L}(q_2) \in L$ \\ 
+	$[v]_E\cdot \{0\} = \overleftarrow{L}(q_0) \notin L,[v]_E\cdot \{1\} =  \overleftarrow{L}(q_2) \in L$ \\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state,accepting] (q2) []{$q_2$};
+	\node[state,initial] (q0) [above left of=q2] {$q_0$};
+	\node[state] (q1) [above right of=q2] {$q_1$};
+	\path
+	(q0) edge[bend left] node {$0$} (q1)
+	(q1) edge[bend left] node {$0$} (q0)
+	(q0) edge[swap] node {$1$} (q2)
+	(q1) edge[] node {$1$} (q2)
+	(q2) edge[loop below] node {$0,1$} (q2)
+	;
+	\end{tikzpicture}
+	\caption{Equivalence classes of an equivalence relation}
+\end{figure}
+
 Def:\\
 $M=(Q,V,T,E,S,F),T^\ast\in (Q\times Q)\to \mathbb{P}(V^\ast)$\\
 $\overleftarrow{L}_M(q),\overrightarrow{L}_M(q)\in Q\to \mathbb{P}(V^\ast)$\\
