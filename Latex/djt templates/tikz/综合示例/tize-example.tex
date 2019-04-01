@@ -175,4 +175,44 @@ This example is from the System layer  title page of the TikZ and PGF manual.
 \caption{example-7}
 \end{figure}
 
+%%%%%%%% subfigure %%%%%%%%
+\begin{figure}[htbp]
+	\subfigure[figure11] { \label{fig:a11} 
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+		\tikzstyle{every state}=[minimum size=0.1mm]
+		\node[state] (q)  [] {$q$};
+		\node[state] (q0) [above right of=q] {$q_0$};
+		\node[state] (q1) [below right of=q] {$q_1$};
+		\path 
+		(q) edge [] node {$a$} (q0)
+		edge [] node {$a$} (q1)
+		;
+		\end{tikzpicture}
+	}
+	\hspace{2cm} % 如果并列，用\\换行即可
+	\subfigure[figure22] { \label{fig:a21} 
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick,scale=4]
+		\tikzstyle{every state}=[minimum size=0.1mm]
+		\node[state] (p)  [] {$p$};
+		\node[state] (q01)  [right of=p] {$\{q_0,q_1\}$};
+		\path 
+		(p) edge [] node {$a$} (q01)
+		;
+		\end{tikzpicture}
+	}
+	\caption{$M_2=suseful_s\circ subsetopt(M_1)$}
+\end{figure}
+
+%%%%%%% subfigure %%%%%%%%%%
+\begin{figure} \centering 
+	\subfigure[figure1] { \label{fig:a1} 
+		\includegraphics[width=0.4\columnwidth] {0FA} 
+	} 
+	\subfigure[figure2] { \label{fig:b2} 
+		\includegraphics[width=0.4\columnwidth] {01FA} 
+	} 
+	\caption{ general title. } 
+	\label{fig} 
+\end{figure}
+
 \end{document}
