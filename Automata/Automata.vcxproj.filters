@@ -156,6 +156,9 @@
     <ClCompile Include="Automata.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\DFATest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitVec.h">
