@@ -5,6 +5,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata,matrix,arrows}
 \usepackage{verbatim}
+\usepackage{graphicx}        % standard LaTeX graphics tool
+\usepackage{subfigure}
 
 \begin{document}
 \pagestyle{empty}
@@ -206,10 +208,10 @@ This example is from the System layer  title page of the TikZ and PGF manual.
 %%%%%%% subfigure %%%%%%%%%%
 \begin{figure} \centering 
 	\subfigure[figure1] { \label{fig:a1} 
-		\includegraphics[width=0.4\columnwidth] {0FA} 
+		%\includegraphics[width=0.4\columnwidth] {0FA} 
 	} 
 	\subfigure[figure2] { \label{fig:b2} 
-		\includegraphics[width=0.4\columnwidth] {01FA} 
+		%\includegraphics[width=0.4\columnwidth] {01FA} 
 	} 
 	\caption{ general title. } 
 	\label{fig} 
