@@ -38,7 +38,7 @@ StateEqRel& StateEqRel::equivalize(const State p, const State q)
 		StateSet *newp(lookup(p));
 		assert(oldq != newp);
 		State i;
-		for (oldq->iter_start(i); !oldq->iter_end(i); oldq->iter_end(i))
+		for (oldq->iter_start(i); !oldq->iter_end(i); oldq->iter_next(i))
 		{
 			map(i) = newp;
 		}
