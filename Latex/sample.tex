@@ -224,6 +224,24 @@ referenc：Table. ~\ref{tab:1}
 
 footnote environment \footnote{脚注footnote.}.
 
+\begin{algorithm}  
+	\caption{用归并排序求逆序数}  
+	\begin{algorithmic}[1] %每行显示行号  
+		\Require $M=(Q,V,T,_,F)$  
+		\Ensure The equivalence classes of $Q$  
+		\Function {MergerSort}{$Array, left, right$}  
+		\State $result \gets 0$  
+		\If {$left < right$}  
+		\State $middle \gets (left + right) / 2$  
+		\State $result \gets result +$ \Call{MergerSort}{$Array, left, middle$}  
+		\State $result \gets result +$ \Call{MergerSort}{$Array, middle, right$}  
+		\State $result \gets result +$ \Call{Merger}{$Array,left,middle,right$}  
+		\EndIf  
+		\State \Return{$result$}  
+		\EndFunction 
+	\end{algorithmic}   
+\end{algorithm}
+
 参考文献
 %\input{referenc}
 

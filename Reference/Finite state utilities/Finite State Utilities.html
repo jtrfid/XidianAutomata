@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML //EN">
+<!-- saved from url=(0032)http://www.jandaciuk.pl/fsa.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+<meta http-equiv="Keywords" content="finite-state automata, natural language processing">
+
+<title>Finite State Utilities</title>
+<link rel="alternate" type="application/rss+xml" href="http://www.jandaciuk.pl/News/news2.rss" title="RSS feed for my software">
+</head>
+<body>
+<a href="http://www.jandaciuk.pl/fsa_polski.html">Po polsku</a><br>
+This page contains <b>no</b> Javascript. No need to analyze the source!
+<hr>
+<h1>Important note</h1>
+Due to problems with GUT WWW servers, and due to GUT's planned switch
+to another internet domain, this page has been moved to a new
+location: <a href="http://www.jandaciuk.pl/fsa.html">http://www.jandaciuk.pl/fsa.html</a>. Note
+that the software repository on an FTP server had to be moved as well,
+as not only it will be affected by the domain switch (the current
+domain will be abandoned!), but GUT's FTP server crew is unreliable
+(they switched off the server for several month at the beginning of 2016).
+<h1>Finite state utilities</h1>
+This page describes two software packages and some accompanying files
+available from
+<a href="http://www.jandaciuk.pl/Software/Fsa/">http://www.jandaciuk.pl/Software/Fsa/
+</a> and <a href="http://www.jandaciuk.pl/Software/Utr/">http://www.jandaciuk.pl/Software/Utr/</a>. Farther on this
+page, you will find direct links to the current versions of both
+software packages.<p>
+Further down on this page:
+</p><ul>
+<li><a href="http://www.jandaciuk.pl/fsa.html#WhatFor">What are they for?</a> (Purpose of the packages)</li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#AvailP">Available Packages</a>
+  <ul>
+  <li><a href="http://www.jandaciuk.pl/fsa.html#FSApack">fsa - finite-state automata</a></li>
+  <li><a href="http://www.jandaciuk.pl/fsa.html#UTRpack">utr - transducers</a></li>
+  </ul></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#Dicts">Dictionaries</a>
+  <ul>
+  <li><a href="http://www.jandaciuk.pl/fsa.html#ExtName">Name extension conventions</a></li>
+  <li><a href="http://www.jandaciuk.pl/fsa.html#AvailDicts">Available Dictionaries</a></li>
+  </ul></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#OtherSoft">Some Other Software I Wrote</a></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#Related">Software Directly Related to Mine</a></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#More">More On-line Information on Finite State
+  Automata</a></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#Money">Money</a></li>
+<li><a href="http://www.jandaciuk.pl/fsa.html#Feedback">Feedback</a></li>
+</ul>
+
+
+<a name="WhatFor">
+<h2>What are they for?</h2>
+<ul>
+<li>Spellchecking</li>
+<li>Diacritic restoration</li>
+<li>Morphological Analysis and Synthesis</li>
+<li>Acquisition of data for morphological descriptions</li>
+<li>Perfect Hashing</li>
+</ul>
+</a><a name="AvailP">
+<h2>Available Packages</h2>
+Both packages are written in C++, and they can be compiled with
+g++. Problems may arise when compiling with different compilers due to
+the use of templates that tend not to be implemented universally. Both
+packages use compact dictionaries that are automata (of different forms)
+An interface in elisp is provided for both of them. The interface worked
+with emacs19, but it is highly unlikely that it will work with emacs20
+or later (specially with mule).
+
+</a><a name="FSApack">
+</a><h3><a name="FSApack"></a><a href="http://www.jandaciuk.pl/Software/Fsa/fsa_current.tar.gz">
+fsa</a> - finite state automata</h3>
+Current version number: <b>0.51</b>. Man pages (except for fsa_synth)
+in HTML format are also available as
+<a href="http://www.jandaciuk.pl/Software/Fsa/fsa_html.tar.gz">one
+file</a>. 
+  <ul>
+  <li><a href="http://www.jandaciuk.pl/Man/fsa_accent.1.html">fsa_accent</a> - restores
+  diacritics. Useful for languages that have
+  diacritics. Fast program. Very compact dictionaries made from simple
+  word lists. Many different dictionaries may be used
+  simultaneously. Optional emacs interface (based on ispell.el).
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_build.1.html">fsa_build</a> - builds various
+  kinds of simple finite state automata. No regular expressions,
+  tables, etc. Every line of input is treated as one word. This
+  program requires the data to be lexicographically sorted and without
+  duplicates.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_build.1.html">fsa_ubuild</a> - does the same
+  job as fsa_build, but more slowly and using more memory. However,
+  the data need not be sorted, and it may contain duplicates.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_guess.1.html">fsa_guess</a> - performs
+  morphological analysis of both known and unknown words. The analysis
+  for known words can be 100% correct, the unknown ones -
+  approximative, based on suffixes and prefixes. The 
+  dictionary is built from a morphological dictionary for a given
+  language, so once such a dictionary is available, no special
+  linguistic knowledge is required. There is also a mode for guessing
+  morphological descriptions in mmorph (a morphology tool from <a href="http://www.issco.unige.ch/">ISSCO</a>) format. A <a href="http://www.pg.gda.pl/~jandac/tclmacq.html">Tcl/Tk
+  interface</a> is provided that facilitates the task of adding new words
+  to a dictionary. You must have a core description first, and then
+  you can use the interface and fsa_guess to enlarge it.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_hash.1.html">fsa_hash</a> - implements perfect
+  hashing. Words in a sorted list of 
+  words are numbered, and the program translates words to numbers, and
+  numbers to words. This can be used e.g. in indexing encyclopaedias.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_morph.1.html">fsa_morph</a> - performs
+  morphological analysis of words, i.e. for a 
+  given inflected form, it gives the corresponding lexeme and
+  categories. Several dictionaries may be used at the same
+  time. Dictionaries are compact, data for them has a very simple format
+  (sample awk preparation scripts are present in the package), and the
+  program is very fast. Emacs interface for text annotation provided in
+  the package.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_prefix.1.html">fsa_prefix</a> - prints all the
+  entries of a dictionary that begin with a given prefix.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_spell.1.html">fsa_spell</a> - spellchecks
+  words. Special care is taken to treat 
+  sequences of characters that are pronounced the same as if they were
+  one character. This is important when looking for candidates for
+  replacements in Polish. Otherwise a user might think the word is not
+  in the dictionary, but it is correct.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_synth.1.html">fsa_synth</a> - generates surface
+  word forms given the canonical form and
+  features/tags/annotations. The latter can be specified using regular
+  expressions. Also, printing all surface forms for the given
+  canonical form is possible.
+
+  </li><li><a href="http://www.jandaciuk.pl/Man/fsa_visual.1.html">fsa_visual</a> - produces data
+  for visualization of automata with <a href="http://www.cs.uni-sb.de/RW/users/sander/html/gsvcg1.html">vcg</a>
+  - a graph visualization tool. Useful for diagnostic purposes.
+
+  </li><li>There are also various scripts, mainly for converting data to
+  appropriate formats, but also for other purposes, like a Tcl/Tk
+  script that creates an interface for adding new words to a
+  morphological dictionary.
+
+  <a name="UTRpack">
+  </a></li></ul><a name="UTRpack">
+</a><h3><a name="UTRpack"></a><a href="http://www.jandaciuk.pl/Software/Utr/utr_current.tar.gz">
+utr</a> - transducers</h3>
+Current version number: <b>0.10</b>
+  <ul>
+  <li><b>tr_accent</b> - restores diacritics. Useful for languages that have
+  diacritics. Fast program, uses the same dictionaries as tr_spell and
+  tr_morph. Several dictionaries may be used at the same time. Emacs
+  interface provided (based on ispell.el).
+
+  </li><li><b>tr_morph</b> - performs both morphological analysis and generation of
+  inflected forms. Fast. Several dictionaries may be used at the same
+  time. Dictionaries are the same as for tr_spell and tr_accent. Emacs
+  interface facilitates annotation of corpora.
+
+  </li><li><b>tr_prefix</b> - lists all dictionary entries that have surface forms
+  beginning with a given string.
+
+  </li><li><b>tr_spell</b> - spellchecks words. Fast. Uses the same dictionaries as
+  tr_accent and tr_morph. Several dictionaries may be used at the same
+  time. Special care is taken to treat sequences of characters that are
+  pronounced the same as if they were one character. This is important
+  when looking for candidates for replacements in Polish. Otherwise a
+  user might think the word is not the dictionary, but it is correct.
+
+  </li><li><b>tr_ubuild</b> - builds transducers for tr_accent, tr_morph, tr_prefix,
+  and tr_spell. Transducers provide compact representation of
+  morphological data.
+  </li></ul>
+
+<a name="Dicts">
+<h2>Dictionaries</h2>
+</a><a name="ExtName">
+<h3>Name extension conventions</h3>
+To avoid confusion, I use some name extensions to indicate the contensts
+of a dictionary:
+  <dl>
+  <dt>fsa</dt><dd>a list of words compiled to a simple automaton - to be used
+  with fsa_accent, fsa_spell.
+
+  </dd><dt>fsm</dt><dd>morphology in a form of a simple automaton - to be used
+  with fsa_morph.
+
+  </dd><dt>atg</dt><dd>a list a tergo (i.e. inverted) of inflected forms with
+  their categories - to be used with fsa_guess compiled without
+  GUESS_LEXEMES or run with -a option. This is used to guess categories
+  of words from their endings.
+
+  </dd><dt>atl</dt><dd>a list a tergo (i.e. inverted) of inflected forms with
+  lexemes and categories compiled to a simple automaton - to be used
+  with fsa_guess compiled with GUESS_LEXEMES, but without GUESS_PREFIX,
+  or with GUESS_PREFIX, but run with -p option. This is used to guess
+  corresponding lexemes and categories from word endings.
+
+  </dd><dt>atp</dt><dd>a list a tergo (i.e. inverted) of inflected forms with
+  lexemes and categories compiled to a simple automaton - to be used
+  with fsa_guess compiled with both GUESS_LEXEMES and GUESS_PREFIX. In
+  this automaton prefixes are stored differently so that the automaton
+  is smaller, and some more generalizations are possible. This is used
+  to guess corresponding lexemes and categories from word endings and
+  beginnings. 
+
+  </dd><dt>tr</dt><dd>transducer - to be used with all programs that have names
+  beginning with tr_.
+
+  </dd></dl>
+</a><a name="AvailDicts">
+<h3>Available dictionaries</h3>
+
+Note that the dictionaries were constructed long time ago, and with
+fsa_build that used only a format available at that time. To use the
+default set of compile options for the current version, you have to
+rebuild the automata.
+
+  </a><dl><a name="AvailDicts">
+  </a><dt><a name="AvailDicts"></a><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/deutsch1.fsa.gz">
+  deutsch1.fsa.gz</a></dt><dd>German word list from
+  <a href="ftp://ftp.informatik.tu-muenchen.de/pub/doc/dict/">
+  ftp.informatik.tu-muenchen.de:/pub/doc/dict/</a>. 7 bit only, <i>umlauts</i>
+  coded with following <i>e</i>, <i>sharp s</i> with <i>ss</i>. It is difficult
+  to convert them to 8 bit, as not every <i>oe</i> is <i>o umlaut</i>,
+  not every <i>ss</i> is <i>sharp s</i>, etc.
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/english.fsa.gz">
+  english.fsa.gz</a></dt><dd>English word list from /usr/dict/words
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/francais.atl.gz">
+  francais.atl.gz</a></dt><dd>French dictionary a tergo with categories and lexemes
+  from <a href="http://issco-www.unige.ch/">ISSCO</a>
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/francais.fsa.gz">
+  francais.fsa.gz</a></dt><dd>French word list form
+  <a href="http://issco-www.unige.ch/">ISSCO</a>
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/francais.fsm.gz">
+  francais.fsm.gz</a></dt><dd>French morphology (simple automaton) from
+  <a href="http://issco-www.unige.ch/">ISSCO</a> 
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/francais.tr.gz">
+  francais.tr.gz</a></dt><dd>French transducer from <a href="http://issco-www.unige.ch/">ISSCO</a>
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/french_moby.fsa.gz">
+  french_moby.fsa.gz</a></dt><dd>French word list from <a href="http://www.dcs.shef.ac.uk/research/ilash/Moby/index.html">the
+  Moby Project</a>
+  </dd><dt><a href="http://www.pg.gda.pl/pub/software/xtras-PG/fsa/polski.fsa.gz">
+  polski.fsa.gz</a></dt><dd>Polish word list extracted from Dziennik Baltycki
+  articles
+  </dd></dl>
+
+<a name="OtherSoft">
+<h2>Some Other Finite-State Software I Wrote</h2>
+
+  </a><ul><a name="OtherSoft">
+  </a><li><a name="OtherSoft"></a><a href="http://www.jandaciuk.pl/fadd.html">finite-state library for NLP</a>, based on a
+       subset of the fsa package, but including compressed language
+       models. Requires the fsa package.</li>
+  <li><a href="http://www.jandaciuk.pl/minim.html">incremental minimization of finite-state
+       automata,</a> and other minimization algorithms for
+       comparison.</li>
+  <li><a href="http://www.jandaciuk.pl/adfa.html">various algorithms for construction of
+       acyclic finite-state automata.</a></li>
+  </ul>
+
+<a name="Related">
+<h2>Software Directly Related to Mine</h2>
+  </a><ul><a name="Related">
+
+  </a><li><a name="Related">The fsa package and related </a><a href="http://www.jandaciuk.pl/fadd.html">fadd library</a>
+  are used in
+  <a href="http://odur.let.rug.nl/~vannoord/alp/Alpino/">Alpino</a> - a
+  wide-coverage dependency parser for Dutch.</li>
+
+  <li><a href="http://www.cs.put.poznan.pl/dweiss/xml/index.xml?lang=en">Dawid
+  Weiss</a>
+  translated most parts of the fsa package (except automata
+  construction) to Java. His
+  <a href="http://www.cs.put.poznan.pl/dweiss/xml/projects/fsa/index.xml?lang=en">collection
+  of Java classes</a> is used in his
+  <a href="http://www.cs.put.poznan.pl/dweiss/xml/projects/lametyzator/index.xml?lang=en">Polish
+  stemmer</a> project.</li>
+
+  <li><a href="http://search.cpan.org/~grousse/">Guillaume Rousse</a>
+  has written a
+  <a href="http://search.cpan.org/~grousse/Dict-FSA-0.1.1/lib/Dict/FSA.pm">perl
+  wrapper</a> around my fsa package.</li>
+
+  <li><a href="http://marcinmilkowski.pl/">Marcin Miłkowski</a>
+  maintains an on-line
+  <a href="http://marcinmilkowski.pl/index.php?option=com_content&amp;task=view&amp;id=22&amp;Itemid=33">spelling
+  dictionary</a> that uses fsa_spell from my fsa package.</li>
+  </ul>
+
+<a name="More">
+<h2>More On-line Information on Finite State Automata</h2>
+  </a><ul><a name="More">
+
+  </a><li><a name="More"></a><a href="http://www.jandaciuk.pl/Fsm_algorithms/">Finite-state
+  algorithms</a> - a list of algorithms related to finite-state
+  automata and directed acyclic graphs.</li>
+
+  <li>Search <a href="http://xxx.lanl.gov/cmp-lg/"> The Computation and
+  Language E-Print Archive</a> for <a href="http://xxx.lanl.gov/find/cmp-lg/1/Oflazer/0/1/0/all/1/0">articles
+  by Kemal Oflazer</a>. I use a modified version of his spelling correction
+  algorithms.</li>
+
+  <li>Do the same for <a href="http://xxx.lanl.gov/find/cmp-lg/1/Mohri/0/1/0/all/1/0">Mehryar
+  Mohri</a>. I do not use his algorithms, but they are interesting anyway.
+  You can find his articles and some software
+  <a href="http://www.research.att.com/sw/tools/fsm/">at AT&amp;T</a>.
+
+  </li><li>You can find the most sophisticated transducers at <a href="http://www.xrce.xerox.com/">Xerox</a>. Actually, I was inspired by a
+  talk given by Lauri Karttunnen in <a href="http://latl.unige.ch/latl/archamps.html">Archamps</a>. They have
+  <a href="http://www.xrce.xerox.com/publis/pubhome.html">a collection of
+  articles</a>, and <a href="http://www.xrce.xerox.com/competencies/content-analysis/fst/home.en.html">a page
+  dedicated to finite state automata</a> with a cool demo.</li>
+
+  <li>There is <a href="http://grid.let.rug.nl/~vannoord/FSA/fsa.html">a
+  very impressive page by Gertjan van Noord</a> describing a very
+  impressive set of FSA utilities (with visualization tools). I do not
+  use them, but they look far more sophisticated than mine. However,
+  the functionality is different. Several articles on FSAs can be
+  found there.</li>
+
+  <li><a href="ftp://ftp.win.tue.nl/pub/techreports/pi/automata/">A
+  collection of articles</a> by Bruce W. Watson describing various automaton
+  minimization techniques and the FIRE Engine toolkit that implements
+  them (also available by ftp). Again, I do not use these algorithms; my
+  automata are minimized on-the-fly as they are created.<br>
+  <a href="http://www.win.tue.nl/fastar/main.php?button=supervisors">Bruce W. Watson</a> is now at the Eindhoven Technical University and at
+  the University of Pretoria, South Africa. He used to have a web
+  server with his publications and his software, but that address has
+  been taken over by someone else. </li>
+
+  <li><a href="http://www.ic.unicamp.br/~tomasz/">Tomasz
+  Kowaltowski</a> and his team (Cláudio L.  Lucchesi and Jorge Stolfi)
+  produce the smallest automata (measured in bytes). The small size
+  is obtained by special coding on the bit level. From version 0.17 of
+  the fsa package on, I use their compression of chains of states.</li>
+
+  <li>Automata and transducers even more impressive (to me) than those by
+  Xerox are used in the
+  <a href="http://www.ladl.jussieu.fr/INTEX/">INTEX</a> project. The
+  INTEX team also uses stack automata (capable of dealing with
+  context-free grammars). I have seen the system in action, and I was
+  amazed by the ease of use with which the user can enter new
+  information into the system, and the variety of output it can
+  produce. There is also a clone of INTEX - <a href="http://www-igm.univ-mlv.fr/~unitex/">Unitex</a>. It works in
+  Unicode, and unlike INTEX, it is available under GPL.</li>
+
+  <li>You may want to read an <a href="http://www.jandaciuk.pl/incr_fst.ps.gz">article</a> I wrote with <a href="http://www.win.tue.nl/fastar/main.php?button=supervisors">Bruce Watson</a> and Richard
+  Watson on the construction of minimal deterministic acyclic
+  finite-state automata. I use the algorithms in my programs.</li>
+
+  <li>Stoyan Mihov independently invented my algorithm for sorted
+  data. In his <a href="http://www.lml.bas.bg/~stoyan/publications.html">article</a>
+  he gives a proof of a very interesting feature of that algorithm
+  concerning its memory requirement. We prepared a joint <a href="http://www.jandaciuk.pl/daciuk98.ps.gz">publication</a> in Computational Linguistics 26(1), 2000,
+  with Bruce and Richard and Stoyan (much revised version of the
+  Ankara paper with many corrections, and with Stoyan's
+  contribution).</li>
+
+  <li>In general, you can look at my <a href="http://www.jandaciuk.pl/DaciukPublications.html">list of
+  publications</a> for more papers on finite-state software I wrote.</li>
+
+  <li>Vincent Le Maout wrote <a href="http://www-igm.univ-mlv.fr/~dr/ASTL/main.html">The Automaton
+  Standard Template Library</a> for C++.</li>
+
+  <li>Arnaud Adant extendend it with <a href="http://adant.multimania.com/tfe/">WFST.</a></li>
+
+  <li>Finally, you may take a look at my
+  <a href="http://www.jandaciuk.pl/Thesis/thesis.html">Ph.D.
+  dissertation</a>. Here is <a href="http://www.jandaciuk.pl/thesis.ps.gz">the postscript
+  version</a>.</li>
+
+  <li>The <a href="http://www.csd.uwo.ca/research/grail/">Grail+</a>
+  is a symbolic computation environment for finite-state machines,
+  regular expressions, and other formal language theory
+  objects. It has a page with links to similar software.</li>
+
+  </ul>
+
+<a href="http://www.jandaciuk.pl/nlp.bib">The bibliography</a> from my Ph.D. thesis lists more
+sources, but not all of them are available on-line. In the
+<a href="http://www.jandaciuk.pl/thesis/node145.html">HTML version</a> I provided links to those
+of them that are. A good source of
+articles from this field is the Computational Linguistics, a journal
+distributed to the members of the <a href="http://www.aclweb.org/">ACL</a>.
+
+<a name="Money">
+<h2>Money</h2>
+<p>This software is free.</p>
+<p>This software is provided "as is". If you have lost a million dollars by
+using it, that was your million, not mine. I should not be liable for
+any losses.</p>
+</a><p><a name="Money">Starting from version 0.42, the fsa package can be distributed with
+a </a><a href="http://www.gnu.org/licenses/licenses.html">GPL</a> licence
+except for one third party file that has its own copyright and
+licence. Since I'm not sure how to understand the legalese gibberish
+with regard to third party software, GPL is not included in the package.</p>
+<a name="Feedback">
+<h2>Feedback</h2>
+If you find bugs in those programs, please tell me about them. If you do
+not, you will have to correct them yourself in all future versions!
+<hr>
+</a><address><a name="Feedback"></a><a href="http://www.jandaciuk.pl/">Jan Daciuk</a><br>
+This page contains <b>no</b> Javascript. No need to analyze the source!
+
+
+</address></body></html>
