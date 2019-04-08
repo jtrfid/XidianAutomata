@@ -1,16 +1,16 @@
-#include "DFA.h"
+ï»¿#include "DFA.h"
 #include <iostream>
 using namespace std;
 void DFATest1()
 {
 	DFA_components dfa_com1;
 
-	// StateSet S  ¿ªÊ¼×´Ì¬¼¯
+	// StateSet S  å¼€å§‹çŠ¶æ€é›†
 	dfa_com1.S.set_domain(10);
 	dfa_com1.S.add(0);
 	//dfa_com1.S.add(1);
 
-	// StateSet F  ½áÊø×´Ì¬¼¯
+	// StateSet F  ç»“æŸçŠ¶æ€é›†
 	dfa_com1.F.set_domain(10);
 	dfa_com1.F.add(3);
 	/*dfa_com1.F.add();
@@ -47,12 +47,12 @@ void DFATest2()
 {
 	DFA_components dfa_com1;
 
-	// StateSet S  ¿ªÊ¼×´Ì¬¼¯
+	// StateSet S  å¼€å§‹çŠ¶æ€é›†
 	dfa_com1.S.set_domain(10);
 	dfa_com1.S.add(0);
 	//dfa_com1.S.add(1);
 
-	// StateSet F  ½áÊø×´Ì¬¼¯
+	// StateSet F  ç»“æŸçŠ¶æ€é›†
 	dfa_com1.F.set_domain(10);
 	dfa_com1.F.add(1);
 	/*dfa_com1.F.add();
@@ -87,12 +87,12 @@ void DFATest3()
 {
 	DFA_components dfa_com1;
 
-	// StateSet S  ¿ªÊ¼×´Ì¬¼¯
+	// StateSet S  å¼€å§‹çŠ¶æ€é›†
 	dfa_com1.S.set_domain(3);
 	dfa_com1.S.add(0);
 	//dfa_com1.S.add(1);
 
-	// StateSet F  ½áÊø×´Ì¬¼¯
+	// StateSet F  ç»“æŸçŠ¶æ€é›†
 	dfa_com1.F.set_domain(3);
 	dfa_com1.F.add(1);
 	dfa_com1.F.add(2);
