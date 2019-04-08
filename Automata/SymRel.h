@@ -152,5 +152,10 @@ inline int SymRel::class_invariant() const
 	return(StateRel::class_invariant());
 }
 
+inline std::ostream& operator<<(std::ostream& os, const SymRel& r)
+{
+	assert(r.class_invariant());
+	return(os << (const StateRel&)r);
+}
 
 #endif // !AUTOMATA_SYMREL_H
