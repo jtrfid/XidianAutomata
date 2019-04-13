@@ -62,7 +62,7 @@ CRSet TransImpl::labels_into(const StateSet& r) const
 	CRSet a;
 	for (int i = 0; i < in_use; i++)
 	{
-		assert(data[i].transition_destination < r.domain());
+		assert(data[i].transition_destination <= r.domain());
 		if (r.contains(data[i].transition_destination)) 
 		{
 			a.add(data[i].transition_label);

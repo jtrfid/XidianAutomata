@@ -171,13 +171,13 @@ inline int CharRange::operator<=(const CharRange& r) const
 {
 	assert(class_invariant());
 	assert(r.class_invariant());
-	return((lo <= r.lo) && (hi <= r.hi));
+	return(r.lo <= lo && hi <= r.hi);
 }
 inline int CharRange::operator>=(const CharRange& r) const
 {
 	assert(class_invariant());
 	assert(r.class_invariant());
-	return((lo >= r.lo) && (hi >= r.hi));
+	return(lo <= r.lo && r.hi <= hi);
 }
 
 // Is there something in common between *this and r'?

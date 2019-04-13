@@ -52,6 +52,9 @@ Trans& Trans::set_union(const Trans& r)
 	{
 		// May need to expand here:
 		ensure_min_size(in_use + r.in_use);
+
+		assert(howmany >= in_use + r.in_use);
+
 		for (int i = 0; i < r.in_use; i++)
 		{
 			transitions(i + in_use) = r.transitions(i);

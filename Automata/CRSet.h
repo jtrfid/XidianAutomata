@@ -159,7 +159,8 @@ inline int CRSet::iter_end(const int it) const
 inline int CRSet::class_invariant() const
 {
 	int result;
-	result = 0 <= howmany && in_use <= howmany && (howmany == 0 ? data == 0 : data != 0) && 1 <= expansion_size;
+	result = 0 <= howmany && 0 <= in_use
+		&& in_use <= howmany && (howmany == 0 ? data == 0 : data != 0) && 1 <= expansion_size;
 
 	// Make sure that all of data[] are pairwise disjoint.
 	for (int i = 0; i < in_use && result; i++)
