@@ -211,6 +211,7 @@ DFA& DFA::compress(const SymRel& r)
 	for (consider.iter_start(st); !consider.iter_end(st); consider.iter_next(st))
 	{
 		// st will always be the reprenstative of its class.
+		assert(st == r.image(st).smallest());
 		repr.add(st);
 
 		// give st the new name
