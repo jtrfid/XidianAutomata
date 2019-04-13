@@ -9,13 +9,12 @@ void DFATest();
 
 void AutomataTest()
 {
-	/****
 	CRSetTest();
 	StateSetTest();
 	StateToStateSetTest();
 	StateRelTest();
 	TransTest();
 	ThompsonTest();
-	RFATest(); ***/
+	RFATest(); 
 	DFATest();
 }

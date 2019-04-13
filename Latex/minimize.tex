@@ -224,18 +224,18 @@ Let $A=(Q,V,T,_,F)$ be a deterministic finite automaton, where $Q$ is a finite s
 	The states $s$ and $t$ are said to be equivalent if for each $x\in V^\ast, T(s,x)\in F$ if and only if $T(t,x)\in F$. 
 \end{definition}
 
-From \cite{Hopcroft71}
+\section{From \cite{Hopcroft71}}
 
 The algorithm for finding the equivalence classes of Q is described below:
 
 \begin{algorithm}  
 	\caption{The algorithm for finding the equivalence classes of Q}  
 	\begin{algorithmic}%[1] %每行显示行号  
-		\Require $M=(Q,V,T,_,F)$  
+		\Require $M=(Q,V,T,\_,F)$  
 		\Ensure The equivalence classes of $Q$  
 		\State Step 1. For each $s\in Q$ and each $a\in V$ construct
 		
-		$T^{-1}(s,a)=\{t|T(t,a)=s\}$
+		$T^{-1}(s,a)=\{t|T(t,a)=s\}$ \qquad 计算状态s的in-transitions
 		
 		\State Step 2. construct $B(1)=F, B(2)=Q-F$ and for each $a\in V$ and $1\le i\le 2$ construct
 		
@@ -329,7 +329,7 @@ The algorithm for finding the equivalence classes of Q is described below:
          edge [] node {0} (p5)
     (p5) edge [loop above] node {1} (p5)
          edge [] node {0} (p6)
-    (p6) edge [loop above] node {1} (p6)
+    (p6) edge [loop above] node {0,1} (p6)
 	;
 	\end{tikzpicture}
 	\caption{Minimizing example} \label{fig:mini-ex1}
@@ -398,6 +398,347 @@ The algorithm for finding the equivalence classes of Q is described below:
 	\label{fig:mini-ex2}
 \end{figure}
 
+\section{From \cite{Ratnesh95}}
+
+FSM: Finte State Machine
+
+NFSM: Non-deterministic Finite State Machine without $\epsilon-$moves
+
+DFSM: Deterministic Finite State Machine
+
+\begin{definition}[prefix closure of $K$]
+	The prefix closure of $K$, denoted $pr(K)\subseteq\Sigma^\ast$, is the language
+	\[pr(K):=\{s\in\Sigma^\ast|\exists t\in K:s\le t \}\]
+\end{definition}
+
+\begin{example}[Language]\label{ex:language}
+	 Consider for example a buffer of capacity one; it has two different states: empty and full. When an \textit{arrival} event occurs in the empty state, then the buffer becomes full; and when a \textit{departure} event occurs in the full state, then the buffer becomes empty. No other state transition can occur in the buffer. Suppose initially the buffer is empty. Then the language of the buffer consists of all possible sequences of the type:
+	 $$arrival\cdot departure\cdot arrival\cdot departure \dots,$$
+	 where $``\cdot"$ denotes the operation of concatenation.
+	 $\hfill\square$
+\end{example}
+
+\begin{example}[Generated language]\label{ex:gen_language}
+	Consider the buffer of Example \ref{ex:language} Let $a$, $d$ denote the arrival, departure events respectively. Then the generated language of the buffer is $pr((a\cdot d)^\ast)$. Suppose a trace $s\in pr((a\cdot d)^\ast)$ corresponds to completion of a task if and only if its execution results in the empty state of the buffer. Then the marked language of the buffer equals $(a\cdot d)^\ast$.
+	$\hfill\square$
+\end{example}
+
+\begin{example}[language model]\label{ex:language_model}
+	Consider the buffer of Examples \ref{ex:language} and \ref{ex:gen_language} with language	model $[(ad)^\ast,pr((ad)^\ast)]$. The directed graph shown in Figure \ref{fig:DSM} represents a DSM $G:=(X,\Sigma,\alpha,x_0,X_m)$ for the buffer, where $X=\{empty,full\};\Sigma=\{a, d\}; x_0 = empty; X_m = \{empty\};$ and $\alpha(empty, a) = full, \alpha(full, d) = empty$. Note that $\alpha(empty, d)$ and $\alpha(full, a)$ are not defined; hence the transition function is a partial map. (A node in the graph represents a state; a label on a node represents the name of the corresponding state; a directed edge represents a state transition; a label on a directed edge represents the name of the corresponding event; an arrow entering a node represents an initial state; and a circled node represents a marked state.)
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {DSM} 
+		\caption{Graph representing a DSM}
+		\label{fig:DSM}
+	\end{figure}
+	$\hfill\square$
+\end{example}
+
+\begin{example}[Synchronous]
+	Consider for example a manufacturing production line consisting
+	of a machine (M) and a buffer (B) of capacity one operating in synchrony as shown in Figure \ref{fig:logical-sync}. The event set $\Sigma_1$ of $M$ consists of events $a_1$ representing arrival into the machine, and $d_1$ representing departure from the machine; whereas the event set $\Sigma_2$ of $B$ consists of events $d_1$ representing departure from the machine, and $d_2$ representing departure from buffer. The synchronous composition of two systems is also shown if Figure \ref{fig:logical-sync}.
+	\begin{note}
+		$d_1$是共享事件，因此，(idle,empty)状态下，$d_1$不能发生, 仅发生 $a_1$事件; (working,empty)状态下，$d_1$在M和B中的转移函数均有定义，因此该共享事件可以发生该共享事件。非共享事件$(a_1,d_2)$在M或B中的转移函数有一个有定义，即可发生。
+	\end{note}
+	$\hfill\square$
+	
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {sync} 
+		\caption{Diagram illustrating synchronous composition of DFSMs}
+		\label{fig:logical-sync}
+	\end{figure}
+\end{example}
+
+\begin{example}[$\epsilon$-NSM] Consider the $\epsilon$-NSM of Fig. \ref{fig:logical-1model}  Then $\epsilon_G^\ast(1)=\{1,2,3\},\epsilon_G^\ast(2)=\{2,3\},\epsilon_G^\ast(3)=\{3\}.$
+
+so $T(1,\epsilon)=\epsilon_G^\ast(1)=\{1,2,3\}; T(1,a)=\epsilon_G^\ast(T(T(1,\epsilon),a))=\epsilon_G^\ast(T(\{1,2,3\},a)=\epsilon_G^\ast(\{1,3\})=\{1,2,3\}; T(1,ab)=\epsilon_G^\ast(T(\{1,2,3\},b)=\epsilon_G^\ast(\{2\})=\{2,3\}$, etc. $\hfill\square$
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {logical-1model} 
+		\caption{Diagram illustrating an $\epsilon-NSM$}
+		\label{fig:logical-1model}
+	\end{figure}
+\end{example}
+
+
+\begin{example}[Completion and reverse]
+	Completion and reverse of the DSM of Figure \ref{fig:logical-NFSM-DFSM}(b) are shown
+	in Figure \ref{fig:logical-completion-reverse} (a) and \ref{fig:logical-completion-reverse} (b) respectively. The state labels have been changed.
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {completion-reverse} 
+		\caption{Diagram illustrating completion and reverse operations}
+		\label{fig:logical-completion-reverse}
+	\end{figure}
+\end{example}
+
+\begin{theorem}[power set construction]\label{theorem:power_set_cons}
+	Let $G:=(X,\Sigma,\alpha,x_0,X_m)$ be a NFSM. Then there exists a language model equivalent DFSM $\mathcal{G}:=(\mathcal{X},\Sigma,\hat{\alpha},\{x_0\},\mathcal{X}_m)$ and $L(\mathcal{G})=L(G)$
+\end{theorem}
+
+\begin{proof} Define $\mathcal{X}:=2^X,\mathcal{X}_m:=\{\hat{X}\in\mathcal{X}|\hat{X}\cap X_m\ne \emptyset \}$, and
+	\[ \forall \hat{X}\in\mathcal{X},\sigma\in\Sigma:\hat{\alpha}(\hat{X},\sigma):=\bigcup_{x\in\hat{X}}\alpha(x,\sigma) \]
+	
+	Then is is easily show that $(L_m(\mathcal{G}),L(\mathcal{G}))=(L_m(G),L(G))$
+\end{proof}
+
+\begin{example}(NFSM to DFSM)
+	Consider the NFSM $G:=(X,\Sigma,\alpha,x_0,X_m)$ shwown in Figure \ref{fig:logical-NFSM-DFSM}(a). The language equivalent DFSM $\mathcal{G}:=(\mathcal{X},\Sigma,\hat{\alpha},\{x_0\},\mathcal{X}_m)$ obtained using the power set construction is shown in Figure \ref{fig:logical-NFSM-DFSM}(b).
+	
+	Note that $\mathcal{X}=\mathcal{X}_m=\{\{1\},\{1,2,3\},\{2,3\},\{3\} \}$, as $X_m=\{1,3\}$
+	
+	which has a nonempty intersection with each state in $\mathcal{X}$; 
+	\begin{gather*}
+	\hat{\alpha}(\{1\},a) = \alpha(1,a) = \{1,2,3\}; \\
+	\hat{\alpha}(\{1, 2, 3\}, a) = \alpha(1,a)\cup\alpha(2,a)\cup\alpha(3,a) = \{1, 2, 3\};\\ 
+	\hat{\alpha}(\{1, 2, 3\}, b) = \alpha(1, b)\cup\alpha(2, b)\cup\alpha(3, b) = \{2,3\};\\
+	etc.
+	\end{gather*}
+
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {NFSM-DFSM} 
+		\caption{Diagram illustrating NFSM to DFSM conversion}
+		\label{fig:logical-NFSM-DFSM}
+	\end{figure}
+\end{example}
+
+\begin{remark}
+	It follows from Theorems \ref{theorem:power_set_cons} that if a language model $(K_m, K)$ can be represented as a finite state machine $G$, then there also exists a DFSM $G^\prime$ such that $(L_m(G^\prime), L(G^\prime)) = (K_m, K)$. Thus if we are only concerned with DESs that have finitely many states, then we can assume without loss of generality that they can be represented as DFSMs. We will see below that although the finiteness of states is not needed for most of the analysis, it is needed for developing all the decision algorithms.
+	
+	However, it should be noted that although DFSMs are useful in developing decision algorithms, it is conceptually easier to obtain a NFSM from the given description of a language. For example, suppose $\Sigma = \{a,b\}$, and suppose we	wish to represent the language with the property that every string in it must contain $aba$ as a substring. A NFSM for the same is shown in Figure \ref{fig:NFSM-DFSM1}(a); corresponding DFSM obtained using the construction outlined in Theorem \ref{theorem:power_set_cons}
+	is shown in Figure \ref{fig:NFSM-DFSM1}(b).
+\end{remark}
+
+\begin{figure}[htbp]
+	\includegraphics[scale=0.4] {NFSM-DFSM1} 
+	\caption{NFSM accepting strings with aba as a substring, and corresponding DFSM}
+	\label{fig:NFSM-DFSM1}
+\end{figure}
+
+\subsection{Myhill-Nerode Characterization}
+
+\begin{definition}[equivalence relation$(R_K)$]
+	Given a language $K\subseteq \Sigma^\ast$, it induces an equivalence relation, denoted $R_K$, on $\Sigma^\ast$:
+	\[ \forall s,t\in\Sigma^\ast: s\cong t(R_K)\Leftrightarrow [K\setminus\{s\}=K\setminus\{t\}] \]
+	For each $s\in\Sigma^\ast,[s]R_K\subseteq\Sigma^\ast$ is used to denote the equivalence class containing the string $s$.
+\end{definition}
+
+\begin{definition}[equivalence relation$(R_G)$]
+	Given a DFSM $G:=(X,\Sigma,\alpha,x_0,X_m)$, it induces an equivalence relation, denoted $R_G$, on $\Sigma^\ast$:
+	\[ \forall s,t\in\Sigma^\ast: s\cong t(R_G)\Leftrightarrow [\alpha(x_0,s)=\alpha(x_0,t)]\lor[\alpha(x_0,s)=\alpha(x_0,t) \text{ undefined}] \]
+	For each $s\in\Sigma^\ast,[s]R_G\subseteq\Sigma^\ast$ is used to denote the equivalence class containing the string $s$.
+\end{definition}
+
+\begin{note}
+	Note the $R_G$, the \textit{index} of $R_G$, i.e., the number of equivalence classes of $R_G$, is one more than the number of states in $G$, $|R_G|=|G|+1$. (The set of all strings that do not
+	belong to $L(G)$ belong to a single equivalence class of $R_G$.) 
+\end{note}
+
+It can be easily seen that the equivalence relation $R_G$ refines the equivalence relations $R_{L_m(G)}$ and $R_{L(G)}$. In other words,
+\[ \forall s,t\in\Sigma^\ast : s\cong t(R_G)\Rightarrow [s\cong t(R_{L_m(G)})]\land [s\cong t(R_{L(G)})] \]
+
+An equivalence relation $R$ on $\Sigma^\ast$ is said to be \textit{right invariant (with respect to concatenation)} if
+\[ \forall s,t\in\Sigma^\ast : s\cong t(R) \Rightarrow su\cong tu(R) \]
+
+It is easy to verify that $R_K$ as well as $R_G$ defined above are right invariant.The following proposition is due to Myhill and Nerode:
+
+\begin{theorem}[Myhill and Nerode]\label{theorem:MyhillNerode}
+	Let $K\subseteq\Sigma^ast$ be a language. Then the following are equivalent:
+	\begin{enumerate}[1. ]
+		\item $K$ is regular.
+		\item $K$ can be written as union of some of the equivalence classes of a right invariant equivalence relation of finite index.
+		\item $R_K$ is of finite index.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	$(1)\Rightarrow (2)$: Suppose $K$ is regular. Then there exists a DFSM $G$ such that $L_m(G) = K$. Then clearly $K$ can be written as union of the following equivalence classes of $R_G$:
+	\[\{[s](R_G)|s\in K \}\]
+	
+	This proves the first assertion implies the second assertion, as $R_G$ is right invariant.
+	
+	$(2)\Rightarrow (3)$: Let R be a right invariant equivalence relation of finite index such that $K$ can be written as union of some of the equivalence classes of $R$. In order to show that $R_K$ is of finite index it suffices to show that $R$ refines $R_K$. Pick $s,t\in\Sigma^\ast$  such that $s\cong t(R)$. Since $R$ is right invariant, for any $u\in\Sigma^\ast,su\cong tu(R)$. Since $K$ equals union of some of the equivalence classes of $R$, this implies $su\in K$ if and only if $tu\in K$. In other words, $s\cong t(R_K)$, which proves that the second assertion implies the third assertion.
+	
+	$(3)\Rightarrow (1)$: Finally, suppose $R_K$ is of finite index. Define a DFSM $G:=(\hat{X},\Sigma,\hat{\alpha},\hat{x}_0,\hat{X}_m)$ as follows: $\hat{X}:=\{[s](R_K)|s\in\Sigma^\ast\}; x_0 :=[\epsilon](R_K); \hat{X}_m=\{[s](R_K)|s\in K \}$;
+	and
+	\[ \forall [s](R_k)\in\hat{X},\sigma\in\Sigma:\hat{\alpha}([s](R_K),\sigma):=[s\sigma](R_K) \]
+	
+	Then it is readily verified that for each $s\in\Sigma^\ast,\hat{\alpha}(\hat{x}_0,s)=[s](R_K)$. Hence
+	from definition of marked language we obtain that $s\in L_m(G)$ if and only if $\hat{\alpha}(\hat{x}_0,s) = [s](R_K) \in X_m$, i.e., if and only if $s\in K$. Thus $L_m(G) = K$. Since $\hat{G}$ is a DFSM (as $R_K$ is of finite index), this implies that $K$ is regular; so the third assertion implies the first assertion. $\hfill\square$
+\end{proof}
+
+The construction of the DFSM G in the proof of Theorem \ref{theorem:MyhillNerode} is known as the Myhill-Nerode construction. The following example illustrates such a construction.
+
+\begin{example}[equivalence classes]
+	Consider for example the marked language $K_m = (ad)^\ast$ of
+	the buffer of capacity one of Example \ref{ex:gen_language}. 
+	Then the generated language of the buffer is $pr((a\cdot d)^\ast)=pr(K_m)$. Suppose a trace $s\in pr((a\cdot d)^\ast)$ corresponds to completion of a task if and only if its execution results in the empty state of the buffer. Then the marked language of the buffer equals $(a\cdot d)^\ast$.
+	
+	Clearly, $K_m$ is a regular language.
+	Hence it follows from Theorem \ref{theorem:MyhillNerode} that $R_{K_m}$ is of finite index. It can be easily verified that
+	\begin{gather*}
+		[\epsilon](R_{K_m})=(ad)^\ast=K_m\\
+		[a](R_{K_m})=(ad)^\ast a=pr(K_m)-K_m\\
+		[d](R_{K_m})=\{a,d\}^\ast-pr(K_m)
+	\end{gather*}
+	and these are the only equivalence classes of $R_{K_m}$
+	
+	Hence Myhill-Nerode construction yields the DFSM $G:=(\hat{X},\Sigma,\hat{\alpha},\hat{x}_0,\hat{X}_m)$, while\\ 
+	$\hat{X}=\{[\epsilon](R_{K_m}),[a](R_{K_m}),[d](R_{K_m}) \}$;
+	$\hat{x}_0=[\epsilon](R_{K_m}); X_m=\{[\epsilon](R_{K_m}) \}$;\\
+	and
+	\begin{align*}
+		\hat{\alpha}([\epsilon](R_{K_m}),a)&=[a](R_{K_m});\\
+		\hat{\alpha}([\epsilon](R_{K_m}),d)&=[d](R_{K_m});\\
+		\hat{\alpha}([a](R_{K_m}),a)&=[aa](R_{K_m})=[d](R_{K_m});\\
+		\hat{\alpha}([a](R_{K_m}),d)&=[ad](R_{K_m})=[\epsilon](R_{K_m});\\
+		\hat{\alpha}([d](R_{K_m}),a)&=[da](R_{K_m})=[d](R_{K_m});\\
+		\hat{\alpha}([d](R_{K_m}),d)&=[dd](R_{K_m})=[d](R_{K_m});
+	\end{align*}
+	
+	See figure \ref{fig:equiv}, State e: empty,$[\epsilon](R_{K_m})$;
+	State f: full,$[a](R_{K_m})$;  State t: dump/trap,$[d](R_{K_m})$.
+	
+	\begin{figure}[htbp]
+      \centering
+	  \subfigure[buffer model]
+	  {
+	  	\includegraphics[scale=0.4] {DSM}
+	  }
+      \hspace{2cm} % 如果并列，用\\换行即可
+      \subfigure[equivalence classes]
+      {
+		  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+		  \tikzstyle{every state}=[minimum size=0.1mm]
+		  \node[state]         (t) {t};
+		  \node[initial,state,accepting] (e) [above left of=t] {e};
+		  \node[state]         (f) [above right of=t] {f};
+		  \path
+		  (e) edge [bend left]  node {$a$} (f)
+		      edge [swap] node {$d$} (t)
+		  (f) edge [bend left]  node {$d$} (e)
+		      edge [] node {$a$} (t)
+		  ;
+		  \end{tikzpicture}
+		  (states e:empty,f:full,t:dump/trap) 
+      }
+	  \caption{equivalence classes}
+	  \label{fig:equiv}
+	\end{figure}
+	$\hfill\square$
+\end{example}
+
+\begin{remark}
+	Given a regular language K, there always exists a DFSM $G$ such
+	that $L_m(G) = K$. Hence there exists a minimal such DFSM (one with a minimal number of states). Let $G^\prime$ be the DFSM obtained by removing the state $[s](R_K)$ form $\hat{G}$ (and all transitions leading into/out of it), where $\hat{G}$ is the DFSM in the proof of Theorem \ref{theorem:MyhillNerode} and $s\in \Sigma^\ast$ is such that $s\notin pr(K)$.Then it is easy to see that $L_m(G^\prime) = K$. In fact $G^\prime$ is a minimal DFSM with marked language $K$. In order to see this first note that the number of states in $\hat{G}$ is $|R_K|$, the index of $R_K$. Since $G^\prime$ is obtained by removing a single state from $\hat{G}$, the number of states in $G^\prime$ equals $|R_K|-1$. Let $G$ be any DFSM with $L_m(G) = K$. Then as noted above number of states in $G$ equals $|R_G|-1$. Also,as noted above, $R_G$ refines $R_{L_m(G)} = R_K$, which implies that $|R_K|\le |R_G|$. Thus $|R_K| - 1\le |R_G| - 1$, which proves that $G^\prime$ is a minimal DFSM with marked language $K$.
+\end{remark}
+
+\subsection{Minimization}
+
+\begin{theorem}[Minimal $K$] \label{theorem:Minimal}
+	Suppose $K\subseteq \Sigma^\ast$ is a regular language. Then a trim DFSM $G:=(X,\Sigma,\alpha,x_0,X_m)$ with marked language $K$ is mininmal if and only if
+	$$\forall x,x^\prime\in X,s\in \Sigma^\ast :(\alpha(x,s),\alpha(x^\prime,s))\in X_m\times X_m\Rightarrow x=x^\prime .$$
+\end{theorem}
+
+Suppose $K\subseteq \Sigma^\ast$ is regular. Let $G:=(X,\Sigma,\alpha,x_0,X_m)$ be a trim DSFSM such that $L_m(G)=K$. We are interested in obtaining a minimal DFSM with marked language $K$ by combining some of the ``language equivalent" states of $G$. Note that if $K = \Sigma^\ast$, then it can be accepted by a minimal DFSM having a single state. Hence we assume without loss of generality that $K\ne\Sigma^\ast$.
+
+DFSM $G:=(X,\Sigma,\alpha,x_0,X_m)$ induces an equivalence relation on $X$ defined as:
+\[ \forall x,x^\prime\in X:x\cong x^\prime \Leftrightarrow [\forall s\in\Sigma^\ast:\alpha(x,s)\in X_m\Leftrightarrow\alpha(x^\prime,s)\in X_m] \]
+
+Using this equivalence relation we define a language equivalent DFSM $\hat{G}:=(\hat{X},\Sigma,\hat{\alpha},\hat{x}_0,\hat{X}_m)$, where $\hat{X}:=\{[x]|x\in X\},\hat{x}_0:=[x_0],\hat{X}_m:=\{[x]|x\in X_m\}$, and
+\[
+\forall [x]\in\hat{X},\sigma\in\Sigma:\hat{\alpha}([x],\sigma):=\left\{ 
+\begin{aligned}
+\left[\alpha(x,\sigma)\right]  &\text{   if $\alpha(x,\sigma)$ defined}\\ 
+\text{undefined} &\text{    otherwise}\\
+\end{aligned} 
+\right. 
+\]
+
+Using the fact that $G$ is trim, it is readily verified that $\hat{G}$ is well defined, and $(L_m(\hat{G}),L(\hat{G}))=(L_m(G),L(G))=(K,pr(K))$. Moreover, it follows from Theorem \ref{theorem:Minimal} that $\hat{G}$ is a minimal state machine with marked language $K$.
+
+An algorithm for efficiently identifying the equivalence classes $\{[x]|x\in X\}$ is presented next. Note that each state pair $(x,x^\prime)\in (X_m\times X_m)\cup [(X-X_m)\times (X-X_m)]$ is a possible pair of equivalent states. 
+
+First consider $\bar{G}:=(\bar{X},\Sigma,\bar{\alpha},x_0,X_m)$, the completion of $G$. Then since $K\ne\Sigma^\ast,X_m\ne\bar{X}=X\cup\{x_D\}$, while $X_D$ is the ``dump" state. This implies $\bar{X}-X_m\ne\emptyset$.
+
+\begin{note}
+	Note that if $K = \Sigma^\ast$, then it can be accepted by a minimal DFSM having a single state.
+\end{note}
+
+\begin{figure}[htbp]
+	\includegraphics[scale=0.4] {algo-minimize} 
+	\caption{Diagram illustrating algorithm minimize}
+	\label{fig:algo-minimize}
+\end{figure}
+
+\begin{algorithm}  
+	\caption{The algorithm for a minimal DFSM, see Figure \ref{fig:algo-minimize}}  
+	\begin{algorithmic}[1] %每行显示行号  
+		\Require $G=(\bar{X},\Sigma,\alpha,\_,X_m)$  
+		\Ensure The equivalence classes of $X$ 
+		
+		A: \{潜在等价状态对\}; B: \{非等价状态对\}; C: \{本次迭代流失的潜等价状态对\}
+		
+		\State Initiation step:
+		
+		$A_0 := [X_m\times X_m]\cup [(\bar{X}-X_m)\times(\bar{X}-X_m)]=\{\text{(final状态对)}\cup \text{(非final状态对)} \} = \{\text{潜在的等价状态对}\}$; 
+		
+		$B_0 := [\bar{X}\times\bar{X}-A_0] = \{\text{(全体状态对)}-A_0 \} = \{\text{(final状态,非final状态)} \} = \{\text{非等价状态对}\} = \{\text{非$A_0$状态对}\}$; 
+		
+		$k:=0$.
+		
+		\State Iteration step:
+		\begin{align*}
+			C_k &:= \{(x,x^\prime)\in A_k | \exists\sigma\in\Sigma \text{ s.t. } (\alpha(x,\sigma),\alpha(x^\prime,\sigma))\in B_k \} \\
+			&=\{\text{$A_0$中两大类中的(状态对)存在字母$\sigma$进入$B_0$类)} \} \\
+			&= \{ \text{潜在状态对 $\to$ 非等价状态对} \}\\
+			A_{k+1} &:= A_k - C_k \\
+			B_{k+1} &:= B_k\cup C_k =[\bar{X}\times \bar{X}] - A_{k+1}\\
+			&=\{\text{非$A_{k+1}$状态对}\}
+		\end{align*}
+		
+		\State Termination step:
+		
+		if $A_{k+1}=A_k$, then stop; else, $k := k+1$, and goto step 2.
+	\end{algorithmic}
+    \label{alg:minimal}   
+\end{algorithm}
+
+It can be verified that after termination, each state pair in $A_k$ is an equivalent pair of states. Finally, the minimal state machine $G$ is obtained by combining each state pair in $A_k$ as described above, and removing the equivalence class of the dump state.
+
+Algorithm \ref{alg:minimal} terminates in $O(m^2)$ steps, where $m$ is the number of states in $G$.
+
+\begin{example}
+	Consider the complete DFSM of Figure \ref{fig:complete}. Then $X_m=\{1,2,3,4 \}$ and $X=\{1,2,3,4,x_D \}$. Algorithm \ref{alg:minimal} can be  applied to minimize the DFSM as follows:
+	\begin{align*}
+		A_0 &=[X_m\times X_m]\cup\{(x_D\times x_D)\};\\
+		&=\{(1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(1,3),(3,1),(1,4),(4,1),(2,3),(3,2),(2,4),(4,2),(3,4),(4,3) \} \cup\{(x_D,x_D) \}\\
+		&=\{(1,1),(2,2),(3,3),(4,4) \}\cup\{(1,2),(1,3),(1,4),(2,3),(2,4),(3,4) \}\cup
+		\{(2,1),(3,1),(4,1),(3,2),(4,2),(4,3)\}\cup\{x_D,x_D\}\\
+		&= \{\text{潜在的等价状态对}\} \\
+		B_0 &=[X\times X]-A_0\\
+		&=\{(1,x_D),(x_D,1),(2,x_D),(x_D,2),(3,x_D),(x_D,3),(4,x_D),(x_D,4) \}\\
+		&=\{(1,x_D),(2,x_D),(3,x_D),(4,x_D) \} \cup \{(x_D,1),(x_D,2),(x_D,3),(x_D,4) \}\\
+		&= \{\text{非等价状态对}\} = \{\text{非$A_0$状态对}\}\\
+		C_0 &= \{(1,2),(2,1),(1,3),(3,1),(2,4),(4,2),(3,4),(4,3)\}\\
+		&=\{(1,2),(1,3),(2,4),(3,4) \}\cup\{(2,1),(3,1),(4,2),(4,3) \}\\
+		&= \{ \text{潜在状态对$(A_0) \to (B_0)$非等价状态对} \}\\
+		A_1 &= A_0-C_0\\
+		&=\{(1,1),(2,2),(3,3),(4,4) \}\cup\{(1,4),(2,3) \}\cup
+		\{(4,1),(3,2) \}\cup\{x_D,x_D\}\\
+		B_1 &= [X\times X]-A_1\\
+		&= \{\text{非$A_1$状态对}\}\\
+		C_1 &= \{ \text{潜在状态对($A_1) \to (B_1)$非等价状态对} \}\\
+		&= \{(1,4),(4,1),(2,3),(3,2)\}\\
+		A_2 &= A_1-C_1\\
+		&= \{(1,1),(2,2),(3,3),(4,4),(x_D,x_D)\}\\
+		B_2 &=[X\times X] - A_2
+	\end{align*}
+    Clearly, all the state pairs in $A_2$ are equivalent pairs, i.e. $C_2 = \emptyset$: hence the algorithm terminates. Thus the minimal DFSM is the DFSM of Figure \ref{fig:complete}, which does not contain the dump state.
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.4] {complete} 
+		\caption{the minimal DFSM is not contain the dump state}
+		\label{fig:complete}
+	\end{figure}
+\end{example}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \begin{thebibliography}{99}
 	\bibitem[Hopcroft71]{Hopcroft71}
@@ -405,4 +746,8 @@ The algorithm for finding the equivalence classes of Q is described below:
 	
 	\bibitem[Gries73]{Gries73}
 	Gries, D. \textit{Describing an Algorith m by Hopcroft}, Acta Inf. 2:97 109, 173. $\copyright$ by Springer-Verlag 1973
+	
+	\bibitem[Ratnesh95]{Ratnesh95}
+	Ratnesh Kumar, \textit{Modeling and Control of Logical Discrete Event Systems}, $\copyright$ 1995 by Springer Science+Business Media New York.
+	
 \end{thebibliography}
