@@ -760,19 +760,18 @@ of $E\cup E^\prime$ whose restriction to $E$ and $E^\prime$ are $P$ and $P^\prim
 \[ P =\bigvee_{\mathcal{P}\in P}\{\mathcal{P}\} \]
 
 \begin{definition}[Minimal automaton]
-	We consider a deterministic automaton $A = (Q, i, F)$ over the
-	alphabet $A$ with set of states $Q$, initial state $i$, and set of final states $F$. To each state $q$ corresponds a subautomaton of $A$ obtained when $q$ is chosen as the initial state. We call it the \textit{subautomaton rooted at $q$} or simply the automaton at $q$. Usually, we consider only	the trim part of this automaton. To each state q corresponds a language $L_q(A)$ which is the set of words recognized by the subautomaton rooted at q, that is
-	\[L_q(A)=\{w\in A^\ast |q\cdot w\in F\} \]
+	We consider a deterministic automaton $\mathcal{A} = (Q, i, F)$ over the alphabet $A$ with set of states $Q$, initial state $i$, and set of final states $F$. To each state $q$ corresponds a subautomaton of $\mathcal{A}$ obtained when $q$ is chosen as the initial state. We call it the \textit{subautomaton rooted at $q$} or simply the automaton at $q$. Usually, we consider only	the trim part of this automaton. To each state q corresponds a language $L_q(\mathcal{A})$ which is the set of words recognized by the subautomaton rooted at q, that is
+	\[L_q(\mathcal{A})=\{w\in A^\ast |q\cdot w\in F\} \]
 	
-	This language is called the \textit{future} of the state $q$, or also the \textit{right language} of this state. Similarly one defines the \textit{past} of $q$, also called the \textit{left language}, as the set $\{w\in A^\ast|i\cdot w = q \}$. The automaton $A$ is \textit{minimal} if $L_p(A) \ne Lq(A)$ for each pair of distinct states $p, q$. The equivalence relation $\equiv$ defined by
-	\[p\equiv q \text{ if and only if } L_p(A)=L_q(A) \]
-	is a \textit{congruence}, that is $p\equiv q$ implies $p\cdot a ≡ q\cdot a$ for all letters $a$. It is called the \textit{Nerode congruence}. Note that the Nerode congruence saturates the set of final states. Thus an	automaton is minimal if and only if its Nerode equivalence is the identity.
+	This language is called the \textit{future} of the state $q$, or also the \textit{right language} of this state. Similarly one defines the \textit{past} of $q$, also called the \textit{left language}, as the set $\{w\in A^\ast|i\cdot w = q \}$. The automaton $\mathcal{A}$ is \textit{minimal} if $L_p(\mathcal{A}) \ne L_q(\mathcal{A})$ for each pair of distinct states $p, q$. The equivalence relation $\equiv$ defined by
+	\[p\equiv q \text{ if and only if } L_p(\mathcal{A})=L_q(\mathcal{A}) \]
+	is a \textit{congruence}, that is $p\equiv q$ implies $p\cdot a\equiv q\cdot a$ for all letters $a$. It is called the \textit{Nerode congruence}. Note that the Nerode congruence saturates the set of final states. Thus an	automaton is minimal if and only if its Nerode equivalence is the identity恒等式.
 \end{definition}
 
-Minimizing an automaton is the problem of computing the Nerode equivalence. Indeed, the $quotient$ automaton $A/\equiv$ obtained by taking for set of states the set of equivalence classes of the Nerode equivalence, for the initial state the class of the initial state $i$, for set of final states the set of equivalence classes of states in $F$ and by defining the transition function by $[p]\cdot a = [p\cdot a]$ accepts the same language, and its Nerode equivalence is the identity. The minimal automaton recognizing a given language is unique.
+Minimizing an automaton is the problem of computing the Nerode equivalence. Indeed, the $quotient$ automaton $\mathcal{A}/\equiv$ obtained by taking for set of states the set of equivalence classes of the Nerode equivalence, for the initial state the class of the initial state $i$, for set of final states the set of equivalence classes of states in $F$ and by defining the transition function by $[p]\cdot a = [p\cdot a]$ accepts the same language, and its Nerode equivalence is the identity. The minimal automaton recognizing a given language is unique.
 
 \begin{definition} [Partitions and automata]
-	Again, we fix a deterministic automaton $A = (Q, i, F)$ over
+	Again, we fix a deterministic automaton $\mathcal{A} = (Q, i, F)$ over
 	the alphabet $A$. It is convenient to use the shorthand $P^c$ for $Q\setminus P$ when $P$ is a subset of the set $Q$.
 	
 	Given a set $P\subset Q$ of states and a letter $a$, we denote by $a^{-1}P$ the set of states $q$ such	that $q\cdot a\in P$.  Given sets $P,R\subset Q $ and $a\in A$, we denote by
@@ -786,7 +785,43 @@ Minimizing an automaton is the problem of computing the Nerode equivalence. Inde
 	
 \end{definition}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+The pair $(P,a)$ is called a \textit{splitter}. Observe that $(P,a)|R=\{R\}$ if either $R\cdot a\subset P$ or $R\cdot a\cap P=\emptyset$, and $(P,a)|R$ is composed of two classes if both $R\cdot a\ne\emptyset$ and $R\cdot a\cap P^c\ne\emptyset$ or equivalently if $R\cdot a\nsubseteq P^c$ and $R\cdot a\nsubseteq P$. if $(P,a)|R$ contains two classes, then we say that $(P,a)$  \textit{splits} $R$. Note that the pair $S=(P,a)$ is called a splitter even if it does not split.
+
+It is useful to extend the notation above to words. Given a word w and sets $P,R\subset Q$ of states, we denote by $w^{-1}P$ the set of states such that $q\cdot w\in P$, and by $(P,w)|R$ the partition of $R$ composed of the nonempty sets among
+\[R\cap w^{-1}P=\{q\in R|q\cdot w\in P \} \text{ and } R\setminus w^{-1}P=\{q\in R |q\cdot w\notin P \} \]
+
+As an example, the partition $(F,w)|Q$ is the partition of $Q$ into the set of those states from which $w$ is accepted, and the other ones. A state $q$ in one of the sets and a state $q^\prime$ in the
+other are sometimes called \textit{separated} by $w$.
+
+The Nerode equivalence is the coarsest equivalence relation on the set of states that is a (right) congruence saturating $F$. With the notation of splitters, this can be rephrased as follows.
+
+We use later the following lemma which is already given in Hopcroft’s paper [\cite{Hopcroft71}]. It is the basic observation that ensures that Hopcroft’s algorithm works correctly.
+
+\begin{proposition}
+	The partition corresponding to the Nerode equivalence is the coarsest partition $P$ such that no splitter $(P, a)$, with $P \in \mathcal{P}$ and $a\in A$, splits a class in $\mathcal{P}$, that is	such that $(P, a)|R = \{R\}$ for all $P,R\in \mathcal{P} $and $a\in A$. $\hfill\square$
+\end{proposition}
+
+\begin{lemma}
+	Let $P$ be a set of states, and let $\mathcal{P} = \{P1, P2\}$ be a partition of P. For any letter $a$ and for any set of states $R$, one has
+	\[(P,a)|R\land (P_1,a)|R=(P,a)|R\land (P_2,a)|R=(P_1,a)|R\land (P_2,a)|R \]
+	and consequntly
+	\begin{align} 
+	(P,a)|R \ge (P_1,a)|R\land (P_2,a)|R,\\
+	(P_1,a)|R \ge (P,a)|R\land (P_2,a)|R
+	\end{align}
+\end{lemma}
+
+\begin{example}
+	We consider the automata given in Figure \ref{fig:revsFA} over the alphabet $A = {a, b}$.	Each automaton is the reversal of the other. However, determinization of the automaton
+	on the left requires exponential time and space.
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.6]{revsFA}
+		\caption{The automaton on the left recognizing the language $A^\ast aA^n$. It has $n + 1$ states and the minimal deterministic automaton for this language has $2^n$ states. The	automaton on the right is its reversal. It is minimal and recognizes $A^naA^\ast$.}
+	    \label{fig:revsFA}
+	\end{figure}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thebibliography}{99}
 	\bibitem[Hopcroft71]{Hopcroft71}
 	Hopcroft, J.E. \textit{An n log n algorithm for minimizing states in a finite automaton}, in The Theory of Machines and Computations (Z. Kohavi, ed.), pp.180-196, Academic Press, New York, 1971.
