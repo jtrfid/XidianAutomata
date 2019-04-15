@@ -235,7 +235,7 @@ The algorithm for finding the equivalence classes of Q is described below:
 		\Ensure The equivalence classes of $Q$  
 		\State Step 1. For each $s\in Q$ and each $a\in V$ construct
 		
-		$T^{-1}(s,a)=\{t|T(t,a)=s\}$ \qquad 计算状态s的in-transitions
+		$T^{-1}(s,a)=\{t|T(t,a)=s\}$ \qquad 计算状态s的in-transitionsss
 		
 		\State Step 2. construct $B(1)=F, B(2)=Q-F$ and for each $a\in V$ and $1\le i\le 2$ construct
 		
@@ -739,6 +739,53 @@ Algorithm \ref{alg:minimal} terminates in $O(m^2)$ steps, where $m$ is the numbe
 	\end{figure}
 \end{example}
 
+\section{From \cite{Jean2011}}
+
+\begin{definition} [Partitions and equivalence relations]
+	A partition of a set $E$ is a family $P$ of nonempty,	pairwise disjoint subsets of $E$ such that $E =	\bigcup_{\mathcal{P}\in P}\mathcal{P}$. The \textit{index} of the partition is the number of its elements. A partition defines an equivalence relation $\equiv p$ on $E$. Conversely,
+	the set of all equivalence classes $[x]$, for $x \in E$, of an equivalence relation on $E$ defines	a partition of $E$. This is the reason why all terms defined for partitions have the same
+	meaning for equivalence relations and vice versa.
+\end{definition}
+
+A subset $F$ of $E$ is \textit{saturated}使充满 by $P$ if it is the union of classes of $P$. Let $Q$ be another partition of $E$. Then $Q$ is a \textit{refinement} of $P$, or $P$ is \textit{coarser} than $Q$, if each class of $Q$ is contained in some class of $P$. If this holds, we write $Q \le P$. The index of $Q$ is then larger than the index of $P$.
+
+Given two partitions $P$ and $Q$ of a set $E$, we denote by $U = P\land Q $ the coarsest partition粗划分 which refines $P$ and $Q$. The classes of $U$ are the nonempty sets $\mathcal{P}\cap \mathcal{Q}$, for $\mathcal{P} \in P $ and $\mathcal{Q} \in Q.$ The notation is extended to a set of partitions in the usual way: we write $P = P_1\land\cdots P_n$ for the common refinement of $P_1,\dots,P_n$. If $n = 0$, then $P$ is
+the universal partition of $E$ composed of the single class $E$. This partition is the neutral element for the $\land$-operation.
+
+Let $F$ be a subset of $E$. A partition $P$ of $E$ induces a partition $P^\prime$ of $F$ by intersection: $P^\prime$ is composed of the nonempty sets $\mathcal{P}\cap F$, for $\mathcal{P}\in P$ If $P$ and $Q$ are partitions of $E$
+and $Q\le P$, then the restrictions $P^\prime$ and $Q^\prime$ to $F$ still satisfy $Q^\prime \le P^\prime$.
+
+If $P$ and $P^\prime$ are partitions of disjoint sets $E$ and $E^\prime$, we denote by $P\lor P^\prime$ the partition
+of $E\cup E^\prime$ whose restriction to $E$ and $E^\prime$ are $P$ and $P^\prime$ respectively. So, one may write
+\[ P =\bigvee_{\mathcal{P}\in P}\{\mathcal{P}\} \]
+
+\begin{definition}[Minimal automaton]
+	We consider a deterministic automaton $A = (Q, i, F)$ over the
+	alphabet $A$ with set of states $Q$, initial state $i$, and set of final states $F$. To each state $q$ corresponds a subautomaton of $A$ obtained when $q$ is chosen as the initial state. We call it the \textit{subautomaton rooted at $q$} or simply the automaton at $q$. Usually, we consider only	the trim part of this automaton. To each state q corresponds a language $L_q(A)$ which is the set of words recognized by the subautomaton rooted at q, that is
+	\[L_q(A)=\{w\in A^\ast |q\cdot w\in F\} \]
+	
+	This language is called the \textit{future} of the state $q$, or also the \textit{right language} of this state. Similarly one defines the \textit{past} of $q$, also called the \textit{left language}, as the set $\{w\in A^\ast|i\cdot w = q \}$. The automaton $A$ is \textit{minimal} if $L_p(A) \ne Lq(A)$ for each pair of distinct states $p, q$. The equivalence relation $\equiv$ defined by
+	\[p\equiv q \text{ if and only if } L_p(A)=L_q(A) \]
+	is a \textit{congruence}, that is $p\equiv q$ implies $p\cdot a ≡ q\cdot a$ for all letters $a$. It is called the \textit{Nerode congruence}. Note that the Nerode congruence saturates the set of final states. Thus an	automaton is minimal if and only if its Nerode equivalence is the identity.
+\end{definition}
+
+Minimizing an automaton is the problem of computing the Nerode equivalence. Indeed, the $quotient$ automaton $A/\equiv$ obtained by taking for set of states the set of equivalence classes of the Nerode equivalence, for the initial state the class of the initial state $i$, for set of final states the set of equivalence classes of states in $F$ and by defining the transition function by $[p]\cdot a = [p\cdot a]$ accepts the same language, and its Nerode equivalence is the identity. The minimal automaton recognizing a given language is unique.
+
+\begin{definition} [Partitions and automata]
+	Again, we fix a deterministic automaton $A = (Q, i, F)$ over
+	the alphabet $A$. It is convenient to use the shorthand $P^c$ for $Q\setminus P$ when $P$ is a subset of the set $Q$.
+	
+	Given a set $P\subset Q$ of states and a letter $a$, we denote by $a^{-1}P$ the set of states $q$ such	that $q\cdot a\in P$.  Given sets $P,R\subset Q $ and $a\in A$, we denote by
+	\[(P,a)|R\]
+	the partition of $R$ composed of the nonempty sets among the two sets
+	\[R\cap a^{-1}P=\{q\in R|q\cdot a\in P\} \text{ and } R\setminus a^{-1}P =\{q\in R|q\cdot a\notin P \} \]
+	Note that $R\setminus a^{-1}P=R\cap(a^{-1}P)^c=R\cap a^{-1}(P^c)$ so the definition is symmetric in $P$ and $P^c$. In particular
+	\begin{align}
+	  (P,a)|R=(P^c,a)|R %\label{key1}
+	\end{align}
+	
+\end{definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \begin{thebibliography}{99}
 	\bibitem[Hopcroft71]{Hopcroft71}
@@ -749,5 +796,9 @@ Algorithm \ref{alg:minimal} terminates in $O(m^2)$ steps, where $m$ is the numbe
 	
 	\bibitem[Ratnesh95]{Ratnesh95}
 	Ratnesh Kumar, \textit{Modeling and Control of Logical Discrete Event Systems}, $\copyright$ 1995 by Springer Science+Business Media New York.
+	
+	\bibitem[Jean2011]{Jean2011}
+	Jean Berstel, Luc Boasson, Olivier Carton, Isabelle Fagnot
+	, \textit{Minimization of automata}, Universit$\acute{e}$ Paris-Est Marne-la-Vall$\acute{e}$e 2010 Mathematics Subject Classification: 68Q45, 2011.
 	
 \end{thebibliography}
