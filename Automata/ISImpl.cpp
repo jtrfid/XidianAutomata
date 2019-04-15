@@ -33,7 +33,7 @@ ISImpl::ISImpl(const RE *r) :e(r)
 
 const ISImpl& ISImpl::operator=(const ISImpl& r)
 {
-	assert(class_invariant());
+	assert(r.class_invariant());
 	e = r.e;
 	before = r.before;
 	after = r.after;

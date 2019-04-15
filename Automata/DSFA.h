@@ -38,7 +38,7 @@ public:
 
 	// A special constructor :
 	DSFA(const StateSet& rq,
-		const TransRel *fT,
+		const TransRel *rT,
 		const StateRel *rE,
 		const StateSet *rF);
 

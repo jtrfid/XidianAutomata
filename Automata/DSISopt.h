@@ -12,8 +12,8 @@ construction or DeRemer's construction.
 //#pragma once
 
 
-#ifndef AOTOMATA_DSISOPT_H
-#define AOTOMATA_DSISOPT_H
+#ifndef AUTOMATA_DSISOPT_H
+#define AUTOMATA_DSISOPT_H
 
 
 #include <iostream>
@@ -127,7 +127,7 @@ inline int DSISopt::class_invariant() const
 
 
 
-#endif // !AOTOMATA_DSISOPT_H
+#endif // !AUTOMATA_DSISOPT_H
 
 
 

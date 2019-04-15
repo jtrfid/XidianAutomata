@@ -68,6 +68,7 @@ void RBFA::advance(char a)
 
 int RBFA::in_final() const
 {
+	assert(class_invariant());
 	return (current.contains(f));
 }
 

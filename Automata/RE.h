@@ -157,7 +157,7 @@ protected:
 };
 
 // By default, create the RE denoting the empty language.
-RE::RE() :op(EMPTY), left(0), right(0)
+inline RE::RE() :op(EMPTY), left(0), right(0)
 {
 	assert(class_invariant());
 }

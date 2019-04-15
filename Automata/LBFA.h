@@ -116,7 +116,8 @@ protected:
 
 inline int LBFA::class_invariant() const
 {
-	return(Q.size() == F.domain()
+	return( Q.contains(s)
+		&& Q.size() == F.domain()
 		&& Q.size() == Qmap_inverse.range()
 		&& Q.size() == follow.domain()
 		&& Q.size() == current.domain()

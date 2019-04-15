@@ -95,7 +95,7 @@ public:
 
 	// An argumentless constructor, a copy constructor, and an assignment operator 
 	// (assuming that T has all three).Usually pass control back to the base class.
-	Reg(const Reg<T>& r) :T(r)
+	Reg(const Reg<T>& r) :T((const T &)r)
 	{ }
 
 	// An argumentless constructor, a copy constructor, and an assignment operator 

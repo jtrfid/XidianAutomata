@@ -151,7 +151,7 @@ int RE::in_snf() const
 		break;
 	case CONCAT:
 		// A CONCAT is in SNF if the subexpressions are in SNF.
-		ret = left->in_snf() || right->in_snf();
+		ret = left->in_snf() && right->in_snf();
 		break;
 	case STAR:
 	case PLUS:
@@ -351,6 +351,7 @@ RE RE::derivative(const CharRange& r) const
 	case EPSILON:
 	case EMPTY:
 		assert(e.op == EMPTY);
+		break;
 	case SYMBOL:
 		if (r <= sym) // if (a = b) then epsilon else 0 fi
 		{

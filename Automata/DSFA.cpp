@@ -9,9 +9,9 @@ processes an input string.
 
 // A special constructor:
 DSFA::DSFA(const StateSet& rq,
-	const TransRel *fT,
+	const TransRel *rT,
 	const StateRel *rE,
-	const StateSet *rF)
+	const StateSet *rF) : which(rE->closure(rq)), T(rT), E(rE), F(rF)
 {
 	assert(class_invariant());
 }
