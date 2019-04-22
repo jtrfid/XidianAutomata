@@ -29,6 +29,7 @@ StateSet DTransRel::reverse_closure(const StateSet& r) const
 	StateSet result(r);
 	StateSet intermediate;
 	intermediate.set_domain(domain());
+	assert(intermediate.empty());
 	do {
 		result.set_union(intermediate);
 		intermediate.clear();

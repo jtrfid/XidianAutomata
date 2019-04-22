@@ -1,4 +1,4 @@
-/************************************************************************
+ï»¿/************************************************************************
 	Implementation class: Translmpl
 	Files: TransIml.h, TansIml.cpp
 	Uses: CharRange, CRSet, State, StateSet, TransPair
@@ -15,9 +15,9 @@
 
 
 #include<iostream>
- // È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+ // å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
  // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "CRSet.h"
 #include "State.h"
 #include "StateSet.h"
@@ -78,8 +78,9 @@ protected:
 	// How many transitions are there. [0,in_use) index of TransPair *data, it is is managed in add_transition()
 	int in_use;
 
-	// A dynamically allocated array of(CharRange, State) pairs(transitions). V ¡Á Q
-	// struct TransPair±íÊ¾:T(a) = { q | a in V£¬q in Q }
+private:
+	// A dynamically allocated array of(CharRange, State) pairs(transitions). V Ã— Q
+	// struct TransPairè¡¨ç¤º:T(a) = { q | a in Vï¼Œq in Q }
 	TransPair *data;
 
 	// For efficiency of the expansion helper function.

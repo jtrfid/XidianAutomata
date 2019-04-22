@@ -24,7 +24,7 @@
 
 // Implement a deterministic transition relation, as a function from States time
 // char to State.This is used for transition relations in DFA's.
-class DTransRel :public StateTo<DTrans>
+class DTransRel :protected StateTo<DTrans>
 {
 public:
 	// Constructors, destructors, operator= :

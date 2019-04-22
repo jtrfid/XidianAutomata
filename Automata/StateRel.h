@@ -166,6 +166,7 @@ inline StateRel& StateRel::union_cross(State p, State q)
 {
 	assert(class_invariant());
 	assert(0 <= p && p < domain());
+	assert(0 <= q && q < domain());
 	map(p).add(q);
 	assert(class_invariant());
 	return(*this);
