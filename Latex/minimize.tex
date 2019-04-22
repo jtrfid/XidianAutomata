@@ -1199,6 +1199,31 @@ Theses include the diagonal relation $\omega_A=\{(a,a)|a\in A \}$, and the unive
 
 The relation $\rho$ is called reflexive if $\omega_A\subseteq\rho$; symmetric if $\rho^{-1}\subseteq\rho$; and transitive if $\rho^2\subseteq\rho$.
 
+The cardinality of $A/\rho$ is called the index of $\rho$; especially, if $A/\rho$ is finite, then 
+is said to have a  fnite index. For any subset $H$ of $A$, $H/\rho$ denotes $\{a\rho|a\in H \}$. The
+equivalence $\rho$ saturates the subset $H$, if $H$ is the union of some $\rho$-classes. Hence, $\rho$ saturates $H$ iff $a\rho\in H/\rho$ implies $a\rho\subseteq H$.
+
+A \textit{mapping} or a \textit{function} $\phi:A\to B$ is a relation $\phi\subseteq A\times B$ such that $|a\phi|=1$ for all $a\in A$. If $a\phi b$, then $b$ is the \textit{image} of $a$ and $a$ is a \textit{preimage} of $b$. That $b$ is an image of $a$ is expressed by writing $b=\phi(a)$ and that $a$ is a preimage of $b$ is written as $a=\phi^{-1}(b)$. The notation $a=\phi^{-1}(b)$ is justified合理的, when  $\phi$  is bijective (see below). The \textit{restriction} of a mapping $\phi:A\to B$ to a set $C\subseteq  A$ is the mapping $\phi|C:C\to B$ where $\phi|C=\phi\cap(C\times B)$.
+
+The \textit{composition} of two mappings $\phi:A\to B$ and $\psi:B\to C$ is the mapping
+$\phi\psi: A\to C$, where $\phi\psi$ is the product of $\phi$ and $\psi$ as relations. The \textit{kernel} $\phi\phi^{-1}$ of a mapping $\phi:A\to B$, also denoted by $ker\phi$, is an equivalence relation on $A$ and $a\phi\phi^{-1}b$ iff $a\phi=b\phi (a,b\in A)$. A mapping $\phi:A\to B$ is called \textit{injective} if $ker \phi=\omega_A$; \textit{surjective} (or onto) if $A\phi =B$; and \textit{bijective} if it is both injective and surjective.
+
+\begin{figure}[htbp]
+	\subfigure[An injective non-surjectice function(injection, not a bijection) ]{
+		\includegraphics[width=0.2\columnwidth] {Injection} 
+	}
+	\subfigure[An injective surjective function (bijection) ]{
+		\includegraphics[width=0.2\columnwidth] {Bijection} 
+	}
+    \subfigure[A non-injective surjective function (surjection, not a bijection) ]{
+    	\includegraphics[width=0.2\columnwidth] {Surjection} 
+    }
+	\subfigure[A non-injective non-surjective function (also not a bijection) ]{
+		\includegraphics[width=0.2\columnwidth] {Not-Injection-Surjection} 
+	}
+\caption{The term one-to-one function must not be confused with one-to-one correspondence (a.k.a. bijective function), which uniquely maps all elements in both domain and codomain to each other}
+\end{figure}
+
 \subsection{Minization algebras}
 
 DFA $G=(Q,\Sigma,\delta,q_0,F)$
