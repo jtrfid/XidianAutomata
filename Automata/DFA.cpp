@@ -76,12 +76,14 @@ int DFA::Usefulf() const
 // (This is a last step in minimization, since some of the min. algorithms may yield 
 // a DFA with a sink state.)
 // Implement Remark 2.39  removing states that are not final - reachable.
+#define FIX
 DFA& DFA::usefulf()
 {
 	assert(class_invariant());
 	StateSet freachable(T.reverse_closure(F));
 	StateTo<State> newnames;
 	newnames.set_domain(Q.size());
+
 	
 	// All components will be constructed into a special structure :
 	DFA_components ret;
@@ -90,8 +92,18 @@ DFA& DFA::usefulf()
 	{
 		// If this is a Usefulf State, carry it over by giving it a name
 		// in the new DFA.
-		if (freachable.contains(st)) newnames.map(st) = ret.Q.allocate();
+		if (freachable.contains(st))
+		{
+			newnames.map(st) = ret.Q.allocate();
+		}
+#ifdef FIX
+		else
+		{
+			newnames.map(st) = Invalid;
+		}
+#endif // FIX
 	}
+
 
 	// It is possible that nothing needs to be done(ie.the all States were
 	// already F useful).
@@ -115,7 +127,14 @@ DFA& DFA::usefulf()
 				for (it = 0; !a.iter_end(it); it++)
 				{
 					b = a.iterator(it);
+#ifdef FIX
+					if (stprime != Invalid && newnames.lookup(T.transition_on_range(st, b)) != Invalid)
+					{
+#endif // FIX
 					ret.T.add_transition(stprime, b, newnames.lookup(T.transition_on_range(st, b)));
+#ifdef FIX
+					}
+#endif // FIX
 				}
 				// This may be a final State.
 				if (F.contains(st)) ret.F.add(stprime);
