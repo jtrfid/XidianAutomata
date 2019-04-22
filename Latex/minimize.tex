@@ -128,9 +128,9 @@ NFA: $M_1 \to $ DFA: $M_2, M_2=suseful_s\circ subsetopt(M_1)$
 
 \begin{figure}[htbp]
 	\begin{align*}
-	\text{start: } &U=\{q_2\}\\
+	\text{start: } &U=\{q_2\},D=\emptyset \\
 	u=q_2: & T(q_2,0)=\{q_2\},T(q_2,1)=\{q_0,q_1,q_2\} \\
-	&\text{add new start to $D$, } D=\{q_2,\{q_0,q_1,q_2\}\} \\
+	&\text{add new state to $D$, } D=\{q_2,\{q_0,q_1,q_2\}\} \\
 	u=\{q_0,q_1,q_2\}:& T(\{q_0,q_1,q_2\},0)=T(q_0,0)\cup T(q_1,0)\cup T(q_2,0)=\{q_1\}\cup \{q_0\}\cup \{q_2\} =\{q_0,q_1,q_2\}\\
 	&T(\{q_0,q_1,q_2\},1)=T(q_0,1)\cup T(q_1,1)\cup T(q_2,1)=\emptyset\cup \emptyset \cup \{q_0,q_1,q_2\}=\{q_0,q_1,q_2\}
 	\end{align*}
@@ -289,7 +289,7 @@ The algorithm for finding the equivalence classes of Q is described below:
 		\item $B(1)=F=\{6\},B(2)=Q-F=\{1,2,3,4,5\}$\\
 			for each $a\in V$ and $i\in[1,2]$ construct  $\hat{B}(B(i),a)=\{s|s\in B(i) \text{ and } T^{-1}(s,a)\ne \emptyset\}$;\\
 			$\hat{B}(B(1),0)=\{6\},\hat{B}(B(2),0)=\{2,3,4,5\}$ \\
-			$\hat{B}(B(1),1)=\{6\},\hat{B}(B(1),1)=\{1,2,3,4,5\}$ \\
+			$\hat{B}(B(1),1)=\{6\},\hat{B}(B(1),1)=\{1,2,3,4,5\}$ 
 		\item Set $k=3$
 		\item For each $a\in V$ construct $L(a)$ \\
 			$L(0) = \{6\},$ \qquad since $|\hat{B}(B(1),0)|=1\le |\hat{B}(B(2),0)|=4$.\\
@@ -540,7 +540,7 @@ An equivalence relation $R$ on $\Sigma^\ast$ is said to be \textit{right invaria
 It is easy to verify that $R_K$ as well as $R_G$ defined above are right invariant.The following proposition is due to Myhill and Nerode:
 
 \begin{theorem}[Myhill and Nerode]\label{theorem:MyhillNerode}
-	Let $K\subseteq\Sigma^ast$ be a language. Then the following are equivalent:
+	Let $K\subseteq\Sigma^\ast$ be a language. Then the following are equivalent:
 	\begin{enumerate}[1. ]
 		\item $K$ is regular.
 		\item $K$ can be written as union of some of the equivalence classes of a right invariant equivalence relation of finite index.
@@ -739,6 +739,273 @@ Algorithm \ref{alg:minimal} terminates in $O(m^2)$ steps, where $m$ is the numbe
 	\end{figure}
 \end{example}
 
+\section{From wiki -- Partition of a set}
+
+From \url{https://en.wikipedia.org/wiki/Partition_of_a_set}.
+
+\begin{definition}[a partition of a set] 
+	A partition of a set $X$ is a set of nonempty subsets of $X$ such that every element $x$ in $X$ is in exactly one of these subsets (i.e., $X$ is a disjoint union of the subsets).
+	Equivalently, a family of sets $P$ is a partition of $X$ if and only if all of the following conditions hold:
+	\begin{itemize}
+		\item The family $P$ does not contain the empty set (that is $\emptyset \notin P)$.
+		\item The union of the sets in $P$ is equal to $X$ (that is $\bigcup _{A\in P}A = X)$ . The sets in $P$ are said to \textbf{cover} $X$.
+		\item The intersection of any two distinct sets in $P$ is empty (that is $(\forall A,B\in P)\;A\neq B\implies A\cap B=\emptyset)$. The elements of $P$ are said to be pairwise disjoint.
+	\end{itemize}
+	
+	The sets in P are called the \textit{blocks, parts} or \textit{cells} of the partition.
+	
+	The rank of $P$ is $|X| − |P|$, if $X$ is finite.
+\end{definition}
+
+\begin{example}[a partition of a set]
+	(From \url{https://en.wikipedia.org/wiki/Partition_of_a_set})
+	\begin{itemize}
+		\item The empty set $\emptyset$ has exactly one partition,namely $\emptyset$.
+		\item For any nonempty set $X, P = \{X\}$ is a partition of $X$, called the trivial partition.
+		\subitem Particularly, every singleton set $\{x\}$ has exactly one partition, namely $\{ \{x\} \}$.
+		\item For any non-empty proper subset $A$ of a set $U$, the set $A$ together with its complement form a partition of $U$, namely, $\{A, U \setminus A \}$.
+		\item The set $\{ 1, 2, 3 \}$ has these five partitions (one partition per item):
+		\begin{itemize}
+			\item $\{ \{1\}, \{2\}, \{3\} \}$, sometimes written $1|2|3$.
+			\item $\{ \{1, 2\}, \{3\} \}$, or $12|3$.
+			\item $\{ \{1, 3\}, \{2\} \}$, or $13|2$.
+			\item $\{ \{1\}, \{2, 3\} \}$, or $1|23$.
+			\item $\{ \{1, 2, 3\} \}$, or $123$ (in contexts where there will be no confusion with the number).
+		\end{itemize}
+		\item The following are not partitions of $\{ 1, 2, 3 \}$:
+		\begin{itemize}
+			\item \{ \{\}, \{1, 3\}, \{2\} \} is not a partition (of any set) because one of its elements is the empty set.
+			\item $\{ \{1, 2\}, \{2, 3\} \}$ is not a partition (of any set) because the element $2$ is contained in more than one block.
+			\item $\{ \{1\}, \{2\} \}$ is not a partition of $\{1, 2, 3\}$ because none of its blocks contains $3$; however, it is a partition of $\{1, 2\}$.
+		\end{itemize}
+	\end{itemize}
+\end{example}
+
+\begin{definition}[Partitions and equivalence relations]
+	For any equivalence relation on a set $X$, the set of its equivalence classes is a partition of $X$. Conversely, from any partition $P$ of $X$, we can define an equivalence relation on $X$ by setting $x\equiv y$ precisely when $x$ and $y$ are in the same part in $P$. Thus the notions of equivalence relation and partition are essentially equivalent.
+	
+	The axiom of choice guarantees for any partition of a set $X$ the existence of a subset of $X$ containing exactly one element from each part of the partition. This implies that given an equivalence relation on a set one can select a canonical representative element from every equivalence class.
+\end{definition}
+
+\begin{definition}[Refinement of partitions]
+	A partition $\alpha$ of a set $X$ is a refinement of a partition $\rho$ of $X$—and we say that $\alpha$ is finer than $\rho$ and that $\rho$ is coarser than $\alpha$—if every element of $\alpha$ is a subset of some element of $\rho$. Informally, this means that $\alpha$ is a further fragmentation of $\rho$. In that case, it is written that $\alpha\le\rho$.
+	
+	This finer-than relation on the set of partitions of $X$ is a partial order (so the notation $``\le"$ is appropriate). Each set of elements has a least upper bound and a greatest lower bound, so that it forms a lattice, and more specifically (for partitions of a finite set) it is a geometric lattice. The partition lattice of a 4-element set has 15 elements and is depicted in the Hasse diagram on the Fig \ref{fig:Hasse}.
+	
+	Based on the cryptomorphism between geometric lattices and matroids, this lattice of partitions of a finite set corresponds to a matroid in which the base set of the matroid consists of the atoms of the lattice, namely, the partitions with $n-2$ singleton sets and one two-element set. These atomic partitions correspond one-for-one with the edges of a complete graph. The matroid closure of a set of atomic partitions is the finest common coarsening of them all; in graph-theoretic terms, it is the partition of the vertices of the complete graph into the connected components of the subgraph formed by the given set of edges. In this way, the lattice of partitions corresponds to the lattice of flats of the graphic matroid of the complete graph.
+	
+	Another example illustrates the refining of partitions from the perspective of equivalence relations. If D is the set of cards in a standard 52-card deck, the same-color-as relation on D – which can be denoted ~C – has two equivalence classes: the sets {red cards} and {black cards}. The 2-part partition corresponding to ~C has a refinement that yields the same-suit-as relation ~S, which has the four equivalence classes {spades}, {diamonds}, {hearts}, and {clubs}.
+	
+	\begin{figure}[htbp]
+		\includegraphics[scale=0.8]{Hasse.png}
+		\caption{Partitions of a 4-set ordered by refinement}
+		\label{fig:Hasse}
+	\end{figure}
+\end{definition}
+
+\section{From \cite{Kenneth2012}}
+
+\begin{definition}[等价关系]
+	定义在集合$A$上的关系叫做等价关系，如果它是自反的、对称的和传递的。
+\end{definition}
+
+\begin{definition}[等价元素]
+	如果两个元素$a$和$b$由于等价关系而相关联，则称它们是等价的。记法$a\sim b$通常用来表示对于某个特定的等价关系来说，$a$和$b$是等价的元素。
+\end{definition}
+
+\begin{note}
+	在等价关系中，若两个元素有关系，就可以说它们是等价的。为了使等价元素的概念有意义，每个元素都应该等价于它自身，因为对于等价关系来说，自反性是一定成立的。在等价关系中，说$a$和$b$是相互关联也是正确的(而不仅是$a$关联于$b$)，因为如果$a$关联于$b$, 右对称性, $b$也关联于$a$。
+	
+	此外，因为等价关系是传递的，所以如果$a$和$b$等价且$b$和$c$等价，则可得出$a$和$c$也是等价的。
+\end{note}
+
+\begin{example}
+	设$R$是定义在整数集上的关系，满足$aRb$当且仅当$a=b$或$a=-b$。可以证明$R$是自反的，对称的和传递的。因此$R$是等价关系。
+\end{example}
+
+\begin{example}[模$m$同余]
+	设$m$是大于1的整数。证明以下关系是定义在整数集上的等价关系。
+	\[R=\{(a,b)|a\equiv b\pmod{m}\} \]
+\end{example}
+
+\begin{proof}
+	$a\equiv b\pmod{m}$, 当且仅当$m$整除$a-b$。 注意$a-a=0$能被$m$整除，因为$0=0\cdot m$。因此$a\equiv a\pmod{m}$, 从而模$m$同余关系是自反的。
+	
+	假设$a\equiv b\pmod{m}$, 那么$a-b$能被$m$整除，即$a-b=km$, 其中$k$是整数。从而$b-a=(-k)m$, 即$b\equiv a\pmod{m}$, 因此模$m$同余关系是对称的。
+	
+	下面假设$a\equiv b\pmod{m}$和$b\equiv c\pmod{m}$, 那么$m$整除$a-b$和$b-c$。因此存在整数$k$和$l$, 使得$a-b=km$和$b-c=lm$, $\implies a-c=(a-b)+(b-c)=km+lm=(k+l)m$。于是$a\equiv c\pmod{m}$, 从而模$m$同余关系是传递的。
+	
+	综上所述，模$m$同余关系是等价的。
+\end{proof}
+
+\begin{example}
+	设$R$是定义在英文字母组成的字符串的集合上的关系，满足$aRb$当且仅当$l(a)=l(b)$, 其中$l(x)$是字符串$x$的长度。证明$R$是等价关系。
+\end{example}
+
+\begin{proof}
+	因为$l(a)=l(a)$, 所以只要$a$是一个字符串，就有$aRa$, 故$R$是自反的。其次，假设$aRb$, 即$l(a)=l(b)$, 那么有$bRa$, 因为$l(b)=l(a)$, 所以$R$是对称的。最后，假设$aRb$且$bRc$, 那么有$l(a)=l(b),l(b)=l(c)\implies l(a)=l(c)$, 即$aRc$, 从而$R$是传递的。由于$R$是自反的，对称的和传递的，所以$R$是等价关系。
+\end{proof}
+
+\begin{example}\label{ex:eqstr}
+	设$n$是正整数，$S$是字符串集合。假定$R_n$是$S$上的关系，$sR_n t$当且仅当$s=t$或者$s$和$t$都至少含有$n$个字符，且$s$和$t$的前$n$个字符相同。就是说，少于$n$个字符的字符串只于它自身的$R_n$相关；一个至少含有$n$个字符的字符串$s$与字符串$t$相关当且仅当$t$也含有至少$n$个字符且$t$以$s$最前面的$n$个字符开始。例如，设$n=3$, $S$是所有位串的集合，$sR_3t$当$s=t$或者$s$和$t$均为长度至少为3的位串，且前3位相同。例如，$01R_3 01$, $00111R_3 001101$,但是$(01,010)\notin R_3, (0101,01110)\notin R_3$
+	
+	证明：对所有的字符串集$S$和所有的正整数$n$, $R_n$是定义在$S$上的等价关系。
+\end{example}
+
+\begin{proof}
+	
+	设$s$是$S$中的一个字符串，由于$s=s$, 可得$sR_ns$, 所以$R_n$关系是自反的。
+	
+	如果$sR_nt$, 那么或者$s=t$或者$s$和$t$都至少含有$n$个字符，且以相同的$n$个字符开始。这意味着$tR_ns$成立。所以$R_n$是对称的。
+	
+	现在假设$sR_nt$且$tR_nu$。 则有$s=t$或者$s$和$t$都至少含有$n$个字符，且以相同的$n$个字符开始。还有$t=u$或者$t$和$u$都至少含有$n$个字符，且以相同的$n$个字符开始。 由此可以推出$s=u$或者$s$和$u$都至少含有$n$个字符，且以相同的$n$个字符开始(因为在这种情形下，我们知道$s,t$和$u$都至少含有$n$个字符，且$s$和$u$都与$t$一样以相同的$n$个字符开始)。所以$R_n$是传递的。
+	
+	综上所述，模$R_n$是一个等价关系。
+\end{proof}
+
+\begin{definition}[等价类]
+	设$R$是定义在集合$A$上的等价关系。与$A$中的一个元素$a$有关系的所有元素的集合叫做$a$的等价类。$A$的关于$R$的等价类记作$[a]_R$。当只考虑一个关系时，我们将省去下标$R$并把这个等价类写作$[a]$。
+	
+	换句话说，如果$R$是定义在集合$A$上的等价关系，则元素$a$的等价类是
+	\[ [a]_R = \{s|(a,s)\in R \}\]
+	如果$b\in [a]_R,b$叫做这个等价类的\textbf{代表元}。一个等价类的任何元素都可以作为这个类的代表元。也就是说，选择特定元素作为一个类的代表元没有特殊要求。 
+\end{definition}
+
+\begin{example}
+	设$R$是定义在整数集上的关系，满足$aRb$当且仅当$a=b$或$a=-b$。可以证明$R$是自反的，对称的和传递的。因此$R$是等价关系。
+	
+	在这个等价关系中，一个整数对应于它自身和它的相反数数。从而一个整数的等价类是：$[a]=\{a,-a\}$。这个集合包含两个不同的整数，除非$a=0$。例如, $[7]=\{7,-7\},[-5]=\{-5,5\},[0]=\{0\}$。
+\end{example}
+
+\begin{example}
+	对于模$4$同余关系，0和1的等价类是什么？
+	
+	0的等价类包含使得$a\equiv 0\pmod{4}$的所有整数$a$。这个类中的整数是能被4整除的那些整数。因此，对于这个关系，0的等价类是
+	\[ [0]=\{\cdots,-8,-4,0,4,8,\cdots \}\]
+	1的等价类包含使得$a\equiv 1\pmod{4}$的所有整数$a$。这个类中的整数是当被4除时余数为1的那些整数。因此，对于这个关系，1的等价类是
+	\[ [1]=\{\cdots,-7,-3,1,5,9,\cdots \}\]
+	
+	用正整数$m$代替4, 很容易推广到模m同余关系的等价类--模m的同余类。整数$a$模$m$的同余类记作$[a]_m$, 满足
+	\[ [a]_m=\{\cdots,a-2m,a-m,a,a+m,a+2m,\cdots \}\] 
+	例如，
+	\begin{align*}
+		[0]_4 &=\{\cdots,-8,-4,0,4,8,\cdots \} \\
+		[1]_4 &=\{\cdots,-7,-3,1,5,9,\cdots \} 
+	\end{align*}
+		
+\end{example}
+
+\begin{example}
+	对于例\ref{ex:eqstr}中所有位串集合上的等价关系$R_3$, 串$0111$的等价类是什么？
+	等价于$0111$的是以$011$开始，至少含有3位的位串：
+	\[[011]_{R_3}=\{011,0110,0111,01100,01101,0111111,\cdots\}\]
+\end{example}
+
+\begin{theorem} \label{theorem:eqPro}
+	设$R$是定义在集合$A$上的等价关系，下面的关于集合$A$中$a,b$两个元素的命题是等价的。
+	\begin{enumerate}[(i) ]
+		\item $aRb$
+		\item $[a]=[b]$
+		\item $[a]\cap [b]\ne\emptyset$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	首先证明(i)推出(ii)。
+	
+	假设$aRb$,我们将通过$[a]\subseteq [b]$和$[b]\supseteq [a]$来证明$[a]=[b]$。
+	
+	假设$c\in [a]$, 那么$aRc$。因为$aRb$是对称的，所以$bRa$。又由于$R$是传递的以及$bRa$和$aRc$, 就得到$bRc$, 所以$c\in [b]$。这就证明了$[a]\subseteq [b]$。 类似地，可证明$[a]\supseteq [b]$。
+	
+	其次我们将证明(ii)推出(iii)。假设$[a]=[b]$, 这就证明了$[a]\cap [b]\ne\emptyset$, 因为$[a]$是非空的(由$R$的自反性$a\in [a]$)。
+	
+	下面证明(iii)推出(i)。假设$[a]\cap [b]\ne\emptyset$, 那么存在元素$c$满足$c\in [a]$且$c\in [b]$。换句话说, $aRc$且$bRc$。由对称性, 有$cRb$。再根据传递性，由$aRc$和$cRb$，就有$aRb$。
+	
+	因为$(i)\implies (ii),(ii)\implies (iii),(iii)\implies (i)$, 所以三个命题是等价的。
+\end{proof}
+
+现在我们将说明一个等价关系怎样划分一个集合。设$R$是定义在集合$A$上的的等价关系，$R$的所有等价类的并集就是集合$A$, 因为$A$的每个元素$a$都在它自己的等价类，即$[a]_R$中。换句话说，
+\[ \bigcup_{a\in A}[a]_R = A \]
+此外，有定理\ref{theorem:eqPro},这些等价类或者是相等的或者是不相交的的，因此当$[a]_R\ne[b]_R$时，
+\[ [a]_R\cap [b]_R = \emptyset\]
+
+这两个结论证明了等价类构成$A$的划分, 因为它们将$A$分成不相交的子集。更确切的说，集合$S$的\textbf{划分}是$S$的不相交的非空的子集构成的集合，且它们的并集就是$S$。换句话说,一簇子集$A_i,i\in I$, (其中$I$是下标的集合)构成$S$的划分，当且仅当
+\begin{align*}
+A_i &\ne \emptyset  &i\in I \\
+A_i\cap A_j &=\emptyset  &i\ne j\\
+\bigcup_{i\in I}A_i &= S  &
+\end{align*}
+
+\begin{figure}[htbp]
+	\includegraphics[scale=.4]{partition}
+	\caption{Partition of set}
+	\label{fig:partition}
+\end{figure}
+
+\begin{example}
+	假设$S=\{1,2,3,4,5,6\}$, 一簇集合$A_1=\{1,2,3\},A_2=\{4,5\},A_3=\{6\}$构成$S$的一个划分，因为这些集合是不相交的，且它们的并集是$S$。
+\end{example}
+
+\begin{theorem}
+	设$R$是定义在集合$S$上的等价关系。那么$R$的等价类构成$S$的划分。反过来，给定集合$S$的划分$\{A_i|i\in I\}$, 则存在一个等价关系$R$，它以集合$A_i(i\in I)$作为它的等价类。
+\end{theorem}
+
+\begin{example}
+	假设$S=\{1,2,3,4,5,6\}$, 一簇集合$A_1=\{1,2,3\},A_2=\{4,5\},A_3=\{6\}$构成$S$的一个划分，因为这些集合是不相交的，且它们的并集是$S$。
+	列出这个划分所产生的等价关系$R$中的有序对。
+\end{example}
+
+\begin{solution}
+	划分中的子集是$R$的等价类。有序对$(a,b)\in R$, 当且仅当$a$和$b$在划分的同一个子集中。
+	
+	由于$A_1=\{1,2,3\}$是一个等价类，因此有序对$(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)$属于$R$。
+	
+	由于$A_2=\{4,5\}$是一个等价类,因此有序对$(4,4),(4,5),(5,4),(5,5)$也属于$R$。
+	
+	由于$A_3=\{6\}$是一个等价类,因此有序对$(6,6)$也属于$R$。
+\end{solution}
+
+\begin{example}
+    模m同余关系的等价类--模m的同余类。整数$a$模$m$的同余类记作$[a]_m$, 满足
+	\[ [a]_m=\{\cdots,a-2m,a-m,a,a+m,a+2m,\cdots \}\] 
+	例如，模4同余存在4个等价类，对应于$[0]_4,[1]_4,[2]_4,[3]_4$,它们的集合是:
+	\begin{align*}
+	[0]_4 &=\{\cdots,-8,-4,0,4,8,\cdots \} \\
+	[1]_4 &=\{\cdots,-7,-3,1,5,9,\cdots \} \\
+	[2]_4 &=\{\cdots,-6,-2,2,6,10,\cdots \} \\
+	[3]_4 &=\{\cdots,-5,-1,3,7,11,\cdots \} 
+	\end{align*}
+	这些同余类是不相交的，并且每个整数恰好在它们中的一个，换句话说，这些同余类构成了一个划分。
+\end{example}
+
+\begin{example}
+设$R_3$是一个等价关系，$s,t$是位串，$sR_3t$，如果$s=t$或者$s$和$t$均为长度至少为3的位串，且前3位相同。
+例如，$01R_3 01$, $00111R_3 001101$,但是$(01,010)\notin R_3, (0101,01110)\notin R_3$
+
+等价于$0111$的是以$011$开始，至少含有3位的位串，其对应的等价类是
+\[[011]_{R_3}=\{011,0110,0111,01100,01101,0111111,\cdots\}\]
+
+由$R_3$等价关系，在所有字符串集合上产生的一个划分是：
+
+(1) 每个长度小于3的位串只和它自身等价。因此$[\lambda]_{R_3}=\{\lambda \}$
+\begin{align*}
+	&[0]_{R_3}=\{0\},[1_{R_3}=\{1\}],\\
+	&[00]_{R_3}=\{00\},[01]_{R_3}=\{01\},[10]_{R_3}=\{10\},[11]_{R_3}=\{11\},
+\end{align*}
+(2) 每个长度大于3的位串必须和以下8个位串之一等价：
+\begin{align*}
+[000]_{R_3} &=\{000,0000,0001,00000,00001,00010,00011,\cdots \} \\
+[001]_{R_3} &=\{001,0010,0011,00100,00101,00110,00111,\cdots \} \\
+[010]_{R_3} &=\{010,0100,0101,01000,01001,01010,01011,\cdots \} \\
+[011]_{R_3} &=\{011,0110,0111,01100,01101,01110,01111,\cdots \} \\
+[100]_{R_3} &=\{100,1000,1001,10000,10001,10010,10011,\cdots \} \\
+[101]_{R_3} &=\{101,1010,1011,10100,10101,10110,10111,\cdots \} \\
+[110]_{R_3} &=\{110,1100,1101,11000,11001,11010,11011,\cdots \} \\
+[111]_{R_3} &=\{111,1110,1111,11100,11101,11110,11111,\cdots \}
+\end{align*}
+这15个等价类是不相交的，并且每个位串都恰好属于它们之一，这些等价类是所有位串构成的集合的一个划分。
+\end{example}
+
 \section{From \cite{Jean2011}}
 
 \begin{definition} [Partitions and equivalence relations]
@@ -785,6 +1052,20 @@ Minimizing an automaton is the problem of computing the Nerode equivalence. Inde
 	
 \end{definition}
 
+\begin{figure}[htbp]
+	\subfigure[$(P,a)|R$] { %\label{fig:a11} 
+		\includegraphics[width=0.8\columnwidth] {PR_1} 
+	}
+    \hspace{2cm}
+    \subfigure[$R\cap a^{-1}P=\{q\in R|q\cdot a\in P\}$]{
+    	\includegraphics[width=0.4\columnwidth] {PR_2} 
+    }
+    \subfigure[$R\setminus a^{-1}P =\{q\in R|q\cdot a\notin P \}$]{
+    	\includegraphics[width=0.4\columnwidth] {PR_3} 
+    }
+    \caption{$(P,a)|R=(R\cap a^{-1}P) \cup (R\setminus a^{-1}P)$}
+\end{figure}
+
 The pair $(P,a)$ is called a \textit{splitter}. Observe that $(P,a)|R=\{R\}$ if either $R\cdot a\subset P$ or $R\cdot a\cap P=\emptyset$, and $(P,a)|R$ is composed of two classes if both $R\cdot a\ne\emptyset$ and $R\cdot a\cap P^c\ne\emptyset$ or equivalently if $R\cdot a\nsubseteq P^c$ and $R\cdot a\nsubseteq P$. if $(P,a)|R$ contains two classes, then we say that $(P,a)$  \textit{splits} $R$. Note that the pair $S=(P,a)$ is called a splitter even if it does not split.
 
 It is useful to extend the notation above to words. Given a word w and sets $P,R\subset Q$ of states, we denote by $w^{-1}P$ the set of states such that $q\cdot w\in P$, and by $(P,w)|R$ the partition of $R$ composed of the nonempty sets among
@@ -802,7 +1083,7 @@ We use later the following lemma which is already given in Hopcroft’s paper [\
 \end{proposition}
 
 \begin{lemma}
-	Let $P$ be a set of states, and let $\mathcal{P} = \{P1, P2\}$ be a partition of P. For any letter $a$ and for any set of states $R$, one has
+	Let $P$ be a set of states, and let $\mathcal{P} = \{P_1, P_2\}$ be a partition of P. For any letter $a$ and for any set of states $R$, one has
 	\[(P,a)|R\land (P_1,a)|R=(P,a)|R\land (P_2,a)|R=(P_1,a)|R\land (P_2,a)|R \]
 	and consequntly
 	\begin{align} 
@@ -821,19 +1102,179 @@ We use later the following lemma which is already given in Hopcroft’s paper [\
 	\end{figure}
 \end{example}
 
+\subsection{Moor's algorithm}
+
+The minimization algorithm given by Moore computes the Nerode equivalence by a stepwise refinement of some initial equivalence. All automata are assumed to be deterministic.
+
+\begin{definition}[Moore equivalence of order $h$]
+	Let $\mathcal{A}=(Q,i,F)$ be an automaton over an alphabet $A$. Define, for $q\in Q$ and $h\ge 0$, the set 
+	\[L_q^{(h)}(\mathcal{A})=\{w\in A^\ast||w|\le h, q\cdot w\in F \}. \]
+	The Moore equivalence of order $h$ is the equivalence $\equiv_h$ on $Q$ defined by
+	\[p\equiv_h q\Leftrightarrow L_p^{(h)}(\mathcal{A})=L_q^{(h)}(\mathcal{A})\]
+\end{definition}
+
+\begin{algorithm}  
+	\caption{Moore's minimization algorithm}  \label{alg:moore}
+	\begin{algorithmic}%[1] %每行显示行号  
+		\Require $\mathcal{A}=(Q,i,F)$  
+		\Ensure The equivalence classes of $Q$  
+		\State $\hat{P} \gets \{F,F^c \}$  \qquad\qquad $\triangleright$ The initial partition
+		\Repeat
+		\State $\hat{P}^\prime \gets \hat{P}$  \qquad\qquad $\triangleright$  $\hat{P}^\prime$ is the old partition, $\hat{P}$ is the new one
+		\ForAll {$a\in A$} 
+			\State $\hat{P}_a \gets \bigwedge_{P\in \hat{P}}(P,a)|Q$
+		\EndFor
+		\State $\hat{P}\gets \hat{P}\land \bigwedge_{a\in A}\hat{P}_a$
+		\Until {$P=P^\prime$}
+	\end{algorithmic}   
+\end{algorithm}
+
+The computation is described in algorithm \ref{alg:moore}. It is realized by a loop that refines the current partition. The computation of the refinement of $k$ partitions of a set swith $n$ elements can
+be done in time $O(kn^2)$ by brute force. A radix sort improves the running time to $O(kn)$. With $k = Card(A)$, each tour in the loop is realized in time $O(kn)$, so the total time is $O(\mathit{l}kn)$, where $\mathit{l}$ is the number of refinement steps in the computation of the Nerode equivalence $\equiv$, that is the depth of the automaton.
+
+The worst case behavior is obtained for $\mathit{l} = n − 2$. We say that automata having maximal depth are slow and more precisely are slow for Moore automata.
+
+Radix sort(see, \url{https://en.wikipedia.org/wiki/Radix_sort})
+In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value.
+
+\subsection{Hopcroft's algorithm}
+
+Hopcroft has given an algorithm that computes the minimal automaton of a given deterministic automaton. The running time of the algorithm is $O(k n \log n)$ where $k$ the cardinality of the alphabet and $n$ is the number of states of the given automaton.
+
+\begin{algorithm}  
+	\caption{Hopcroft's minimization algorithm}  \label{alg:hopcroft}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Require $\mathcal{A}=(Q,i,F)$  
+		\Ensure The equivalence classes of $Q$  
+		\State $\hat{P} \gets \{F,F^c \}$  \qquad\qquad $\triangleright$ The initial partition
+		\State $W\gets \emptyset$  \qquad\qquad $\triangleright$ The waiting set
+		\ForAll {$a\in A$}
+			\State $ADD((min(F,F^c),a),W)$ \qquad\qquad $\triangleright$ initialization of the waiting set
+		\EndFor
+		\While {$W\ne\emptyset$}
+			\State $(W,a)\gets TakeSome(W)$ \qquad\qquad $\triangleright$ Take and remove some splitter
+			\ForAll {$P\in \hat{P}$} which is split by $(W,a)$
+				\State $P^{\prime},P^{\prime\prime}\gets (W,a)|P$ \qquad\qquad $\triangleright$ Compute the split
+				\State Replace $P$ by $P^\prime$ and $P^{\prime\prime}$ in $\hat{P}$ \qquad\qquad $\triangleright$ Refine the partition
+			\EndFor 
+			\ForAll {$b\in A$}  \qquad\qquad $\triangleright$ Update the waiting set
+				\If {$(P,b)\in W$}
+				  	\State Replace $(P,b)$ by $(P^\prime,b)$ and $(P^{\prime\prime})$ in $W$
+				\Else
+					\State $ADD((min(P^\prime,P^{\prime\prime}),b),W)$
+				\EndIf  
+			\EndFor
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Outline}
+
+The algorithm is outlined in the function HOPCROFT given in algorithm \ref{alg:hopcroft}. We denote by $min(P, P^\prime)$ the set of smaller size of the two sets $P$ and $P^\prime$, and any one of them if they
+have the same size.
+
+Given a deterministic automaton $\mathcal{A}$, Hopcroft's algorithm computes the coarsest congruence which saturates the set $F$ of final states. It starts from the partition ${F, F^c}$ which obviously saturates $F$ and refines it until it gets a congruence. These refinements of the
+partition are always obtained by splitting some class into two classes.
+
+The algorithm proceeds as follows. It maintains a current partition $\hat{P} = {P_1,\dots,P_n}$ and a current set $W$ of splitters, that is of pairs $(W, a)$ that remain to be processed, where $W$ is a class of $\hat{P}$ and $a$ is a letter. The set $W$ is called the waiting set. The algorithm stops when the \textit{waiting} set $W$ becomes empty. When it stops, the partition $\hat{P}$ is the coarsest congruence that saturates $F$. The starting partition is the partition ${F, F^c}$ and the starting set $W$ contains all pairs $(min(F, F^c), a)$ for $a\in A$.
+
+The main loop of the algorithm removes one splitter $(W, a)$ from the waiting set $W$ and performs the following actions. Each class $P$ of the current partition (including the class $W$) is checked as to whether it is split by the pair $(W, a)$. If $(W, a)$ does not split $P$, then nothing is done. On the other hand, if $(W, a)$ splits $P$ into say $P^\prime$ and $P^{\prime\prime}$, the class $P$ is replaced in the partition $\hat{P}$ by $P^\prime$ and $P\prime\prime$. Next, for each letter $b$, if the pair $(P, b)$ is in $W$, it is replaced in $W$ by the two pairs $(P^\prime, b)$ and $(P^{\prime\prime}, b)$, otherwise only the pair $(min(P^\prime, P^{\prime\prime}), b)$ is added to $W$.
+
+It should be noted that the algorithm is not really deterministic because it has not been specified which pair $(W, a)$ is taken from $W$ to be processed at each iteration of the main loop. This means that for a given automaton, there are many executions of the algorithm. It turns out that all of them produce the right partition of the states. However, different executions may give rise to different sequences of splitting and also to different running time. Hopcroft has proved that the running time of any execution is bounded by $O(|A|n\log n)$.
+
+\section{From \cite{Knuutila2001}}
+
+\subsection{Sets,relations and mappings}
+
+The cardinality of a set $A$ is denoted by $|A|$. 
+
+Let $A$ and $B$ be sets and $\rho\subseteq A\times B$ a (binary) relation from $A$ to $B$. The fact that $(a,b)\in\rho (a\in A,b\in B)$ is also expressed by writing $a\rho b$. For any $a\in A$, we denote by $a\rho$ the set of elements of $B$ that are in relation $\rho$ with $a$, i.e. $a\rho=\{b\in B|a\rho b\}$. The converse of is the relation $\rho^{-1}=\{(b,a)|a\rho b\}$.Obviously $b\rho^{-1}=\{a|a\rho b\}$.
+
+Next we consider relations on a set $A$, i.e. subsets of $A\times A$.
+Theses include the diagonal relation $\omega_A=\{(a,a)|a\in A \}$, and the universal relation $\iota_A=A\times A$. The powers $\rho^n(n\ge 0)$ of a relation $\rho$ are defined as follows:
+\begin{align*}
+\rho^0 &=\omega_A \\
+\rho^{n+1} &=\rho^n\circ \rho, \qquad n\ge 0.
+\end{align*}
+
+The relation $\rho$ is called reflexive if $\omega_A\subseteq\rho$; symmetric if $\rho^{-1}\subseteq\rho$; and transitive if $\rho^2\subseteq\rho$.
+
+\subsection{Minization algebras}
+
+DFA $G=(Q,\Sigma,\delta,q_0,F)$
+
+Two states $a$ and $b$ of $G$ are equivalent, which we express by writing $a\rho_G b$, if 
+\[(\forall w\in \Sigma^\ast) (\delta(a,w)\in F)\Leftrightarrow\delta(b,w)\in F) \]
+
+DFA $G$ is reduced, if $a\rho_G b$ implies $a=b$, i.e. $\rho_G=\omega_Q$
+
+A relation $\rho\in Eq(Q)$ is a congruence of $G$, if 
+\begin{enumerate}[(1) ]
+	\item $a\rho b$ implies $\delta(a,x)\rho\delta(b,x)$ for all $a,b\in Q$ and all $x\in \Sigma$, and
+	\item $\rho$ saturates $F$ 
+\end{enumerate} 
+
+We denote by $Con(G)$ the set of all congruences of $G$. 
+
+It is well-known that the relation $\rho_G$ is the greatest (coarsest)  congruence of $G$. For any $\rho\in Con(G)$ the quotient DFA 
+$G/\rho$ is defined as $G/\rho=(Q/\rho,\Sigma,\delta/\rho,q_0/\rho,F/\rho)$ where $\delta/\rho(a/\rho,x)=\delta(a,x)/\rho$. 
+
+\begin{proposition} \label{pro:eq}
+	Let $G=(Q,\Sigma,\delta,q_0,F)$ and a series $\rho_i (i\ge 0)$ of equivalence relations on $Q$ be defined as follows:
+	\begin{align*}
+	\rho_0 &=\{(a,b)|a,b\in F \} \cup \{(a,b)|a,b\in Q-F \},\\
+	\rho_{i+1} &=\{(a,b)\in\rho_i|(\forall x\in \Sigma) (\delta(a,x),\delta(b,x))\in\rho_i \}
+	\end{align*}
+	Then the following hold.
+	\begin{enumerate} [(1) ]
+		\item $\rho_0\supseteq\rho_1\supseteq\cdots$
+		\item If $\rho_i=rho_{i+1}$ then $\rho_i=\rho_{i+j}$ for all $j>0$ and furthermore, $\rho_i=\rho_G$.
+		\item There exists $0\le k\le |Q|$ such that $\rho_k=\rho_{k+1}$. 
+	\end{enumerate}
+\end{proposition}
+
+When the construction of Proposition \ref{pro:eq} is implemented, each refinement step leading from $\rho_i$ to $\rho_{i+1}$ consists of a series of refinements on individual classes of $\rho_i$. The refinement of a single class $B$ can be implemented with suitably chosen data structures for equivalence relations to run in time $O(|\Sigma||B|)$, and each refinement from $\rho_i$ to $\rho_{i+1}$
+takes thus time $O(|\Sigma||Q|)$.
+
+\begin{lemma} \label{lemma:refine}
+	Let $G=(Q,\Sigma,\delta,q_0,F),\theta\in Eq(Q)$ and $B\in Q/\theta$. Suppose we refine $B$ into $B^\prime$ and $B^{\prime\prime}$. Then, for any $y\in\Sigma$, refining all the classes of $\theta$ with respect to any two of the pairs $(B,y),(B^\prime,y)$ and $(B^{\prime\prime})$ gives the same result as refining them with respect to all three of them.
+\end{lemma}
+
+\begin{proof}
+	Consider an arbitrary class $D\in Q/\theta, a\in D$ and $y\in\Sigma$. As seen in Fig. \ref{fig:refine}, the transition $\delta(a,y)$ satisfies exactly one of the following: 
+	\begin{enumerate}[(1) ]
+		\item $\delta(a,y)\in B^\prime$
+		\item $\delta(a,y)\in B^{\prime\prime}$
+		\item $\delta(a,y)\notin B$
+	\end{enumerate}
+	Now each possible refinement sequence with respect to any two of the sets $B,B^\prime$ and $B^{\prime\prime}$ and letter $y$ partitions $D$ into $D_1,D_2,D_3$, which is the same as the result yielded by performing all the three refinements.
+\end{proof}
+
+\begin{figure}[htbp]
+	\includegraphics[scale=0.6]{refine}
+	\caption{Illustration of Lemma \ref{lemma:refine}}
+	\label{fig:refine}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thebibliography}{99}
 	\bibitem[Hopcroft71]{Hopcroft71}
 	Hopcroft, J.E. \textit{An n log n algorithm for minimizing states in a finite automaton}, in The Theory of Machines and Computations (Z. Kohavi, ed.), pp.180-196, Academic Press, New York, 1971.
 	
 	\bibitem[Gries73]{Gries73}
-	Gries, D. \textit{Describing an Algorith m by Hopcroft}, Acta Inf. 2:97 109, 173. $\copyright$ by Springer-Verlag 1973
+	Gries, D. \textit{Describing an Algorithm by Hopcroft}, Acta Inf. 2:97 109, 173. $\copyright$ by Springer-Verlag 1973
 	
+	\bibitem[Knuutila2001]{Knuutila2001}
+	Knuutila, T. \textit{Re-describing an Algorithm by Hopcroft}. Theoret. Computer Science 250 (2001) 333--363.
+		
 	\bibitem[Ratnesh95]{Ratnesh95}
 	Ratnesh Kumar, \textit{Modeling and Control of Logical Discrete Event Systems}, $\copyright$ 1995 by Springer Science+Business Media New York.
 	
 	\bibitem[Jean2011]{Jean2011}
 	Jean Berstel, Luc Boasson, Olivier Carton, Isabelle Fagnot
 	, \textit{Minimization of automata}, Universit$\acute{e}$ Paris-Est Marne-la-Vall$\acute{e}$e 2010 Mathematics Subject Classification: 68Q45, 2011.
+	
+	\bibitem[Kenneth2012]{Kenneth2012}
+	Kenneth H. Rosen著,徐六通译, \textit{离散数学及其应用Discrete Mathematics and Its Applications},seventh Edition, 2012, 机械工业出版社, 北京, 2014.
 	
 \end{thebibliography}
