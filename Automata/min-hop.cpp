@@ -81,7 +81,7 @@ DFA& DFA::min_Hopcroft()
 	while (1)
 	{
 		// Find the first pair in L that still needs processing.
-		for (q = 0; q <= Q.size() && !L[q]; q++);
+		for (q = 0; q < Q.size() && !L[q]; q++);
 
 		// It may be that we're at the end of the processing.
 		if (q == Q.size())
