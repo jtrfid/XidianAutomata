@@ -1199,14 +1199,15 @@ Theses include the diagonal relation $\omega_A=\{(a,a)|a\in A \}$, and the unive
 
 The relation $\rho$ is called reflexive if $\omega_A\subseteq\rho$; symmetric if $\rho^{-1}\subseteq\rho$; and transitive if $\rho^2\subseteq\rho$.
 
-The cardinality of $A/\rho$ is called the index of $\rho$; especially, if $A/\rho$ is finite, then 
-is said to have a  fnite index. For any subset $H$ of $A$, $H/\rho$ denotes $\{a\rho|a\in H \}$. The
-equivalence $\rho$ saturates the subset $H$, if $H$ is the union of some $\rho$-classes. Hence, $\rho$ saturates $H$ iff $a\rho\in H/\rho$ implies $a\rho\subseteq H$.
+A relation on $A$ is called an \textit{equivalence relation} on $A$, if it is reflexive, symmetric and transitive. The set of all equivalence relations on a set $A$ is denoted by $Eq(A)$. It is obvious that both $\omega_A\in Eq(A)$ and $\iota_A \in Eq(A)$. Let $\rho\in Eq(A)$. The $\rho$-class $a\rho$ of an element $a (\in A)$ is also denoted by $a/\rho$. The \textit{quotient set} or the \textit{partition of A} with
+respect to $\rho$, is $A/\rho=\{a\rho|a\in A \}$. If $\pi\in Eq(A)$ and $\pi\subset \rho$, then the partition $A/\pi$ is a \textit{refinement} of $A/\rho$ (each $\rho$-class is a union of some $\pi$-classes); this is also expressed by saying that $\pi$ is \textit{finer} than $\rho$ or that $\rho$ is \textit{coarser} than $\pi$. We often define an equivalence relation $\rho$ on $A$ via the set $A/\rho$, i.e. in the form $A/\rho=\{C_1,\dots,C_m \}$, where the sets $C_i$ are the classes of $\rho$.
+
+The cardinality of $A/\rho$ is called the \textit{index} of $\rho$; especially, if $A/\rho$ is finite, then is said to have a  \textit{finite index}. For any subset $H$ of $A$, $H/\rho$ denotes $\{a\rho|a\in H \}$. The equivalence $\rho$ saturates the subset $H$, if $H$ is the union of some $\rho$-classes. Hence, $\rho$ saturates $H$ iff $a\rho\in H/\rho$ implies $a\rho\subseteq H$.
 
 A \textit{mapping} or a \textit{function} $\phi:A\to B$ is a relation $\phi\subseteq A\times B$ such that $|a\phi|=1$ for all $a\in A$. If $a\phi b$, then $b$ is the \textit{image} of $a$ and $a$ is a \textit{preimage} of $b$. That $b$ is an image of $a$ is expressed by writing $b=\phi(a)$ and that $a$ is a preimage of $b$ is written as $a=\phi^{-1}(b)$. The notation $a=\phi^{-1}(b)$ is justified合理的, when  $\phi$  is bijective (see below). The \textit{restriction} of a mapping $\phi:A\to B$ to a set $C\subseteq  A$ is the mapping $\phi|C:C\to B$ where $\phi|C=\phi\cap(C\times B)$.
 
 The \textit{composition} of two mappings $\phi:A\to B$ and $\psi:B\to C$ is the mapping
-$\phi\psi: A\to C$, where $\phi\psi$ is the product of $\phi$ and $\psi$ as relations. The \textit{kernel} $\phi\phi^{-1}$ of a mapping $\phi:A\to B$, also denoted by $ker\phi$, is an equivalence relation on $A$ and $a\phi\phi^{-1}b$ iff $a\phi=b\phi (a,b\in A)$. A mapping $\phi:A\to B$ is called \textit{injective} if $ker \phi=\omega_A$; \textit{surjective} (or onto) if $A\phi =B$; and \textit{bijective} if it is both injective and surjective.
+$\phi\psi: A\to C$, where $\phi\psi$ is the product of $\phi$ and $\psi$ as relations. The \textit{kernel} $\phi\phi^{-1}$ of a mapping $\phi:A\to B$, also denoted by $\ker\phi$, is an equivalence relation on $A$ and $a\phi\phi^{-1}b$ iff $a\phi=b\phi (a,b\in A)$. A mapping $\phi:A\to B$ is called \textit{injective} if $\ker \phi=\omega_A$; \textit{surjective} (or onto) if $A\phi =B$; and \textit{bijective} if it is both injective and surjective.
 
 \begin{figure}[htbp]
 	\subfigure[An injective non-surjectice function(injection, not a bijection) ]{
@@ -1224,25 +1225,43 @@ $\phi\psi: A\to C$, where $\phi\psi$ is the product of $\phi$ and $\psi$ as rela
 \caption{The term one-to-one function must not be confused with one-to-one correspondence (a.k.a. bijective function), which uniquely maps all elements in both domain and codomain to each other}
 \end{figure}
 
-\subsection{Minization algebras}
+\subsection{Preliminaries}
 
-DFA $G=(Q,\Sigma,\delta,q_0,F)$
+\begin{definition}[$a\rho_Gb$]
+	DFA $G=(Q,\Sigma,\delta,q_0,F)$, Two states $a$ and $b$ of $G$ are equivalent, which we express by writing $a\rho_G b$, if 
+	\[(\forall w\in \Sigma^\ast) (\delta(a,w)\in F)\Leftrightarrow\delta(b,w)\in F) \]
+\end{definition}
 
-Two states $a$ and $b$ of $G$ are equivalent, which we express by writing $a\rho_G b$, if 
-\[(\forall w\in \Sigma^\ast) (\delta(a,w)\in F)\Leftrightarrow\delta(b,w)\in F) \]
+\begin{definition}[$\omega_Q,\iota_Q,Eq(Q)$]
+	DFA $G=(Q,\Sigma,\delta,q_0,F)$, the diagonal relation $\omega_Q=\{(a,a)|a\in Q \}$, the universal relation $\iota_Q=Q\times Q$. The set of all equivalence relations on a set $Q$ is denoted by $Eq(Q)$. It is obvious that both $\omega_Q\in Eq(Q)$ and $\iota_Q \in Eq(Q)$. 
+\end{definition}
 
-DFA $G$ is reduced, if $a\rho_G b$ implies $a=b$, i.e. $\rho_G=\omega_Q$
+\begin{definition}[the reduced $G$]
+	DFA $G$ is reduced, if $a\rho_G b$ implies $a=b$, i.e. $\rho_G=\omega_Q$
+\end{definition}
 
-A relation $\rho\in Eq(Q)$ is a congruence of $G$, if 
-\begin{enumerate}[(1) ]
-	\item $a\rho b$ implies $\delta(a,x)\rho\delta(b,x)$ for all $a,b\in Q$ and all $x\in \Sigma$, and
-	\item $\rho$ saturates $F$ 
-\end{enumerate} 
+\begin{definition}[$Con(G)$]
+	A relation $\rho\in Eq(Q)$ is a congruence of $G$, if 
+	\begin{enumerate}[(1) ]
+		\item $a\rho b$ implies $\delta(a,x)\rho\delta(b,x)$ for all $a,b\in Q$ and all $x\in \Sigma$, and
+		\item $\rho$ saturates $F$ 
+	\end{enumerate} 
+	We denote by $Con(G)$ the set of all congruences of $G$. 
+\end{definition}
 
-We denote by $Con(G)$ the set of all congruences of $G$. 
+\begin{definition}[quotient DFA $G/\rho$]
+	It is well-known that the relation $\rho_G$ is the greatest (coarsest)  congruence of $G$. For any $\rho\in Con(G)$ the quotient DFA $G/\rho$ is defined as $G/\rho=(Q/\rho,\Sigma,\delta/\rho,q_0/\rho,F/\rho)$ where $\delta/\rho(a/\rho,x)=\delta(a,x)/\rho$. 
+\end{definition}
 
-It is well-known that the relation $\rho_G$ is the greatest (coarsest)  congruence of $G$. For any $\rho\in Con(G)$ the quotient DFA 
-$G/\rho$ is defined as $G/\rho=(Q/\rho,\Sigma,\delta/\rho,q_0/\rho,F/\rho)$ where $\delta/\rho(a/\rho,x)=\delta(a,x)/\rho$. 
+\begin{definition}[DFA as unary algebras]
+	DFA $G=(Q,\Sigma,\delta,q_0,F)$, $\Sigma$ is viewed as a set of unary operation symbols and the transition function $\delta$ of $G$ is replaced by the $\Sigma$-indexed family $(x^G:x\in\Sigma)$ of unary operations which are defined so that for any $x\in\Sigma$ and $a\in Q, x^G(a)=\delta(a,x)$. We shall omit $G$ from the superscript and write simply $x(a)$ for $\delta(a,x)$. 
+	
+	Clearly, a string $w=x_1x_2\dots x_n$ is accepted by $G$ if and only if $x_n(\dots(x_2(x_1(q_0))\dots)\in F$. 
+\end{definition}
+
+\subsection{The classical algorithm}
+
+The classical minimization algorithm is based on the following ``layer-wise' definition for the equivalence relation $\rho_G$.
 
 \begin{proposition} \label{pro:eq}
 	Let $G=(Q,\Sigma,\delta,q_0,F)$ and a series $\rho_i (i\ge 0)$ of equivalence relations on $Q$ be defined as follows:
@@ -1253,13 +1272,193 @@ $G/\rho$ is defined as $G/\rho=(Q/\rho,\Sigma,\delta/\rho,q_0/\rho,F/\rho)$ wher
 	Then the following hold.
 	\begin{enumerate} [(1) ]
 		\item $\rho_0\supseteq\rho_1\supseteq\cdots$
-		\item If $\rho_i=rho_{i+1}$ then $\rho_i=\rho_{i+j}$ for all $j>0$ and furthermore, $\rho_i=\rho_G$.
+		\item If $\rho_i=\rho_{i+1}$ then $\rho_i=\rho_{i+j}$ for all $j>0$ and furthermore, $\rho_i=\rho_G$.
 		\item There exists $0\le k\le |Q|$ such that $\rho_k=\rho_{k+1}$. 
 	\end{enumerate}
 \end{proposition}
 
+\textbf{ The refinements on individual classes}
+
 When the construction of Proposition \ref{pro:eq} is implemented, each refinement step leading from $\rho_i$ to $\rho_{i+1}$ consists of a series of refinements on individual classes of $\rho_i$. The refinement of a single class $B$ can be implemented with suitably chosen data structures for equivalence relations to run in time $O(|\Sigma||B|)$, and each refinement from $\rho_i$ to $\rho_{i+1}$
 takes thus time $O(|\Sigma||Q|)$.
+
+\begin{example}
+	We construct (the worst kind of ) a DFA Fig. \ref{fig:mini-ex1_1}.
+	
+	\begin{align*}
+		G/\rho_0&=\{\{6\},\{1,2,3,4,5\} \}, \\
+		B &= \{1,2,3,4,5 \}, \delta(5,0)\notin B,\delta(i,0)=i+1\in B,1\le i \le 4,\\
+		G/\rho_1&=\{\{6\},\{5\}, \{1,2,3,4 \} \} \\
+		B &= \{1,2,3,4 \}, \delta(4,0)\notin B,\delta(i,0)=i+1\in B,1\le i \le 3,\\
+		G/\rho_2&=\{\{6\},\{5\}, \{4\}, \{1,2,3\} \} \\
+		B &= \{1,2,3 \}, \delta(3,0)\notin B,\delta(i,0)=i+1\in B,1\le i \le 2,\\
+		G/\rho_3&=\{\{6\},\{5\}, \{4\}, \{3\},\{1,2\} \} \\
+		B &= \{1,2 \}, \delta(2,0)\notin B,\delta(i,0)=i+1\in B,1\le i \le 1,\\
+		G/\rho_4&=\{\{6\},\{5\}, \{4\}, \{3\},\{2\},\{1\} \} 
+	\end{align*}
+	
+	The classical minimization algorithm is ineffective, since in the worst kind of a DFA, each refinement step from $\rho_i$ to $\rho_{i+1}$ removes always one state from the only nonsingleton class. The work performed by the algorithm (even if we optimize it to avoid considering singleton classes) will then be proportional to $|\Sigma|\sum_{i=1}^{|Q|-2}(|Q|-i)$, which leads to $O(|\Sigma||Q|^2)$ execution time.
+	
+	\begin{figure}[htbp]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, semithick]
+		\tikzstyle{every state}=[minimum size=0.1mm]
+		\node[initial,state] (p1)  {$1$};
+		\node[state]         (p2) [right of=p1] {$2$};
+		\node[state]         (p3) [right of=p2] {$3$};
+		\node[state]         (p4) [right of=p3] {$4$};
+		\node[state]         (p5) [right of=p4] {$5$};
+		\node[state,accepting] (p6) [right of=p5] {$6$};
+		\path
+		(p1) edge [loop above] node {1} (p1)
+		edge [] node {0} (p2)
+		(p2) edge [loop above] node {1} (p2)
+		edge [] node {0} (p3)
+		(p3) edge [loop above] node {1} (p3)
+		edge [] node {0} (p4)
+		(p4) edge [loop above] node {1} (p4)
+		edge [] node {0} (p5)
+		(p5) edge [loop above] node {1} (p5)
+		edge [] node {0} (p6)
+		(p6) edge [loop above] node {0,1} (p6)
+		;
+		\end{tikzpicture}
+		\caption{Minimizing example} \label{fig:mini-ex1_1}
+	\end{figure}
+\end{example}
+
+\subsection{Atomic refinements}
+
+Note that the construction of Proposition \ref{pro:eq}  reaches the situation $\rho_i = \rho_{i+1}$ when $\rho_i$ becomes a congruence, i.e. 
+\[(\forall a,b\in Q, x\in Q) a\rho_i b\implies \delta(a,x)\rho_i\delta(b,x) \]. 
+
+Now consider the situation where $\rho_i \ne \rho_{i+1}$. Obviously,
+\begin{align*}
+\rho_i\ne\rho_{i+1} &\Leftrightarrow (\exists a,b\in Q,x\in\Sigma) &(a,b)\in\rho_i \text{ and } (\delta(a,x),\delta(b,x))\notin\rho_i\\
+&\Leftrightarrow (\exists B\in Q/\rho_i,x\in\Sigma) &(a,b)\in B  \text{ and } (\delta(a,x),\delta(b,x))\notin\rho_i\\
+&\Leftrightarrow (\exists B,C\in Q/\rho_i,x\in\Sigma) &(a,b)\in B  \text{ and } \delta(a,x)\in C, \text{ and } \delta(b,x))\notin C\\
+&\Leftrightarrow (\exists B,C\in Q/\rho_i,x\in\Sigma) &(a,b)\in B  \text{ and } \delta(B,x)\cap C\ne\emptyset, \text{ and } \delta(B,x))\nsubseteq C
+\end{align*}
+
+The step from $\rho_i$ to $\rho_{i+1}$ can thus be understood as a series of ``atomic' refinements performed for such $x\in \Sigma, B,C\in Q/\rho_i$ that
+\begin{equation}\label{equ:atomic}
+	\delta(B,x)\cap C\ne\emptyset \text{ and } \delta(B,x))\nsubseteq C
+\end{equation}
+holds, Each such atomic refinement partition then $B$ into $B\cap x^{-1}(C) \}$ and $B-(B\cap x^{-1}C))$. We denote these refinements of $B$ with $B_{C,x}$ and $B^{C,x}$, respectively. We use the notation $B^\prime$ and $B^{\prime\prime}$ for these refinements of $B$ when their relation to the pair $(C,x)$ has no importance.
+
+Let us next rewrite Proposition \ref{pro:eq} in the terms of these atomic refinements.
+
+\begin{proposition} \label{pro:eq_relations}
+	Let $G=(Q,\Sigma,\delta,q_0,F)$ be a DFA and series $\theta_i (i\ge 0)$ of equivalence relation on $Q$ be defined as follows:
+	\begin{align*}
+		Q/\theta_0 &=\{F,Q-F \}, &\\
+		Q/\theta_{i+1} &=\begin{cases}
+		(Q/\theta_i-\{B\})\cup\{B_{C,x},B^{C,x}\} &\text{ if \ref{equ:atomic} holds for some } B,C\in Q/\theta_i, x\in\Sigma,\\
+		Q/\theta_i &\text{otherwise}.
+		\end{cases}
+	\end{align*}
+	Then there exists a $k\le |Q|$ such that $\theta_{i+l}=\theta_i$ for all $l\ge 0$ and $\theta_k=\rho_G$.
+\end{proposition}
+
+\begin{proof}
+	The upper bound comes from the observation, that each atomic refinement increases the index of $\theta_i$ by one. Naturally this index cannot be increased more than $|Q|-1$ times.
+	
+	It is clear that $\theta_k$ is both an equivalence relation saturating $F$ (it is a refinement of $\theta_0$) and a congruence of $G$ (since Eq. (\ref{equ:atomic}) does not hold for $\theta_k$). What remains, is to show that $\theta_k$ is also the \textit{greatest} congruence $\rho_G$ of $G$.
+	
+	We show first that $\theta_i\supseteq\rho_G$ for all $i\ge 0$. When contraposed, the claim is that if $(a,b)\notin\theta_i$ then $(a,b)\notin\rho_G$ (for all $i\ge 0$). This is clearly true for $\theta_0$, since final and non-final states are not in $\rho_G$. Suppose then that the claim holds for all $0\le l\le i$ and let $(a,b)\in\theta_i$. If $(a,b)\notin\theta_{i+l}$, it must be the case that for some $x\in\Sigma,(x(a),x(b))\notin\theta_i $. 
+	But this implies (by IA) that $x(a)$ and $x(b)$ are not in $\rho_G$. Thus, $a$ and $b$ become inequivalent in $\theta_{i+l}$ only when they are shown to be inequivalent in $\rho_G$, formally $(a,b)\notin\theta_{i+l}\implies (a,b)\notin\rho_G$. 
+	
+	It now holds that $\theta_0\supseteq\theta_1\supseteq\cdots\supseteq\theta_k$ (by definition), and consequently $\theta_0\supseteq\theta_1\supseteq\cdots\supseteq\theta_k\supseteq\rho_G$. Since $\rho_G$ is the greatest congruence of $G$, and $\theta_k$ is a congruence, it must be the case that $\theta_k=\rho_G$.  $\hfill\square$.
+\end{proof}
+
+Note that the construction given in Proposition \ref{pro:eq_relations} does not fix the order in which the triples $B, C, x$ are exploited to refine $\theta_i$. Thus, all the different orderings yield the same result at the end: the unique greatest congruence.
+
+\begin{algorithm}  
+	\caption{Comuting $\rho_G$ using atomic refinements}  \label{alg:atomic}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Function {Equivalence} {$G$}
+		\State $Q/\theta\gets \{F,Q-F\}$
+		
+		\While {($\exists B,C\in Q/\theta,x\in\Sigma$ s.t. Eq. \ref{equ:atomic} holds)}
+		\State $Q/\theta\gets(Q/\theta-\{B\}\cup\{B_{C,x},B^{C,x}  \}$
+		\EndWhile
+		
+		\State \Return{$\theta$}  
+		\EndFunction 
+	\end{algorithmic}
+\end{algorithm}
+
+How to efficiently find some triple $B,C,x$ for which Eq. (\ref{equ:atomic}) holds.
+
+The refiners of $B$ in $\theta$, shortly $ref(B,\theta)$:
+\[ref(B,\theta)=\{(C,x)\in(Q/\theta)\times\Sigma|x(B)\cap C\ne\emptyset \text{ and } x(B)\nsubseteq C \} \]
+
+As each $B$ is related to $ref(B,\theta)$, so is each pair $(C,x)$ related to its \textit{objects of refinement} in $\theta$,
+\[obj(C,x,\theta)=\{B\in Q/\theta|(C,x)\in ref(B,\theta) \} \]
+
+\begin{algorithm}  
+	\caption{Refiner-driven implementation}  \label{alg:refiner-driven}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Function {Equivalence} {$G$}
+		\State $Q/\theta\gets \{F,Q-F\}$
+		
+		\While {($\exists some(C,x)\in(Q/\theta)\times\Sigma$ with $obj(C,x,\theta)\ne\emptyset$)}
+		\For {$B\in obj(C,x,\theta)$}
+			\State replace $B$ with $B_{C,x}$ and $B^{C,x}\in Q/\theta$
+		\EndFor
+		\EndWhile
+		
+		\State \Return{$\theta$}  
+		\EndFunction 
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{lemma} \label{lemma:refine_B}
+	Let $G=(Q,\Sigma,\delta,q_0,F),\theta\in Eq(Q)$ and $B,C\in Q/\theta$ and $x\in\Sigma$. Suppose we refine $B\in Q/\theta$ into $B_{C,x}$ and $B^{C,x}$ with respect to $(C,x)$. Let $D$ be a subset of $B_{C,x}$ or $B^{C,x}$, then $D\notin(C,x,\theta)$.
+\end{lemma}
+
+\begin{proof}
+	Let us first condider the case $D\in\{B_{C,x},B^{C,x}\}$. Then either $x(a)\in C$ for all $a\in D$ or $x(a)\notin C$ for all $a\in D$. The same property holds naturally for all subsets of $D$.
+\end{proof}
+
+The bookkeeping needed for telling whether a particular pair $(C,x)$ has been used can be implemented as follows:
+\begin{itemize}
+	\item We maintain a set $L$ of candidate refiners, shortly candidates, in $(Q/\theta)\times\Sigma$. Initially $L=\{F,Q-F\}\times X$.
+	\item Pairs $(C,x)$ are now selected from $L$, not (blindly) from all of $(Q/\theta)\times\Sigma$.
+	\item Every time we select a pair $(C,x)$ from $L$, we remove it from $L$. This is justified by Lemma \ref{lemma:refine_B}.
+	\item After refining $\theta$ to $\theta^\prime$, we must also update $L$ to contain only classes of $\theta^\prime$. We do the following for each $x\in\Sigma$ and each class $B$ refined to $B^\prime$ and $B^{\prime\prime}$:
+	\begin{itemize}
+		\item[$\circ$] if $(B,x)\in L$, we remove $(B,x)$ and add both $(B^\prime,x) and (B^{\prime\prime},x)$ to $L$. This is (indirectly) justified by Proposition \ref{pro:eq_relations}, since only the current $\theta$-classes are used in the construction.	
+		\item[$\circ$] If $(B,x)\notin L$, we simply add $(B^\prime)$ and $(B^{\prime\prime})$ to $L$.
+	\end{itemize}
+\end{itemize}
+
+Note that new items are inserted into $L$ only when some class gets refined. Thus, $L$ will eventually become empty, because each iteration removes one element from $L$, and the total number of elements added into $L$ is bounded by $2|\Sigma||Q|$ (the maximum number of different equivalence classes created in any refinement sequence is $2|Q|-1$. The ideas above are collected into Algorithm \ref{alg:set-driven}.
+
+\begin{algorithm}  
+	\caption{Set-driven implementation}  \label{alg:set-driven}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Function {Equivalence} {$G$}
+		\State $Q/\theta\gets \{F,Q-F\}$
+		\State $L\gets (Q/\theta)\times\Sigma$
+		
+		\While {$L\ne\emptyset$}
+		\State remove a pair $(C,x)$ from $L$
+		\ForAll {$B\in obj(C,x,\theta)$}
+			\State replace $B$ with $B_{C,x}$ and $B^{C,x}$ in  $Q/\theta$
+			\ForAll {$y\in\Sigma$}
+				\If {$(B,y)\in L$}
+					\State replace $(B,y)$ with $(B^\prime,y)$ and $(B^{\prime\prime},y)$ in $L$
+				\Else
+					\State insert $(B^\prime,y)$ and $(B^{\prime\prime},y)$ to $L$
+				\EndIf
+			\EndFor
+		\EndFor
+		\EndWhile
+		
+		\State \Return{$\theta$}  
+		\EndFunction 
+	\end{algorithmic}
+\end{algorithm}
 
 \begin{lemma} \label{lemma:refine}
 	Let $G=(Q,\Sigma,\delta,q_0,F),\theta\in Eq(Q)$ and $B\in Q/\theta$. Suppose we refine $B$ into $B^\prime$ and $B^{\prime\prime}$. Then, for any $y\in\Sigma$, refining all the classes of $\theta$ with respect to any two of the pairs $(B,y),(B^\prime,y)$ and $(B^{\prime\prime})$ gives the same result as refining them with respect to all three of them.
