@@ -1,4 +1,4 @@
-/****************************************************************************************//*
+﻿/****************************************************************************************//*
 
 Uses: CRSet, DFA, State, StateEqRel, SymRel
 Description: Member function min_Hopcroft implements Hopcroft's n log n minimization algo-
@@ -99,6 +99,12 @@ DFA& DFA::min_Hopcroft()
 			
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
+				// 胡双朴添加
+				if (L[q] == C.size())
+				{
+					L[q]--;
+				}
+
 				// Now split [p] w.r.t (q.C_(L[q]))
 				State r(split(p, q, C.iterator(L[q]), P));
 				// r is the representative of the new split of the 
