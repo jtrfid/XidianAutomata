@@ -224,6 +224,250 @@ Let $A=(Q,V,T,_,F)$ be a deterministic finite automaton, where $Q$ is a finite s
 	The states $s$ and $t$ are said to be equivalent if for each $x\in V^\ast, T(s,x)\in F$ if and only if $T(t,x)\in F$. 
 \end{definition}
 
+\section{From \cite{Gries73}}
+
+\subsection{Problem Definition}
+
+DFA: $A=(S,I,\delta,F)$, No initial state is specified since it is of no importance in what follows.
+
+\begin{definition}[equivalent states]
+	States $s$ and $t$ are said to be equivalent if for each $x\in I^\ast,\delta(s,x)\in F$. if and only if $\delta(t,x)\in F$.
+\end{definition}
+
+We want an algorithm which finds equivalent states of a finite automaton.
+
+\begin{example}
+	Consider the automaton with $S=\{a,b,c,d,e\},I=\{0,1\},F=\{d,e\}$ and $\delta$ is given by the arc of diagram of Fig. \ref{fig:ex}.
+\begin{figure} [htbp]
+	\{a,b\},\{d,e\}is not equivalent states. \\
+	Sets of equivalent states: \{a,c\},\{b\},\{d\},\{e\}\\
+	%\includegraphics[scale=0.4] {mini-fa} 
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, semithick]
+	\tikzstyle{every state}=[minimum size=0.1mm]
+	\node[state] (a) {$a$};
+	\node[state,accepting] (d) [right of=a] {$d$};
+	\node[state] (c) [below of=a] {$c$};
+	\node[state] (b) [left of=c] {$b$};
+	\node[state,accepting] (e) [right of=c] {$e$};
+	\path
+	(d) edge [loop above] node {$0,1$} (d)
+	(c) edge [loop below] node {$1$} (c)
+	(e) edge [loop below] node {$1$} (e)
+	(a) edge [] node {$0$} (d)
+	(a) edge [swap] node {$1$} (c)
+	(b) edge [swap] node {$0,1$} (c)
+	(e) edge [] node {$0$} (c)
+	(c) edge [] node {$0$} (d)
+	;
+	\end{tikzpicture}
+	\caption{Finite state automaton}
+	\label{fig:ex}
+\end{figure}
+\end{example}
+
+\subsection{The Basic Algorithm}
+\begin{definition}[acceptable partition]
+	A partitioning of the states into blocks $B_1,B_2,\dots,B_p$ is acceptable if (a) no block contains both a final and a nonfinal state, and (b) if $s$ and $t$ are equivalent states then they are in the same block.
+\end{definition}
+
+\begin{lemma} \label{lem:partitioning}
+	The partitioning $B_1=F,B_2=S-F$ is acceptable.
+\end{lemma}
+
+\begin{lemma} \label{lem:stSame}
+	The partitioning $B_1,B_2,\dots,B_p$ gives the blocks of equivalent states if and only if (a) the partitioning is acceptable and (b) for each pair of blocks $B_i,B_j$ and symbol $a\in I$
+	\begin{equation}
+	s,t\in B_i,\delta(s,a)\in B_j \text{ implies } \delta(t,a)\in B_j
+	\end{equation}
+\end{lemma}
+
+\begin{lemma} \label{lem:split}
+	Let $B_1,B_2,\dots,B_p$ be an acceptable partitioning. Suppose there are two blocks $B_i,B_j$ and symbol $a\in I$ such that
+	\begin{equation}
+	s,t\in B_i,\delta(s,a)\in B_j \text{ but } \delta(t,a)\notin B_j
+	\label{eq:split}
+	\end{equation}
+	
+	Then $s$ and $t$ are not equivalent states, and we get a new acceptable partitioning by replacing $B_i$ by the two blocks
+	\begin{equation}
+	\{s\in B_i|\delta(s,a)\in B_j\} \text{ and } \{s\in B_i|\delta(s,a)\notin B_j\}
+	\end{equation}
+\end{lemma}
+
+This splitting of $B_i$ as described is called splitting $B_i$ with respect to the pair $(B_i, a)$ or simply splitting $B_i$ wrt $(B_j, a)$. We now write the following algorithm:
+
+\begin{algorithm}  
+	\caption{splitting $B_i$ wrt $(B_j, a)$} 
+	\label{alg:splitting} 
+	\begin{algorithmic}%[1] %每行显示行号
+	\State $B_1 \gets F; B_2\gets S-F;$  [initially there are two blocks]  
+	\While { $\exists a,B_i,B_j $ such that Eq. (\ref{eq:split}) holds }
+		\State SPLIT: split $B_i$ wrt $(B_j,a)$
+	\EndWhile
+	\end{algorithmic}   
+\end{algorithm}
+
+$B$,$P$ are relations, $S$ is a sequence of statements.
+\begin{equation}
+	P\land B\{S\}P \text{ implies $P$ \{While $B$ do $S$ end\} } P\land\lnot B
+\end{equation}
+
+For algorithm (\ref{alg:splitting}), let $P$ be the relation ``the partitioning is acceptable". By Lemma \ref{lem:partitioning}, $P$ is true just before execution of the while loop, while by Lemma \ref{lem:split} execution of $S$ always yields an acceptable partitioning. The relation $B$ is ``$\exists a,B_i,B_j such that  Eq. (\ref{eq:split}) holds $". Thus, $P$ and $\lnot B$ hold after execution of the loop, but these are the sufficient requirements described in Lemma \ref{lem:stSame} for the final partitioning to be the described one.
+
+Our refinement (\ref{alg:refinement}) determines all splittings wrt a pair $(B_i, a)$ and then performs all these splittings at the same time.
+\begin{algorithm}  
+	\caption{splitting $B_i$ wrt $(B_j, a)$} 
+	\label{alg:refinement} 
+	\begin{algorithmic}%[1] %每行显示行号
+		\State $B_1 \gets F; B_2\gets S-F;$  [initially there are two blocks]  
+		\While { $\exists a,B_i,B_j $ such that Eq. (\ref{eq:split}) holds }
+		\State Determine the splittings of all blocks wrt $(B_j,a)$
+		\State Split each block as just determined.
+		\EndWhile
+	\end{algorithmic}   
+\end{algorithm}
+
+The algorithm is not very efficient, it's $|I||S|^2$.
+
+The result of splitting all blocks wrt $(B_j, a)$ is that any future block $B$ (including the final blocks) satisfies one of the following:
+
+\begin{align}
+&\text{(a) for all } s\in B\quad \delta(s,a)\in B_j, \text{ or } \label{eq:splitB} \\
+&\text{(b) for all } s\in B\quad \delta(s,a)\notin B_j \notag %无编号
+\end{align}
+
+\begin{lemma} 
+	Suppose all blocks have been split wrt $(B_j, a)$. Then there is no need to split any future block wrt $(B_j, a)$.
+\end{lemma}
+
+\begin{lemma} \label{lem:three_pairs}
+Suppose a block $B_j$ is split into blocks $\bar{B}_j$ and $\tilde{B}_j$. Consider a symbol $a$. Splitting all blocks wrt to any two of the three pairs $(B_j, a), (\bar(B)_j, a)$, and $(\tilde{B}_j, a)$ performs the same function as splitting all blocks wrt all three pairs.
+\end{lemma}
+
+\begin{proof}
+	Suppose we split all blocks wrt $(B_j, a)$ and $(\bar{B}_j, a)$. This implies that each future block $B$ satisfies one of the following:
+	\begin{align*}
+    & s\in B \text{ implies } \delta(s,a)\in B_j \text{ and } \delta(s,a)\in \bar{B}_j, \text{ or } \\
+    & s\in B \text{ implies } \delta(s,a)\in B_j \text{ and } \delta(s,a)\notin \bar{B}_j, \text{ or } \\
+    & s\in B \text{ implies } \delta(s,a)\notin B_j \text{ and } \delta(s,a)\notin \bar{B}_j, \text{ or } \\
+    & s\in B \text{ implies } \delta(s,a)\notin B_j \text{ and } \delta(s,a)\in \bar{B}_j
+	\end{align*}
+	Since $\bar{B}_j\cup\tilde{B}_j=B_j$ and $\bar{B}_j\cap\tilde{B}_j=\emptyset$, we infer that one of the following holds:
+	\begin{align*}
+	& s\in B \text{ implies } \delta(s,a)\in \tilde{B}_j, \text{ or } \\
+	& s\in B \text{ implies } \delta(s,a)\notin \tilde{B}_j
+	\end{align*}
+	This is precisely what splitting all blocks wrt $(\tilde{B}_j,a)$ accomplishes (see (\ref{eq:splitB})). We leave to the reader to prove the rest of the theorem (in the same fashion)--that	splitting wrt $(\bar{B}_j,a)$ and $(\tilde{B}_j,a)$ accomplishes the task of splitting wrt $(B_j, a)$; and that splitting wrt $(B_j, a)$ and $(\tilde{B}, a)$ accomplishes the task of splitting wrt  $(\bar{B}, a)$. $\hfill\square$
+\end{proof}
+
+\begin{lemma}
+	Let the two initial blocks be $B_1=F$ and $B_2=S-F$. For a given
+	symbol $a$, it is necessary to split all blocks wrt only one of the pairs $(B_1, a)$ and $(B_2, a)$.
+\end{lemma}
+
+\begin{proof}
+	Consider Lemma \ref{lem:three_pairs}, with $B_j=S, \bar{B}_j =F, and \tilde{B}_j=S-F$. We already know that $(s, a)\in B_j$ for any symbol $a$, so it is not necessary to split wrt $(B_j, a)$.
+	Hence we need only split wrt either $(\bar{B}_j, a)$ or $(\tilde{B}_j, a)$, but not both. $\hfill\square$
+\end{proof}
+
+Let us consider the possibility of maintaining a list $L$ of all pairs $(B_j, a)$ wrt which some blocks may have to be split. Another way to put it is that if we know it is not necessary to split any $B$ (including $B_j$ itself) wrt a pair $(B_j, a)$ we won't put that pair on the list. We can then keep splitting until the list $L$ becomes empty.
+
+see Algorithm \ref{alg:refinement-list}, It remains to show that execution time is no worse than proportional to $|I||S|\log(|S|)$.
+
+\begin{algorithm}  
+	\caption{splitting $B_i$ wrt $(B_j, a)$} 
+	\label{alg:refinement-list} 
+	\begin{algorithmic}%[1] %每行显示行号
+		\State $B_1 \gets F; B_2\gets S-F; L=\emptyset$  [initially there are two blocks]  
+		\ForAll { $c\in I$ }
+			\If {$B_1$ is smaller than $B_2$}
+				\State $add(B_1,c)$ to $L$
+			\Else
+				\State $add(B_2,c)$ to $L$
+	        \EndIf
+		\EndFor
+		
+		\While {$L\ne\emptyset$}
+			\State b: Pick one pair $(B_j,a)\in L$;
+			\State c: Determine splittings of all blocks wrt $(B_j,a)$;
+			\State d: $L\gets L-(B_j,a)$;
+			\State e: Split each block as determined in $c$;
+			\State f: /* Fix $L$ according to the splits that occurred in step e */
+			\ForAll {block $B$ just split into $\bar{B}$ and $\tilde{B}$(say) }
+				\ForAll { $c\in I$ }
+					\If {$(B,c)\in L$ }
+						\State $L\gets L+(\bar{B},c)+(\tilde{B},c)-(B,c)$
+					\Else
+						\If {$\bar{B}$ is smaller than $\tilde{B}$}
+							\State $add(\bar{B},c)$ to $L$
+						\Else
+							\State $add(\tilde{B},c)$ to $L$
+						\EndIf
+					\EndIf
+				\EndFor
+			\EndFor
+		\EndWhile
+	\end{algorithmic}   
+\end{algorithm}
+
+Meaning of List $L$. $L$ is a list of pairs $(B_j, a)$ wrt which we must attempt to split all blocks so that either \ref{eq:splitB}(a) or (b) will hold for each block. If $B_j$ is a block and $(B_j, a)\notin L$ for some $a$, then either \ref{eq:splitB}(a) or (b) already holds, or we are assured by other means that either \ref{eq:splitB}(a) or (b) will hold when the algorithm terminates.
+
+Let us now look closer at splitting. Splitting a block $B_i$ wrt $(B_j,a)$ replaces $B_i$ by two blocks $\bar{B}_i$ and $\tilde{B}_i$ which satisfy:
+\begin{align*}
+& s\in\bar{B}_i \text{  implies  } \delta(s,a)\in B_j \\
+& s\in\tilde{B}_i \text{  implies  } \delta(s,a)\notin B_j 
+\end{align*}
+Given block $B_i$ let us split it by removing from it those states s such that $\delta(s,a)\in B_j$, and putting these states in a new block $B_k$, called $B_i$'s twin. Thus $B_i$ is split into $B_i$ and $B_k$.
+
+In order to determine the splitting of all blocks wrt $(B_j, a)$, we need to make a list $D$ (say) of all states which must be removed from blocks--which satisfy the property $\delta(s,a)\in B_j$. Statement c thus looks like (algorithm \ref{alg:determine}):
+\begin{algorithm}  
+	\caption{c: Determine the splittings of all blocks wrt $(B_i, a)$} 
+	\label{alg:determine} 
+	\begin{algorithmic}%[1] %每行显示行号
+		\State $D\gets\emptyset$
+		\For { each $s\in B_j$}
+			\If {$\delta^{-1}(s,a)\ne\emptyset$}
+				\State $D\gets D\cup\delta^{-}(s,a)$
+			\EndIf
+		\EndFor
+	\end{algorithmic}   
+\end{algorithm}
+
+Statement e, which actually splits blocks, could be written as (algorithm \ref{alg:splitBlocks}):
+\begin{algorithm}  
+	\caption{e:Split each block as determined in statement c} 
+	\label{alg:splitBlocks} 
+	\begin{algorithmic}%[1] %每行显示行号
+		\For { each block $B_i$ in the partition }
+			\State $B_k\gets B_i\cap D$; ($B_k$ is a newly generated block -- $B_i$'s twin)
+			\State $B_i\gets B_i-B_k$;
+		\EndFor
+	\end{algorithmic}   
+\end{algorithm}
+
+While correct, statement e is too inefficient since each time it is executed it must manipulate each block, and this would lead to a $|I||S|^2$ algorithm. 
+
+Hence we must refine e further to look only at blocks which have a chance of being partitioned -- which contain states in $D$. We can also recognize a case where removing states is unnecessary. If for all $s\in B,\delta(s,a)\in B_j$ then $\{s\in B_i|\delta(s,a)\notin B_j \}$ is empty. We end up with the following algorithm e:
+
+\begin{algorithm}  
+	\caption{e: Split each block as just determined} 
+	\label{alg:splitBlocks_refine} 
+	\begin{algorithmic}%[1] %每行显示行号
+		\State $BI\gets$ block number in which $s$ appears;
+		\If {all $s\in BI$ have $\delta(s,a)\in B_j$ }
+			\State  [no need to split block--do nothing]
+		\Else 
+			\If {$BI$ has no twin $BK$ yet}
+				\State generate $BI$'s twin $BK$ and set $BK\gets\emptyset$
+			\Else
+				\State Move $s$ from $BI$ to its twin $BK$
+			\EndIf
+		\EndIf
+	\end{algorithmic}   
+\end{algorithm}
+
+Two important ideas helped us in reducing the running time to $mn\log (n)$. The first was that if a block $B$ is split into $\bar{B}$ and $\tilde{B}$ we need only split wrt two of the three pairs $(B, a)$, $(\bar{B}, a)$, and $(\tilde{B}, a)$. The second was that in case we need put only one of $(\bar{B}, a)$ and $(\tilde{B}, a)$ in $L$, we should put the one whose block ($\bar{B}$ or $\tilde{B}$) contains the fewest number of states.
+
 \section{From \cite{Hopcroft71}}
 
 The algorithm for finding the equivalence classes of Q is described below:

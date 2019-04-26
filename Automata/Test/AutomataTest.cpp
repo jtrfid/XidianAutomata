@@ -6,15 +6,19 @@ void TransTest();
 void ThompsonTest();
 void RFATest();
 void DFATest();
+void DFA_usefulf();
+void minDFATest();
 
 void AutomataTest()
 {
-	CRSetTest();
-	StateSetTest();
-	StateToStateSetTest();
-	StateRelTest();
-	TransTest();
-	ThompsonTest();
-	RFATest(); 
-	DFATest();
+	//CRSetTest();
+	//StateSetTest();
+	//StateToStateSetTest();
+	//StateRelTest();
+	//TransTest();
+	//ThompsonTest();
+	//RFATest(); 
+	//DFATest();
+	//DFA_usefulf();
+	minDFATest();
 }
