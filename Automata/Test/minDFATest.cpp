@@ -167,6 +167,7 @@ void minDFATest3()
 	cout << dfa1 << endl;
 }
 
+// 计算机理论，语言和计算导论 P108,应该是Usefulf(),还能被当作sink状态被删除？
 void minDFATest4()
 {
 	DFA_components dfa_com1;
@@ -199,7 +200,7 @@ void minDFATest4()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -449,10 +450,10 @@ void minDFATest()
 	//minDFATest2();
 	//minDFATest3();
 	//minDFATest4();
-	//minDFATest5();
+	minDFATest5();
 	//minDFATest6();
 	//minDFATest7(); // error, 非完全自动机导致错误
 	//minDFATest8();  // sinke state,不在函数中调用dfa1.usefulf();注释掉DFA::min_Hopcroft()中的assert(Usefulf());
 	                // 正确
-	minDFATest9();  // 全函数，无sinke state
+	//minDFATest9();  // 全函数，无sinke state
 }

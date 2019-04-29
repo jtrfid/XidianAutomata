@@ -224,6 +224,25 @@ Let $A=(Q,V,T,_,F)$ be a deterministic finite automaton, where $Q$ is a finite s
 	The states $s$ and $t$ are said to be equivalent if for each $x\in V^\ast, T(s,x)\in F$ if and only if $T(t,x)\in F$. 
 \end{definition}
 
+\begin{figure}[htbp]
+	a: $((T(p,a),T(q,a))\in E_0$; b: $((T(p,a),T(q,a))\notin E_0$, c: $((T(p,a),T(q,a))\in E_1(part_1)$; d: $((T(p,a),T(q,a))\notin E_1(part_1)$;\\
+	\includegraphics[scale=0.8]{approximatingE}
+	\caption{Approximating $E, E_0=(Q\setminus F)^2\cup F^2$ }
+\end{figure}
+
+\begin{figure}[htbp]
+	\includegraphics[scale=0.8]{approximatingD}
+	\caption{Approximating $D, D_0=((Q\setminus F)\times F)\cup (F\times (Q\setminus F))$ }
+\end{figure}
+
+\begin{figure}[htbp]
+	initial,$P=[Q]_{E_0}=\{F,Q\setminus F\},Q_0,Q_1\in P$, \\
+	if ($\exists p,q\in Q_0,T(p,a)\in Q_1$, and  $T(q,a)\notin Q_1$), then \\
+	split $Q_0$ (wrt $Q_1$) $\to$ two parts, (1): $Q_0^\prime\in Q_1$ and (2): $(Q_0\setminus Q_0^\prime)\notin Q_1$ \\
+	\includegraphics[scale=0.8]{splittable}
+	\caption{split $Q_0$ wrt $Q_1$ }
+\end{figure}
+
 \section{From \cite{Gries73}}
 
 \subsection{Problem Definition}

@@ -2,7 +2,7 @@
 
 Uses: CharRange, DFA, State, StateEqRel, StateSet
 Description: Member function split takes two States (p and q), a CharRange a, and a StateEgRel.
-	The two States are assumed to be representatives in the StateEgRel. The equivalence class of
+	The two States are assumed to be representatives in the StateEqRel. The equivalence class of
 	p is then split into those States (equivalent to p) which transition on a to a State equivalent
 	to q, and those that do not. If in fact there was a split (the equivalence class of p is split
 	into two equivalence classes), p will still be the unique representative of one of the two new

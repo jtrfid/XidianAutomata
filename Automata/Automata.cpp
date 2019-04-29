@@ -13,6 +13,7 @@ int main()
 {
 	AutomataTest();
 	/*system("pause");*/ //pause 命令在Linux不可用
+	cout << "\n*************** input any key for end!\n";
 	cin.get();
 	return 0;
 }
