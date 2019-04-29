@@ -56,7 +56,7 @@ DFA& DFA::min_Hopcroft()
 	}
 
 	// Initialize P to be total equivalence relation.
-	StateEqRel P(Q.size());
+	StateEqRel P(Q.size()); // 等价类的个数不大于|Q|
 	// Now set P to be E_0.
 	P.split(F);
 
@@ -71,7 +71,7 @@ DFA& DFA::min_Hopcroft()
 		repr.remove(F);
 	}
 
-	// Do the final set up of L
+	// Do the final set up of L, 将会处理等价类[q]的out labels: C[0],...,C[|C|-1]，记录在L[q]
 	for (repr.iter_start(q); !repr.iter_end(q); repr.iter_next(q))
 	{
 		L[q] = C.size();
@@ -93,17 +93,18 @@ DFA& DFA::min_Hopcroft()
 			// mark this element of L as processed.
 			L[q]--;
 
-			// Iterate over al eq. classes, and try to split them.
+			// Iterate over all eq. classes, and try to split them.
 			State p;
-			repr = P.representatives();
+			repr = P.representatives(); // all partitions(eq.classes)
 			
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
 				// 胡双朴添加
-				if (L[q] == C.size())
-				{
-					L[q]--;
-				}
+				//if (L[q] == C.size())
+				//{
+				//	L[q]--;
+				//}
+				if (p == q) continue; // 段江涛修订，同样的partition,不必分割
 
 				// Now split [p] w.r.t (q.C_(L[q]))
 				State r(split(p, q, C.iterator(L[q]), P));
