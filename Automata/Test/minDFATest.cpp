@@ -65,7 +65,7 @@ void minDFATest1()
 	cout << "\n\n****************************************************\n\n" << std::flush;
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -113,7 +113,7 @@ void minDFATest2()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 	
@@ -158,7 +158,7 @@ void minDFATest3()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -192,7 +192,7 @@ void minDFATest4()
 	dfa_com1.T.add_transition(0, '1', 2);
 	dfa_com1.T.add_transition(1, '0', 1);
 	dfa_com1.T.add_transition(1, '1', 2);
-	dfa_com1.T.add_transition(2, '0', 2);
+	dfa_com1.T.add_transition(2, '0', 0);
 	dfa_com1.T.add_transition(2, '1', 2);
 
 	//实例化一个DFA对象
@@ -312,7 +312,7 @@ void minDFATest6()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -394,7 +394,7 @@ void minDFATest8()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -435,9 +435,10 @@ void minDFATest9()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	dfa1.usefulf();
+	//dfa1.usefulf();
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
+	
 
 	dfa1.min_Hopcroft();
 	cout << "\n************ minDFA\n" << std::flush;
@@ -447,13 +448,13 @@ void minDFATest9()
 void minDFATest()
 {
 	//minDFATest1();
-	//minDFATest2();
+	minDFATest2();
 	//minDFATest3();
 	//minDFATest4();
-	minDFATest5();
+	//minDFATest5();
 	//minDFATest6();
 	//minDFATest7(); // error, 非完全自动机导致错误
-	//minDFATest8();  // sinke state,不在函数中调用dfa1.usefulf();注释掉DFA::min_Hopcroft()中的assert(Usefulf());
+	minDFATest8();  // sinke state,不在函数中调用dfa1.usefulf();注释掉DFA::min_Hopcroft()中的assert(Usefulf());
 	                // 正确
 	//minDFATest9();  // 全函数，无sinke state
 }

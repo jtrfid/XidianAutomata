@@ -9,9 +9,9 @@ Implementation: The member function uses some encoding tricks to effectively imp
 	CRSet C. Set L from the abstract algorithm is implemented as a mapping from States to int 
 	(an array of int is used). Array L should be interpreted as follows: if State *q* a representative,
 	then the following pairs still require processing (are still in abstract set L):
-	          ([q],C_0),([q],C_1),...,([q],C_(L(q)_1))
+	          ([q],C_0),([q],C_1),...,([q],C_(L(q)-1))
 	The remaining pairs do not require processing:
-			  ([q],C_(L(q))),...,([q],C_(|C|_1))
+			  ([q],C_(L(q))),...,([q],C_(|C|-1))
 	This implementation facilities quick scanning of L for the next valid State-CharRange pair.
 
 *//****************************************************************************************/
@@ -100,11 +100,10 @@ DFA& DFA::min_Hopcroft()
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
 				// 胡双朴添加
-				//if (L[q] == C.size())
-				//{
-				//	L[q]--;
-				//}
-				if (p == q) continue; // 段江涛修订，同样的partition,不必分割
+				if (L[q] == C.size())
+				{
+					L[q]--;
+				}
 
 				// Now split [p] w.r.t (q.C_(L[q]))
 				State r(split(p, q, C.iterator(L[q]), P));
