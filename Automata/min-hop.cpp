@@ -7,7 +7,7 @@ Description: Member function min_Hopcroft implements Hopcroft's n log n minimiza
 Implementation: The member function uses some encoding tricks to effectively implement the
 	abstract algorithm. The combination of the out-transitions of all of the States is stored in a
 	CRSet C. Set L from the abstract algorithm is implemented as a mapping from States to int 
-	(an array of int is used). Array L should be interpreted as follows: if State *q* a representative,
+	(an array of int is used). Array L should be interpreted as follows: if State [q] a representative,
 	then the following pairs still require processing (are still in abstract set L):
 	          ([q],C_0),([q],C_1),...,([q],C_(L(q)-1))
 	The remaining pairs do not require processing:
@@ -25,6 +25,23 @@ Implementation: The member function uses some encoding tricks to effectively imp
 #include "StateEqRel.h"
 #include "DFA.h"
 
+using namespace std;
+
+void printL(int *L, int n)
+{
+	cout << "L:\n";
+	for (int i = 0; i < n; i++)
+	{
+		if (i < n-1) cout << i << " ";
+		else cout << i << endl;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		if (i < n - 1) cout << L[i] << " ";
+		else cout << L[i] << endl;
+	}
+}
+
 // Implemeta Algorithm 4.8 (Hopcroft O(n log n) algorithm)
 DFA& DFA::min_Hopcroft()
 {
@@ -32,7 +49,157 @@ DFA& DFA::min_Hopcroft()
 
 	// This algorithm requires that the DFA not have any final unreachable
 	// State.
-	assert(Usefulf());
+	//assert(Usefulf());
+
+	State q;
+
+	// Keep track of the combination fo all the out labels of State's.
+	CRSet C;
+	for (q = 0; q < Q.size(); q++)
+	{
+		C.combine(T.out_labels(q));
+	}
+	cout << "the combination fo all the out labels of State's：" << C << endl;
+
+	// Encode set L as a mapping from State to [0,|C|] where:
+	//            if q is a representative of a class in the partition P, then
+	//            L(the abstract list) contains
+	//                     ([q],C_0),([q],C_1),...,([q],C_(L(q)_1))
+	//            but not
+	//                     ([q],C_(L(q))),...,([q],C_(|C|_1))
+	int *const L(new int[Q.size()]);
+	for (q = 0; q < Q.size(); q++)
+	{
+		L[q] = 0;
+	}
+	
+	printL(L, Q.size());
+
+	// Initialize P to be total equivalence relation.
+	StateEqRel P(Q.size()); // 等价类的个数不大于|Q|
+	// Now set P to be E_0 = {F,Q\F}
+	P.split(F); 
+	cout << "Initialize partitions, E0:" << P << endl;
+
+	// Now, build the set of equivalentatives and initialize L.
+	StateSet repr(P.representatives());
+	if (F.size() <= (Q.size() - F.size()))
+	{
+		repr.intersection(F);
+		cout << "Initialize L repr{F}:\n" << repr << endl;
+	}
+	else
+	{
+		repr.remove(F);
+		cout << "Initialize L repr{Q\F}:\n" << repr << endl;
+	}
+
+	// Do the final set up of L, 将会处理等价类[q]的out labels: C[0],...,C[|C|-1]，记录在L[q]
+	for (repr.iter_start(q); !repr.iter_end(q); repr.iter_next(q))
+	{
+		L[q] = C.size();
+	}
+
+	printL(L, Q.size());
+
+	// Use a break to get of this loop
+	while (1)
+	{
+		cout << "--- while each [q], (split [p] w.r.t ([index of L]=[q],a))" << endl;
+		printL(L, Q.size());
+
+		// Find the first pair in L that still needs processing.
+		for (q = 0; q < Q.size() && !L[q]; q++);
+		
+		// It may be that we're at the end of the processing.
+		if (q == Q.size())
+		{
+			break;
+			cout << "--- end!";
+		}
+		else
+		{
+			// mark this element of L as processed.
+			L[q]--;
+			cout << "Pick one [q] in L, Processing [q]= index of L = [" << q << "]，";
+			cout << C.iterator(L[q]) << endl;
+
+			// Iterate over all eq. classes, and try to split them.
+			State p;
+			repr = P.representatives(); // current all partitions(eq.classes) repr
+			cout << "current all partitions(eq.classes) repr:\n" << repr << endl;
+			cout << "current all partitions:" << P << endl;
+			
+			cout << "=== for each [p], (split [p] w.r.t (index of L)[" << q << "],";
+			cout << C.iterator(L[q]) << ")" << endl;
+			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
+			{
+				// 胡双朴添加
+				if (L[q] == C.size())
+				{
+					L[q]--;
+					cout << "胡\n";
+				}
+				cout << "===split[" << p << "] w.r.t (index of L)[" << q << "],";
+				cout << C.iterator(L[q]) << ")" << endl;
+
+				cout << "before split, partitions:" << P << endl;
+
+				// Now split [p] w.r.t ([q], C_(L[q]))
+				State r(split(p, q, C.iterator(L[q]), P));
+
+				// r is the representative of the new split of the 
+				// eq. class that was represented by p.
+
+				cout << "new split of [" << p << "] is [" << r << "]" << endl;
+				
+				if (r != Invalid)
+				{
+					cout << "after split, partitions:" << P << endl;
+					cout << "before L:" << endl;
+					printL(L, Q.size());
+					// p and r are the new representatives.
+					// Now update L with the smallest of
+					// [p] and [r]
+					cout << "p and r are the new representatives. Now update L with the smallest of [" 
+						<< p << "],[" << r << "]" << endl;
+					// [p]被分成两部分: 新的[p] 和 [r]
+					if (P.equiv_class(p).size() <= P.equiv_class(r).size())
+					{
+						L[r] = L[p];      // [r]待处理L[p]剩下的字符
+						L[p] = C.size();  // 新的[p], 待处理C[0]...C[C.size()-1]
+						cout << "using [p] = [" << p << "],L[r]=L[p]; L[p]=C.size();" << endl;
+					}
+					else
+					{
+						L[r] = C.size(); // 新的[r]，待处理C[0]...C[C.size()-1]
+						cout << "using [r] = [" << r << "],L[r]=C.size();" << endl;
+					} // if
+					cout << "affter L:" << endl;
+					printL(L, Q.size());
+				}  // if
+			} // for
+		} // if
+	} // while
+
+	// L is no longer needed.
+	delete L;
+
+	// we can now use P to compress the DFA.
+	compress(P);
+
+	assert(class_invariant());
+	return (*this);
+}
+
+/**************************************************************************************************
+DFA& DFA::min_Hopcroft()
+{
+	assert(class_invariant());
+
+	// This algorithm requires that the DFA not have any final unreachable
+	// State.
+	//assert(Usefulf());
 
 	State q;
 
@@ -96,7 +263,7 @@ DFA& DFA::min_Hopcroft()
 			// Iterate over all eq. classes, and try to split them.
 			State p;
 			repr = P.representatives(); // all partitions(eq.classes)
-			
+
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
 				// 胡双朴添加
@@ -105,7 +272,7 @@ DFA& DFA::min_Hopcroft()
 					L[q]--;
 				}
 
-				// Now split [p] w.r.t (q.C_(L[q]))
+				// Now split [p] w.r.t (q, C_(L[q]))
 				State r(split(p, q, C.iterator(L[q]), P));
 				// r is the representative of the new split of the 
 				// eq. class that was represented by p.
@@ -115,6 +282,7 @@ DFA& DFA::min_Hopcroft()
 					// p and r are the new representatives.
 					// Now update L with the smallest of
 					// [p] and [r]
+					// [p]被分成两部分: 新的[p] 和 [r]
 					if (P.equiv_class(p).size() <= P.equiv_class(r).size())
 					{
 						L[r] = L[p];
@@ -138,3 +306,4 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
+******************************************************************************************/
