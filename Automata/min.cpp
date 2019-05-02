@@ -22,6 +22,7 @@ Implementation: The implementation is a simple, iterative one. It implement the 
 #include "StateEqRel.h"
 #include "DFA.h"
 
+//Split [p] with respect to [q] and CharRange a.
 State DFA::split(const State p, const State q, const CharRange a, StateEqRel & P) const
 {
 	assert(class_invariant());

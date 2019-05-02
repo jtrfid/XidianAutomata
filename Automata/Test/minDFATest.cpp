@@ -1,8 +1,10 @@
 ﻿#include "DFA.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
+// 形式语言与自动机理论,pg. 141 fig. 5-4
 void minDFATest1()
 {
 	/*
@@ -29,24 +31,24 @@ void minDFATest1()
 	DFA_components dfa_com1;
 
 	// StateSet S  开始状态集
-	dfa_com1.S.set_domain(10);
+	dfa_com1.S.set_domain(6);
 	dfa_com1.S.add(0);
 
 	// StateSet F  结束状态集
-	dfa_com1.F.set_domain(10);
+	dfa_com1.F.set_domain(6);
 	dfa_com1.F.add(2);
 	dfa_com1.F.add(3);
 	dfa_com1.F.add(4);
 
-	int i = 10;
+	int i = 6;
 	while (i--)
 	{
 		dfa_com1.Q.allocate();
 	}
 
-	//dfa_com1.Q.set_domain(10);
+	//dfa_com1.Q.set_domain(6);
 
-	dfa_com1.T.set_domain(10);
+	dfa_com1.T.set_domain(6);
 	dfa_com1.T.add_transition(0, '0', 1);
 	dfa_com1.T.add_transition(0, '1', 2);
 	dfa_com1.T.add_transition(1, '0', 0);
@@ -64,9 +66,13 @@ void minDFATest1()
 	DFA dfa1(dfa_com1);
 	cout << "\n\n****************************************************\n\n" << std::flush;
 	cout << dfa1 << endl;
+
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 	//dfa1.usefulf();
-	cout << dfa1 << endl;
+	//cout << dfa1 << endl;
+
+	// 最小化并不要求是dfa1.Usefulf()
+	// Can all States reach a final State?
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 	dfa1.min_Hopcroft();
@@ -74,6 +80,7 @@ void minDFATest1()
 	cout << dfa1 << endl;
 }
 
+// 0: 0->1->2->3->4->5
 void minDFATest2()
 {
 	DFA_components dfa_com1;
@@ -92,7 +99,7 @@ void minDFATest2()
 		dfa_com1.Q.allocate();
 	}
 
-	//dfa_com1.Q.set_domain(10);
+	//dfa_com1.Q.set_domain(6);
 
 	dfa_com1.T.set_domain(6);
 	dfa_com1.T.add_transition(0, '0', 1);
@@ -113,8 +120,6 @@ void minDFATest2()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 	
 	dfa1.min_Hopcroft();
@@ -122,6 +127,7 @@ void minDFATest2()
 	cout << dfa1 << endl;
 }
 
+// useful测试，待验证
 void minDFATest3()
 {
 	DFA_components dfa_com1;
@@ -158,7 +164,7 @@ void minDFATest3()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
+	dfa1.usefulf();  // 没有删除1,3 ？
 	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
@@ -167,49 +173,8 @@ void minDFATest3()
 	cout << dfa1 << endl;
 }
 
-// 计算机理论，语言和计算导论 P108,应该是Usefulf(),还能被当作sink状态被删除？
+// 形式语言与自动机理论,pg. 154 fig. 5-7
 void minDFATest4()
-{
-	DFA_components dfa_com1;
-
-	// StateSet S  开始状态集
-	dfa_com1.S.set_domain(3);
-	dfa_com1.S.add(0);
-
-	// StateSet F  结束状态集
-	dfa_com1.F.set_domain(3);
-	dfa_com1.F.add(0);
-	dfa_com1.F.add(1);
-
-	int i = 3;
-	while (i--)
-	{
-		dfa_com1.Q.allocate();
-	}
-
-	dfa_com1.T.set_domain(3);
-	dfa_com1.T.add_transition(0, '0', 1);
-	dfa_com1.T.add_transition(0, '1', 2);
-	dfa_com1.T.add_transition(1, '0', 1);
-	dfa_com1.T.add_transition(1, '1', 2);
-	dfa_com1.T.add_transition(2, '0', 0);
-	dfa_com1.T.add_transition(2, '1', 2);
-
-	//实例化一个DFA对象
-	DFA dfa1(dfa_com1);
-	cout << "\n************ DFA\n" << std::flush;
-	cout << dfa1 << endl;
-
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
-	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
-
-	dfa1.min_Hopcroft();
-	cout << "\n************ minDFA\n" << std::flush;
-	cout << dfa1 << endl;
-}
-
-void minDFATest5()
 {
 	DFA_components dfa_com1;
 
@@ -255,8 +220,6 @@ void minDFATest5()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 	dfa1.min_Hopcroft();
@@ -266,7 +229,8 @@ void minDFATest5()
 	cout << dfa1 << endl;
 }
 
-void minDFATest6()
+// 形式语言与自动机理论,pg. 154 fig. 5-7(删除不可达p9)
+void minDFATest5()
 {
 	DFA_components dfa_com1;
 
@@ -312,8 +276,6 @@ void minDFATest6()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 	dfa1.min_Hopcroft();  
@@ -321,7 +283,8 @@ void minDFATest6()
 	cout << dfa1 << endl;
 }
 
-void minDFATest7()
+// 非complete DFA, mini合并状态{1,2}正确，但由于是非complete DFA，其中的compress(P)错误。
+void minDFATest6()
 {
 	DFA_components dfa_com1;
 
@@ -351,8 +314,6 @@ void minDFATest7()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 	dfa1.min_Hopcroft();
@@ -360,7 +321,8 @@ void minDFATest7()
 	cout << dfa1 << endl;
 }
 
-void minDFATest8()
+//  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
+void minDFATest7()
 {
 	DFA_components dfa_com1;
 
@@ -403,58 +365,145 @@ void minDFATest8()
 	cout << dfa1 << endl;
 }
 
-void minDFATest9()
+// Sink
+void minDFATest8()
 {
 	DFA_components dfa_com1;
 
 	// StateSet S  开始状态集
-	dfa_com1.S.set_domain(4);
+	dfa_com1.S.set_domain(10);
 	dfa_com1.S.add(0);
 
 	// StateSet F  结束状态集
-	dfa_com1.F.set_domain(4);
-	dfa_com1.F.add(1);
-	dfa_com1.F.add(2);
+	dfa_com1.F.set_domain(10);
+	dfa_com1.F.add(7);
+	dfa_com1.F.add(8);
+	dfa_com1.F.add(9);
 
-	int i = 4;
+	int i = 10;
 	while (i--)
 	{
 		dfa_com1.Q.allocate();
 	}
 
-	dfa_com1.T.set_domain(4);
-	dfa_com1.T.add_transition(0, 'a', 1);
-	dfa_com1.T.add_transition(0, 'b', 2);
-	dfa_com1.T.add_transition(1, 'a', 2);
+	dfa_com1.T.set_domain(10);
+	dfa_com1.T.add_transition(0, 'a', 2);
+	dfa_com1.T.add_transition(0, 'b', 9);
+	dfa_com1.T.add_transition(1, 'a', 1);
 	dfa_com1.T.add_transition(1, 'b', 1);
-	dfa_com1.T.add_transition(2, 'b', 1);
-	dfa_com1.T.add_transition(2, 'a', 2);
+	dfa_com1.T.add_transition(2, 'a', 3);
+	dfa_com1.T.add_transition(2, 'b', 5);
+
+	dfa_com1.T.add_transition(3, 'a', 3);
+	dfa_com1.T.add_transition(3, 'b', 7);
+	dfa_com1.T.add_transition(4, 'a', 5);
+	dfa_com1.T.add_transition(4, 'b', 8);
+	dfa_com1.T.add_transition(5, 'a', 7);
+	dfa_com1.T.add_transition(5, 'b', 7);
+	dfa_com1.T.add_transition(6, 'a', 8);
+	dfa_com1.T.add_transition(6, 'b', 8);
+	dfa_com1.T.add_transition(7, 'a', 1);
+	dfa_com1.T.add_transition(7, 'b', 1);
+	dfa_com1.T.add_transition(8, 'a', 7);
+	dfa_com1.T.add_transition(8, 'b', 7);
+	dfa_com1.T.add_transition(9, 'a', 6);
+	dfa_com1.T.add_transition(9, 'b', 4);
 
 	//实例化一个DFA对象
 	DFA dfa1(dfa_com1);
 	cout << "\n************ DFA\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//dfa1.usefulf();
-	cout << dfa1 << endl;
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
-	
+
 
 	dfa1.min_Hopcroft();
 	cout << "\n************ minDFA\n" << std::flush;
 	cout << dfa1 << endl;
 }
 
+// NoSink
+void minDFATest9()
+{
+	DFA_components dfa_com1;
+
+	// StateSet S  开始状态集
+	dfa_com1.S.set_domain(9);
+	dfa_com1.S.add(0);
+
+	// StateSet F  结束状态集
+	dfa_com1.F.set_domain(9);
+	dfa_com1.F.add(6);
+	dfa_com1.F.add(7);
+	dfa_com1.F.add(8);
+
+	int i = 9;
+	while (i--)
+	{
+		dfa_com1.Q.allocate();
+	}
+
+	dfa_com1.T.set_domain(9);
+	dfa_com1.T.add_transition(0, 'a', 1);
+	dfa_com1.T.add_transition(0, 'b', 8);
+	dfa_com1.T.add_transition(1, 'a', 2);
+	dfa_com1.T.add_transition(1, 'b', 4);
+	dfa_com1.T.add_transition(2, 'a', 2);
+	dfa_com1.T.add_transition(2, 'b', 6);
+	dfa_com1.T.add_transition(3, 'a', 4);
+	dfa_com1.T.add_transition(3, 'b', 7);
+	dfa_com1.T.add_transition(4, 'a', 6);
+	dfa_com1.T.add_transition(4, 'b', 6);
+	dfa_com1.T.add_transition(5, 'a', 7);
+	dfa_com1.T.add_transition(5, 'b', 7);
+	dfa_com1.T.add_transition(6, 'a', 6);
+	dfa_com1.T.add_transition(6, 'b', 6);
+	dfa_com1.T.add_transition(7, 'a', 6);
+	dfa_com1.T.add_transition(7, 'b', 6);
+	dfa_com1.T.add_transition(8, 'a', 5);
+	dfa_com1.T.add_transition(8, 'b', 3);
+
+	//实例化一个DFA对象
+	DFA dfa1(dfa_com1);
+	cout << "\n************ DFA\n" << std::flush;
+	cout << dfa1 << endl;
+
+	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
+
+
+	dfa1.min_Hopcroft();
+	cout << "\n************ minDFA\n" << std::flush;
+	cout << dfa1 << endl;
+}
+
+#define TO_FILE
+
 void minDFATest()
 {
-	//minDFATest1();
-	minDFATest2();
+	cout << "start\n";
+#ifdef TO_FILE
+	// 重定向cout至file 
+	fstream fs;
+	fs.open("test.txt", ios::out);
+	streambuf *stream_buffer_cout = cout.rdbuf(); // cout buffer
+	streambuf *stream_buffer_file = fs.rdbuf(); // file buffer
+	cout.rdbuf(stream_buffer_file);
+#endif
+
+	// minDFATest1();
+	//minDFATest2();
 	//minDFATest3();
 	//minDFATest4();
 	//minDFATest5();
-	//minDFATest6();
-	//minDFATest7(); // error, 非完全自动机导致错误
-	minDFATest8();  // sinke state,不在函数中调用dfa1.usefulf();注释掉DFA::min_Hopcroft()中的assert(Usefulf());
-	                // 正确
-	//minDFATest9();  // 全函数，无sinke state
+	//minDFATest6(); // error, 非完全自动机，导致mini错误
+	//minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
+
+	//minDFATest8();    // 全函数，有sink state
+	minDFATest9(); // 无sink state
+
+#ifdef TO_FILE
+	// 恢复cout
+	fs.close();
+	std::cout.rdbuf(stream_buffer_cout);
+#endif
 }
