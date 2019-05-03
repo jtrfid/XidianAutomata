@@ -86,12 +86,12 @@ DFA& DFA::min_Hopcroft()
 	if (F.size() <= (Q.size() - F.size()))
 	{
 		repr.intersection(F);
-		cout << "Initialize L repr{F}:\n" << repr << endl;
+		cout << "Initialize L repr = {F}:\n" << repr << endl;
 	}
 	else
 	{
 		repr.remove(F);
-		cout << "Initialize L repr{Q\F}:\n" << repr << endl;
+		cout << "Initialize L repr = {Q\F}:\n" << repr << endl;
 	}
 
 	// Do the final set up of L, 将会处理等价类[q]的out labels: C[0],...,C[|C|-1]，记录在L[q]

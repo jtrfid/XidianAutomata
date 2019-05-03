@@ -4,6 +4,40 @@
 
 Member function min\_Hopcroft implements Hopcroft's $n\log n$ minimization algorithm, as presented in [\cite{WATSON94b}, Algorithm 4.8].
 
+\begin{algorithm}  
+	\caption{Hopcroft's minimization algorithm}  \label{alg:hopcroft}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Require $G =(Q,V,T,q_0,F)$  
+		\Ensure The equivalence classes of $Q$  
+		\State $P \gets [Q]_{E_0}=\{F,Q\setminus F \}$  \qquad\qquad $\triangleright$ The initial partitions is $[Q]_{E_0}$, it's the total euivalence relation.
+		
+		\State $L \gets 0$  \qquad\qquad $\triangleright$ The waiting set
+		
+		\ForAll {$a\in V$}
+			\State $ADD((min(F,Q\setminus F),a),L)$ \qquad\qquad 			$\triangleright$ initialization of the waiting set
+		\EndFor
+		\While {$L\ne\emptyset$}
+			\State $P_{old} = P;$
+			\State $(Q_1,a)\gets TakeSome(L)$ \qquad\qquad $\triangleright$ Take and remove some splitter
+			\State $L=L\setminus \{(Q_1,a)\};$
+			\ForAll {$Q_0\in P_{old} $}
+				\State $Q_0$ is split by $(Q_1,a)$  \qquad\qquad $\triangleright$ Compute the split, $Q_0$ is splitted into $Q_0^\prime$ and $Q_0^{\prime\prime}$
+				\State $Q_0^{\prime}=\{p|p\in Q_0\land T(p,a)\in Q_1\}$ 
+				\State $Q_0^{\prime\prime}=\{Q_0\setminus Q_0^\prime\}$
+				\State $P=P\setminus \{Q_0\}\cup\{Q_0^\prime, Q_0^{\prime\prime}\}$ \qquad\qquad $\triangleright$ Refine the partition, Replace $Q_0$ by $Q_0^\prime$ and $Q_0^{\prime\prime}$ in $P$.
+			
+				\ForAll {$b\in V$}  \qquad\qquad $\triangleright$ Update the waiting set
+					\If {$(Q_0,b)\in L$}
+						\State $L=L\setminus \{(Q_0,b)\}\cup\{(Q_0^\prime,b),(Q_0^{\prime\prime},b)\} $ \qquad\qquad $\triangleright$ Replace $(Q_0, b)$ by $(Q_0^\prime, b)$ and $(Q_0^{\prime\prime}, b)$ in $L$
+					\Else
+						\State $ADD((min(Q^\prime,Q^{\prime\prime}),b),L)$
+						\EndIf  
+				\EndFor
+			\EndFor 
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
 The combination of the out-transitions of all of the States is stored in a
 \textbf{CRSet $C$}. 
 
@@ -21,26 +55,46 @@ This implementation facilitates quick scanning of $L$ for the next valid State-C
 \begin{algorithm}  
 	\caption{Hopcroft's minimization algorithm}  \label{alg:hopcroft}
 	\begin{algorithmic}[1] %每行显示行号  
-		\Require $\mathcal{A}=(Q,i,F)$  
+		\Require $G =(Q,V,T,q_0,F)$  
 		\Ensure The equivalence classes of $Q$  
-		\State $\hat{P} \gets \{F,F^c \}$  \qquad\qquad $\triangleright$ The initial partition
-		\State $W\gets \emptyset$  \qquad\qquad $\triangleright$ The waiting set
-		\ForAll {$a\in A$}
-		\State $ADD((min(F,F^c),a),W)$ \qquad\qquad $\triangleright$ initialization of the waiting set
-		\EndFor
-		\While {$W\ne\emptyset$}
-		\State $(W,a)\gets TakeSome(W)$ \qquad\qquad $\triangleright$ Take and remove some splitter
-		\ForAll {$P\in \hat{P}$} which is split by $(W,a)$
-		\State $P^{\prime},P^{\prime\prime}\gets (W,a)|P$ \qquad\qquad $\triangleright$ Compute the split
-		\State Replace $P$ by $P^\prime$ and $P^{\prime\prime}$ in $\hat{P}$ \qquad\qquad $\triangleright$ Refine the partition
-		\EndFor 
-		\ForAll {$b\in A$}  \qquad\qquad $\triangleright$ Update the waiting set
-		\If {$(P,b)\in W$}
-		\State Replace $(P,b)$ by $(P^\prime,b)$ and $(P^{\prime\prime})$ in $W$
+		\State $P \gets [Q]_{E_0}=\{F,Q\setminus F \}$  \qquad\qquad $\triangleright$ The initial partitions is $[Q]_{E_0}$, it's the total euivalence relation.
+		
+		\State $L \gets 0$  \qquad\qquad $\triangleright$ The waiting set
+		\State $C = V$  \qquad\qquad $\triangleright$ C is all symbols set
+		
+		\If {$|F|\le |Q\setminus F|$}  \qquad\qquad 			$\triangleright$ initialization of the waiting set
+			\State $L[q]=C.Size(), [q]$ is the representive of the $F$
 		\Else
-		\State $ADD((min(P^\prime,P^{\prime\prime}),b),W)$
-		\EndIf  
-		\EndFor
+			\State $L[q]=C.Size(), [q]$ is the representive of the $Q\setminus F$
+		\EndIf
+		
+		\While {(1)}
+			\If {all L[q]=0 } 
+				\State break;
+			\EndIf
+			
+			\State Find the first pair in L that still needs processing. $(Q_1,a) = [q], L[q]\ne 0$ \qquad\qquad $\triangleright$ Take and remove some splitter
+			
+			\State $P_{old} = P$  \qquad\qquad $\triangleright$ current partitions
+			
+			\State $L[q]--$; \qquad\qquad $\triangleright$ Mark this element of L as processed.
+	
+			\ForAll {$Q_0\in P_{old} $}
+				\State $Q_0$ is split by $(Q_1,a)$  \qquad\qquad $\triangleright$ Compute the split, $Q_0$ is splitted into $Q_0^\prime$ and $Q_0^{\prime\prime}$
+				\State $Q_0^{\prime}=\{p|p\in Q_0\land T(p,a)\in Q_1\}$ 
+				\State $Q_0^{\prime\prime}=\{Q_0\setminus Q_0^\prime\}$
+				\State $P=P\setminus \{Q_0\}\cup\{Q_0^\prime, Q_0^{\prime\prime}\}$ \qquad\qquad $\triangleright$ Refine the partition, Replace $Q_0$ by $Q_0^\prime$ and $Q_0^{\prime\prime}$ in $P$.
+				\State $p=Q_0$
+				\State $r=Q_0^\prime$
+				\If {$[r] != Invalid$}  \qquad\qquad $\triangleright$ Update the waiting set
+					\If {($ [p]\le |[r]|$)}
+					\State $L[r]=L[p] $ \qquad\qquad $\triangleright$  [r]待处理L[p]剩下的字符
+					\State $L[p]=C.size()$  \qquad\qquad $\triangleright$  新的[p], 待处理C[0]...C[C.size()-1]
+					\Else
+					\State $L[r]=C.size() $ \qquad\qquad $\triangleright$ // 新的[r]，待处理C[0]...C[C.size()-1]
+					\EndIf  
+				\EndIf 
+			\EndFor
 		\EndWhile
 	\end{algorithmic}
 \end{algorithm}
@@ -60,44 +114,30 @@ This implementation facilitates quick scanning of $L$ for the next valid State-C
 
 
 
-\begin{lstlisting}
+CRSet C;  // the out labels of State's：{ 'a'  'b' } 
 
-CRSet C;  // the out labels of State's：{ 'a'  'b' }
-int L[|Q|]: // the index of L = q: 对应等价类[q]; L[q]表示正在处理[q]对应的字符在C中的index,
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 0
+int L10]: // the index of L = q: 对应等价类[q]; L[q]表示正在处理等价类[q]的字符在C中的index。$L = \{ 0,0,0,0,0,0,0,0,0 \} $
 
-Initialize partitions, E_0:
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
+Initialize P to be the total equivalence relation $E_0=\{Q\setminus F, F\}$: $P = \{ \{ 0,1,2,3,4,5 \}, \{6,7,8 \} \}$;
 
-Initialize L repr{F}:  { 6 }
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 2 0 0
+$F.size <= (Q.size() - F.size()$
+
+$L = \{ 0,0,0,0,0,0,2,0,0 \} $ // L[6] represented eq. class in $P$
+
 
 --- while each [q], (split [p] w.r.t ([q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 2 0 0
 
-Pick one [q] in L, Processing [q]= index of L = [6]，'b'
-current all partitions:
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
+$[q] = [6]$ // Pick one [q] in L, Processing [6] in current partitions \{ 6,7,8 \}
 
-=== for each [p], (split [p] w.r.t (index of L)[6],'b')
+=== for each [p], (split [p] w.r.t [6],'b')
 
-===split[0] w.r.t (index of L)[6],'b')
-before split, partitions:
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
+===split [0] w.r.t [6],'b')
+
+before split, partitions: \{ 0  1  2  3  4  5 \},\{ 6  7  8 \} 
 
 new split of [0] is [1]
-after split, partitions:
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7  8 }
+
+after split, partitions: \{ 0  2  3  4  5 \}, \{ 1 \},\{ 6  7  8 \}
 
 before L:
 0 1 2 3 4 5 6 7 8
@@ -971,7 +1011,7 @@ new split of [8] is [-1]
 L:
 0 1 2 3 4 5 6 7 8
 0 0 0 0 0 0 0 0 0
-\end{lstlisting}
+%\end{lstlisting}
 
 \section{Minimization by equivalence of states}
 
