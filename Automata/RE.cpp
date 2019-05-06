@@ -250,6 +250,13 @@ std::istream& operator>>(std::istream& is, RE& r)
 			}
 			break;
 		case '|':
+			r.op = OR;
+			r.left = new RE;
+			r.right = new RE;
+			is >> *r.left;
+			is >> *r.right;
+			break;
+		case '.':
 			r.op = CONCAT;
 			r.left = new RE;
 			r.right = new RE;
