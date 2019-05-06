@@ -25,6 +25,8 @@ Implementation: The member function uses some encoding tricks to effectively imp
 #include "StateEqRel.h"
 #include "DFA.h"
 
+
+/************ degug
 using namespace std;
 
 void printL(int *L, int n)
@@ -59,7 +61,7 @@ DFA& DFA::min_Hopcroft()
 	{
 		C.combine(T.out_labels(q));
 	}
-	cout << "the combination fo all the out labels of State's：" << C << endl;
+	cout << "\nThe combination for all the out labels of State's：C = " << C << endl;
 
 	// Encode set L as a mapping from State to [0,|C|] where:
 	//            if q is a representative of a class in the partition P, then
@@ -94,7 +96,7 @@ DFA& DFA::min_Hopcroft()
 		cout << "Initialize L repr = {Q\F}:\n" << repr << endl;
 	}
 
-	// Do the final set up of L, 将会处理等价类[q]的out labels: C[0],...,C[|C|-1]，记录在L[q]
+	// Do the final set up of L
 	for (repr.iter_start(q); !repr.iter_end(q); repr.iter_next(q))
 	{
 		L[q] = C.size();
@@ -102,12 +104,10 @@ DFA& DFA::min_Hopcroft()
 
 	printL(L, Q.size());
 
+	int k = 1;
 	// Use a break to get of this loop
 	while (1)
 	{
-		cout << "--- while each [q], (split [p] w.r.t ([index of L]=[q],a))" << endl;
-		printL(L, Q.size());
-
 		// Find the first pair in L that still needs processing.
 		for (q = 0; q < Q.size() && !L[q]; q++);
 		
@@ -121,32 +121,25 @@ DFA& DFA::min_Hopcroft()
 		{
 			// mark this element of L as processed.
 			L[q]--;
-			cout << "Pick one [q] in L, Processing [q]= index of L = [" << q << "]，";
-			cout << C.iterator(L[q]) << endl;
-
+			CharRange c = C.iterator(L[q]); // 记录正在处理的c。
+			
 			// Iterate over all eq. classes, and try to split them.
 			State p;
 			repr = P.representatives(); // current all partitions(eq.classes) repr
-			cout << "current all partitions(eq.classes) repr:\n" << repr << endl;
-			cout << "current all partitions:" << P << endl;
 			
-			cout << "=== for each [p], (split [p] w.r.t (index of L)[" << q << "],";
-			cout << C.iterator(L[q]) << ")" << endl;
+			cout << "=========================== Iterate: k = " << k++ << endl;
+			printL(L, Q.size());
+			cout << "Partitions:" << P << endl;
+			cout << "pick [q] in L:([q],a)=([" << q << "]," << c << ")" << endl;
+			cout << "split [p] w.r.t ([" << q << "]," << c << ")" << endl;
+			
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
-				// 胡双朴添加
-				if (L[q] == C.size())
-				{
-					L[q]--;
-					cout << "胡\n";
-				}
-				cout << "===split[" << p << "] w.r.t (index of L)[" << q << "],";
-				cout << C.iterator(L[q]) << ")" << endl;
-
-				cout << "before split, partitions:" << P << endl;
+				cout << "===split[" << p << "] w.r.t ([" << q << "]," << c << ")" << endl;
 
 				// Now split [p] w.r.t ([q], C_(L[q]))
-				State r(split(p, q, C.iterator(L[q]), P));
+				//State r(split(p, q, C.iterator(L[q]), P)); // L[q]是变化的，因此使用记录的c。
+				State r(split(p, q, c, P)); 
 
 				// r is the representative of the new split of the 
 				// eq. class that was represented by p.
@@ -155,14 +148,13 @@ DFA& DFA::min_Hopcroft()
 				
 				if (r != Invalid)
 				{
-					cout << "after split, partitions:" << P << endl;
-					cout << "before L:" << endl;
-					printL(L, Q.size());
+					cout << "[p]=" << P.equiv_class(p) << endl;
+					cout << "[r]=" << P.equiv_class(r) << endl;
 					// p and r are the new representatives.
 					// Now update L with the smallest of
 					// [p] and [r]
 					cout << "p and r are the new representatives. Now update L with the smallest of [" 
-						<< p << "],[" << r << "]" << endl;
+						<< p << "] and [" << r << "]" << endl;
 					// [p]被分成两部分: 新的[p] 和 [r]
 					if (P.equiv_class(p).size() <= P.equiv_class(r).size())
 					{
@@ -175,7 +167,7 @@ DFA& DFA::min_Hopcroft()
 						L[r] = C.size(); // 新的[r]，待处理C[0]...C[C.size()-1]
 						cout << "using [r] = [" << r << "],L[r]=C.size();" << endl;
 					} // if
-					cout << "affter L:" << endl;
+					cout << "after update L: " << endl;
 					printL(L, Q.size());
 				}  // if
 			} // for
@@ -191,8 +183,8 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
+************************************/
 
-/**************************************************************************************************
 DFA& DFA::min_Hopcroft()
 {
 	assert(class_invariant());
@@ -257,8 +249,9 @@ DFA& DFA::min_Hopcroft()
 		}
 		else
 		{
-			// mark this element of L as processed.
+			// mark this element of L as processed. ([q],c)
 			L[q]--;
+			CharRange c = C.iterator(L[q]); // 记录正在处理的c
 
 			// Iterate over all eq. classes, and try to split them.
 			State p;
@@ -266,14 +259,10 @@ DFA& DFA::min_Hopcroft()
 
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
-				// 胡双朴添加
-				if (L[q] == C.size())
-				{
-					L[q]--;
-				}
-
 				// Now split [p] w.r.t (q, C_(L[q]))
-				State r(split(p, q, C.iterator(L[q]), P));
+				//State r(split(p, q, C.iterator(L[q]), P)); // L[q]是变化的，因此使用记录的c。
+				State r(split(p, q, c, P));
+
 				// r is the representative of the new split of the 
 				// eq. class that was represented by p.
 
@@ -306,4 +295,3 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
-******************************************************************************************/

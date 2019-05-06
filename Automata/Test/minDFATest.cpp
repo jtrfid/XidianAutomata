@@ -67,7 +67,7 @@ void minDFATest1()
 	cout << "\n\n****************************************************\n\n" << std::flush;
 	cout << dfa1 << endl;
 
-	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
+	//cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 	//dfa1.usefulf();
 	//cout << dfa1 << endl;
 
@@ -376,9 +376,9 @@ void minDFATest8()
 
 	// StateSet F  结束状态集
 	dfa_com1.F.set_domain(10);
+	dfa_com1.F.add(6);
 	dfa_com1.F.add(7);
 	dfa_com1.F.add(8);
-	dfa_com1.F.add(9);
 
 	int i = 10;
 	while (i--)
@@ -387,27 +387,26 @@ void minDFATest8()
 	}
 
 	dfa_com1.T.set_domain(10);
-	dfa_com1.T.add_transition(0, 'a', 2);
-	dfa_com1.T.add_transition(0, 'b', 9);
-	dfa_com1.T.add_transition(1, 'a', 1);
-	dfa_com1.T.add_transition(1, 'b', 1);
-	dfa_com1.T.add_transition(2, 'a', 3);
-	dfa_com1.T.add_transition(2, 'b', 5);
-
-	dfa_com1.T.add_transition(3, 'a', 3);
+	dfa_com1.T.add_transition(0, 'a', 1);
+	dfa_com1.T.add_transition(0, 'b', 8);
+	dfa_com1.T.add_transition(1, 'a', 2);
+	dfa_com1.T.add_transition(1, 'b', 4);
+	dfa_com1.T.add_transition(2, 'a', 2);
+	dfa_com1.T.add_transition(2, 'b', 6);
+	dfa_com1.T.add_transition(3, 'a', 4);
 	dfa_com1.T.add_transition(3, 'b', 7);
-	dfa_com1.T.add_transition(4, 'a', 5);
-	dfa_com1.T.add_transition(4, 'b', 8);
+	dfa_com1.T.add_transition(4, 'a', 6);
+	dfa_com1.T.add_transition(4, 'b', 6);
 	dfa_com1.T.add_transition(5, 'a', 7);
 	dfa_com1.T.add_transition(5, 'b', 7);
-	dfa_com1.T.add_transition(6, 'a', 8);
-	dfa_com1.T.add_transition(6, 'b', 8);
-	dfa_com1.T.add_transition(7, 'a', 1);
-	dfa_com1.T.add_transition(7, 'b', 1);
-	dfa_com1.T.add_transition(8, 'a', 7);
-	dfa_com1.T.add_transition(8, 'b', 7);
-	dfa_com1.T.add_transition(9, 'a', 6);
-	dfa_com1.T.add_transition(9, 'b', 4);
+	dfa_com1.T.add_transition(6, 'a', 9);
+	dfa_com1.T.add_transition(6, 'b', 9);
+	dfa_com1.T.add_transition(7, 'a', 6);
+	dfa_com1.T.add_transition(7, 'b', 6);
+	dfa_com1.T.add_transition(8, 'a', 5);
+	dfa_com1.T.add_transition(8, 'b', 3);
+	dfa_com1.T.add_transition(9, 'a', 9);
+	dfa_com1.T.add_transition(9, 'b', 9);
 
 	//实例化一个DFA对象
 	DFA dfa1(dfa_com1);
@@ -420,6 +419,7 @@ void minDFATest8()
 	dfa1.min_Hopcroft();
 	cout << "\n************ minDFA\n" << std::flush;
 	cout << dfa1 << endl;
+
 }
 
 // NoSink
@@ -490,15 +490,15 @@ void minDFATest()
 	cout.rdbuf(stream_buffer_file);
 #endif
 
-	// minDFATest1();
-	//minDFATest2();
-	//minDFATest3();
-	//minDFATest4();
-	//minDFATest5();
-	//minDFATest6(); // error, 非完全自动机，导致mini错误
-	//minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
+	minDFATest1();
+	minDFATest2();
+	minDFATest3();
+	minDFATest4();
+	minDFATest5();
+	minDFATest6(); // error, 非完全自动机，导致mini错误
+	minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
 
-	//minDFATest8();    // 全函数，有sink state
+	minDFATest8();    // 全函数，有sink state
 	minDFATest9(); // 无sink state
 
 #ifdef TO_FILE
