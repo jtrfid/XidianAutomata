@@ -1,4 +1,318 @@
 
+
+****************************************************
+
+
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->4  '1'->5 }
+3->{ '0'->4  '1'->5 }
+4->{ '0'->4  '1'->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+ is the DFA Usefulf ?: 0
+
+************ minDFA
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ '0'->0  '1'->1 }
+1->{ '0'->1  '1'->2 }
+2->{ ['0','1']->2 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 5 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->1 }
+2->{ '0'->3  '1'->2 }
+3->{ '0'->4  '1'->3 }
+4->{ '0'->5  '1'->4 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+************ minDFA
+
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 5 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->1 }
+2->{ '0'->3  '1'->2 }
+3->{ '0'->4  '1'->3 }
+4->{ '0'->5  '1'->4 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->4  '1'->2 }
+1->{ ['0','1']->2 }
+2->{ '0'->4  '1'->2 }
+3->{ '0'->2  '1'->3 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->4  '1'->2 }
+1->{ ['0','1']->2 }
+2->{ '0'->4  '1'->2 }
+3->{ '0'->2  '1'->3 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+************ minDFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2  3 }
+Transitions = 
+0->{ '0'->3  '1'->0 }
+1->{ ['0','1']->0 }
+2->{ '0'->0  '1'->2 }
+3->{ ['0','1']->3 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '0'->7  '1'->2 }
+7->{ '0'->6  '1'->8 }
+8->{ '0'->5  '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+************ minDFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '0'->7  '1'->2 }
+7->{ '0'->6  '1'->8 }
+8->{ '0'->5  '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '0'->7  '1'->2 }
+7->{ '0'->6  '1'->8 }
+8->{ '0'->5  '1'->4 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+************ minDFA
+
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '0'->7  '1'->2 }
+7->{ '0'->6  '1'->8 }
+8->{ '0'->5  '1'->4 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->2 }
+2->{ 'b'->1 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+************ minDFA
+
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->1 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->2  'b'->3 }
+2->{ 'b'->1  'a'->3 }
+3->{ ['a','b']->3 }
+
+current = -1
+
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->2  'b'->3 }
+2->{ 'b'->1  'a'->3 }
+3->{ ['a','b']->3 }
+
+current = -1
+
+ is the DFA Usefulf ?: 0
+
+************ minDFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->2  'b'->3 }
+2->{ 'b'->1  'a'->3 }
+3->{ ['a','b']->3 }
+
+current = -1
+
+
+************ DFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 6  7  8 }
+Transitions = 
+0->{ 'a'->1  'b'->8 }
+1->{ 'a'->2  'b'->4 }
+2->{ 'a'->2  'b'->6 }
+3->{ 'a'->4  'b'->7 }
+4->{ ['a','b']->6 }
+5->{ ['a','b']->7 }
+6->{ ['a','b']->9 }
+7->{ ['a','b']->6 }
+8->{ 'a'->5  'b'->3 }
+9->{ ['a','b']->9 }
+
+current = -1
+
+ is the DFA Usefulf ?: 0
+
+************ minDFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 6  7  8 }
+Transitions = 
+0->{ 'a'->1  'b'->8 }
+1->{ 'a'->2  'b'->4 }
+2->{ 'a'->2  'b'->6 }
+3->{ 'a'->4  'b'->7 }
+4->{ ['a','b']->6 }
+5->{ ['a','b']->7 }
+6->{ ['a','b']->9 }
+7->{ ['a','b']->6 }
+8->{ 'a'->5  'b'->3 }
+9->{ ['a','b']->9 }
+
+current = -1
+
+
 ************ DFA
 
 DFA
@@ -19,923 +333,6 @@ Transitions =
 current = -1
 
  is the DFA Usefulf ?: 1
-the combination fo all the out labels of State's£º{ 'a'  'b' }
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 0
-Initialize partitions, E0:
-StateEqRel
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
-
-Initialize L repr{F}:
-{ 6 }
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 2 0 0
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 2 0 0
-Pick one [q] in L, Processing [q]= index of L = [6]£¬'b'
-current all partitions(eq.classes) repr:
-{ 0  6 }
-current all partitions:
-StateEqRel
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[6],'b')
-===split[0] w.r.t (index of L)[6],'b')
-before split, partitions:
-StateEqRel
-{ 0  1  2  3  4  5 }
-{ 6  7  8 }
-
-new split of [0] is [1]
-after split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7  8 }
-
-before L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 1 0 0
-p and r are the new representatives. Now update L with the smallest of [0],[1]
-using [r] = [1],L[r]=C.size();
-affter L:
-L:
-0 1 2 3 4 5 6 7 8
-0 2 0 0 0 0 1 0 0
-===split[6] w.r.t (index of L)[6],'b')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7  8 }
-
-new split of [6] is [8]
-after split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-before L:
-L:
-0 1 2 3 4 5 6 7 8
-0 2 0 0 0 0 1 0 0
-p and r are the new representatives. Now update L with the smallest of [6],[8]
-using [r] = [8],L[r]=C.size();
-affter L:
-L:
-0 1 2 3 4 5 6 7 8
-0 2 0 0 0 0 1 0 2
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 2 0 0 0 0 1 0 2
-Pick one [q] in L, Processing [q]= index of L = [1]£¬'b'
-current all partitions(eq.classes) repr:
-{ 0  1  6  8 }
-current all partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[1],'b')
-===split[0] w.r.t (index of L)[1],'b')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[1],'b')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[6] w.r.t (index of L)[1],'b')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[1],'b')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 1 0 0 0 0 1 0 2
-Pick one [q] in L, Processing [q]= index of L = [1]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  6  8 }
-current all partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[1],'a')
-===split[0] w.r.t (index of L)[1],'a')
-before split, partitions:
-StateEqRel
-{ 0  2  3  4  5 }
-{ 1 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [2]
-after split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-before L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 1 0 2
-p and r are the new representatives. Now update L with the smallest of [0],[2]
-using [p] = [0],L[r]=L[p]; L[p]=C.size();
-affter L:
-L:
-0 1 2 3 4 5 6 7 8
-2 0 0 0 0 0 1 0 2
-===split[1] w.r.t (index of L)[1],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[6] w.r.t (index of L)[1],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[1],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-2 0 0 0 0 0 1 0 2
-Pick one [q] in L, Processing [q]= index of L = [0]£¬'b'
-current all partitions(eq.classes) repr:
-{ 0  1  2  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[0],'b')
-===split[0] w.r.t (index of L)[0],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[0],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[0],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[6] w.r.t (index of L)[0],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[0],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-1 0 0 0 0 0 1 0 2
-Pick one [q] in L, Processing [q]= index of L = [0]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  2  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[0],'a')
-===split[0] w.r.t (index of L)[0],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[0],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[0],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[6] w.r.t (index of L)[0],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[0],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 1 0 2
-Pick one [q] in L, Processing [q]= index of L = [6]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  2  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[6],'a')
-===split[0] w.r.t (index of L)[6],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[6],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[6],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3  4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [4]
-after split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-before L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 2
-p and r are the new representatives. Now update L with the smallest of [2],[4]
-using [p] = [2],L[r]=L[p]; L[p]=C.size();
-affter L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 2 0 0 0 0 0 2
-===split[6] w.r.t (index of L)[6],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[6],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 2 0 0 0 0 0 2
-Pick one [q] in L, Processing [q]= index of L = [2]£¬'b'
-current all partitions(eq.classes) repr:
-{ 0  1  2  4  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[2],'b')
-===split[0] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[4] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [4] is [-1]
-===split[6] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 1 0 0 0 0 0 2
-Pick one [q] in L, Processing [q]= index of L = [2]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  2  4  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[2],'a')
-===split[0] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2  3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [3]
-after split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-before L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 2
-p and r are the new representatives. Now update L with the smallest of [2],[3]
-using [p] = [2],L[r]=L[p]; L[p]=C.size();
-affter L:
-L:
-0 1 2 3 4 5 6 7 8
-0 0 2 0 0 0 0 0 2
-ºú
-===split[4] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [4] is [-1]
-===split[6] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[2],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 1 0 0 0 0 0 2
-Pick one [q] in L, Processing [q]= index of L = [2]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  2  3  4  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[2],'a')
-===split[0] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[3] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [3] is [-1]
-===split[4] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [4] is [-1]
-===split[6] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[2],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 2
-Pick one [q] in L, Processing [q]= index of L = [8]£¬'b'
-current all partitions(eq.classes) repr:
-{ 0  1  2  3  4  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[8],'b')
-===split[0] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[3] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [3] is [-1]
-===split[4] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [4] is [-1]
-===split[6] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[8],'b')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 1
-Pick one [q] in L, Processing [q]= index of L = [8]£¬'a'
-current all partitions(eq.classes) repr:
-{ 0  1  2  3  4  6  8 }
-current all partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-=== for each [p], (split [p] w.r.t (index of L)[8],'a')
-===split[0] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [0] is [-1]
-===split[1] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [1] is [-1]
-===split[2] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [2] is [-1]
-===split[3] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [3] is [-1]
-===split[4] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [4] is [-1]
-===split[6] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [6] is [-1]
-===split[8] w.r.t (index of L)[8],'a')
-before split, partitions:
-StateEqRel
-{ 0 }
-{ 1 }
-{ 2 }
-{ 3 }
-{ 4  5 }
-{ 6  7 }
-{ 8 }
-
-new split of [8] is [-1]
---- while each [q], (split [p] w.r.t ([index of L]=[q],a))
-L:
-0 1 2 3 4 5 6 7 8
-0 0 0 0 0 0 0 0 0
 
 ************ minDFA
 
