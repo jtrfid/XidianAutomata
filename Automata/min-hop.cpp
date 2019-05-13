@@ -25,8 +25,10 @@ Implementation: The member function uses some encoding tricks to effectively imp
 #include "StateEqRel.h"
 #include "DFA.h"
 
+//#define debug_min_Hopcroft
 
-/************ degug  */ 
+/************ degug  */
+#ifdef debug_min_Hopcroft
 using namespace std;
 
 void printL(int *L, int n)
@@ -49,9 +51,10 @@ DFA& DFA::min_Hopcroft()
 {
 	assert(class_invariant());
 
-	// This algorithm requires that the DFA not have any final unreachable
-	// State.
-	//assert(Usefulf());
+	// This algorithm requires that the DFA not have any final unreachable State. 
+	// 此断言不是必须的,如果是非Usefulf(),算法执行后，使用usefulf()删除sink状态即可。
+	// min_Hopcroft(),min_dragon(),min_Watson(),min_HopcroftUllman()同
+	// assert(Usefulf()); 
 
 	State q;
 
@@ -183,7 +186,8 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
-/************************************
+
+#else
 
 DFA& DFA::min_Hopcroft()
 {
@@ -274,12 +278,12 @@ DFA& DFA::min_Hopcroft()
 					// [p]被分成两部分: 新的[p] 和 [r]
 					if (P.equiv_class(p).size() <= P.equiv_class(r).size())
 					{
-						L[r] = L[p];
-						L[p] = C.size();
+						L[r] = L[p];       // [r]待处理L[p]剩下的字符
+						L[p] = C.size();   // 新的[p], 待处理C[0]...C[C.size()-1]
 					}
 					else
 					{
-						L[r] = C.size();
+						L[r] = C.size(); // 新的[r]，待处理C[0]...C[C.size()-1]
 					} // if
 				}  // if
 			} // for
@@ -295,4 +299,4 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
-**********************/
+#endif

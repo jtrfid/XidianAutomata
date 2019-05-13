@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
 
 Description: Member function min_Watson implements the new minimization algorithm appear-
 	ing in [Wat93b, Sections 4.6-4.7]. The algorithm computes the equivalence relation E (on
@@ -85,7 +85,10 @@ int DFA::are_eq(State p, State q, SymRel& S, const StateEqRel& H, const SymRel& 
 DFA& DFA::min_Watson()
 {
 	assert(class_invariant());
-	assert(Usefulf());
+	// This algorithm requires that the DFA not have any final unreachable State. 
+	// 此断言不是必须的,如果是非Usefulf(),算法执行后，使用usefulf()删除sink状态即可。
+	// min_Hopcroft(),min_dragon(),min_Watson(),min_HopcroftUllman()同
+	// assert(Usefulf()); 
 	
 	// (Symmetrical) State relation S is from p.14 of the min. taxonomy.
 	SymRel S;

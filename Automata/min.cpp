@@ -1,4 +1,4 @@
-/****************************************************************************************//*
+ï»¿/****************************************************************************************//*
 
 Uses: CharRange, DFA, State, StateEqRel, StateSet
 Description: Member function split takes two States (p and q), a CharRange a, and a StateEgRel.
@@ -9,7 +9,7 @@ Description: Member function split takes two States (p and q), a CharRange a, an
 	equivalence classes; in this case, the (unique) representative of the other equivalence class is
 	returned. If no such split occurred, function split returns Invalid.
 Implementation: The implementation is a simple, iterative one. It implement the equivalent
-	of the assignment to Q¡¯0 in Algorithm 4.4 of [Wat93b].
+	of the assignment to Qâ€™0 in Algorithm 4.4 of [Wat93b].
 
 *//****************************************************************************************/
 /*(c) Copyright 1994 by Bruce W. Watson */

@@ -1,4 +1,4 @@
-/****************************************************************************************//*
+﻿/****************************************************************************************//*
 
 Uses: CRSet, DFA, State, StateSet, SymRel
 Description: This member function provides a very convoluted implementation of Algorithm 4.7
@@ -28,7 +28,10 @@ Performance: This algorithm can be expected to run quite slowly, since it makes 
 DFA& DFA::min_HopcroftUllman()
 {
 	assert(class_invariant());
-	//assert(Usefulf());
+	// This algorithm requires that the DFA not have any final unreachable State. 
+	// 此断言不是必须的,如果是非Usefulf(),算法执行后，使用usefulf()删除sink状态即可。
+	// min_Hopcroft(),min_dragon(),min_Watson(),min_HopcroftUllman()同
+	// assert(Usefulf()); 
 
 	// We need the combination of all transition labels, to iterate over
 	// transitions

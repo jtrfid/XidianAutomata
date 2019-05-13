@@ -83,8 +83,13 @@ void minDFATest1()
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 	dfa1.min_Hopcroft();
-	cout << "\n************ minDFA\n" << std::flush;
+	cout << "\n************ min_Hopcroft()\n"<< std::flush;
 	cout << dfa1 << endl;
+
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n"<< std::flush;
+	cout << dfa2 << endl;
 }
 
 // 0: 0->1->2->3->4->5
@@ -690,7 +695,7 @@ void minDFATest12()
 }
 
 
-#define TO_FILE
+//#define TO_FILE
 
 void minDFATest()
 {
@@ -704,9 +709,9 @@ void minDFATest()
 	cout.rdbuf(stream_buffer_file);
 #endif
 
-	//minDFATest1();
+	minDFATest1();
 	//minDFATest2();
-	minDFATest3();
+	//minDFATest3();
 	//minDFATest3_1();
 	//minDFATest4();
 	//minDFATest5();

@@ -74,8 +74,9 @@ int DFA::Usefulf() const
 
 // Remove any States that cannot reach a final State.
 // (This is a last step in minimization, since some of the min. algorithms may yield 
-// a DFA with a sink state.)
+// a DFA with a sink state.) 用于最小化算法的最后，删除sink状态
 // Implement Remark 2.39  removing states that are not final - reachable.
+// FIX 修复bug
 #define FIX
 DFA& DFA::usefulf()
 {
@@ -84,7 +85,6 @@ DFA& DFA::usefulf()
 	StateTo<State> newnames;
 	newnames.set_domain(Q.size());
 
-	
 	// All components will be constructed into a special structure :
 	DFA_components ret;
 	State st;
