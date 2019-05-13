@@ -26,7 +26,7 @@ Implementation: The member function uses some encoding tricks to effectively imp
 #include "DFA.h"
 
 
-/************ degug
+/************ degug  */ 
 using namespace std;
 
 void printL(int *L, int n)
@@ -131,13 +131,13 @@ DFA& DFA::min_Hopcroft()
 			printL(L, Q.size());
 			cout << "Partitions:" << P << endl;
 			cout << "pick [q] in L:([q],a)=([" << q << "]," << c << ")" << endl;
-			cout << "split [p] w.r.t ([" << q << "]," << c << ")" << endl;
+			cout << "split [p] w.r.t. ([" << q << "]," << c << ")" << endl;
 			
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
-				cout << "===split[" << p << "] w.r.t ([" << q << "]," << c << ")" << endl;
+				cout << "===split[" << p << "] w.r.t. ([" << q << "]," << c << ")" << endl;
 
-				// Now split [p] w.r.t ([q], C_(L[q]))
+				// Now split [p] w.r.t. ([q], C_(L[q]))
 				//State r(split(p, q, C.iterator(L[q]), P)); // L[q]是变化的，因此使用记录的c。
 				State r(split(p, q, c, P)); 
 
@@ -183,7 +183,7 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
-************************************/
+/************************************
 
 DFA& DFA::min_Hopcroft()
 {
@@ -259,7 +259,7 @@ DFA& DFA::min_Hopcroft()
 
 			for (repr.iter_start(p); !repr.iter_end(p); repr.iter_next(p))
 			{
-				// Now split [p] w.r.t (q, C_(L[q]))
+				// Now split [p] w.r.t. (q, C_(L[q]))
 				//State r(split(p, q, C.iterator(L[q]), P)); // L[q]是变化的，因此使用记录的c。
 				State r(split(p, q, c, P));
 
@@ -295,3 +295,4 @@ DFA& DFA::min_Hopcroft()
 	assert(class_invariant());
 	return (*this);
 }
+**********************/

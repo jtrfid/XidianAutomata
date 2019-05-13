@@ -28,7 +28,7 @@ Performance: This algorithm can be expected to run quite slowly, since it makes 
 DFA& DFA::min_HopcroftUllman()
 {
 	assert(class_invariant());
-	assert(Usefulf());
+	//assert(Usefulf());
 
 	// We need the combination of all transition labels, to iterate over
 	// transitions

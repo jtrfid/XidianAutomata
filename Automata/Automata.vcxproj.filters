@@ -180,6 +180,9 @@
     <ClCompile Include="Test\minDFATest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\DFAHopcroftTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitVec.h">

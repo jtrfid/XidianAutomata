@@ -169,6 +169,7 @@
     <ClCompile Include="SymRel.cpp" />
     <ClCompile Include="Test\AutomataTest.cpp" />
     <ClCompile Include="Test\CRSetTest.cpp" />
+    <ClCompile Include="Test\DFAHopcroftTest.cpp" />
     <ClCompile Include="Test\DFATest.cpp" />
     <ClCompile Include="Test\DFAusefulTest.cpp" />
     <ClCompile Include="Test\minDFATest.cpp" />

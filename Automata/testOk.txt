@@ -1,0 +1,85 @@
+
+************ DFA
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{ '0'->2  '1'->1 }
+2->{ ['0','1']->2 }
+
+current = -1
+
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{ '0'->2  '1'->1 }
+2->{ ['0','1']->2 }
+
+current = -1
+
+ is the DFA Usefulf ?: 1
+
+The combination for all the out labels of State's£ºC = { '0'  '1' }
+L:
+0 1 2
+0 0 0
+Initialize partitions, E0:
+StateEqRel
+{ 0  1 }
+{ 2 }
+
+Initialize L repr = {F}:
+{ 2 }
+L:
+0 1 2
+0 0 2
+=========================== Iterate: k = 1
+L:
+0 1 2
+0 0 1
+Partitions:
+StateEqRel
+{ 0  1 }
+{ 2 }
+
+pick [q] in L:([q],a)=([2],'1')
+split [p] w.r.t. ([2],'1')
+===split[0] w.r.t. ([2],'1')
+new split of [0] is [-1]
+===split[2] w.r.t. ([2],'1')
+new split of [2] is [-1]
+=========================== Iterate: k = 2
+L:
+0 1 2
+0 0 0
+Partitions:
+StateEqRel
+{ 0  1 }
+{ 2 }
+
+pick [q] in L:([q],a)=([2],'0')
+split [p] w.r.t. ([2],'0')
+===split[0] w.r.t. ([2],'0')
+new split of [0] is [-1]
+===split[2] w.r.t. ([2],'0')
+new split of [2] is [-1]
+
+************ minDFA
+
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ ['0','1']->1 }
+
+current = -1
+
