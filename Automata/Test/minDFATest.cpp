@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+
 using namespace std;
 
 /****************************************************************
@@ -74,22 +75,30 @@ void minDFATest1()
 	cout << "\n\n****************************************************\n\n" << std::flush;
 	cout << dfa1 << endl;
 
-	//cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
-	//dfa1.usefulf();
-	//cout << dfa1 << endl;
 
 	// 最小化并不要求是dfa1.Usefulf()
 	// Can all States reach a final State?
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
+	cout << "\n************ min_Hopcroft()***********\n";
 	dfa1.min_Hopcroft();
 	cout << "\n************ min_Hopcroft()\n"<< std::flush;
 	cout << dfa1 << endl;
 
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
+
+	cout << "\n************min_dragon()****************\n";
 	DFA dfa2(dfa_com1);
 	dfa2.min_dragon();
 	cout << "\n************min_dragon()\n"<< std::flush;
 	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
 }
 
 // 0: 0->1->2->3->4->5
@@ -416,7 +425,7 @@ void minDFATest7()
 	cout << dfa1 << endl;
 }
 
-// Sink
+// Sink, 每个状态就是一个等价类
 void minDFATest8()
 {
 	DFA_components dfa_com1;
@@ -467,13 +476,33 @@ void minDFATest8()
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 
+	// 最小化并不要求是dfa1.Usefulf()
+	// Can all States reach a final State?
+	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
+
+	cout << "\n************ min_Hopcroft()***********\n";
 	dfa1.min_Hopcroft();
-	cout << "\n************ minDFA\n" << std::flush;
+	cout << "\n************ min_Hopcroft()\n" << std::flush;
 	cout << dfa1 << endl;
+
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
+
+	cout << "\n************min_dragon()****************\n";
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n" << std::flush;
+	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
 
 }
 
-// NoSink，不正确的做法
+// NoSink，但，它完全自动机，验证了eq.class {4，5},{6,7}
 void minDFATest9()
 {
 	DFA_components dfa_com1;
@@ -522,9 +551,36 @@ void minDFATest9()
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
 
+	cout << "\n************ min_Hopcroft()***********\n";
 	dfa1.min_Hopcroft();
-	cout << "\n************ minDFA\n" << std::flush;
+	cout << "\n************ min_Hopcroft()\n" << std::flush;
 	cout << dfa1 << endl;
+
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
+
+	cout << "\n************min_dragon()****************\n";
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n" << std::flush;
+	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
+
+	cout << "\n************min_HopcroftUllman()****************\n";
+	DFA dfa3(dfa_com1);
+	dfa3.min_HopcroftUllman();
+	cout << "\n************min_HopcroftUllman()\n" << std::flush;
+	cout << dfa3 << endl;
+	if (dfa3.Usefulf() == 0) {
+		dfa3.usefulf();
+		cout << "After delete unreach final states:" << dfa3 << endl;
+	}
+
 }
 
 void minDFATest10()
@@ -709,7 +765,7 @@ void minDFATest()
 	cout.rdbuf(stream_buffer_file);
 #endif
 
-	minDFATest1();
+	//minDFATest1();
 	//minDFATest2();
 	//minDFATest3();
 	//minDFATest3_1();
@@ -718,8 +774,8 @@ void minDFATest()
 	//minDFATest6(); // error, 非完全自动机，导致mini错误
 	//minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
 
-	//minDFATest8();    // 全函数，有sink state
-	//minDFATest9(); // 无sink state
+	// minDFATest8();    // 全函数，有sink state, 每个状态一个等价类
+	minDFATest9(); // NoSink，但，它完全自动机，验证了eq.class {4，5},{6,7}
 
 	//minDFATest10();
 

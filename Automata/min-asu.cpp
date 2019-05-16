@@ -21,7 +21,7 @@ Implementation: The algorithm begins with the approximation E_0 to the State equ
 #include "StateEqRel.h"
 #include "DFA.h"
 
-#define debug_min_dragon
+//#define debug_min_dragon
 
 /************ degug  */
 #ifdef debug_min_dragon
@@ -83,8 +83,20 @@ DFA& DFA::min_dragon()
 			int i;
 			for (i = 0; !C.iter_end(i) && !something_split; i++)
 			{
-				something_split = (split(st, q, C.iterator(i), P) != Invalid);
-				cout << "split [" << st << "]  w.r.t. ([" << q << "]," << C.iterator(i) <<"), ok=" << something_split << endl;
+				StateSet old = P.equiv_class(st);
+				int r = split(st, q, C.iterator(i), P);
+				something_split = (r != Invalid);
+				cout << "split [" << st << "]  w.r.t. ([" << q << "]," << C.iterator(i) << "), "; 
+				if (something_split)
+				{
+					cout << " ok.\n["  << st << "]=" << old << " is splitted into : ";
+					cout << "[" << st << "]=" << P.equiv_class(st) << ",and [" << r << "]=" << P.equiv_class(r) << endl;
+				}
+				else
+				{
+					cout << "Invalid." << endl;
+				}
+					
 			}
 		}
 

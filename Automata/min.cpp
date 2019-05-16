@@ -9,7 +9,7 @@ Description: Member function split takes two States (p and q), a CharRange a, an
 	equivalence classes; in this case, the (unique) representative of the other equivalence class is
 	returned. If no such split occurred, function split returns Invalid.
 Implementation: The implementation is a simple, iterative one. It implement the equivalent
-	of the assignment to Q’0 in Algorithm 4.4 of [Wat93b].
+	of the assignment to Q'0 in Algorithm 4.4 of [Wat93b].
 
 *//****************************************************************************************/
 /*(c) Copyright 1994 by Bruce W. Watson */
@@ -22,7 +22,10 @@ Implementation: The implementation is a simple, iterative one. It implement the 
 #include "StateEqRel.h"
 #include "DFA.h"
 
-//Split [p] with respect to [q] and CharRange a.
+// Attempt to split the eq. class [p] w.r.t.([q],a) in P
+// P中的[p] is splitted into two parts: [p1] and [p2]. T([p1],a)属于[q], T([p2],a)不属于[q]. 
+// 如果p是[p1]的代表元，返回[p2]的代表元，如果p是[p2]的代表元，返回[p1]的代表元
+// 如果不能分离([p1] or [p2] is empty set)，返回Invalid.
 State DFA::split(const State p, const State q, const CharRange a, StateEqRel & P) const
 {
 	assert(class_invariant());
@@ -32,20 +35,20 @@ State DFA::split(const State p, const State q, const CharRange a, StateEqRel & P
 	assert(p == P.eq_class_representative(p));
 	assert(q == P.eq_class_representative(q));
 
-	//Split [p] with respect to [q] and CharRange a.
-	StateSet part;
+	//Split [p] with respect to ([q],CharRange a) into two parts: [p1] and [p2]
+	StateSet part; // [p1]
 	part.set_domain(Q.size());
 
 
-	// Interate over [p],and see whether each member transitions into [q]
+	// Iterate over [p],and see whether each member transitions into [q]
 	// on CharRange a;
 	State st;
 	for (P.equiv_class(p).iter_start(st); !P.equiv_class(p).iter_end(st); P.equiv_class(p).iter_next(st))
 	{
-		State dest(T.transition_on_range(st, a));
+		State dest(T.transition_on_range(st, a)); // dest=T(st,a) ===> dest=T([p],a)
 		// It could be that dest == Invalid.
 		//           if not, check if dest in [q].
-		if (dest != Invalid && P.equivalent(dest, q))
+		if (dest != Invalid && P.equivalent(dest, q)) // part = U{T([p],a)| T([p],a) 属于[q]}
 		{
 			part.add(st);
 		}
@@ -55,39 +58,40 @@ State DFA::split(const State p, const State q, const CharRange a, StateEqRel & P
 	// The following containment must hold after the splitting.
 	assert(P.equiv_class(p).contains(part));
 
-	// Return non-zero if something was split.
+	// Return non-zero if something was split. 
+	// [p] is splitted into [p1] and [p2]
 	if ((part != P.equiv_class(p)) && !part.empty())
 	{
 		// Now figure out what the other piece is.
-		StateSet otherpiece(P.equiv_class(p));
+		StateSet otherpiece(P.equiv_class(p));  // [p2]
 		otherpiece.remove(part);
 		assert(!otherpiece.empty());
 
-		P.split(part);
+		P.split(part); 
 		assert(class_invariant());
 
 		// Now, we must return the representative of the newly created
 		// equivalence class.
-		State x(P.eq_class_representative(otherpiece.smallest()));
+		State x(P.eq_class_representative(otherpiece.smallest()));  // [p2]
 		assert(x != Invalid);
 		// It could be that p is not in part.
-		State y(P.eq_class_representative(part.smallest()));
+		State y(P.eq_class_representative(part.smallest()));  // [p1]
 		assert(y != Invalid);
 		assert(x != y);
 
-		if (p == x)
+		if (p == x)  // p是[p2]的代表元,返回[p1]的代表元
 		{
 			// If p is the representative of 'otherpiece', then
 			// return the representative of 'part'.
 			assert(otherpiece.contains(p));
-			return (y);
+			return (y);  // [p1]
 		}
-		else
+		else  // p是[p2]的代表元,返回[p2]的代表元
 		{
 			// If p is the representative of 'part', then
 			// return the representative of 'otherpiece'.
 			assert(part.contains(p));
-			return (x);
+			return (x); // [p1]
 		}
 
 	}

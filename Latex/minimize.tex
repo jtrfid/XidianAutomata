@@ -236,9 +236,9 @@ Let $A=(Q,V,T,_,F)$ be a deterministic finite automaton, where $Q$ is a finite s
 \end{figure}
 
 \begin{figure}[htbp]
-	initial,$P=[Q]_{E_0}=\{F,Q\setminus F\},Q_0,Q_1\in P$, \\
+	initial partition, $P=[Q]_{E_0}=\{F,Q\setminus F\},Q_0,Q_1\in P$, \\
 	if ($\exists p,q\in Q_0,T(p,a)\in Q_1$, and  $T(q,a)\notin Q_1$), then \\
-	split $Q_0$ wrt ($Q_1,a$) $\to$ two parts, (1): $Q_0^\prime\in Q_1$ and (2): $(Q_0\setminus Q_0^\prime)\notin Q_1$ \\
+	split $Q_0$ wrt ($Q_1,a$) into two parts, (1): $Q_0^\prime, T(p,a)\in Q_1$ and (2): $(Q_0\setminus Q_0^\prime),T(p,a)\notin Q_1$ \\
 	\includegraphics[scale=0.8]{splittable}
 	\caption{split $Q_0$ wrt $Q_1$ }
 \end{figure}

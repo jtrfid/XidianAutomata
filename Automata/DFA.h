@@ -93,8 +93,10 @@ protected:
 	DFA& compress(const StateEqRel& r);
 	DFA& compress(const SymRel& r);
 
-	// Attempt to split the eq.class [p]_P w.r.t.[q]_P
-	// (Return 1 if it was split, 0 otherwise.)
+	// Attempt to split the eq. class [p] w.r.t.([q],a) in P
+	// P中的[p] is splitted into two parts: [p1] and [p2]. T([p1],a)属于[q], T([p2],a)不属于[q]. 
+	// 如果p是[p1]的代表元，返回[p2]的代表元，如果p是[p2]的代表元，返回[p1]的代表元
+	// 如果不能分离([p1] or [p2] is empty set)，返回Invalid.
 	State split(const State p, const State q, const CharRange a, StateEqRel& P) const;
 
 	// A helper for min_ Watson.

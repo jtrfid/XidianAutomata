@@ -1,4 +1,4 @@
-/***********************************************************************
+ï»¿/***********************************************************************
 	Implementation: StateEqRelinherits for implementation from StateTo<StateSet *>. Two equivalent
 States are mapped by the StateTo to pointers to the same StateSet.
  ***********************************************************************/
@@ -18,7 +18,7 @@ StateEqRel::StateEqRel(const int r):StateTo<StateSet *>()
 	{
 		StateTo<StateSet *>::map(p) = t;
 	}
-	// Do not delete t!! // Ã»ÓÐÉ¾³ý£¬Íâ²¿µ÷ÓÃ£¬Ê¹ÓÃÍêÒªÉ¾³ý
+	// Do not delete t!! // æ²¡æœ‰åˆ é™¤ï¼Œå¤–éƒ¨è°ƒç”¨ï¼Œä½¿ç”¨å®Œè¦åˆ é™¤
 	assert(class_invariant());
 }
 
@@ -68,7 +68,7 @@ StateEqRel& StateEqRel::split(const StateSet& r)
 		map(i)->remove(r);
 		// Make all of r's States equivalent.
 		// Build a new StateSet for the new class.
-		StateSet *n(new StateSet(r));  // ºÎ´¦delete n; // Íâ²¿µ÷ÓÃ£¬Ê¹ÓÃÍêÒªÉ¾³ý£¬Ò²¿ÉÄÜÔÚ¸¸ÀàµÄÎö¹¹º¯ÊýÖÐ±»×Ô¶¯É¾³ý
+		StateSet *n(new StateSet(r));  // ä½•å¤„delete n; // å¤–éƒ¨è°ƒç”¨ï¼Œä½¿ç”¨å®Œè¦åˆ é™¤ï¼Œä¹Ÿå¯èƒ½åœ¨çˆ¶ç±»çš„æžæž„å‡½æ•°ä¸­è¢«è‡ªåŠ¨åˆ é™¤
 		// i is already the first State in r.
 		for (; !r.iter_end(i); r.iter_next(i)) map(i) = n;
 	}
@@ -90,10 +90,10 @@ StateEqRel& StateEqRel::identity()
 		// when st is the representative of it's eq. class.
 		if (repr.contains(st))
 		{
-			// Ä¿Ç°Ê²Ã´Ò²Ã»×ö£¡
+			// ç›®å‰ä»€ä¹ˆä¹Ÿæ²¡åšï¼
 		}
 		// Assign the new StateSet.
-		map(st) = new StateSet; // Ã»ÓÐÉ¾³ý£¬Íâ²¿µ÷ÓÃ£¬Ê¹ÓÃÍêÒªÉ¾³ý£¬Ò²¿ÉÄÜÔÚ¸¸ÀàµÄÎö¹¹º¯ÊýÖÐ±»×Ô¶¯É¾³ý
+		map(st) = new StateSet; // æ²¡æœ‰åˆ é™¤ï¼Œå¤–éƒ¨è°ƒç”¨ï¼Œä½¿ç”¨å®Œè¦åˆ é™¤ï¼Œä¹Ÿå¯èƒ½åœ¨çˆ¶ç±»çš„æžæž„å‡½æ•°ä¸­è¢«è‡ªåŠ¨åˆ é™¤
 		// It's the emptyset,and set the domain.
 		lookup(st)->set_domain(domain());
 		assert(lookup(st)->empty());
