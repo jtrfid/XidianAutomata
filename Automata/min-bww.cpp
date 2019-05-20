@@ -82,7 +82,7 @@ int DFA::are_eq(State p, State q, SymRel& S, const StateEqRel& H, const SymRel& 
 	} // if
 }
 
-#define debug_min_Watson
+//#define debug_min_Watson
 
 /************ degug  */
 #ifdef debug_min_Watson

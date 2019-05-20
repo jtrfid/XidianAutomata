@@ -302,11 +302,55 @@ void minDFATest4()
 
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
+	cout << "\n************ min_Hopcroft()***********\n";
 	dfa1.min_Hopcroft();
-	// Assertion failed: !iter_end(it), file crset.h, line 146
-	// 修改 DFA::min_Hopcroft()后，正确
-	cout << "\n************ minDFA\n" << std::flush;
+	cout << "\n************ min_Hopcroft()\n" << std::flush;
 	cout << dfa1 << endl;
+
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
+
+	cout << "\n************min_dragon()****************\n";
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n" << std::flush;
+	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
+
+	cout << "\n************min_HopcroftUllman()****************\n";
+	DFA dfa3(dfa_com1);
+	dfa3.min_HopcroftUllman();
+	cout << "\n************min_HopcroftUllman()\n" << std::flush;
+	cout << dfa3 << endl;
+	if (dfa3.Usefulf() == 0) {
+		dfa3.usefulf();
+		cout << "After delete unreach final states:" << dfa3 << endl;
+	}
+
+	cout << "\n************min_Watson()****************\n";
+	DFA dfa4(dfa_com1);
+	dfa4.min_Watson();
+	cout << "\n************min_Watson()\n" << std::flush;
+	cout << dfa4 << endl;
+	if (dfa4.Usefulf() == 0) {
+		dfa4.usefulf();
+		cout << "After delete unreach final states:" << dfa4 << endl;
+	}
+
+	cout << "\n************min_Brzozowski()****************\n";
+	DFA dfa5(dfa_com1);
+	dfa5.min_Brzozowski();
+	cout << "\n************ min_Brzozowski()\n" << std::flush;
+	cout << dfa5 << endl;
+	if (dfa5.Usefulf() == 0) {
+		dfa5.usefulf();
+		cout << "After delete unreach final states:" << dfa5 << endl;
+	}
 }
 
 // 形式语言与自动机理论,pg. 154 fig. 5-7(删除不可达p9)
@@ -358,9 +402,55 @@ void minDFATest5()
 
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
-	dfa1.min_Hopcroft();  
-	cout << "\n************ minDFA\n" << std::flush;
+	cout << "\n************ min_Hopcroft()***********\n";
+	dfa1.min_Hopcroft();
+	cout << "\n************ min_Hopcroft()\n" << std::flush;
 	cout << dfa1 << endl;
+
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
+
+	cout << "\n************min_dragon()****************\n";
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n" << std::flush;
+	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
+
+	cout << "\n************min_HopcroftUllman()****************\n";
+	DFA dfa3(dfa_com1);
+	dfa3.min_HopcroftUllman();
+	cout << "\n************min_HopcroftUllman()\n" << std::flush;
+	cout << dfa3 << endl;
+	if (dfa3.Usefulf() == 0) {
+		dfa3.usefulf();
+		cout << "After delete unreach final states:" << dfa3 << endl;
+	}
+
+	cout << "\n************min_Watson()****************\n";
+	DFA dfa4(dfa_com1);
+	dfa4.min_Watson();
+	cout << "\n************min_Watson()\n" << std::flush;
+	cout << dfa4 << endl;
+	if (dfa4.Usefulf() == 0) {
+		dfa4.usefulf();
+		cout << "After delete unreach final states:" << dfa4 << endl;
+	}
+
+	cout << "\n************min_Brzozowski()****************\n";
+	DFA dfa5(dfa_com1);
+	dfa5.min_Brzozowski();
+	cout << "\n************ min_Brzozowski()\n" << std::flush;
+	cout << dfa5 << endl;
+	if (dfa5.Usefulf() == 0) {
+		dfa5.usefulf();
+		cout << "After delete unreach final states:" << dfa5 << endl;
+	}
 }
 
 // 非complete DFA, mini合并状态{1,2}正确，但由于是非complete DFA，其中的compress(P)错误。
@@ -522,7 +612,7 @@ void minDFATest8()
 
 }
 
-// NoSink，但，它完全自动机，验证了eq.class {4，5},{6,7}
+// NoSink，但，它是完全自动机，验证了eq.class {4，5},{6,7}
 void minDFATest9()
 {
 	DFA_components dfa_com1;
@@ -841,6 +931,68 @@ void minDFATest13()
 		dfa3.usefulf();
 		cout << "After delete unreach final states:" << dfa3 << endl;
 	}
+
+	cout << "\n************min_Watson()****************\n";
+	DFA dfa4(dfa_com1);
+	dfa4.min_Watson();
+	cout << "\n************min_Watson()\n" << std::flush;
+	cout << dfa4 << endl;
+	if (dfa4.Usefulf() == 0) {
+		dfa4.usefulf();
+		cout << "After delete unreach final states:" << dfa4 << endl;
+	}
+
+	cout << "\n************min_Brzozowski()****************\n";
+	DFA dfa5(dfa_com1);
+	dfa5.min_Brzozowski();  
+	cout << "\n************ min_Brzozowski()\n" << std::flush;
+	cout << dfa5 << endl;
+	if (dfa5.Usefulf() == 0) {
+		dfa5.usefulf();
+		cout << "After delete unreach final states:" << dfa5 << endl;
+	}
+}
+
+void minDFATest14()
+{
+	DFA_components dfa_com1;
+	int i = 3;
+	while (i--)
+	{
+		dfa_com1.Q.allocate();
+	}
+	// StateSet S  开始状态集
+	dfa_com1.S.set_domain(dfa_com1.Q.size());
+	dfa_com1.S.add(0);
+
+	// StateSet F  结束状态集
+	dfa_com1.F.set_domain(dfa_com1.Q.size());
+	dfa_com1.F.add(1);
+	dfa_com1.F.add(2);
+
+
+	dfa_com1.T.set_domain(dfa_com1.Q.size());
+	dfa_com1.T.add_transition(0, 'a', 1);
+	dfa_com1.T.add_transition(0, 'b', 2);
+	dfa_com1.T.add_transition(1, 'b', 2);
+	dfa_com1.T.add_transition(2, 'a', 1);
+
+	//实例化一个DFA对象
+	DFA dfa1(dfa_com1);
+	cout << "\n************ DFA\n" << std::flush;
+	cout << dfa1 << endl;
+
+	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
+
+	cout << "\n************ min_Hopcroft()***********\n";
+	dfa1.min_Hopcroft();
+	cout << "\n************ min_Hopcroft()\n" << std::flush;
+	cout << dfa1 << endl;
+
+	if (dfa1.Usefulf() == 0) {
+		dfa1.usefulf();
+		cout << "After delete unreach final states:" << dfa1 << endl;
+	}
 }
 
 //#define TO_FILE
@@ -857,7 +1009,7 @@ void minDFATest()
 	cout.rdbuf(stream_buffer_file);
 #endif
 
-	minDFATest1();
+	//minDFATest1();
 	//minDFATest2();
 	//minDFATest3();
 	//minDFATest3_1();
@@ -876,6 +1028,8 @@ void minDFATest()
 	//minDFATest12(); // 无sink, 同上，应该是碰巧
 
 	//minDFATest13();
+
+	minDFATest14();
 
 #ifdef TO_FILE
 	// 恢复cout
