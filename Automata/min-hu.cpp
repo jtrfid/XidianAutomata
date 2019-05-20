@@ -5,10 +5,10 @@ Description: This member function provides a very convoluted implementation of A
 	of [Wat93b]. It computes the distinguishability relation (relation D in [Wat93b]).
 Implementation: The algorithm is not quite the same as that presented in [Wat93b, Algorithm
 	4.7]. The member function computes the equivalence relation (on States) by first computing
-	distinguihsability relation D. Initially, the pairs of distinguishable States are those pairs p,q
-	where one is final State and the other is not. Pairs of States that reach p,q are then also
-	distinguishable (according to the efficiency improvement property given in [Wat93b, Section
-	4.7, p. 16]). Iteration terminates when all distinguishable States have been considered.
+	distinguihsability relation D. Initially, the pairs of distinguishable States are those 
+	pairs p,q where one is final State and the other is not. Pairs of States that reach p,q are 
+	then also distinguishable (according to the efficiency improvement property given in [Wat93b, 
+	Section	4.7, p. 16]). Iteration terminates when all distinguishable States have been considered.
 Performance: This algorithm can be expected to run quite slowly, since it makes use of reverse
 	transition in the deterministic transition relation (DTransRel). The transition relations
 	(TransRel and DTransRel) are optimized for forward transitions.
@@ -24,7 +24,7 @@ Performance: This algorithm can be expected to run quite slowly, since it makes 
 #include "SymRel.h"
 #include "DFA.h"
 
-#define debug_min_HopcroftUllman
+//#define debug_min_HopcroftUllman
 
 /************ degug  */
 #ifdef debug_min_HopcroftUllman
@@ -62,9 +62,9 @@ DFA& DFA::min_HopcroftUllman()
 
 	// We begin with those pairs that are definitely distinguished.
 	//    this inculude pairs with different parity.
-	Z.add_pairs(F, nonfinal);
+	Z.add_pairs(F, nonfinal); // { (F x (Q\F)),((Q\F) x F) }
 
-	cout << "Z:" << Z << endl;
+	cout << "Z{ (F x (Q\F)),((Q\F) x F) }:" << Z << endl;
 
 	// It also includes pairs with differing out-transitions.
 	//         iterate over C (the CRSet) and check the haves and have-nots
@@ -73,6 +73,7 @@ DFA& DFA::min_HopcroftUllman()
 	StateSet havenot;
 	havenot.set_domain(Q.size());
 
+	cout << "iterate over (p,a) check which have a differing out-transitions.";
 	int it;
 	for (it = 0; !C.iter_end(it); it++)
 	{
@@ -100,6 +101,7 @@ DFA& DFA::min_HopcroftUllman()
 
 		cout << "have:" << have << endl;
 		cout << "havenot:" << havenot << endl;
+		cout << "Z.add_pairs(have, havenot)\n";
 		cout << "Z:" << Z << endl;
 		have.clear();
 		havenot.clear();
@@ -134,9 +136,11 @@ DFA& DFA::min_HopcroftUllman()
 			Z.remove_pair(p, q);
 			G.add_pair(p, q);
 
+			cout << "Z.remove_pair, G.add_pair: (" << p << "," << q << ")\n";
 			cout << "Z:" << Z << endl;
 			cout << "G:" << G << endl;
 
+			cout << "Now check out the reverse transitions from " << p << " and " << q << endl;
 			// Now check out the reverse transitions from p and q.
 			int i;
 			// Iterate over all of labels.
@@ -144,8 +148,8 @@ DFA& DFA::min_HopcroftUllman()
 			{
 				StateSet pprime(T.reverse_transition(p, C.iterator(i))); // p's in-states set
 				StateSet qprime(T.reverse_transition(q, C.iterator(i))); // q's in-states set
-				cout << "pprime(" << p << "," << C.iterator(i) << "):" << pprime << endl;
-				cout << "qprime(" << q << "," << C.iterator(i) << "):" << qprime << endl;
+				cout << "reverse_transition(" << p << "," << C.iterator(i) << "):" << pprime << endl;
+				cout << "reverse_transition(" << q << "," << C.iterator(i) << "):" << qprime << endl;
 				// pprime and qprime are all distinguished.
 				// Iterate over both sets and flag them as distinguished.
 				State pp;
@@ -155,22 +159,27 @@ DFA& DFA::min_HopcroftUllman()
 					for (qprime.iter_start(qp); !qprime.iter_end(qp); qprime.iter_next(qp))
 					{
 						// Mark pp, qp for processing if they
-						// haven't already been done.
+						// haven't already been done.					
 						if (!G.contains_pair(pp, qp))
 						{
-							Z.add_pair(pp, qp);
+							cout << "(" << pp << "," << qp << ") is NOT in G." << endl;
 							cout << "Z.add_pair(" << pp << "," << qp << ")" << endl;
+							Z.add_pair(pp, qp);
+							cout << "Z:" << Z << endl;
 						} //if
+						else {
+							cout << "(" << pp << "," << qp << ") is in G,skip!" << endl;
+						}
 					} //for
 				} //for	
 			} //for
 		} //if
 	} //while
 
-	cout << "\nlast G:" << G << endl;
+	cout << "\nlast G(distinguished symRel,D):" << G << endl;
 	// Now compute E from D
 	G.complement();
-	cout << "G's complement:" << G << endl;
+	cout << "G's complement(eq. class symRel,E):" << G << endl;
 	// And use it to compress the DFA.
 	compress(G);
 
