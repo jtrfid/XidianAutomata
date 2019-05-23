@@ -993,6 +993,46 @@ void minDFATest14()
 		dfa1.usefulf();
 		cout << "After delete unreach final states:" << dfa1 << endl;
 	}
+
+	cout << "\n************min_dragon()****************\n";
+	DFA dfa2(dfa_com1);
+	dfa2.min_dragon();
+	cout << "\n************min_dragon()\n" << std::flush;
+	cout << dfa2 << endl;
+	if (dfa2.Usefulf() == 0) {
+		dfa2.usefulf();
+		cout << "After delete unreach final states:" << dfa2 << endl;
+	}
+
+	cout << "\n************min_HopcroftUllman()****************\n";
+	DFA dfa3(dfa_com1);
+	dfa3.min_HopcroftUllman();
+	cout << "\n************min_HopcroftUllman()\n" << std::flush;
+	cout << dfa3 << endl;
+	if (dfa3.Usefulf() == 0) {
+		dfa3.usefulf();
+		cout << "After delete unreach final states:" << dfa3 << endl;
+	}
+
+	cout << "\n************min_Watson()****************\n";
+	DFA dfa4(dfa_com1);
+	dfa4.min_Watson();
+	cout << "\n************min_Watson()\n" << std::flush;
+	cout << dfa4 << endl;
+	if (dfa4.Usefulf() == 0) {
+		dfa4.usefulf();
+		cout << "After delete unreach final states:" << dfa4 << endl;
+	}
+
+	cout << "\n************min_Brzozowski()****************\n";
+	DFA dfa5(dfa_com1);
+	dfa5.min_Brzozowski();
+	cout << "\n************ min_Brzozowski()\n" << std::flush;
+	cout << dfa5 << endl;
+	if (dfa5.Usefulf() == 0) {
+		dfa5.usefulf();
+		cout << "After delete unreach final states:" << dfa5 << endl;
+	}
 }
 
 //#define TO_FILE

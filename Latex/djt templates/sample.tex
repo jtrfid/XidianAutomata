@@ -85,6 +85,10 @@ Problems or Exercises should be sorted chapterwise
 	Examples text goes here.  \hfill$\square$ 
 \end{proposition}
 
+\begin{property}
+	Examples text goes here.  \hfill$\square$ 
+\end{property}
+
 \begin{note}
 	Examples text goes here.
 \end{note}
@@ -162,7 +166,7 @@ For tables use
 \section{figure}
 
 For figures use
-\begin{figure}[b]
+\begin{figure}[htbp]
 \sidecaption
 % Use the relevant command for your figure-insertion program
 % to insert the figure file.
@@ -177,7 +181,7 @@ For figures use
 \end{figure}
 
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \sidecaption[t]
 % Use the relevant command for your figure-insertion program
 % to insert the figure file.
@@ -219,6 +223,105 @@ referenc：Table. ~\ref{tab:1}
 \end{quotation}
 
 footnote environment \footnote{脚注footnote.}.
+
+\begin{algorithm}  
+	\caption{用归并排序求逆序数}  \label{key}
+	\begin{algorithmic}[1] %每行显示行号  
+		\Require $M=(Q,V,T,_,F)$  
+		\Ensure The equivalence classes of $Q$  
+		\Function {MergerSort}{$Array, left, right$}  
+		\State $result \gets 0$  
+		\If {$left < right$}  
+		\State $middle \gets (left + right) / 2$  
+		\State $result \gets result +$ \Call{MergerSort}{$Array, left, middle$}  
+		\State $result \gets result +$ \Call{MergerSort}{$Array, middle, right$}  
+		\State $result \gets result +$ \Call{Merger}{$Array,left,middle,right$}  
+		\EndIf  
+		\State \Return{$result$}  
+		\EndFunction 
+	\end{algorithmic}   
+\end{algorithm}
+
+\begin{algorithm}[!htbp]
+	\SetKwInOut{KIN}{在这里自定义输入名称}
+	\SetKwInOut{KOUT}{在这里自定义输出名称}
+	\caption{在这里编写算法名}
+	\label{key}
+	\KIN{在这里编写输入参数1，参数2...}% 输入参数
+	\KOUT{在这里编写输出参数1，参数2...}% 输出
+	算法第一行\\
+	%循环语句%
+	\For{$i \leftarrow 1$ to $N$} {
+		\If{$a > b$} {
+			if语句。
+		}
+		\ElseIf{$b > c$} {
+			elseif语句。
+		}
+		\Else {
+			else语句。
+		}
+	}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+
+\Function {"FuncName"}{}
+%if
+\If {"condition"}  "text"   \EndIf
+\State
+
+% if else
+\If  {"condition"}   "text"   
+\Else   "text"    
+\EndIf\State                
+
+%if  elseif else
+\If  {"condition"}     "text"   
+\ElsIf {"condition"}   "text"       
+\Else   "text"  
+\EndIf\State
+
+%for
+\For{"condition"}   "text"   \EndFor\State
+
+%forall
+\ForAll {"condition"}  "text"  \EndFor\State
+
+%while
+\While {"condition"}  "text"  \EndWhile\State
+
+%repeat
+\Repeat "text"  \Until {"condition"}\State
+
+%loop
+\Loop "text"  \EndLoop\State
+%return
+\Return $Result$
+\EndFunction
+
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5555
+%\usepackage{tabulary}
+%tabulary tries to balance the column widths so that each column has at least its natural width, without exceeding the maximum length. 
+
+\begin{center}
+	\begin{tabulary}{0.7\textwidth}{|L|C|L|}
+		Short sentences      & \#  & Long sentences                                                 \\
+		\hline
+		This is short.       & 173 & This is much loooooooonger, because there are many more words.  \\
+		This is not shorter. & 317 & This is still loooooooonger, because there are many more words. \\
+	\end{tabulary}  
+\end{center}
+
+\begin{comment}
+L  left-justified balanced column 
+C  centered balanced column 
+R  right-justified balanced column 
+J  left-right-justified balanced column 
+\end{comment}
 
 参考文献
 %\input{referenc}

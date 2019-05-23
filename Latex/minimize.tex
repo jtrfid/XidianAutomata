@@ -331,7 +331,7 @@ $B$,$P$ are relations, $S$ is a sequence of statements.
 	P\land B\{S\}P \text{ implies $P$ \{While $B$ do $S$ end\} } P\land\lnot B
 \end{equation}
 
-For algorithm (\ref{alg:splitting}), let $P$ be the relation ``the partitioning is acceptable". By Lemma \ref{lem:partitioning}, $P$ is true just before execution of the while loop, while by Lemma \ref{lem:split} execution of $S$ always yields an acceptable partitioning. The relation $B$ is ``$\exists a,B_i,B_j such that  Eq. (\ref{eq:split}) holds $". Thus, $P$ and $\lnot B$ hold after execution of the loop, but these are the sufficient requirements described in Lemma \ref{lem:stSame} for the final partitioning to be the described one.
+For algorithm (\ref{alg:splitting}), let $P$ be the relation ``the partitioning is acceptable". By Lemma \ref{lem:partitioning}, $P$ is true just before execution of the while loop, while by Lemma \ref{lem:split} execution of $S$ always yields an acceptable partitioning. The relation $B$ is ``$\exists a,B_i,B_j$ such that  Eq. (\ref{eq:split}) holds". Thus, $P$ and $\lnot B$ hold after execution of the loop, but these are the sufficient requirements described in Lemma \ref{lem:stSame} for the final partitioning to be the described one.
 
 Our refinement (\ref{alg:refinement}) determines all splittings wrt a pair $(B_i, a)$ and then performs all these splittings at the same time.
 \begin{algorithm}  
@@ -360,7 +360,7 @@ The result of splitting all blocks wrt $(B_j, a)$ is that any future block $B$ (
 \end{lemma}
 
 \begin{lemma} \label{lem:three_pairs}
-Suppose a block $B_j$ is split into blocks $\bar{B}_j$ and $\tilde{B}_j$. Consider a symbol $a$. Splitting all blocks wrt to any two of the three pairs $(B_j, a), (\bar(B)_j, a)$, and $(\tilde{B}_j, a)$ performs the same function as splitting all blocks wrt all three pairs.
+Suppose a block $B_j$ is split into blocks $\bar{B}_j$ and $\tilde{B}_j$. Consider a symbol $a$. Splitting all blocks wrt to any two of the three pairs $(B_j, a), (\bar{B}_j, a)$, and $(\tilde{B}_j, a)$ performs the same function as splitting all blocks wrt all three pairs.
 \end{lemma}
 
 \begin{proof}
