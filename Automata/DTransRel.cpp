@@ -43,6 +43,38 @@ StateSet DTransRel::reverse_closure(const StateSet& r) const
 	return(result);
 }
 
+// add by hushuangpu
+// What are all States reachable from r?
+StateSet DTransRel::closure(const StateSet& r) const
+{
+	StateSet result(r);
+	StateSet intermediate;
+	StateSet temp;
+	intermediate.set_domain(domain());
+	temp.set_domain(domain());
+
+	int n = 0;
+
+	do
+	{
+		result.set_union(intermediate);
+		intermediate.set_union(result);
+		//intermediate.clear();
+		State st;
+		for (result.iter_start(st); !result.iter_end(st); result.iter_next(st))
+		{
+			StateSet temp = lookup(st).range(domain());
+			intermediate.set_union(temp);
+			temp.clear();
+		}
+		/*std::cout << "result: " << result << std::endl;
+		std::cout << "interm: " << intermediate << std::endl;*/
+		n++;
+	} while (result != intermediate);
+	//std::cout << result << std::endl;
+	return(result);
+}
+
 // Recycle this entire structure.
 void DTransRel::reincarnate()
 {

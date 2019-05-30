@@ -150,6 +150,172 @@ DFA& DFA::usefulf()
 	return(*this);
 }
 
+DFA & DFA::usefuls()
+{
+	assert(class_invariant());
+	StateSet sreachable(T.closure(S));
+	StateTo<State> newnames;
+	newnames.set_domain(Q.size());
+
+
+	// All components will be constructed into a special structure :
+	DFA_components ret;
+	State st;
+	for (st = 0; st < Q.size(); st++)
+	{
+		// If this is a Usefulf State, carry it over by giving it a name
+		// in the new DFA.
+		if (sreachable.contains(st))
+		{
+			newnames.map(st) = ret.Q.allocate();
+		}
+		else
+		{
+			newnames.map(st) = Invalid;
+		}
+	}
+
+
+	// It is possible that nothing needs to be done(ie.the all States were
+	// already S useful).
+	if (Q.size() != ret.Q.size())
+	{
+		ret.T.set_domain(ret.Q.size());
+		ret.F.set_domain(ret.Q.size());
+
+		CRSet a;
+		for (st = 0; st < Q.size(); st++)
+		{
+			// Only construct the transitions if st is start reachable.
+			if (sreachable.contains(st))
+			{
+				a = T.out_labels(st);
+				State stprime(newnames.lookup(st));
+
+				CharRange b;
+				int it;
+				// Construct the transitions.
+				for (it = 0; !a.iter_end(it); it++)
+				{
+					b = a.iterator(it);
+					State stdest;
+					stdest = newnames.lookup(T.transition_on_range(st, b));
+					if (stprime != Invalid && stdest != Invalid)
+					{
+						ret.T.add_transition(stprime, b, stdest);
+					}
+				}
+				// This may be a final State.
+				if (F.contains(st)) ret.F.add(stprime);
+			}
+		}
+		ret.S.set_domain(ret.Q.size());
+
+		// Add a start State only if the original one was final reachable.
+		if (S.not_disjoint(sreachable)) ret.S.add(newnames.lookup(S.smallest()));
+		reconstruct(ret);
+	}
+	assert(class_invariant());
+
+	// TODO: 在此处插入 return 语句
+	return(*this);
+}
+
+
+// construct a Complete DFA
+DFA & DFA::complete()
+{
+
+	if (Complete())
+	{
+		return (*this);
+	}
+
+	usefulf();
+	usefuls();
+
+	DFA_components ret;
+
+	State q;
+
+	for (q = 0; q <= Q.size(); q++)
+	{
+		ret.Q.allocate();
+	}
+
+	State sink = ret.Q.size() - 1;
+
+	CRSet C;
+	for (q = 0; q < Q.size(); q++)
+	{
+		C.combine(T.out_labels(q));
+	}
+
+	ret.S.set_domain(Q.size());
+	ret.F.set_domain(Q.size());
+
+	ret.S.set_union(S);
+	ret.F.set_union(F);
+
+	ret.S.set_domain(ret.Q.size());
+	ret.T.set_domain(ret.Q.size());
+	ret.F.set_domain(ret.Q.size());
+
+	for (q = 0; q < ret.Q.size(); q++)
+	{
+		CharRange c;
+		for (int i = 0; i < C.size(); i++)
+		{
+			c = C.iterator(i);
+			State stprime = q;
+			if (stprime == sink)
+			{
+				ret.T.add_transition(stprime, c, sink);
+				continue;
+			}
+			State stdest = T.transition_on_range(stprime, c);
+			if (stdest != Invalid)
+			{
+				ret.T.add_transition(stprime, c, stdest);
+			}
+			else
+			{
+				ret.T.add_transition(stprime, c, sink);
+			}
+		}
+	}
+
+	reconstruct(ret);
+	// TODO: 在此处插入 return 语句
+	return (*this);
+}
+
+int DFA::Complete() const
+{
+	State q;
+
+	CRSet C;
+	for (q = 0; q < Q.size(); q++)
+	{
+		C.combine(T.out_labels(q));
+	}
+
+	for (q = 0; q < Q.size(); q++)
+	{
+		CharRange c;
+		for (int i = 0; i < C.size(); i++)
+		{
+			c = C.iterator(i);
+			if (T.transition_on_range(q, c) == Invalid)
+			{
+				return 0;
+			}
+		}
+	}
+
+	return 1;
+}
+
 // Given a minimizing equivalence relation, shrink the DFA.
 DFA& DFA::compress(const StateEqRel& r)
 {

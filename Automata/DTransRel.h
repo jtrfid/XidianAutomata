@@ -58,6 +58,10 @@ public:
 	// What are all States reverse reachable from r?
 	StateSet reverse_closure(const StateSet& r) const;
 
+	// add by hushuangpu
+	// What are all States reachable from r?
+	StateSet closure(const StateSet& r) const;
+
 	// Some functions updating *this:
 	inline DTransRel& add_transition(const State p, const CharRange a, const State q);
 
