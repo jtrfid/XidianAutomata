@@ -76,9 +76,11 @@ DFA_components construct_components(const T& abs_start)
 	StateTo<T> names;
 
 	// Allocate a name for the new start State, and insert it into the namer.
-	State s(ret.Q.allocate());
+	State s(ret.Q.allocate()); // 开始状态的name(编号)总是0
 
-	names.set_domain(ret.Q.size());
+	names.set_domain(ret.Q.size()); // 此时Q.size()=1
+	std::cout << "size=" << ret.Q.size() << "\n";
+
 	names.map(s) = abs_start;   // map: s --> abs_start
 	ret.T.set_domain(ret.Q.size());
 	ret.F.set_domain(ret.Q.size());

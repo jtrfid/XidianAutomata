@@ -1,10 +1,10 @@
-/***********************************************************************
+ï»¿/***********************************************************************
 Implementation class: DSDeRemer
 Files: DSDeRemer.h, DSDeRemer.cpp
 Uses: CharRange, CRSet, ISImpl, RE
 
 Description: Class DSDeRemer provides the full abstract state interface of an item set (see class ISImpl).
-DSDeRemer inherits from ISImpl for implementation. It is used in DeRemer's construction [Wat93a, Construction 5.75J. 
+DSDeRemer inherits from ISImpl for implementation. It is used in DeRemer's construction [Wat93a, Construction 5.75]. 
 DeRemer's construction can yield smaller DFAs than the item set construction.
 ***********************************************************************/
 //#pragma once
@@ -16,9 +16,9 @@ DeRemer's construction can yield smaller DFAs than the item set construction.
 
 
 #include <iostream>
-// È¥ÏÂĞĞ×¢ÊÍÔò½ûÓÃ assert()
+// å»ä¸‹è¡Œæ³¨é‡Šåˆ™ç¦ç”¨ assert()
 // #define NDEBUG
-#include <cassert>  // ±ØĞë°üº¬
+#include <cassert>  // å¿…é¡»åŒ…å«
 #include "CharRange.h"
 #include "CRSet.h"
 #include "RE.h"

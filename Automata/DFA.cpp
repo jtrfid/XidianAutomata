@@ -1,4 +1,4 @@
-/************************************************************************
+ï»¿/************************************************************************
 Implementation: All of the member functions are straight-forward implementations, with the
 exception of the minimization and reversal member functions. Those are further described
 later (the minimization member functions are discussed in Part IV). The constructor which
@@ -74,9 +74,9 @@ int DFA::Usefulf() const
 
 // Remove any States that cannot reach a final State.
 // (This is a last step in minimization, since some of the min. algorithms may yield 
-// a DFA with a sink state.) ÓÃÓÚ×îĞ¡»¯Ëã·¨µÄ×îºó£¬É¾³ısink×´Ì¬
+// a DFA with a sink state.) ç”¨äºæœ€å°åŒ–ç®—æ³•çš„æœ€åï¼Œåˆ é™¤sinkçŠ¶æ€
 // Implement Remark 2.39  removing states that are not final - reachable.
-// FIX ĞŞ¸´bug
+// FIX ä¿®å¤bug
 #define FIX
 DFA& DFA::usefulf()
 {
@@ -298,7 +298,7 @@ std::ostream& operator<<(std::ostream& os, const DFA& r)
 	return(os);
 }
 
-/*****************************************************************TODO:
+/*****************************************************************ä»¥ä¸‹å‡½æ•°åœ¨min__xxx.cppä¸­:
 // Some minimization algorithms:
 DFA& DFA::min_HopcroftUllman()
 {

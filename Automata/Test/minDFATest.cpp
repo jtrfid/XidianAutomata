@@ -6,10 +6,12 @@
 using namespace std;
 
 /****************************************************************
-最小化算法的：前提条件: (1) start-reachable, Useful(s)
-				        (2) Complete
+DFA::min_Hopcroft()最小化算法的：前提条件: (1) start-reachable, Useful(s)
+				                           (2) Complete
 必要时，添加sink状态，使其成为完全自动机。
 算法完成后，调用usefulf()，删除sink。
+
+其他算法不必要求是Complete。
  ****************************************************************/
 
 // 形式语言与自动机理论,pg. 141 fig. 5-4
@@ -402,49 +404,50 @@ void minDFATest5()
 
 	cout << " is the DFA Usefulf ?: " << dfa1.Usefulf() << endl;
 
-	cout << "\n************ min_Hopcroft()***********\n";
-	dfa1.min_Hopcroft();
-	cout << "\n************ min_Hopcroft()\n" << std::flush;
-	cout << dfa1 << endl;
+	//cout << "\n************ min_Hopcroft()***********\n";
+	//dfa1.min_Hopcroft();
+	//cout << "\n************ min_Hopcroft()\n" << std::flush;
+	//cout << dfa1 << endl;
 
-	if (dfa1.Usefulf() == 0) {
-		dfa1.usefulf();
-		cout << "After delete unreach final states:" << dfa1 << endl;
-	}
+	//if (dfa1.Usefulf() == 0) {
+	//	dfa1.usefulf();
+	//	cout << "After delete unreach final states:" << dfa1 << endl;
+	//}
 
-	cout << "\n************min_dragon()****************\n";
-	DFA dfa2(dfa_com1);
-	dfa2.min_dragon();
-	cout << "\n************min_dragon()\n" << std::flush;
-	cout << dfa2 << endl;
-	if (dfa2.Usefulf() == 0) {
-		dfa2.usefulf();
-		cout << "After delete unreach final states:" << dfa2 << endl;
-	}
+	//cout << "\n************min_dragon()****************\n";
+	//DFA dfa2(dfa_com1);
+	//dfa2.min_dragon();
+	//cout << "\n************min_dragon()\n" << std::flush;
+	//cout << dfa2 << endl;
+	//if (dfa2.Usefulf() == 0) {
+	//	dfa2.usefulf();
+	//	cout << "After delete unreach final states:" << dfa2 << endl;
+	//}
 
-	cout << "\n************min_HopcroftUllman()****************\n";
-	DFA dfa3(dfa_com1);
-	dfa3.min_HopcroftUllman();
-	cout << "\n************min_HopcroftUllman()\n" << std::flush;
-	cout << dfa3 << endl;
-	if (dfa3.Usefulf() == 0) {
-		dfa3.usefulf();
-		cout << "After delete unreach final states:" << dfa3 << endl;
-	}
+	//cout << "\n************min_HopcroftUllman()****************\n";
+	//DFA dfa3(dfa_com1);
+	//dfa3.min_HopcroftUllman();
+	//cout << "\n************min_HopcroftUllman()\n" << std::flush;
+	//cout << dfa3 << endl;
+	//if (dfa3.Usefulf() == 0) {
+	//	dfa3.usefulf();
+	//	cout << "After delete unreach final states:" << dfa3 << endl;
+	//}
 
-	cout << "\n************min_Watson()****************\n";
-	DFA dfa4(dfa_com1);
-	dfa4.min_Watson();
-	cout << "\n************min_Watson()\n" << std::flush;
-	cout << dfa4 << endl;
-	if (dfa4.Usefulf() == 0) {
-		dfa4.usefulf();
-		cout << "After delete unreach final states:" << dfa4 << endl;
-	}
+	//cout << "\n************min_Watson()****************\n";
+	//DFA dfa4(dfa_com1);
+	//dfa4.min_Watson();
+	//cout << "\n************min_Watson()\n" << std::flush;
+	//cout << dfa4 << endl;
+	//if (dfa4.Usefulf() == 0) {
+	//	dfa4.usefulf();
+	//	cout << "After delete unreach final states:" << dfa4 << endl;
+	//}
 
 	cout << "\n************min_Brzozowski()****************\n";
 	DFA dfa5(dfa_com1);
 	dfa5.min_Brzozowski();
+	//dfa5.reverse();
 	cout << "\n************ min_Brzozowski()\n" << std::flush;
 	cout << dfa5 << endl;
 	if (dfa5.Usefulf() == 0) {
@@ -808,7 +811,7 @@ void minDFATest11()
 	cout << dfa1 << endl;
 }
 
-// NOSINK，不正确的做法
+// NOSINK，不正确的做法，min_Hopcroft()需要完全自动机
 void minDFATest12()
 {
 	DFA_components dfa_com1;
@@ -953,6 +956,7 @@ void minDFATest13()
 	}
 }
 
+// min_Hopcroft()与其他算法结果不一致，分析结论：min_Hopcroft算法的前提条件是必须是完全自动机。
 void minDFATest14()
 {
 	DFA_components dfa_com1;
@@ -1055,6 +1059,7 @@ void minDFATest()
 	//minDFATest3_1();
 	//minDFATest4();
 	//minDFATest5();
+
 	//minDFATest6(); // error, 非完全自动机，导致mini错误
 	//minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
 

@@ -173,6 +173,7 @@
     <ClCompile Include="Test\DFATest.cpp" />
     <ClCompile Include="Test\DFAusefulTest.cpp" />
     <ClCompile Include="Test\minDFATest.cpp" />
+    <ClCompile Include="Test\reverseTest.cpp" />
     <ClCompile Include="Test\RFATest.cpp" />
     <ClCompile Include="Test\StateRelTest.cpp" />
     <ClCompile Include="Test\StateSetTest.cpp" />
@@ -230,6 +231,7 @@
   <ItemGroup>
     <None Include="..\Makefile" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

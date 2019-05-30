@@ -183,6 +183,9 @@
     <ClCompile Include="Test\DFAHopcroftTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\reverseTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitVec.h">
@@ -315,5 +318,6 @@
   <ItemGroup>
     <None Include="..\Makefile" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

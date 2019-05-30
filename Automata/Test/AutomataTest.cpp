@@ -9,6 +9,7 @@ void DFATest();
 void DFA_usefulf();
 void minDFATest();
 void DFAHopcroftTest();
+void reverseTest();
 
 void AutomataTest()
 {
@@ -21,6 +22,7 @@ void AutomataTest()
 	//RFATest(); 
 	//DFATest();
 	//DFA_usefulf();
-	minDFATest();
+	//minDFATest();
 	//DFAHopcroftTest();
+	reverseTest();
 }

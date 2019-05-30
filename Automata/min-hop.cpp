@@ -25,7 +25,7 @@ Implementation: The member function uses some encoding tricks to effectively imp
 #include "StateEqRel.h"
 #include "DFA.h"
 
-#define debug_min_Hopcroft
+//#define debug_min_Hopcroft
 
 /************ degug  */
 #ifdef debug_min_Hopcroft
