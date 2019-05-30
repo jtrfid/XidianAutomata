@@ -36,10 +36,18 @@ void reverseTest1()
 
 	DSDFARev rev(dfa_com1.F, &(dfa_com1.T), &(dfa_com1.S));
 	cout << "rev:" << rev << endl;
-	cout << "final:" << rev.final() << endl;
-	cout << "out-T(a):" << rev.out_transition('a') << endl;
-	cout << "out-T(b):" << rev.out_transition('b') << endl;
-	cout << "out-label:" << rev.out_labels() << endl;
+	/** 表示which是{0,1},T和S保持不变
+	{ 0  1 } 0->{ 'a'->1 } 1->{ 'b'->2 } 2->{}
+	{ 0 }
+	 **/
+	cout << "final:" << rev.final() << endl; // 1, F与S有交集
+	cout << "out-T(a):" << rev.out_transition('a') << endl; 
+	/** 返回对象的which是{0},T和S保持不变，即which = T(which1,'a'),which1={0,1}, T(0,'a')=1属于which1,T(1,'a')=2不属于which1
+	{ 0 } 0->{ 'a'->1 } 1->{ 'b'->2 } 2->{}
+	{ 0 }
+	 **/
+	cout << "out-T(b):" << rev.out_transition('b') << endl;  // 返回对象无which
+	cout << "out-label:" << rev.out_labels() << endl; // {'a'}进入which的labels
 
 	cout << "dfa:" << dfa1 << endl;
 

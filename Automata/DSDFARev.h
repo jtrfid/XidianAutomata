@@ -1,4 +1,4 @@
-/*************************************************************************
+﻿/*************************************************************************
 	As an example of an abstract state, consider class DSDFARev.
 Implementation class: DSDFARev
 
@@ -22,17 +22,17 @@ of an abstract state.
 
 
 #include <iostream>
-// ȥ����ע������� assert()
+// 去下行注释则禁用 assert()
 // #define NDEBUG
-#include <cassert>  // �������
+#include <cassert>  // 必须包含
 #include "CharRange.h"
 #include "CRSet.h"
 #include "DTransRel.h"
 
 // This class is used to represent abstract States in a DFA that is still under
 // construction. It is used in the reversal of a DFA.
-// Objects of the class represent States in the subset construction of the
-// reverse of a DFA.
+// Objects of the class represent States in the subset construction of the reverse of a DFA.
+// 成员变量which代表abstract states.
 class DSDFARev
 {
 public:
@@ -47,8 +47,14 @@ public:
 	inline const DSDFARev& operator = (const DSDFARev& r);
 
 	// The required member functions :
+
+	// which与*S是否有交集，有交集(二者有公共部分)，返回1，否则返回0
 	inline int final() const;
+
+	// return  CRSet of (in-transitions of which)。进入which的transitions代表的字符集
 	CRSet out_labels() const;
+
+	// 返回对象的which是当前对象的T(which,a)属于which的which
 	DSDFARev out_transition(const CharRange a) const;
 	inline int operator == (const DSDFARev& r) const;
 	inline int operator != (const DSDFARev& r) const;
@@ -58,6 +64,7 @@ public:
 	inline int class_invariant() const;
 
 private:
+	// abstract State
 	StateSet which;
 	const DTransRel *T;
 	const StateSet *S;
@@ -92,6 +99,8 @@ inline const DSDFARev& DSDFARev::operator = (const DSDFARev& r)
 }
 
 // The required member functions :
+
+// which与*S是否有交集，有交集(二者有公共部分)，返回1，否则返回0
 inline int DSDFARev::final() const
 {
 	assert(class_invariant());

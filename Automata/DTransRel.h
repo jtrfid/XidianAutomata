@@ -43,13 +43,13 @@ public:
 	// Compute the image of r, and a under *this. [image = T(r,a)]
 	inline State image(const State r, const char a) const;
 
-	// Compute the image of r, and CharRange it under *this.
+	// Compute the image of r, and CharRange a under *this.[image = T(r, a)]
 	inline State transition_on_range(const State r, const CharRange a) const;
 
 	// Compute the reverse transition on a range under *this:
 	StateSet reverse_transition(const State r, const CharRange a) const;
 
-	// What are the transition labels between some State rand StateSet s?
+	// What are the transition labels between some State r and StateSet s? (r --> s)
 	inline CRSet labels_between(const State r, const StateSet& s) const;
 
 	// Given State r, what are the labels on transitions out of r?
@@ -105,7 +105,7 @@ inline State DTransRel::image(const State r, const char a) const
 	return(lookup(r)[a]);
 }
 
-// Compute the image of r, and CharRange it under *this.
+// Compute the image of r, and CharRange a under *this. [image = T(r,a)]
 inline State DTransRel::transition_on_range(const State r, const CharRange a) const
 {
 	assert(class_invariant());
@@ -113,7 +113,7 @@ inline State DTransRel::transition_on_range(const State r, const CharRange a) co
 	return(lookup(r).range_transition(a));
 }
 
-// What are the transition labels between some State rand StateSet s?
+// What are the transition labels between some State r and StateSet s? (r --> s)
 inline CRSet DTransRel::labels_between(const State r, const StateSet& s) const
 {
 	assert(class_invariant());

@@ -79,7 +79,6 @@ DFA_components construct_components(const T& abs_start)
 	State s(ret.Q.allocate()); // 开始状态的name(编号)总是0
 
 	names.set_domain(ret.Q.size()); // 此时Q.size()=1
-	std::cout << "size=" << ret.Q.size() << "\n";
 
 	names.map(s) = abs_start;   // map: s --> abs_start
 	ret.T.set_domain(ret.Q.size());

@@ -1,4 +1,4 @@
-/***********************************************************************
+﻿/***********************************************************************
 	Implementation: The set of States in the reversed DFA is represented as a StateSet. A DSDFARev
 maintains pointers to the components of the DFA from which it was created. 
 	Two DSDFARevs are equal if their StateSets are equal.
@@ -6,12 +6,13 @@ maintains pointers to the components of the DFA from which it was created.
 
 #include "DSDFARev.h"
 
+// return  CRSet of (in-transitions of which)。进入which的transitions代表的字符集
 CRSet DSDFARev::out_labels() const
 {
 	assert(class_invariant());
 	CRSet a;
 	// Go through all of the States to see which have transitions
-	// into a State represented by this->which.
+	// into a State represented by this --> which.
 	State i;
 	for( i = 0; i < which.domain(); i++ ) 
 	{
@@ -20,6 +21,7 @@ CRSet DSDFARev::out_labels() const
 	return(a);
 }
 
+// 返回对象的which是当前对象的T(which,a)属于which的which
 DSDFARev DSDFARev::out_transition(const CharRange a) const
 {
 	assert(class_invariant());
