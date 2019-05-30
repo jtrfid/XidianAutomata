@@ -1,0 +1,7098 @@
+BitVecTest
+set&clear&output test:
+bit1={ 0  1  2  3  4 }
+bit1={ 1  3  4 }
+bit1={}
+BasicFunctionTest:
+bit1={ 0  1  2  3  4 }
+bit2={ 1  3 }
+howmany bits in bit1 set to 1? 5
+bit1 width? 10
+the smallest bit in bit1 set to 1? 0
+is any bit in bit1 sets to 1? 1
+is the 2nd bit in bit1 sets to 1? 1
+is the 5th bit in bit1 sets to 1? 0
+bits in bit1 are set to 1 contains which bits in bit2 are set to 1? 1
+bits are set to 1 in bit1 have something common with bits are set to 1 in bit2? 1
+2
+0
+0
+0
+ComputeFunctionTest:
+bit1={ 0  1  2  3  4 }
+bit2={ 3  4 }
+bit3={ 1  2 }
+bit2= { 4  5 }
+bit1=: { 4 }
+bit1=: { 4  5 }
+bit1=: { 0  1  2  3  6  7  8  9 }
+set bits in bit1 to 0 which are setting to 1 in bit2: { 0  3  6  7  8  9 }
+bit1=bit2+bit1 width corporated: { 0  3  6  7  8  9  14  15 }
+bit1 width: 20
+OperatorFunctionTest:
+{ 0  1 }
+{ 0 }
+bit1==bit2? 0
+bit1!=bit2? 1
+let bit1 = bit2 { 0 }
+CharRangeTest:
+AdvanceTest
+cr1 overlap_or_adjacent with cr2? 1
+cr2 overlap_or_adjacent with cr3? 1
+cr1 overlap_or_adjacent with cr3? 0
+cr1 intercests with cr2? 1
+cr1 intercests with cr3? 0
+cr1-cr1∩cr2: ['a','b']
+cr2-cr1∩cr2: ['e','f']
+cr1= ['a','d']
+cr2=cr2∪cr3 ['c','g']
+cr1=cr1∪cr3 ['a','g']
+cr2=cr2∩cr1 ['c','g']
+0
+4
+-1
+cr1==cr7? 1
+cr1!=cr8? 1
+cr1<=cr8? 0
+cr1>=cr8? 1
+===CRSetTest===
+===basicCRSetTest
+['a','b']
+1
+{ 'a'  'b' }
+===basicCRSetTest1
+['b','d']
+1
+{ 'c'  'b'  'd' }
+===basicCRSetTest2
+['a','d']
+1
+{ 'b'  'a'  ['c','d'] }
+c: { 'b'  'a'  ['c','d'] }
+c1: { 'a'  'b' }
+c2: { ['d','f'] }
+combine cr&c2: { 'a'  'b'  ['d','f'] }
+c1: { 'a'  'b' }
+c2: { 'a'  'b' }
+c3: { 'b'  'c' }
+c1 covers the same with c2? 1
+c1 covers the same with c3? 0
+c1 size: 2
+1st charrange in c1 'a'
+c1 ends with 3rd charrange? 1
+c1: { 'a'  'b' }
+c2: { 'a'  'c' }
+Assign c2 to c1: 
+c1: { 'a'  'c' }
+dtr: 
+0->{ ['a','c']->4 }
+1->{ 'a'->5 }
+2->{ ['b','c']->6 }
+3->{}
+4->{}
+
+dtr domain: 5
+T(0,a) = 4
+T(2,b) = 6
+T(3,c) = -1
+dtr: 
+0->{ 'a'->2  'b'->3  'c'->4 }
+1->{ 'a'->0 }
+2->{ ['b','c']->4 }
+3->{}
+4->{}
+
+dtr domain: 5
+out labels of state 0: { 'a'  'b'  'c' }
+out labels of state 1: { 'a' }
+out labels of state 3: {}
+labels between state 0 and stateset {2}: { 'a' }
+labels between state 0 and stateset {2,3}: { 'a'  'b' }
+labels between state 0 and stateset {2,3,4}: { 'a'  'b'  'c' }
+labels between state 0 and stateset {1}: {}
+dtr: 
+0->{ ['a','c']->4 }
+1->{ 'a'->3 }
+2->{ ['b','c']->1 }
+3->{}
+4->{}
+
+dtr domain: 5
+reverse transition 4->{['a','b']}: { 0 }
+reverse transition 1->{['b','c']}: { 2 }
+T(0,{['a','c']}) = 4
+T(2,{['b','c']}) = 1
+T(1,{['a','c']}) = -1
+reverse closure of stateset {1}: { 1  2 }
+reverse closure of stateset {1,3}: { 1  2  3 }
+dtr: 
+0->{ ['a','c']->4 }
+1->{ 'a'->3 }
+2->{ ['b','c']->1 }
+3->{}
+4->{}
+
+dtr domain: 5
+reincarnate *this...
+dtr = 
+
+dtr domain: 0
+dt = { 'a'->1  'b'->2  ['c','e']->3 }
+what State corresponds with label 'a': 1
+what State corresponds with label ['c','e']: 3
+what State corresponds with label ['a','b']: -1
+State range: { 1  2  3 }
+ad= 
+FA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1 }
+1->{ 'b'->2 }
+2->{ 'c'->3  'd'->4 }
+3->{}
+4->{}
+
+E = 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+
+current = {}
+
+States number: 5
+0
+is FA stucked? 0
+
+FA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1 }
+1->{ 'b'->2 }
+2->{ 'c'->3  'd'->4 }
+3->{}
+4->{}
+
+E = 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+
+current = { 4 }
+
+FA in final State? 1
+whats current state? { 3 }
+FA in final State? 0
+is FA stucked? 0
+whats current state? {}
+FA in final State? 0
+is FA stucked? 1
+input a regular expression re:
+re=| 'a' 1
+
+FA
+Q = [0,6)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'a'->3 }
+3->{}
+4->{}
+5->{}
+
+E = 
+0->{ 2  4 }
+1->{}
+2->{}
+3->{ 1 }
+4->{ 5 }
+5->{ 1 }
+
+current = {}
+
+SingleCharacterTest:
+input a regular expression re(single character):
+re='a'
+re 1st symbol: { 'a' }
+re root_operator: 2
+re operator number: 1
+re symbol number: 1
+re symbol: 'a'
+s domain: 5
+s= 
+StateEqRel
+{ 0  1  2  3  4 }
+
+ss1= { 0 }
+ss2= { 1  2 }
+split s with ss1 and ss2: 
+StateEqRel
+{ 0 }
+{ 1  2 }
+{ 3  4 }
+
+what StateSet equivalize with State 1? { 1  2 }
+what StateSet equivalize with State 3? { 3  4 }
+state 0 eq_class_representative in s: 0
+state 2 eq_class_representative in s: 1
+are state 0 & 1 equivalent? 0
+are state 1 & 2 equivalent? 1
+equivalize state 0 & 1...
+are state 0 & 1 equivalent? 1
+make *this identity...
+StateEqRel
+{ 0 }
+{ 1 }
+{ 2 }
+{ 3 }
+{ 4 }
+
+StatePoolTest:
+sp size: 2
+sp= [0,2)
+is state 0 in sp? 1
+is state 3 in sp? 0
+sp1= [0,1)
+sp incorporate with sp1= [0,3)
+ClosureTest:
+sr: 
+0->{ 1  2  3 }
+1->{ 3  4 }
+2->{}
+3->{}
+4->{}
+
+set1: { 0 },5,0
+set2 = sr.closure(set1): { 0  1  2  3  4 },5,0
+AllocatingTest:
+domain:5
+s1={ 0  1 }
+s2={ 0 }
+s1 remove 1 ={ 0 }
+s1 remove s2 ={}
+CheckStateTest
+s1={ 0  1  2 }
+s2={ 0  1 }
+s3={}
+s4={ 2  3 }
+s1 is empty? 0
+s3 is empty? 1
+s1 size: 3
+s3 size: 0
+s1 contains state 1? 1
+s1 contains state 4? 0
+s1 contains StateSet s2? 1
+s1 contains StateSet s3? 1
+s1 contains StateSet s4? 0
+s1 not disjoint with s2? 1
+s1 not disjoint with s3? 0
+s1 not disjoint with s4? 1
+SearchStateTest
+s smallese state number：0
+i=1
+s initial state number(s.iter_start(i))：0
+now i=0
+the next state of 0：1
+the next state of 2：-1
+end with state 2?1
+end with state 1?0
+CompareTest
+s1={ 0  1 }
+s2={ 0  1 }
+s3={ 0 }
+s1==s2? 1
+s1!=s2? 0
+s1==s3? 0
+s1!=s3? 1
+s1=s3...
+s1= { 0 }
+AssignmentTest
+s1={ 1  3 }
+s2={}
+after assignment(s2=s1): 
+s1={ 1  3 }
+s2={ 1  3 }
+ComputeTest
+s1={ 0  1  2 }
+s2={ 2  3 }
+s3={ 2  4 }
+s4={ 0  2  4 }
+s5={ 1  2  5 }
+s1 domain: 5
+s2 domain: 5
+s3 domain: 5
+s4 domain: 5
+s5 domain: 6
+s1 complement: { 3  4 }
+s2∪s3: { 2  3  4 }
+s3∩s4: { 2  4 }
+s5 left_shift 4: { 5  6  9 }
+s5 domain: 10
+s4 disjoint_union with s5: { 0  2  4  10  11  14 }
+s4 domain: 15
+RecycleTest:
+s={ 0  1 }
+s domain: 5
+s={}
+s domain: 0
+sti = 0->1
+1->2
+2->3
+3->-1
+4->-1
+
+state 0 maps...1
+sti domain = 0->1
+1->2
+2->3
+3->-1
+4->-1
+
+remove the map 0->1...
+sti = 0->-1
+1->2
+2->3
+3->-1
+4->-1
+
+s: 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+
+s domain: 5
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+s1: 
+0->{ 2  3 }
+1->{ 2  3 }
+2->{ 0  1 }
+3->{ 0  1 }
+4->{}
+
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+now remove pair 0->{1}&symmetrically 1->{0}
+0->{ 2 }
+1->{}
+2->{ 0 }
+3->{}
+4->{}
+
+s1: 
+0->{ 2  3 }
+1->{ 2  3 }
+2->{ 0  1 }
+3->{ 0  1 }
+4->{}
+
+now remove pairs 0->{2,3},1->{2,3}&symmertrically 2->{0,1},3->{0,1}
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+image(0): { 1  2 }
+image(1): { 0 }
+image(4): {}
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+s contains 0->{1}? 1
+s contains 2->{0}? 1
+s contains 1->{3}? 0
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+s complement: 
+0->{ 0  3  4 }
+1->{ 1  2  3  4 }
+2->{ 1  2  3  4 }
+3->{ 0  1  2  3  4 }
+4->{ 0  1  2  3  4 }
+
+s: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+s identity: 
+0->{ 0 }
+1->{ 1 }
+2->{ 2 }
+3->{ 3 }
+4->{ 4 }
+
+s1 domain: 5
+s1: 
+0->{ 1  2 }
+1->{ 0 }
+2->{ 0 }
+3->{}
+4->{}
+
+s2 domain: 6
+s2: 
+0->{}
+1->{ 4 }
+2->{ 3 }
+3->{ 2 }
+4->{ 1 }
+5->{}
+
+let s1 = s2: 
+s1 domian: 5
+s1: 
+0->{}
+1->{ 4 }
+2->{ 3 }
+3->{ 2 }
+4->{ 1 }
+5->{}
+
+tr = 
+0->{ ['a','c']->1  'a'->2 }
+1->{ ['b','c']->2 }
+2->{}
+3->{}
+4->{}
+5->{}
+6->{}
+7->{}
+
+T(0,['a','b']) = { 1 }
+T((0,1),['b','c']) = { 1  2 }
+t: { 'a'->0  ['a','c']->1  'b'->3 }
+labels into 0: { 'a' }
+labels into 1: { ['a','c'] }
+what are all the transition(s): { 'a'  'b'  'c' }
+what are all the State(s) corresponds with Transition Range ['b','c']: { 1 }
+Again,using function operator[]('a'): { 0  1 }
+=====ASUTest测试11111=====
+=====ASUTest1=====
+样例1，RE=（a|epsilon) concat b*: . | 'a' 1 * 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+=====ASUTest2=====
+样例2，RE=（a∪b)ab: . . | 'a' 'b' 'a' 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+=====ASUTest3=====
+样例3，RE=(a∪b)*ab: . . * | 'a' 'b' 'a' 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+=====ASUTest4=====
+样例4，RE=(a+b)*a+(aa)*: | . * | 'a' 'b' 'a' * . 'a' 'a'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+=====ASUTest5=====
+样例5，RE=((a | epsilon)+)b?cd*|(empty()): | . . . + | 'a' 1 ? 'b' 'c' * 'd' 0
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+=====BSTest测试11111=====
+=====BSTest1=====
+* 'b'
+样例1，RE=（a|epsilon) concat  b*: . | 'a' 1 * 'b'
+
+—————————LBFA1:
+
+LBFA
+Q = [0,3)
+s = 2
+F = { 0  1  2 }
+Qmap_inverse = { 'a'->0  'b'->1 }
+follow = 
+0->{ 1 }
+1->{ 1 }
+2->{ 0  1 }
+
+current = {}
+
+
+—————————LBFA2:
+
+LBFA
+Q = [0,3)
+s = 0
+F = { 0  1  2 }
+Qmap_inverse = { '$'->0  'a'->1  'b'->2 }
+follow = 
+0->{ 1  2 }
+1->{ 2 }
+2->{ 2 }
+
+current = {}
+
+
+—————————RBFA1:
+
+RBFA
+Q = [0,3)
+S = { 0  1  2 }
+f = 2
+Qmap_inverse = { 'a'->0  'b'->1 }
+follow = 
+0->{ 1  2 }
+1->{ 1  2 }
+2->{}
+
+current = {}
+
+
+—————————RBFA2:
+
+RBFA
+Q = [0,3)
+S = { 2 }
+f = 2
+Qmap_inverse = { 'a'->0  'b'->1  '$'->2 }
+follow = 
+0->{ 1  2 }
+1->{ 1  2 }
+2->{}
+
+current = {}
+
+以下分别输出lbfa1和lbfa2各自转换的DFA和lbfa1通过另外一种方式输出的DFA
+
+————————DFA1_lbfa1:
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+————————DFA1_lbfa2:
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+=====LBFA2DFA=====
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+=====BSTest2=====
+
+————————测试点11111
+
+. . | 'a' 'b' 'a' 'b'
+样例2，RE=（a∪b)ab: . . | 'a' 'b' 'a' 'b'
+
+—————————LBFA1:
+
+LBFA
+Q = [0,5)
+s = 4
+F = { 3 }
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3 }
+follow = 
+0->{ 2 }
+1->{ 2 }
+2->{ 3 }
+3->{}
+4->{ 0  1 }
+
+current = {}
+
+
+—————————LBFA2:
+
+LBFA
+Q = [0,5)
+s = 0
+F = { 4 }
+Qmap_inverse = { '$'->0  'a'->1  'b'->2  'a'->3  'b'->4 }
+follow = 
+0->{ 1  2 }
+1->{ 3 }
+2->{ 3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+
+—————————RBFA1:
+
+RBFA
+Q = [0,5)
+S = { 0  1 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3 }
+follow = 
+0->{ 2 }
+1->{ 2 }
+2->{ 3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+
+—————————rBFA2:
+
+RBFA
+Q = [0,5)
+S = { 4 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3  '$'->4 }
+follow = 
+0->{ 2 }
+1->{ 2 }
+2->{ 3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+以下分别输出lbfa1和lbfa2各自转换的DFA和lbfa1通过另外一种方式输出的DFA
+
+————————DFA1_lbfa1:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+————————DFA1_lbfa2:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+=====LBFA2DFA=====
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+=====BSTest3=====
+. . * | 'a' 'b' 'a' 'b'
+样例3，RE=(（a∪b)*)ab: . . * | 'a' 'b' 'a' 'b'
+
+—————————LBFA1:
+
+LBFA
+Q = [0,5)
+s = 4
+F = { 3 }
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{ 3 }
+3->{}
+4->{ 0  1  2 }
+
+current = {}
+
+
+—————————LBFA2:
+
+LBFA
+Q = [0,5)
+s = 0
+F = { 4 }
+Qmap_inverse = { '$'->0  'a'->1  'b'->2  'a'->3  'b'->4 }
+follow = 
+0->{ 1  2  3 }
+1->{ 1  2  3 }
+2->{ 1  2  3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+
+—————————RBFA1:
+
+RBFA
+Q = [0,5)
+S = { 0  1  2 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{ 3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+
+—————————rBFA2:
+
+RBFA
+Q = [0,5)
+S = { 4 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'b'->3  '$'->4 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{ 3 }
+3->{ 4 }
+4->{}
+
+current = {}
+
+以下分别输出lbfa1和lbfa2各自转换的DFA和lbfa1通过另外一种方式输出的DFA
+
+————————DFA1_lbfa1:
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+————————DFA1_lbfa2:
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+=====LBFA2DFA=====
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+=====BSTest4=====
+| . * | 'a' 'b' 'a' * . 'a' 'a'    (a+b)*a+(aa)*
+
+样例4，RE=(a+b)*a+(aa)*: | . * | 'a' 'b' 'a' * . 'a' 'a'
+
+—————————LBFA1:
+
+LBFA
+Q = [0,6)
+s = 5
+F = { 2  4  5 }
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'a'->3  'a'->4 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{}
+3->{ 4 }
+4->{ 3 }
+5->{ 0  1  2  3 }
+
+current = {}
+
+
+—————————LBFA2:
+
+LBFA
+Q = [0,6)
+s = 0
+F = { 0  3  5 }
+Qmap_inverse = { '$'->0  'a'->1  'b'->2  'a'->3  'a'->4  'a'->5 }
+follow = 
+0->{ 1  2  3  4 }
+1->{ 1  2  3 }
+2->{ 1  2  3 }
+3->{}
+4->{ 5 }
+5->{ 4 }
+
+current = {}
+
+
+—————————RBFA1:
+
+RBFA
+Q = [0,6)
+S = { 0  1  2  3  5 }
+f = 5
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'a'->3  'a'->4 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{ 5 }
+3->{ 4 }
+4->{ 3  5 }
+5->{}
+
+current = {}
+
+
+—————————rBFA2:
+
+RBFA
+Q = [0,6)
+S = { 5 }
+f = 5
+Qmap_inverse = { 'a'->0  'b'->1  'a'->2  'a'->3  'a'->4  '$'->5 }
+follow = 
+0->{ 0  1  2 }
+1->{ 0  1  2 }
+2->{ 5 }
+3->{ 4 }
+4->{ 3  5 }
+5->{}
+
+current = {}
+
+以下分别输出lbfa1和lbfa2各自转换的DFA和lbfa1通过另外一种方式输出的DFA
+
+————————DFA1_lbfa1:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+————————DFA1_lbfa2:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+=====LBFA2DFA=====
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+=====BSTest5=====
+| . . . + | 'a' 1 ? 'b' 'c' * 'd' 0    ((a | epsilon)+)b?cd*|(empty())
+
+样例5，RE=((a | epsilon)+)b?cd*|(empty()): | . . . + | 'a' 1 ? 'b' 'c' * 'd' 0
+
+—————————LBFA1:
+
+LBFA
+Q = [0,5)
+s = 4
+F = { 2  3 }
+Qmap_inverse = { 'a'->0  'b'->1  'c'->2  'd'->3 }
+follow = 
+0->{ 0  1  2 }
+1->{ 2 }
+2->{ 3 }
+3->{ 3 }
+4->{ 0  1  2 }
+
+current = {}
+
+
+—————————LBFA2:
+
+LBFA
+Q = [0,5)
+s = 0
+F = { 3  4 }
+Qmap_inverse = { '$'->0  'a'->1  'b'->2  'c'->3  'd'->4 }
+follow = 
+0->{ 1  2  3 }
+1->{ 1  2  3 }
+2->{ 3 }
+3->{ 4 }
+4->{ 4 }
+
+current = {}
+
+
+—————————RBFA1:
+
+RBFA
+Q = [0,5)
+S = { 0  1  2 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'c'->2  'd'->3 }
+follow = 
+0->{ 0  1  2 }
+1->{ 2 }
+2->{ 3  4 }
+3->{ 3  4 }
+4->{}
+
+current = {}
+
+
+—————————rBFA2:
+
+RBFA
+Q = [0,5)
+S = { 4 }
+f = 4
+Qmap_inverse = { 'a'->0  'b'->1  'c'->2  'd'->3  '$'->4 }
+follow = 
+0->{ 0  1  2 }
+1->{ 2 }
+2->{ 3  4 }
+3->{ 3  4 }
+4->{}
+
+current = {}
+
+以下分别输出lbfa1和lbfa2各自转换的DFA和lbfa1通过另外一种方式输出的DFA
+
+————————DFA1_lbfa1:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+————————DFA1_lbfa2:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+=====LBFA2DFA=====
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+=====MYGTest测试=====
+=====MYGTest1=====
+* 'b'
+样例1，RE=（a|epsilon) concat b*: . | 'a' 1 * 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+=====MYGTest2=====
+
+————————测试点11111
+
+. . | 'a' 'b' 'a' 'b'
+样例2，RE=（a∪b)ab: . . | 'a' 'b' 'a' 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+=====MYGTest3=====
+. . * | 'a' 'b' 'a' 'b'
+样例3，RE=(a∪b)*ab: . . * | 'a' 'b' 'a' 'b'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+=====MYGTest4=====
+| . * | 'a' 'b' 'a' * . 'a' 'a'    (a+b)*a+(aa)*
+
+样例4，RE=(a+b)*a+(aa)*: | . * | 'a' 'b' 'a' * . 'a' 'a'
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+=====MYGTest5=====
+| . . . + | 'a' 1 ? 'b' 'c' * 'd' 0    ((a | epsilon)+)b?cd*|(empty())
+
+样例5，RE=((a | epsilon)+)b?cd*|(empty()): | . . . + | 'a' 1 ? 'b' 'c' * 'd' 0
+DFA1__MYG_shortcut
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+DFA2__MYG
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+=====ThompsonTest测试11111=====
+=====ThompsonTest1
+1
+fa1:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{ 1 }
+1->{}
+
+current = {}
+
+0
+fa2:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{}
+1->{}
+
+current = {}
+
+'a'
+fa3:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+
+E = 
+0->{}
+1->{}
+
+current = {}
+
+* 'b'
+fa4:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'b'->3 }
+3->{}
+
+E = 
+0->{ 1  2 }
+1->{}
+2->{}
+3->{ 1  2 }
+
+current = {}
+
++ 'b'
+fa41:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'b'->3 }
+3->{}
+
+E = 
+0->{ 2 }
+1->{}
+2->{}
+3->{ 1  2 }
+
+current = {}
+
+? 'b'
+fa42:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'b'->3 }
+3->{}
+
+E = 
+0->{ 1  2 }
+1->{}
+2->{}
+3->{ 1 }
+
+current = {}
+
+| 'a' 1
+fa43:
+FA
+Q = [0,6)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'a'->3 }
+3->{}
+4->{}
+5->{}
+
+E = 
+0->{ 2  4 }
+1->{}
+2->{}
+3->{ 1 }
+4->{ 5 }
+5->{ 1 }
+
+current = {}
+
+. 'a' 1
+fa44:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'a'->2 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{}
+2->{ 3 }
+3->{ 1 }
+
+current = {}
+
+| 'a' 1
+fa5:
+FA
+Q = [0,6)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'a'->3 }
+3->{}
+4->{}
+5->{}
+
+E = 
+0->{ 2  4 }
+1->{}
+2->{}
+3->{ 1 }
+4->{ 5 }
+5->{ 1 }
+
+current = {}
+
+* 'b'
+以上为测试基础构造FA功能部分
+
+以下为样例测试,输出格式为：RE+RE构造的FA+FA对应转换的DFA
+
+. | 'a' 1 * 'b' ————测试fa6对应的RE=(a | epsilon) concat b* 
+
+fa6:
+FA
+Q = [0,10)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{ 'a'->5 }
+5->{}
+6->{}
+7->{}
+8->{ 'b'->9 }
+9->{}
+
+E = 
+0->{ 4  6 }
+1->{}
+2->{ 3 }
+3->{ 1  8 }
+4->{}
+5->{ 2 }
+6->{ 7 }
+7->{ 2 }
+8->{}
+9->{ 1  8 }
+
+current = {}
+
+————————DFA1:
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+. . | 'a' 'b' 'a' 'b' ————测试fa7对应的RE=(a ∪ b) ab
+
+fa7:
+FA
+Q = [0,10)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{}
+3->{ 'b'->1 }
+4->{}
+5->{ 'a'->2 }
+6->{ 'a'->7 }
+7->{}
+8->{ 'b'->9 }
+9->{}
+
+E = 
+0->{ 6  8 }
+1->{}
+2->{ 3 }
+3->{}
+4->{ 5 }
+5->{}
+6->{}
+7->{ 4 }
+8->{}
+9->{ 4 }
+
+current = {}
+
+
+Thompson1
+
+————————DFA2:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+. . * | 'a' 'b' 'a' 'b' ————fa8对应的RE= ((a ∪ b)*) ab
+
+fa8:
+FA
+Q = [0,12)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{}
+3->{ 'b'->1 }
+4->{}
+5->{ 'a'->2 }
+6->{}
+7->{}
+8->{ 'a'->9 }
+9->{}
+10->{ 'b'->11 }
+11->{}
+
+E = 
+0->{ 4  6 }
+1->{}
+2->{ 3 }
+3->{}
+4->{ 5 }
+5->{}
+6->{ 8  10 }
+7->{ 4  6 }
+8->{}
+9->{ 7 }
+10->{}
+11->{ 7 }
+
+current = {}
+
+————————DFA3:
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->3  'a'->1 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+| . * | 'a' 'b' 'a' * . 'a' 'a' ————fa9对应的RE= (a|b)*a|(aa)*
+
+测试fa9:
+FA
+Q = [0,18)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+5->{ 'a'->3 }
+6->{}
+7->{}
+8->{ 'a'->9 }
+9->{}
+10->{ 'b'->11 }
+11->{}
+12->{}
+13->{}
+14->{ 'a'->16 }
+15->{}
+16->{}
+17->{ 'a'->15 }
+
+E = 
+0->{ 2  12 }
+1->{}
+2->{ 4  6 }
+3->{ 1 }
+4->{ 5 }
+5->{}
+6->{ 8  10 }
+7->{ 4  6 }
+8->{}
+9->{ 7 }
+10->{}
+11->{ 7 }
+12->{ 13  14 }
+13->{ 1 }
+14->{}
+15->{ 13  14 }
+16->{ 17 }
+17->{}
+
+current = {}
+
+————————DFA4:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+| . . . + | 'a' 1 ? 'b' 'c' * 'd' 0 ————fa10对应的RE=((a | epsilon)+)b?cd*|(empty())
+
+测试fa10:
+FA
+Q = [0,22)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{}
+3->{}
+4->{}
+5->{}
+6->{}
+7->{ 'c'->4 }
+8->{}
+9->{}
+10->{}
+11->{}
+12->{ 'a'->13 }
+13->{}
+14->{}
+15->{}
+16->{ 'b'->17 }
+17->{}
+18->{ 'd'->19 }
+19->{}
+20->{}
+21->{}
+
+E = 
+0->{ 2  20 }
+1->{}
+2->{ 10 }
+3->{ 1 }
+4->{ 5 }
+5->{ 3  18 }
+6->{ 7 }
+7->{}
+8->{ 9 }
+9->{ 6  16 }
+10->{ 12  14 }
+11->{ 8  10 }
+12->{}
+13->{ 11 }
+14->{ 15 }
+15->{ 11 }
+16->{}
+17->{ 6 }
+18->{}
+19->{ 3  18 }
+20->{}
+21->{ 1 }
+
+current = {}
+
+————————DFA5:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 1  4 }
+Transitions = 
+0->{ 'c'->1  'a'->2  'b'->3 }
+1->{ 'd'->4 }
+2->{ 'c'->1  'a'->2  'b'->3 }
+3->{ 'c'->1 }
+4->{ 'd'->4 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+=====Thompson_sigmaTest1
+1
+
+——————测试点（等效与否）
+
+
+fa1:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{ 1 }
+1->{}
+
+current = {}
+
+
+fb1:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{ 1 }
+1->{}
+
+current = {}
+
+
+fc1:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{ 1 }
+1->{}
+
+current = {}
+
+0
+fa2:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+
+E = 
+0->{}
+1->{}
+
+current = {}
+
+fa3:
+FA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+
+E = 
+0->{}
+1->{}
+
+current = {}
+
+* 'b'
+
+__________fa48:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{}
+1->{}
+2->{ 'b'->3 }
+3->{}
+
+E = 
+0->{ 1  2 }
+1->{}
+2->{}
+3->{ 1  2 }
+
+current = {}
+
+__________fa4:
+FA
+Q = [0,4)
+S = { 2 }
+F = { 3 }
+Transitions = 
+0->{ 'b'->1 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{ 0  3 }
+2->{ 0  3 }
+3->{}
+
+current = {}
+
+__________fa46:
+
+FA
+Q = [0,4)
+S = { 2 }
+F = { 3 }
+Transitions = 
+0->{ 'b'->1 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{ 0  3 }
+2->{ 0  3 }
+3->{}
+
+current = {}
+
++ 'b'
+fa41:
+FA
+Q = [0,4)
+S = { 2 }
+F = { 3 }
+Transitions = 
+0->{ 'b'->1 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{ 0  3 }
+2->{ 0 }
+3->{}
+
+current = {}
+
+? 'b'
+fa42:
+FA
+Q = [0,4)
+S = { 2 }
+F = { 3 }
+Transitions = 
+0->{ 'b'->1 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{ 3 }
+2->{ 0  3 }
+3->{}
+
+current = {}
+
+| 'a' 1
+fa43:
+FA
+Q = [0,6)
+S = { 4 }
+F = { 5 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{}
+3->{}
+4->{}
+5->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{ 3 }
+3->{ 5 }
+4->{ 0  2 }
+5->{}
+
+current = {}
+
+. 'a' 1
+fa44:
+FA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{}
+3->{}
+
+E = 
+0->{}
+1->{ 2 }
+2->{ 3 }
+3->{}
+
+current = {}
+
+| 'a' 1
+fa5:
+FA
+Q = [0,6)
+S = { 4 }
+F = { 5 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{}
+3->{}
+4->{}
+5->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{ 3 }
+3->{ 5 }
+4->{ 0  2 }
+5->{}
+
+current = {}
+
+* 'b'
+以上为测试基础构造FA功能部分
+
+以下为样例测试,输出格式为：RE+RE构造的FA+FA对应转换的DFA
+
+. | 'a' 1 * 'b'————测试fa6对应的RE=(a | epsilon) concat b* 
+
+fa6:
+FA
+Q = [0,10)
+S = { 4 }
+F = { 9 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{}
+3->{}
+4->{}
+5->{}
+6->{ 'b'->7 }
+7->{}
+8->{}
+9->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{ 3 }
+3->{ 5 }
+4->{ 0  2 }
+5->{ 8 }
+6->{}
+7->{ 6  9 }
+8->{ 6  9 }
+9->{}
+
+current = {}
+
+————————DFA1S:
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 0  1  2 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'b'->2 }
+2->{ 'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0  1 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'b'->1 }
+
+current = -1
+
+. . | 'a' 'b' 'a' 'b'————测试fa7对应的RE=(a ∪ b) ab
+
+fa7:
+FA
+Q = [0,10)
+S = { 4 }
+F = { 9 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{ 'b'->3 }
+3->{}
+4->{}
+5->{}
+6->{ 'a'->7 }
+7->{}
+8->{ 'b'->9 }
+9->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{}
+3->{ 5 }
+4->{ 0  2 }
+5->{ 6 }
+6->{}
+7->{ 8 }
+8->{}
+9->{}
+
+current = {}
+
+————————DFA2S:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3 }
+2->{ 'a'->3 }
+3->{ 'b'->4 }
+4->{}
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ ['a','b']->1 }
+1->{ 'a'->2 }
+2->{ 'b'->3 }
+3->{}
+
+current = -1
+
+. . * | 'a' 'b' 'a' 'b'————测试fa8对应的RE=((a ∪ b)* ) ab
+
+fa8:
+FA
+Q = [0,12)
+S = { 6 }
+F = { 11 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{ 'b'->3 }
+3->{}
+4->{}
+5->{}
+6->{}
+7->{}
+8->{ 'a'->9 }
+9->{}
+10->{ 'b'->11 }
+11->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{}
+3->{ 5 }
+4->{ 0  2 }
+5->{ 4  7 }
+6->{ 4  7 }
+7->{ 8 }
+8->{}
+9->{ 10 }
+10->{}
+11->{}
+
+current = {}
+
+————————DFA3S:
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->1  'b'->3 }
+2->{ 'a'->1  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ 'a'->1  'b'->0 }
+1->{ 'b'->2  'a'->1 }
+2->{ 'a'->1  'b'->0 }
+
+current = -1
+
+| . * | 'a' 'b' 'a' * . 'a' 'a'————测试fa9对应的RE=(a+b)*a+(aa)*
+
+fa9:
+FA
+Q = [0,18)
+S = { 16 }
+F = { 17 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{ 'b'->3 }
+3->{}
+4->{}
+5->{}
+6->{}
+7->{}
+8->{ 'a'->9 }
+9->{}
+10->{ 'a'->11 }
+11->{}
+12->{ 'a'->13 }
+13->{}
+14->{}
+15->{}
+16->{}
+17->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{}
+3->{ 5 }
+4->{ 0  2 }
+5->{ 4  7 }
+6->{ 4  7 }
+7->{ 8 }
+8->{}
+9->{ 17 }
+10->{}
+11->{ 12 }
+12->{}
+13->{ 10  15 }
+14->{ 10  15 }
+15->{ 17 }
+16->{ 6  14 }
+17->{}
+
+current = {}
+
+————————DFA4S:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 0  1  3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2 }
+1->{ 'a'->3  'b'->2 }
+2->{ 'a'->4  'b'->2 }
+3->{ 'a'->1  'b'->2 }
+4->{ 'a'->4  'b'->2 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 0 }
+Transitions = 
+0->{ 'a'->0  'b'->1 }
+1->{ 'a'->0  'b'->1 }
+
+current = -1
+
+| . . . + | 'a' 1 ? 'b' 'c' * 'd' 0————测试fa10对应的RE=((a | epsilon)+)b?cd*|(empty())
+
+fa10:
+FA
+Q = [0,22)
+S = { 20 }
+F = { 21 }
+Transitions = 
+0->{ 'a'->1 }
+1->{}
+2->{}
+3->{}
+4->{}
+5->{}
+6->{}
+7->{}
+8->{ 'b'->9 }
+9->{}
+10->{}
+11->{}
+12->{ 'c'->13 }
+13->{}
+14->{ 'd'->15 }
+15->{}
+16->{}
+17->{}
+18->{}
+19->{}
+20->{}
+21->{}
+
+E = 
+0->{}
+1->{ 5 }
+2->{ 3 }
+3->{ 5 }
+4->{ 0  2 }
+5->{ 4  7 }
+6->{ 4 }
+7->{ 10 }
+8->{}
+9->{ 11 }
+10->{ 8  11 }
+11->{ 12 }
+12->{}
+13->{ 16 }
+14->{}
+15->{ 14  17 }
+16->{ 14  17 }
+17->{ 21 }
+18->{}
+19->{ 21 }
+20->{ 6  18 }
+21->{}
+
+current = {}
+
+-----------------DFA5S:
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ 'a'->1  'b'->2  'c'->3 }
+1->{ 'a'->1  'b'->2  'c'->3 }
+2->{ 'c'->3 }
+3->{ 'd'->4 }
+4->{ 'd'->4 }
+
+current = -1
+
+-------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by dragon
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by HopcroftUllman
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+-------------min by Watson
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ 'c'->1  'a'->0  'b'->2 }
+1->{ 'd'->1 }
+2->{ 'c'->1 }
+
+current = -1
+
+
+
+
+
+##################################################################
+###    Now Test the minimization algorithms in the class DFA   ###
+##################################################################
+Now Test A.1(a) 
+original DFA
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->3  '0'->0 }
+2->{ '0'->4  '1'->5 }
+3->{ '0'->4  '1'->5 }
+4->{ '0'->4  '1'->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+minimized by Brzozowski
+anwser is right?:  1
+---------------minimized by Hopcroft
+anwser is right?:  1
+---------------minimized by HopcroftUllman
+anwser is right?:  1
+---------------minimized by dragon
+anwser is right?:  1
+---------------minimized by Watson
+anwser is right?:  1
+
+---------------------------------------------------------
+Now Test A.1(b) 
+original DFA
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->3  '0'->0 }
+2->{ '0'->4 }
+3->{ '0'->4 }
+4->{ '0'->4 }
+
+current = -1
+minimized by Brzozowski
+anwser is right?:  1
+---------------minimized by Hopcroft
+anwser is right?:  1
+---------------minimized by HopcroftUllman
+anwser is right?:  1
+---------------minimized by dragon
+anwser is right?:  1
+---------------minimized by Watson
+anwser is right?:  1
+
+---------------------------------------------------------
+Now Test A.2(a) 
+original DFA
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->1  '0'->2 }
+2->{ '0'->2  '1'->1 }
+
+current = -1
+minimized by Brzozowski
+anwser is right?:  1
+---------------minimized by Hopcroft
+anwser is right?:  1
+---------------minimized by HopcroftUllman
+anwser is right?:  1
+---------------minimized by dragon
+anwser is right?:  1
+---------------minimized by Watson
+anwser is right?:  1
+
+---------------------------------------------------------
+Now Test A.2(b) 
+original DFA
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->2 }
+2->{ '1'->1 }
+
+current = -1
+minimized by Brzozowski
+anwser is right?:  1
+---------------minimized by Hopcroft
+anwser is right?:  1
+---------------minimized by HopcroftUllman
+anwser is right?:  1
+---------------minimized by dragon
+anwser is right?:  1
+---------------minimized by Watson
+anwser is right?:  1
+
+---------------------------------------------------------
+#####################################################
+Now test A.3(a), respect anwser A.3(c)
+original DFA
+
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '1'->4  '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '0'->8  '1'->4 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+#####################################################
+Now test A.3(b), respect anwser A.3(b)
+original DFA
+
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 7  8 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->3 }
+2->{ '1'->4 }
+3->{ '0'->5 }
+4->{ '0'->6 }
+5->{ '1'->7 }
+6->{ '1'->8 }
+7->{ '0'->8 }
+8->{ '1'->7 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '1'->6 }
+6->{ '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+#####################################################
+Now test A.4(a), respect anwser A.4(c)
+original DFA
+
+DFA
+Q = [0,7)
+S = { 0 }
+F = { 2  3  5  6 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '1'->4  '0'->2 }
+2->{ '0'->2  '1'->3 }
+3->{ '0'->6  '1'->3 }
+4->{ '0'->1  '1'->5 }
+5->{ '0'->6  '1'->5 }
+6->{ '0'->2  '1'->3 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->2 }
+2->{ '1'->3  '0'->1 }
+3->{ ['0','1']->3 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->3 }
+1->{ '1'->3  '0'->2 }
+2->{ ['0','1']->2 }
+3->{ '0'->1  '1'->2 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->3 }
+1->{ '1'->3  '0'->2 }
+2->{ ['0','1']->2 }
+3->{ '0'->1  '1'->2 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->3 }
+1->{ '1'->3  '0'->2 }
+2->{ ['0','1']->2 }
+3->{ '0'->1  '1'->2 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->3 }
+1->{ '1'->3  '0'->2 }
+2->{ ['0','1']->2 }
+3->{ '0'->1  '1'->2 }
+
+current = -1
+
+#####################################################
+Now test A.4(b), respect anwser A.4(b)
+original DFA
+
+DFA
+Q = [0,7)
+S = { 0 }
+F = { 2  3  5  6 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '1'->4  '0'->2 }
+2->{ '0'->2  '1'->3 }
+3->{ '0'->6 }
+4->{ '0'->1  '1'->5 }
+5->{ '0'->6  '1'->5 }
+6->{ '0'->2  '1'->3 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4  5 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->2 }
+2->{ '1'->4  '0'->1 }
+3->{ '0'->3  '1'->5 }
+4->{ '0'->3  '1'->4 }
+5->{ '0'->3 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  5 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '1'->4  '0'->2 }
+2->{ '0'->2  '1'->3 }
+3->{ '0'->2 }
+4->{ '0'->1  '1'->5 }
+5->{ '0'->2  '1'->5 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  5 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '1'->4  '0'->2 }
+2->{ '0'->2  '1'->3 }
+3->{ '0'->2 }
+4->{ '0'->1  '1'->5 }
+5->{ '0'->2  '1'->5 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  5 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '1'->4  '0'->2 }
+2->{ '0'->2  '1'->3 }
+3->{ '0'->2 }
+4->{ '0'->1  '1'->5 }
+5->{ '0'->2  '1'->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->3 }
+1->{ '1'->3  '0'->2 }
+2->{ ['0','1']->2 }
+3->{ '0'->1  '1'->2 }
+
+current = -1
+
+#####################################################
+Now test A.5(a)(with sink), respect anwser A.5(a) or A.5(b)
+original DFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{}
+2->{ '1'->1  '0'->3 }
+3->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '0'->2 }
+2->{ '0'->2 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{}
+2->{ '1'->1  '0'->3 }
+3->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{}
+2->{ '1'->1  '0'->3 }
+3->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{}
+2->{ '1'->1  '0'->3 }
+3->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{}
+2->{ '1'->1  '0'->3 }
+3->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------usefulf function
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '0'->2 }
+2->{ '0'->2 }
+
+current = -1
+
+#####################################################
+Now test A.5(a)(with sink), respect anwser A.5(a) or A.5(b)
+original DFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2 }
+1->{}
+2->{ '0'->3 }
+3->{ '0'->3 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '0'->2 }
+2->{ '0'->2 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2 }
+1->{}
+2->{ '0'->3 }
+3->{ '0'->3 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2 }
+1->{}
+2->{ '0'->3 }
+3->{ '0'->3 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2 }
+1->{}
+2->{ '0'->3 }
+3->{ '0'->3 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->2 }
+1->{}
+2->{ '0'->3 }
+3->{ '0'->3 }
+
+current = -1
+
+#####################################################
+Now test A.6(a)(with start-unreachable), respect anwser A.6(a) or A.6(b)
+original DFA
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->4  '1'->0 }
+4->{ '0'->4  '1'->0 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '1'->2  '0'->0 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->3  '1'->0 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->4  '1'->0 }
+4->{ '0'->4  '1'->0 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->4  '1'->0 }
+4->{ '0'->4  '1'->0 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->4  '1'->0 }
+4->{ '0'->4  '1'->0 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->3 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->4  '1'->0 }
+4->{ '0'->4  '1'->0 }
+
+current = -1
+
+------------usefuls function
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->0  '1'->2 }
+2->{ '0'->3  '1'->0 }
+3->{ '0'->3  '1'->0 }
+
+current = -1
+
+#####################################################
+Now test A.7(a)(with start-unreachable), respect anwser A.7(a) or A.7(b)
+original DFA
+
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+5->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '1'->4  '0'->0 }
+4->{ '0'->1  '1'->0 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+5->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+5->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+5->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+5->{ '0'->3  '1'->1 }
+
+current = -1
+
+------------usefuls function
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ '0'->2  '1'->0 }
+2->{ '0'->3  '1'->4 }
+3->{ '0'->0  '1'->4 }
+4->{ '0'->1  '1'->0 }
+
+current = -1
+
+#####################################################
+******* test the new function: complete
+Now test A.8(a)(with start-unreachable), respect anwser A.8(a)
+original DFA
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3 }
+2->{ '1'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->2 }
+2->{ '1'->2 }
+
+current = -1
+
+------------after complete 
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->5 }
+2->{ '0'->5  '1'->3 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->5 }
+2->{ '0'->5  '1'->3 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------after usefulf 
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3 }
+2->{ '1'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+#####################################################
+******* test the new function: complete
+Now test A.8(b), respect anwser A.8(b)
+original DFA
+
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->2 }
+2->{ '0'->1 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ ['0','1']->1 }
+1->{ '1'->1 }
+
+current = -1
+
+------------after complete 
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->2 }
+2->{ '0'->1  '1'->3 }
+3->{ ['0','1']->3 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->2 }
+2->{ '0'->1  '1'->3 }
+3->{ ['0','1']->3 }
+
+current = -1
+
+------------after usefulf 
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 1  2 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->2 }
+2->{ '0'->1 }
+
+current = -1
+
+#####################################################
+******* test the new function: complete
+Now test A.8(c), respect anwser A.8(c)
+original DFA
+
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{}
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{}
+
+current = -1
+
+------------after complete 
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '0'->4  '1'->2 }
+2->{ '0'->3  '1'->4 }
+3->{ ['0','1']->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1  '1'->4 }
+1->{ '0'->4  '1'->2 }
+2->{ '0'->3  '1'->4 }
+3->{ ['0','1']->4 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+------------after usefulf 
+DFA
+Q = [0,4)
+S = { 0 }
+F = { 3 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{}
+
+current = -1
+
+#####################################################
+******* test the new function: complete
+Now test A.8(d), respect anwser A.8(d)
+original DFA
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->2 }
+
+current = -1
+
+------------after complete 
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->5 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->5 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------after usefulf 
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 2  3  4 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+#####################################################
+******* test the new function: complete
+Now test A.8(e), respect anwser A.8(e)
+original DFA
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+------------after complete 
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->5 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,6)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '0'->5  '1'->2 }
+2->{ '0'->3  '1'->5 }
+3->{ '0'->5  '1'->4 }
+4->{ ['0','1']->5 }
+5->{ ['0','1']->5 }
+
+current = -1
+
+------------after usefulf 
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->1 }
+1->{ '1'->2 }
+2->{ '0'->3 }
+3->{ '1'->4 }
+4->{}
+
+current = -1
+
+#####################################################
+Now test A.9(a)(with start-unreachable), respect anwser A.9(a) or A.9(b)
+original DFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,225)
+S = { 0 }
+F = { 3  7  10  12  14  15  16  17  18  19  20  21  22  24  26  27  28  29  31  33  34  36  37  38  39  41  45  46  47  50  52  53  54  55  57  58  62  63  64  67  69  71  73  74  76  77  80  81  83  84  86  88  90  91  92  93  95  96  97  99  101  102  104  105  106  108  110  111  113  114  115  116  117  118  120  123  124  125  126  128  131  133  134  136  137  138  139  141  142  143  144  146  147  148  149  150  151  153  156  157  158  160  162  163  164  166  167  169  170  171  172  174  176  177  179  180  182  183  184  185  186  187  188  189  191  194  195  196  198  201  202  203  204  205  206  207  209  210  211  213  214  216  219  220  222  223  224 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->4 }
+2->{ '1'->5  '0'->6 }
+3->{ '0'->7  '1'->8 }
+4->{ '0'->9  '1'->5 }
+5->{ '1'->10  '0'->11 }
+6->{ '0'->12  '1'->4 }
+7->{ '0'->3  '1'->4 }
+8->{ '0'->11  '1'->13 }
+9->{ '1'->14  '0'->15 }
+10->{ '1'->16  '0'->17 }
+11->{ '1'->18  '0'->19 }
+12->{ '1'->16  '0'->20 }
+13->{ '1'->21  '0'->9 }
+14->{ '0'->22  '1'->23 }
+15->{ '1'->24  '0'->25 }
+16->{ '1'->26  '0'->27 }
+17->{ '1'->14  '0'->28 }
+18->{ '1'->29  '0'->30 }
+19->{ '1'->31  '0'->32 }
+20->{ '0'->12  '1'->4 }
+21->{ '1'->26  '0'->33 }
+22->{ '1'->14  '0'->34 }
+23->{ '1'->13  '0'->35 }
+24->{ '1'->26  '0'->36 }
+25->{ '1'->37  '0'->15 }
+26->{ '1'->16  '0'->38 }
+27->{ '1'->39  '0'->16 }
+28->{ '1'->24  '0'->40 }
+29->{ '0'->41  '1'->42 }
+30->{ '1'->43  '0'->44 }
+31->{ '1'->16  '0'->45 }
+32->{ '1'->46  '0'->19 }
+33->{ '1'->18  '0'->47 }
+34->{ '1'->48  '0'->49 }
+35->{ '0'->50  '1'->51 }
+36->{ '1'->52  '0'->16 }
+37->{ '0'->53  '1'->42 }
+38->{ '1'->54  '0'->26 }
+39->{ '1'->55  '0'->56 }
+40->{ '1'->14  '0'->28 }
+41->{ '1'->57  '0'->58 }
+42->{ '1'->13  '0'->59 }
+43->{ '0'->60  '1'->61 }
+44->{ '0'->62  '1'->4 }
+45->{ '1'->63  '0'->26 }
+46->{ '1'->64  '0'->65 }
+47->{ '1'->31  '0'->66 }
+48->{ '0'->32  '1'->13 }
+49->{ '0'->67  '1'->68 }
+50->{ '1'->26  '0'->69 }
+51->{ '1'->10  '0'->70 }
+52->{ '1'->71  '0'->72 }
+53->{ '1'->14  '0'->73 }
+54->{ '0'->74  '1'->75 }
+55->{ '1'->76  '0'->77 }
+56->{ '0'->78  '1'->79 }
+57->{ '1'->80  '0'->81 }
+58->{ '1'->48  '0'->82 }
+59->{ '0'->83  '1'->8 }
+60->{ '1'->46  '0'->84 }
+61->{ '1'->21  '0'->85 }
+62->{ '0'->86  '1'->87 }
+63->{ '0'->88  '1'->89 }
+64->{ '0'->90  '1'->42 }
+65->{ '1'->43  '0'->1 }
+66->{ '1'->18  '0'->47 }
+67->{ '0'->91  '1'->8 }
+68->{ '0'->17  '1'->51 }
+69->{ '0'->50  '1'->51 }
+70->{ '1'->39  '0'->92 }
+71->{ '1'->76  '0'->93 }
+72->{ '0'->94  '1'->79 }
+73->{ '1'->48  '0'->1 }
+74->{ '1'->95  '0'->96 }
+75->{ '1'->97  '0'->98 }
+76->{ '0'->99  '1'->100 }
+77->{ '1'->95  '0'->101 }
+78->{ '1'->26  '0'->102 }
+79->{ '1'->97  '0'->103 }
+80->{ '0'->104  '1'->100 }
+81->{ '1'->54  '0'->105 }
+82->{ '0'->106  '1'->107 }
+83->{ '1'->26  '0'->108 }
+84->{ '1'->31  '0'->109 }
+85->{ '1'->95  '0'->110 }
+86->{ '0'->62  '1'->4 }
+87->{ '0'->33  '1'->107 }
+88->{ '1'->95  '0'->111 }
+89->{ '1'->97  '0'->112 }
+90->{ '1'->37  '0'->73 }
+91->{ '0'->67  '1'->68 }
+92->{ '1'->26  '0'->113 }
+93->{ '1'->14  '0'->114 }
+94->{ '1'->26  '0'->115 }
+95->{ '1'->76  '0'->116 }
+96->{ '1'->24  '0'->78 }
+97->{ '1'->16  '0'->117 }
+98->{ '0'->118  '1'->119 }
+99->{ '0'->120  '1'->51 }
+100->{ '1'->21  '0'->121 }
+101->{ '0'->122  '1'->48 }
+102->{ '1'->16  '0'->118 }
+103->{ '1'->52  '0'->123 }
+104->{ '0'->124  '1'->8 }
+105->{ '0'->125  '1'->8 }
+106->{ '0'->126  '1'->8 }
+107->{ '1'->21  '0'->127 }
+108->{ '0'->83  '1'->8 }
+109->{ '1'->128  '0'->84 }
+110->{ '1'->24  '0'->129 }
+111->{ '1'->24  '0'->130 }
+112->{ '0'->131  '1'->132 }
+113->{ '1'->133  '0'->134 }
+114->{ '0'->135  '1'->48 }
+115->{ '1'->136  '0'->137 }
+116->{ '1'->54  '0'->138 }
+117->{ '1'->95  '0'->139 }
+118->{ '1'->26  '0'->102 }
+119->{ '1'->97  '0'->140 }
+120->{ '1'->26  '0'->141 }
+121->{ '1'->54  '0'->142 }
+122->{ '1'->26  '0'->108 }
+123->{ '1'->26  '0'->143 }
+124->{ '1'->26  '0'->144 }
+125->{ '0'->105  '1'->145 }
+126->{ '0'->106  '1'->107 }
+127->{ '1'->54  '0'->146 }
+128->{ '1'->147  '0'->148 }
+129->{ '1'->57  '0'->110 }
+130->{ '1'->149  '0'->150 }
+131->{ '1'->26  '0'->151 }
+132->{ '0'->152  '1'->61 }
+133->{ '1'->153  '0'->154 }
+134->{ '1'->31  '0'->155 }
+135->{ '1'->156  '0'->157 }
+136->{ '1'->158  '0'->159 }
+137->{ '1'->26  '0'->115 }
+138->{ '0'->160  '1'->8 }
+139->{ '1'->24  '0'->161 }
+140->{ '1'->39  '0'->123 }
+141->{ '0'->120  '1'->119 }
+142->{ '1'->16  '0'->162 }
+143->{ '1'->163  '0'->164 }
+144->{ '0'->124  '1'->132 }
+145->{ '0'->85  '1'->165 }
+146->{ '1'->16  '0'->166 }
+147->{ '0'->167  '1'->42 }
+148->{ '1'->43  '0'->168 }
+149->{ '1'->169  '0'->121 }
+150->{ '1'->16  '0'->170 }
+151->{ '1'->171  '0'->131 }
+152->{ '1'->18  '0'->84 }
+153->{ '0'->172  '1'->23 }
+154->{ '1'->79  '0'->173 }
+155->{ '1'->133  '0'->134 }
+156->{ '0'->174  '1'->175 }
+157->{ '0'->176  '1'->8 }
+158->{ '1'->16  '0'->174 }
+159->{ '1'->39  '0'->177 }
+160->{ '0'->138  '1'->178 }
+161->{ '1'->95  '0'->139 }
+162->{ '1'->63  '0'->142 }
+163->{ '1'->179  '0'->180 }
+164->{ '1'->31  '0'->181 }
+165->{ '1'->97  '0'->152 }
+166->{ '1'->182  '0'->183 }
+167->{ '1'->63  '0'->105 }
+168->{ '0'->184  '1'->4 }
+169->{ '1'->26  '0'->185 }
+170->{ '1'->149  '0'->150 }
+171->{ '0'->185  '1'->100 }
+172->{ '1'->37  '0'->34 }
+173->{ '0'->186  '1'->4 }
+174->{ '1'->14  '0'->187 }
+175->{ '1'->10  '0'->159 }
+176->{ '1'->156  '0'->157 }
+177->{ '1'->26  '0'->188 }
+178->{ '0'->117  '1'->119 }
+179->{ '0'->189  '1'->23 }
+180->{ '1'->79  '0'->190 }
+181->{ '1'->163  '0'->164 }
+182->{ '0'->191  '1'->192 }
+183->{ '1'->24  '0'->193 }
+184->{ '0'->194  '1'->132 }
+185->{ '1'->18  '0'->195 }
+186->{ '0'->196  '1'->51 }
+187->{ '1'->24  '0'->197 }
+188->{ '1'->52  '0'->177 }
+189->{ '1'->63  '0'->138 }
+190->{ '0'->198  '1'->4 }
+191->{ '1'->95  '0'->58 }
+192->{ '1'->61  '0'->199 }
+193->{ '1'->182  '0'->183 }
+194->{ '0'->184  '1'->4 }
+195->{ '1'->31  '0'->200 }
+196->{ '0'->186  '1'->4 }
+197->{ '1'->201  '0'->202 }
+198->{ '0'->203  '1'->119 }
+199->{ '0'->204  '1'->8 }
+200->{ '1'->205  '0'->206 }
+201->{ '0'->207  '1'->208 }
+202->{ '1'->16  '0'->209 }
+203->{ '0'->198  '1'->4 }
+204->{ '1'->26  '0'->210 }
+205->{ '1'->211  '0'->212 }
+206->{ '1'->26  '0'->213 }
+207->{ '1'->14  '0'->214 }
+208->{ '1'->10  '0'->215 }
+209->{ '1'->201  '0'->202 }
+210->{ '0'->204  '1'->87 }
+211->{ '1'->80  '0'->216 }
+212->{ '0'->217  '1'->43 }
+213->{ '1'->205  '0'->206 }
+214->{ '1'->24  '0'->218 }
+215->{ '0'->137  '1'->119 }
+216->{ '1'->95  '0'->219 }
+217->{ '1'->26  '0'->151 }
+218->{ '1'->156  '0'->220 }
+219->{ '0'->221  '1'->48 }
+220->{ '1'->16  '0'->222 }
+221->{ '1'->149  '0'->223 }
+222->{ '1'->156  '0'->220 }
+223->{ '0'->224  '1'->8 }
+224->{ '1'->149  '0'->223 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------after usefuls
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+#####################################################
+Now test A.9(b), respect anwser A.9(b)
+original DFA
+
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,238)
+S = { 0 }
+F = { 3  9  11  14  15  16  17  18  19  20  21  23  24  28  29  30  31  33  34  35  36  38  40  42  45  46  48  49  50  52  53  54  56  57  64  67  68  69  71  72  73  74  77  78  80  81  82  83  85  86  89  90  93  94  95  97  98  102  103  106  110  115  116  117  119  120  122  123  124  125  126  128  129  132  133  137  139  142  143  146  147  148  149  151  152  153  154  155  157  158  163  166  168  171  172  175  176  177  182  184  186  189  191  193  194  195  196  197  199  203  207  211  212  213  214  215  220  223  224  227  228  229  230  232  233  234  235 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '0'->3  '1'->4 }
+2->{ '1'->5  '0'->6 }
+3->{ '1'->7  '0'->1 }
+4->{ '0'->8  '1'->7 }
+5->{ '1'->9  '0'->10 }
+6->{ '0'->11  '1'->4 }
+7->{ '0'->12  '1'->13 }
+8->{ '1'->14  '0'->15 }
+9->{ '1'->16  '0'->17 }
+10->{ '1'->18  '0'->19 }
+11->{ '1'->20  '0'->6 }
+12->{ '1'->21  '0'->22 }
+13->{ '1'->23  '0'->8 }
+14->{ '0'->24  '1'->25 }
+15->{ '0'->26  '1'->27 }
+16->{ '1'->28  '0'->29 }
+17->{ '1'->14  '0'->30 }
+18->{ '1'->31  '0'->32 }
+19->{ '1'->33  '0'->34 }
+20->{ '1'->33  '0'->35 }
+21->{ '1'->36  '0'->37 }
+22->{ '1'->33  '0'->34 }
+23->{ '0'->38  '1'->39 }
+24->{ '1'->14  '0'->40 }
+25->{ '1'->13  '0'->41 }
+26->{ '1'->42  '0'->43 }
+27->{ '0'->44  '1'->43 }
+28->{ '1'->16  '0'->45 }
+29->{ '1'->46  '0'->16 }
+30->{ '1'->20  '0'->47 }
+31->{ '1'->48  '0'->49 }
+32->{ '0'->50  '1'->51 }
+33->{ '1'->52  '0'->53 }
+34->{ '1'->21  '0'->22 }
+35->{ '1'->54  '0'->55 }
+36->{ '1'->56  '0'->57 }
+37->{ '0'->58  '1'->7 }
+38->{ '1'->21  '0'->59 }
+39->{ '1'->23  '0'->60 }
+40->{ '1'->7  '0'->61 }
+41->{ '0'->62  '1'->63 }
+42->{ '0'->64  '1'->65 }
+43->{ '0'->26  '1'->27 }
+44->{ '1'->21  '0'->66 }
+45->{ '1'->67  '0'->68 }
+46->{ '1'->69  '0'->70 }
+47->{ '1'->14  '0'->30 }
+48->{ '1'->28  '0'->71 }
+49->{ '1'->72  '0'->73 }
+50->{ '1'->33  '0'->74 }
+51->{ '0'->75  '1'->76 }
+52->{ '0'->35  '1'->39 }
+53->{ '1'->67  '0'->77 }
+54->{ '1'->78  '0'->79 }
+55->{ '1'->28  '0'->29 }
+56->{ '0'->80  '1'->39 }
+57->{ '1'->14  '0'->3 }
+58->{ '1'->33  '0'->81 }
+59->{ '1'->28  '0'->82 }
+60->{ '1'->67  '0'->83 }
+61->{ '0'->40  '1'->84 }
+62->{ '1'->33  '0'->85 }
+63->{ '1'->86  '0'->87 }
+64->{ '1'->42  '0'->88 }
+65->{ '1'->43  '0'->88 }
+66->{ '0'->89  '1'->4 }
+67->{ '0'->90  '1'->91 }
+68->{ '1'->20  '0'->92 }
+69->{ '1'->93  '0'->94 }
+70->{ '0'->95  '1'->96 }
+71->{ '0'->48  '1'->51 }
+72->{ '1'->97  '0'->98 }
+73->{ '1'->20  '0'->99 }
+74->{ '0'->100  '1'->101 }
+75->{ '1'->18  '0'->102 }
+76->{ '1'->103  '0'->104 }
+77->{ '0'->105  '1'->7 }
+78->{ '1'->97  '0'->106 }
+79->{ '0'->107  '1'->63 }
+80->{ '0'->108  '1'->7 }
+81->{ '0'->58  '1'->7 }
+82->{ '1'->18  '0'->103 }
+83->{ '0'->109  '1'->27 }
+84->{ '0'->110  '1'->111 }
+85->{ '0'->62  '1'->63 }
+86->{ '1'->52  '0'->110 }
+87->{ '1'->54  '0'->112 }
+88->{ '1'->7  '0'->1 }
+89->{ '1'->21  '0'->66 }
+90->{ '1'->72  '0'->81 }
+91->{ '1'->113  '0'->114 }
+92->{ '1'->67  '0'->68 }
+93->{ '1'->28  '0'->115 }
+94->{ '1'->72  '0'->116 }
+95->{ '1'->33  '0'->116 }
+96->{ '1'->117  '0'->118 }
+97->{ '0'->119  '1'->39 }
+98->{ '1'->67  '0'->120 }
+99->{ '0'->73  '1'->121 }
+100->{ '1'->33  '0'->74 }
+101->{ '0'->38  '1'->121 }
+102->{ '1'->33  '0'->122 }
+103->{ '1'->28  '0'->82 }
+104->{ '1'->72  '0'->123 }
+105->{ '1'->67  '0'->77 }
+106->{ '1'->14  '0'->124 }
+107->{ '1'->33  '0'->125 }
+108->{ '1'->28  '0'->71 }
+109->{ '1'->126  '0'->127 }
+110->{ '1'->14  '0'->128 }
+111->{ '0'->87  '1'->13 }
+112->{ '1'->33  '0'->129 }
+113->{ '1'->23  '0'->130 }
+114->{ '0'->131  '1'->63 }
+115->{ '0'->93  '1'->96 }
+116->{ '1'->20  '0'->131 }
+117->{ '1'->16  '0'->132 }
+118->{ '1'->46  '0'->133 }
+119->{ '0'->134  '1'->63 }
+120->{ '1'->7  '0'->135 }
+121->{ '1'->23  '0'->136 }
+122->{ '1'->137  '0'->138 }
+123->{ '1'->139  '0'->140 }
+124->{ '0'->141  '1'->7 }
+125->{ '1'->142  '0'->107 }
+126->{ '0'->143  '1'->144 }
+127->{ '0'->109  '1'->27 }
+128->{ '0'->145  '1'->7 }
+129->{ '1'->146  '0'->112 }
+130->{ '1'->72  '0'->147 }
+131->{ '1'->33  '0'->116 }
+132->{ '1'->72  '0'->148 }
+133->{ '1'->33  '0'->149 }
+134->{ '1'->28  '0'->115 }
+135->{ '0'->120  '1'->150 }
+136->{ '1'->67  '0'->151 }
+137->{ '1'->152  '0'->80 }
+138->{ '1'->33  '0'->122 }
+139->{ '1'->153  '0'->154 }
+140->{ '1'->155  '0'->156 }
+141->{ '1'->157  '0'->124 }
+142->{ '1'->158  '0'->159 }
+143->{ '1'->155  '0'->160 }
+144->{ '1'->161  '0'->162 }
+145->{ '1'->14  '0'->128 }
+146->{ '1'->163  '0'->41 }
+147->{ '0'->164  '1'->27 }
+148->{ '1'->20  '0'->165 }
+149->{ '1'->166  '0'->167 }
+150->{ '0'->168  '1'->169 }
+151->{ '0'->170  '1'->27 }
+152->{ '1'->56  '0'->171 }
+153->{ '0'->172  '1'->173 }
+154->{ '1'->54  '0'->174 }
+155->{ '1'->175  '0'->176 }
+156->{ '1'->139  '0'->140 }
+157->{ '0'->177  '1'->178 }
+158->{ '1'->52  '0'->177 }
+159->{ '1'->54  '0'->179 }
+160->{ '0'->180  '1'->7 }
+161->{ '0'->164  '1'->27 }
+162->{ '1'->7  '0'->181 }
+163->{ '1'->97  '0'->24 }
+164->{ '1'->155  '0'->161 }
+165->{ '1'->72  '0'->148 }
+166->{ '1'->72  '0'->119 }
+167->{ '1'->33  '0'->149 }
+168->{ '1'->72  '0'->182 }
+169->{ '0'->183  '1'->113 }
+170->{ '1'->184  '0'->185 }
+171->{ '1'->67  '0'->186 }
+172->{ '1'->126  '0'->187 }
+173->{ '0'->188  '1'->43 }
+174->{ '0'->189  '1'->190 }
+175->{ '0'->191  '1'->127 }
+176->{ '1'->126  '0'->192 }
+177->{ '1'->14  '0'->193 }
+178->{ '0'->159  '1'->13 }
+179->{ '1'->33  '0'->194 }
+180->{ '1'->195  '0'->196 }
+181->{ '0'->197  '1'->4 }
+182->{ '0'->198  '1'->7 }
+183->{ '1'->54  '0'->167 }
+184->{ '0'->199  '1'->200 }
+185->{ '0'->170  '1'->27 }
+186->{ '1'->7  '0'->201 }
+187->{ '0'->105  '1'->7 }
+188->{ '1'->54  '0'->202 }
+189->{ '1'->46  '0'->203 }
+190->{ '0'->204  '1'->5 }
+191->{ '1'->7  '0'->205 }
+192->{ '1'->7  '0'->201 }
+193->{ '0'->206  '1'->7 }
+194->{ '1'->54  '0'->179 }
+195->{ '1'->207  '0'->60 }
+196->{ '0'->180  '1'->7 }
+197->{ '1'->207  '0'->181 }
+198->{ '1'->72  '0'->182 }
+199->{ '1'->155  '0'->208 }
+200->{ '1'->161  '0'->209 }
+201->{ '0'->186  '1'->210 }
+202->{ '0'->211  '1'->4 }
+203->{ '0'->189  '1'->190 }
+204->{ '1'->14  '0'->212 }
+205->{ '0'->213  '1'->190 }
+206->{ '1'->214  '0'->193 }
+207->{ '0'->215  '1'->39 }
+208->{ '1'->7  '0'->216 }
+209->{ '1'->7  '0'->217 }
+210->{ '0'->130  '1'->218 }
+211->{ '1'->54  '0'->202 }
+212->{ '1'->139  '0'->219 }
+213->{ '0'->220  '1'->51 }
+214->{ '0'->106  '1'->221 }
+215->{ '1'->21  '0'->222 }
+216->{ '0'->223  '1'->121 }
+217->{ '0'->224  '1'->4 }
+218->{ '0'->225  '1'->113 }
+219->{ '1'->42  '0'->226 }
+220->{ '0'->213  '1'->190 }
+221->{ '1'->13  '0'->79 }
+222->{ '1'->28  '0'->227 }
+223->{ '1'->7  '0'->216 }
+224->{ '1'->101  '0'->217 }
+225->{ '1'->21  '0'->138 }
+226->{ '1'->139  '0'->219 }
+227->{ '1'->228  '0'->229 }
+228->{ '1'->230  '0'->231 }
+229->{ '1'->28  '0'->227 }
+230->{ '1'->48  '0'->232 }
+231->{ '0'->233  '1'->51 }
+232->{ '1'->72  '0'->234 }
+233->{ '1'->33  '0'->235 }
+234->{ '1'->20  '0'->236 }
+235->{ '1'->207  '0'->237 }
+236->{ '1'->195  '0'->234 }
+237->{ '1'->33  '0'->235 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '0'->2  '1'->4 }
+4->{ '0'->8  '1'->1 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8  '0'->6 }
+8->{ '1'->4  '0'->5 }
+
+current = -1
+
+#####################################################
+Now test A.9(c)(with start-unreachable), respect anwser A.9(c)
+original DFA
+
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Brzozowski
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 7  8 }
+Transitions = 
+0->{ '0'->1  '1'->2 }
+1->{ '1'->3  '0'->2 }
+2->{ '1'->4  '0'->1 }
+3->{ '0'->5  '1'->4 }
+4->{ '0'->6  '1'->3 }
+5->{ '1'->7 }
+6->{ '1'->8 }
+7->{ '0'->8 }
+8->{ '1'->7 }
+
+current = -1
+
+------------min by dragon
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by HopcroftUllman
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Watson
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------min by Hopcroft
+DFA
+Q = [0,10)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+9->{ '0'->7  '1'->5 }
+
+current = -1
+
+------------after usefuls
+DFA
+Q = [0,9)
+S = { 0 }
+F = { 4  8 }
+Transitions = 
+0->{ '0'->1  '1'->5 }
+1->{ '1'->2  '0'->5 }
+2->{ '0'->3  '1'->6 }
+3->{ '1'->4 }
+4->{ '0'->8 }
+5->{ '0'->1  '1'->6 }
+6->{ '1'->2  '0'->7 }
+7->{ '1'->8 }
+8->{ '1'->4 }
+
+current = -1
+
+
+************ DFA
+original DFA :
+
+DFA
+Q = [0,5)
+S = { 0 }
+F = { 3  4 }
+Transitions = 
+0->{ '0'->4  '1'->2 }
+1->{ ['0','1']->2 }
+2->{ '0'->4  '1'->2 }
+3->{ '0'->2  '1'->3 }
+4->{ ['0','1']->4 }
+
+current = -1
+
+after usefuls 
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{ '0'->2  '1'->1 }
+2->{ ['0','1']->2 }
+
+current = -1
+
+after complete 
+DFA
+Q = [0,3)
+S = { 0 }
+F = { 2 }
+Transitions = 
+0->{ '0'->2  '1'->1 }
+1->{ '0'->2  '1'->1 }
+2->{ ['0','1']->2 }
+
+current = -1
+
+
+************ minDFA
+
+DFA
+Q = [0,2)
+S = { 0 }
+F = { 1 }
+Transitions = 
+0->{ '0'->1  '1'->0 }
+1->{ ['0','1']->1 }
+
+current = -1
+

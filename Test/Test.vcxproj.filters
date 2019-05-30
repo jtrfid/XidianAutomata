@@ -9,28 +9,103 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="胡双朴">
+      <UniqueIdentifier>{6b1920c9-b322-4418-aceb-02bb567c4fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="郑浩雨">
+      <UniqueIdentifier>{ce7dad8e-0c43-4674-8b83-582a579b6b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="王浩宇">
+      <UniqueIdentifier>{dc423302-0011-47bb-be94-3149e9ddf3b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="AutomataTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
+    <ClCompile Include="Automata.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CRSetTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RFATest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRelTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateSetTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTo(StateSet)Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BitVecTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="CharRangeTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="CRSetTest_New.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="DTransRelTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="DTransTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="FATest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="RETest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="StateEqRelTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="StatePoolTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRelTest_New.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="StateSetTest_New.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTo(State)Test.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="SymRelTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="TransRelTest.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="TransTest_New.cpp">
+      <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="ASUTest.cpp">
+      <Filter>郑浩雨</Filter>
+    </ClCompile>
+    <ClCompile Include="BSTest.cpp">
+      <Filter>郑浩雨</Filter>
+    </ClCompile>
+    <ClCompile Include="MYGTest.cpp">
+      <Filter>郑浩雨</Filter>
+    </ClCompile>
+    <ClCompile Include="ThompsonTest.cpp">
+      <Filter>郑浩雨</Filter>
+    </ClCompile>
+    <ClCompile Include="DFATest.cpp">
+      <Filter>胡双朴</Filter>
+    </ClCompile>
+    <ClCompile Include="FA_Add_Test.cpp">
+      <Filter>王浩宇</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

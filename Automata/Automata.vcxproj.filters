@@ -16,6 +16,9 @@
     <Filter Include="Test">
       <UniqueIdentifier>{16a6a079-4c76-44b3-a208-a13aef10889b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WangHaoYu">
+      <UniqueIdentifier>{c119b164-2c9a-4125-b530-8fa6751cb7fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitVec.cpp">
@@ -313,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="TransRel.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WangHaoYu\FA_Add.h">
+      <Filter>WangHaoYu</Filter>
+    </ClInclude>
+    <ClInclude Include="WangHaoYu\StateToState.h">
+      <Filter>WangHaoYu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

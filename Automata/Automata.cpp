@@ -9,7 +9,7 @@ using namespace std;
 
 void AutomataTest();  // AutomataTest.cpp
 
-int main()
+int mainxxx()
 {
 	AutomataTest();
 	/*system("pause");*/ //pause 命令在Linux不可用
