@@ -403,7 +403,7 @@ public:
 	}
 };
 
-void StateSetTest()
+void StateSetT()
 {
 	cout << "====StateSetTest()====" << endl;
 	StateSetTestClass test;

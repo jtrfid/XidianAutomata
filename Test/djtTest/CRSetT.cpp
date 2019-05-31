@@ -47,7 +47,7 @@ public:
 	}
 };
 
-void CRSetTest()
+void CRSetT()
 {
 	cout << "===CRSetTest===\n";
 	CRSetTestClass test;

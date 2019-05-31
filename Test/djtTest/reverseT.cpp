@@ -163,7 +163,7 @@ void reverseTest3()
 
 //#define TO_FILE
 
-void reverseTest()
+void reverseT()
 {
 	cout << "start\n";
 #ifdef TO_FILE

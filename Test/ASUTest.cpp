@@ -581,7 +581,7 @@ void ASUTest5()
 void ASUTest()
 {
 	cout << "=====ASUTest测试11111=====\n";
-	ASUTestClass test; //Reg_RE_Test()用来测试RE构造是否正确；
+	//ASUTestClass test; //Reg_RE_Test()用来测试RE构造是否正确；
 	//test.Reg_RE_Test();
 	ASUTest1();
 	ASUTest2();

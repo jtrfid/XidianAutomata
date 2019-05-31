@@ -7,7 +7,7 @@ using namespace std;
 void MinimiAlgorithmFunction(DFA_components dfa_com);
 DFA_components DfaCom(int);
 
-void DFAHopcroftTest()
+void DFAHopcroftT()
 {
 	int n = 1;
 	//while (n<6)

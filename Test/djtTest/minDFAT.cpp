@@ -1041,7 +1041,7 @@ void minDFATest14()
 
 //#define TO_FILE
 
-void minDFATest()
+void minDFAT()
 {
 	cout << "start\n";
 #ifdef TO_FILE

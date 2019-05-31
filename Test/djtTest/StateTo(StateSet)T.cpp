@@ -49,7 +49,7 @@ public:
 	}
 };
 
-void StateToStateSetTest()
+void StateToStateSetT()
 {
 	cout << "====StateToStateSetTest()====\n";
 	StateToStateSetTestClass test;

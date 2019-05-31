@@ -594,7 +594,7 @@ public:
 void BSTest()
 {
 	cout << "=====BSTest测试11111=====\n";
-	BSTestClass test;//Reg_RE_Test()用来测试RE构造是否正确；
+	//BSTestClass test;//Reg_RE_Test()用来测试RE构造是否正确；
 	//从上往下依次为RE样例1-5
 	//test.Reg_RE_Test();
 	BSTest1();

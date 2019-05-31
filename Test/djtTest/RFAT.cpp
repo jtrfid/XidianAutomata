@@ -177,7 +177,7 @@ public:
 
 };
 
-void reExample315RFATest()
+void reExample315RFAT()
 {
 	cout << "=====reExample315RFATest=====\n";
 	RFATestClass test;
@@ -227,7 +227,7 @@ void reExample315RFATest()
 	**/
 }
 
-void reExample2_9noStarRFATest()
+void reExample2_9noStarRFAT()
 {
 	cout << "=====reExample2_9noStarRFATest=====\n";
 	RFATestClass test;
@@ -278,7 +278,7 @@ void reExample2_9noStarRFATest()
 	 **/
 }
 
-void reExample2_9StarRFATest()
+void reExample2_9StarRFAT()
 {
 	cout << "=====reExample2_9StarRFATest=====\n";
 	RFATestClass test;
@@ -336,12 +336,12 @@ void reExample2_9StarRFATest()
 	 **/
 }
 
-void RFATest()
+void RFAT()
 {
 	cout << "=====RFATest=====\n" <<flush;
-	reExample315RFATest();
-	//reExample2_9noStarRFATest();
-	//reExample2_9StarRFATest();
+	reExample315RFAT();
+	//reExample2_9noStarRFAT();
+	//reExample2_9StarRFAT();
 }
 
 

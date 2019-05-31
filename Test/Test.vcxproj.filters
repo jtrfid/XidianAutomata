@@ -110,43 +110,40 @@
     <ClCompile Include="FA_Add_Test.cpp">
       <Filter>王浩宇</Filter>
     </ClCompile>
-    <ClCompile Include="djtTest\CRSetTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\DFAHopcroftTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\DFATest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\DFAusefulTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\minDFATest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\reverseTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\RFATest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\StateRelTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\StateSetTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\StateTo(StateSet)Test.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\ThompsonTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
-    <ClCompile Include="djtTest\TransTest.cpp">
-      <Filter>djtTest</Filter>
-    </ClCompile>
     <ClCompile Include="djtTest\djtTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\CRSetT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\DFAHopcroftT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\DFAT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\minDFAT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\reverseT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\RFAT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateRelT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateSetT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateTo%28StateSet%29T.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\ThompsonT.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\TransT.cpp">
       <Filter>djtTest</Filter>
     </ClCompile>
   </ItemGroup>

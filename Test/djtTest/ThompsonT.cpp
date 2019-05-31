@@ -846,7 +846,7 @@ public:
 	}
 };
 
-void ThompsonTest()
+void ThompsonT()
 {
 	cout << "=====ThompsonTest=====\n";
 	ThompsonTestClass test;

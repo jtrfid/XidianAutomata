@@ -236,7 +236,7 @@ public:
 	}
 };
 
-void StateRelTest()
+void StateRelT()
 {
 	cout << "===StateRelTest===\n";
 	StateRelTestClass test;

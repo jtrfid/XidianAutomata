@@ -407,7 +407,7 @@ void MYGTest5()
 void MYGTest()
 {
 	cout << "=====MYGTest测试=====\n";
-	MYGTestClass test; //Reg_RE_Test()用来测试RE构造是否正确；
+	//MYGTestClass test; //Reg_RE_Test()用来测试RE构造是否正确；
 	//test.Reg_RE_Test();
 	MYGTest1();
 	MYGTest2();
