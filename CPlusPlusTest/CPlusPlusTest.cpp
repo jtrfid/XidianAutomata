@@ -1,7 +1,9 @@
-﻿// Test.cpp: 定义控制台应用程序的入口点。
+﻿// CPlusPlusTest.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "stdafx.h"
+#include "pch.h"
+
+//#include "stdafx.h"
 #include <cstdio>
 #include <iostream>
 #include <cstdlib>
@@ -12,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "Test.h"
+#include "CPlusPlusTest.h"
 
 using namespace std;
 
@@ -40,10 +42,10 @@ void fun4()
 void fun3()
 {
 	// 调用复制构造函数，把fun1()的返回值拷贝给a1. 本语句结束，调用析构函数，销毁函数返回对象
-	A a1 = fun1();  
+	A a1 = fun1();
 	cout << a1.n << endl;
 	a1.n = 30;
-    
+
 	A aa; // 调用默认构造函数，构造aa对象
 	aa = a1; //调用操作符=重载
 	aa.n = 40;
@@ -56,7 +58,7 @@ void fun3()
 	// 以下调用不推荐
 	// A a3 = fun2();
 	// cout << a3.n << endl;
- 
+
 }
 
 void pfun1(const int *a)
@@ -121,16 +123,16 @@ void constTest()
 	// b1 = 200, 非法y
 	// b2 = 200 //非法
 	// b4 = 300; 非法
-	b3 = 200; 
+	b3 = 200;
 	b5 = 300;
-	cout << b1<<'\t'<<b2<<'\t'<<b3 << '\t' << b4 << endl;
+	cout << b1 << '\t' << b2 << '\t' << b3 << '\t' << b4 << endl;
 	cout << *a1 << '\t' << *a2 << '\t' << *a3 << '\t' << *a4 << endl;
-    
+
 }
 
 int main1()
 {
-	
+
 	constTest();
 	//fun4();
 	// fun3();
@@ -198,7 +200,7 @@ int main2()
 				if (j == n - 1) next = 2; // 转竖直 
 				if (j < n - 1) next = 1; // 转水平	
 			}
-			else if(j == n-1) next = 2; // 转竖直 
+			else if (j == n - 1) next = 2; // 转竖直 
 			break;
 		}
 		printf("%d ", a[i][j]);
@@ -215,10 +217,10 @@ int main3()
 	char tmp[200];
 	int i, commandNum = 0;
 
-	gets_s(current,100);
+	gets_s(current, 100);
 	while (1)
 	{
-		gets_s(tmp,100);
+		gets_s(tmp, 100);
 		if (strcmp(tmp, "pwd") == 0) break;
 		// strcpy(command[commandNum],&tmp[3]);
 		strcpy_s(command[commandNum], tmp);
@@ -242,8 +244,8 @@ bool compareStr(const string s1, const string s2)
 	bool flag;
 	for (string::const_iterator it2 = s1.begin(); it2 != s1.end(); it2++) {
 		flag = true;  // 假设 s1 > s2
-		for (string::const_iterator it3 = s2.begin(); it3 != s2.end(); it3++) 
-			if (*it2 < *it3) { flag = false;  break; }  
+		for (string::const_iterator it3 = s2.begin(); it3 != s2.end(); it3++)
+			if (*it2 < *it3) { flag = false;  break; }
 		if (!flag) break;
 	}
 	return (!flag);
@@ -287,7 +289,7 @@ int main5()
 		}
 		if (flag) { max = c; max_it = it; }
 	}
-	
+
 	// 删除max，即是所求
 	S.erase(max_it);
 
@@ -315,4 +317,3 @@ int main()
 	cout << (data1 == 0) << endl; // 0
 	return 0;
 }
-
