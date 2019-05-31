@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include "../Trans.h"
+#include "Trans.h"
 
 using namespace std;
 

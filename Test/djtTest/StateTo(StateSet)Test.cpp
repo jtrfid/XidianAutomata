@@ -1,6 +1,6 @@
 ﻿#include <iostream>
-#include "../StateSet.h"
-#include "../StateTo.h"
+#include "StateSet.h"
+#include "StateTo.h"
 
 using namespace std;
 

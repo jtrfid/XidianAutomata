@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Test">
-      <UniqueIdentifier>{16a6a079-4c76-44b3-a208-a13aef10889b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WangHaoYu">
       <UniqueIdentifier>{c119b164-2c9a-4125-b530-8fa6751cb7fe}</UniqueIdentifier>
     </Filter>
@@ -132,36 +129,6 @@
     <ClCompile Include="TransRel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Test\AutomataTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\CRSetTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateSetTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateTo(StateSet)Test.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\StateRelTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\TransTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\RFATest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\ThompsonTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Automata.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\DFATest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
     <ClCompile Include="min.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -176,18 +143,6 @@
     </ClCompile>
     <ClCompile Include="min-hu.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\DFAusefulTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\minDFATest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\DFAHopcroftTest.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\reverseTest.cpp">
-      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,9 @@
     <Filter Include="王浩宇">
       <UniqueIdentifier>{dc423302-0011-47bb-be94-3149e9ddf3b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="djtTest">
+      <UniqueIdentifier>{b6717dae-0d27-4608-9ca8-edef12d365b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutomataTest.cpp">
@@ -106,6 +109,45 @@
     </ClCompile>
     <ClCompile Include="FA_Add_Test.cpp">
       <Filter>王浩宇</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\CRSetTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\DFAHopcroftTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\DFATest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\DFAusefulTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\minDFATest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\reverseTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\RFATest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateRelTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateSetTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\StateTo(StateSet)Test.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\ThompsonTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\TransTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
+    <ClCompile Include="djtTest\djtTest.cpp">
+      <Filter>djtTest</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -128,7 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Automata.cpp" />
     <ClCompile Include="BitVec.cpp" />
     <ClCompile Include="CharRange.cpp" />
     <ClCompile Include="Constrs.cpp" />
@@ -168,19 +167,6 @@
     <ClCompile Include="StateRel.cpp" />
     <ClCompile Include="StateSet.cpp" />
     <ClCompile Include="SymRel.cpp" />
-    <ClCompile Include="Test\AutomataTest.cpp" />
-    <ClCompile Include="Test\CRSetTest.cpp" />
-    <ClCompile Include="Test\DFAHopcroftTest.cpp" />
-    <ClCompile Include="Test\DFATest.cpp" />
-    <ClCompile Include="Test\DFAusefulTest.cpp" />
-    <ClCompile Include="Test\minDFATest.cpp" />
-    <ClCompile Include="Test\reverseTest.cpp" />
-    <ClCompile Include="Test\RFATest.cpp" />
-    <ClCompile Include="Test\StateRelTest.cpp" />
-    <ClCompile Include="Test\StateSetTest.cpp" />
-    <ClCompile Include="Test\StateTo(StateSet)Test.cpp" />
-    <ClCompile Include="Test\ThompsonTest.cpp" />
-    <ClCompile Include="Test\TransTest.cpp" />
     <ClCompile Include="Trans.cpp" />
     <ClCompile Include="TransImpl.cpp" />
     <ClCompile Include="TransRel.cpp" />

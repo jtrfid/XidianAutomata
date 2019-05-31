@@ -1,8 +1,8 @@
 #include <iostream>
-#include "../Automata/Sigma.h"
-#include "../Automata/FA.h"
-#include "../Automata/Constrs.h"
-#include "../Automata/LBFA.h"
+#include "Sigma.h"
+#include "FA.h"
+#include "Constrs.h"
+#include "LBFA.h"
 
 using namespace std;
 /**

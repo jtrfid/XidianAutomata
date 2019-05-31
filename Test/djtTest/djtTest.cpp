@@ -11,7 +11,7 @@ void minDFATest();
 void DFAHopcroftTest();
 void reverseTest();
 
-void AutomataTest()
+void djtTest()
 {
 	//CRSetTest();
 	//StateSetTest();

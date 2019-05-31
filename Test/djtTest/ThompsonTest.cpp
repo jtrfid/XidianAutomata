@@ -1,7 +1,7 @@
 ﻿#include <iostream>
-#include "../Sigma.h"
-#include "../FA.h"
-#include "../Constrs.h"
+#include "Sigma.h"
+#include "FA.h"
+#include "Constrs.h"
 
 using namespace std;
 

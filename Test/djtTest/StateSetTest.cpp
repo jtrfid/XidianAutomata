@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include "../StateSet.h"
+#include "StateSet.h"
 
 using namespace std;
 

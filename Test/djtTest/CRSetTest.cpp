@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../CRSet.h"
+#include "CRSet.h"
 
 using namespace std;
 

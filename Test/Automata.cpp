@@ -12,6 +12,8 @@
 
 using namespace std;
 
+void djtTest(); // djtTest.cpp
+
 void AutomataTest();  // AutomataTest.cpp
 
 void usage();
@@ -207,6 +209,12 @@ int main()
 		{
 			break;
 		}
+		else if (temp == "t" || temp == "7")
+		{
+		   djtTest();
+		   system("pause");
+		   break;
+        }
 		else
 		{
 		usage();
@@ -228,6 +236,7 @@ void usage()
 	std::cout << "##        d , type d or 4 to generate a ADS file for TCT Tools(after step 3)                         ##\n" << std::flush;
 	std::cout << "##        r , type r or 5 to read in a ADS file to instant an object of DFA                          ##\n" << std::flush;
 	std::cout << "##        q , type q or 6 to quit                                                                    ##\n" << std::flush;
+	std::cout << "##        t , type t or 7 to test                                                                    ##\n" << std::flush;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
 	std::cout << "#######################################################################################################" << std::endl;
