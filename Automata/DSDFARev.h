@@ -29,10 +29,10 @@ of an abstract state.
 #include "CRSet.h"
 #include "DTransRel.h"
 
-// This class is used to represent abstract States in a DFA that is still under
-// construction. It is used in the reversal of a DFA.
+// This class is used to represent abstract States in a DFA that is still under construction. 
+// It is used in the reversal of a DFA.
 // Objects of the class represent States in the subset construction of the reverse of a DFA.
-// 成员变量which代表abstract states.
+// 成员变量which代表abstract states. out-labels()和out-transition(CharRange a)返回：进入当前对象which的“in”字符集和状态集，成为返回对象which的“out”字符集和状态集。就是“reverse”语义
 class DSDFARev
 {
 public:
@@ -51,10 +51,10 @@ public:
 	// which与*S是否有交集，有交集(二者有公共部分)，返回1，否则返回0
 	inline int final() const;
 
-	// return  CRSet of (in-transitions of which)。进入which的transitions代表的字符集
+	// return  CRSet of (in-transitions of which)。进入“in”当前对象which的transitions的字符集将成为返回对象的“out”字符集，就是reverse语义。
 	CRSet out_labels() const;
 
-	// 返回对象的which是当前对象的T(which,a)属于which的which
+	// return which = {p | T(p,a)属于which },即进入(in)当前对象which的状态集,成为返回对象的out状态集，就是reverse语义。
 	DSDFARev out_transition(const CharRange a) const;
 	inline int operator == (const DSDFARev& r) const;
 	inline int operator != (const DSDFARev& r) const;
