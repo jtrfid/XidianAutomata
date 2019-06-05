@@ -17,10 +17,6 @@ of an abstract state.
 #ifndef AUTOMATA_DSDFAREV_H
 #define AUTOMATA_DSDFAREV_H
 
-
-
-
-
 #include <iostream>
 // 去下行注释则禁用 assert()
 // #define NDEBUG
@@ -32,7 +28,8 @@ of an abstract state.
 // This class is used to represent abstract States in a DFA that is still under construction. 
 // It is used in the reversal of a DFA.
 // Objects of the class represent States in the subset construction of the reverse of a DFA.
-// 成员变量which代表abstract states. out-labels()和out-transition(CharRange a)返回：进入当前对象which的“in”字符集和状态集，成为返回对象which的“out”字符集和状态集。就是“reverse”语义
+// 成员变量which代表abstract states. 
+// out-labels()和out-transition(CharRange a)返回：进入当前对象which的“in”字符集和状态集，成为返回对象which的“out”字符集和状态集。就是“reverse”语义
 class DSDFARev
 {
 public:
@@ -49,6 +46,7 @@ public:
 	// The required member functions :
 
 	// which与*S是否有交集，有交集(二者有公共部分)，返回1，否则返回0
+	// S与F互换，实现"reverse",表示which是final state.
 	inline int final() const;
 
 	// return  CRSet of (in-transitions of which)。进入“in”当前对象which的transitions的字符集将成为返回对象的“out”字符集，就是reverse语义。
@@ -101,6 +99,7 @@ inline const DSDFARev& DSDFARev::operator = (const DSDFARev& r)
 // The required member functions :
 
 // which与*S是否有交集，有交集(二者有公共部分)，返回1，否则返回0
+// S与F互换，实现"reverse",表示which是final state.
 inline int DSDFARev::final() const
 {
 	assert(class_invariant());

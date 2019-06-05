@@ -49,6 +49,7 @@ DSDFARev DSDFARev::out_transition(const CharRange a) const
 
 std::ostream& operator<<(std::ostream& os, const DSDFARev& r)
 {
-	os << "\nDSDFARev\n" << r.which << *r.T << *r.S << '\n';
+	//os << "\nDSDFARev\n" << r.which << *r.T << *r.S << '\n';
+	os << " " << r.which << " ";
 	return(os);
 }

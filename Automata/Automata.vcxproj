@@ -201,6 +201,7 @@
     <ClInclude Include="RBFA.h" />
     <ClInclude Include="RE.h" />
     <ClInclude Include="REops.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RFA.h" />
     <ClInclude Include="Sigma.h" />
     <ClInclude Include="State.h" />
@@ -221,6 +222,9 @@
     <None Include="..\Makefile" />
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Automata.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

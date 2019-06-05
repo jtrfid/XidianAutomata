@@ -278,10 +278,18 @@
     <ClInclude Include="WangHaoYu\StateToState.h">
       <Filter>WangHaoYu</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Makefile" />
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Automata.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

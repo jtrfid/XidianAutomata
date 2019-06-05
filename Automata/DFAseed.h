@@ -61,12 +61,136 @@ that, by starting with the start state, only reachable States are constructed.
 #include "CRSet.h"
 #include "DFA_components.h"
 
+#include "DFA.h"
+
 // A template function, representing an abstract DFA, used in the construction
 // of real DFA's.
 // It is assumed that class T is a DS??? class (constrained genericity).
 // See DSfa.h or DSdfarev.h for examples of a DS??? class.
 
 // Takes a T(an abstract start State), and constructs a DFA.
+
+#define DFAseed_Debug
+
+#ifdef DFAseed_Debug
+using namespace std;
+
+template<class T>
+DFA_components construct_components(const T& abs_start)
+{
+	cout << "======= construct_components()=============\n";
+	cout << "abs_start:" << abs_start << endl;
+	DFA_components ret;
+
+	// Map each of the State's to a unique T, and vice-versa.
+	StateTo<T> names;
+	cout << "names.domain():" << names.domain() << endl;
+
+	// Allocate a name for the new start State, and insert it into the namer.
+	State s(ret.Q.allocate()); // 开始状态的name(编号)总是0
+
+	names.set_domain(ret.Q.size()); // 此时Q.size()=1
+	cout << "names.domain():" << names.domain() << endl;
+
+	names.map(s) = abs_start;   // map: s --> abs_start, 开始状态: abs_start
+	ret.T.set_domain(ret.Q.size());
+	ret.F.set_domain(ret.Q.size());
+
+	// As invariant:
+	//    ret.T.domain() == ret.Q.size() && ret.F.domain() == ret.Q.size()
+	//    and all States < current are already done.
+
+	State current;
+	// Now construct the transitions, and finalness of each of the States.
+	//    ret.Q grows as we go.
+	for (current = 0; current < ret.Q.size(); current++)
+	{
+		cout << "ret.Q.size()=" << ret.Q.size() << ",current=" << current << ",";
+		// If the abstract state associated with current says it's final, then
+		// current is too.
+		if (names.lookup(current).final()) // 是否是final state
+		{
+			cout << "It's final. add to F.\n";
+			ret.F.add(current);  // 如果F和S有交集
+		}
+		else
+		{
+			cout << "It's not final.\n";
+		}
+
+		// Now go through all of the out-transitions of the abstract
+		// state associated with current(ie.names.lookup(current)).
+		CRSet a(names.lookup(current).out_labels());
+		cout << "state " << current << ", It's out_labels() is:" << a << endl;
+		CharRange b;
+		int it;
+		for (it = 0; !a.iter_end(it); it++)
+		{
+			b = a.iterator(it);
+
+			// Do something with the destination of the transition.
+			T dest(names.lookup(current).out_transition(b));
+			cout << "state " << current << ", It's out_transition(" << b << ") is:" << dest << endl;
+			
+			// See if dest already has a name(by linear search).
+			State i;
+			for (i = 0; i < ret.Q.size() && (names.lookup(i) != dest); i++)
+			{
+			}
+
+			// The abstract state may not have a name yet, so we may need
+			// to allocate one.
+			if (i == ret.Q.size())
+			{
+				// Associate i with dest.
+				// And maintain the invariant.
+				State j(ret.Q.allocate());  // 用于存放dest状态，
+				assert(i == j);
+				names.set_domain(ret.Q.size());
+				ret.T.set_domain(ret.Q.size());
+				ret.F.set_domain(ret.Q.size());
+				names.map(i) = dest;
+			}
+			else
+			{
+				cout << "i=" << i << ",dest= " << dest << endl;
+			}
+
+			// Now i is the name of dest.
+			assert(dest == names.lookup(i));
+			// Create the actual transition.
+			ret.T.add_transition(current, b, i); // T(current,b) = dest;
+			cout << "===add transition: " << current << "," << b << "," << i << endl;
+			cout << "i.e. transition: " << names.lookup(current)<< "," << b << "," << dest<< endl;
+			ret.S.set_domain(ret.Q.size());
+			DFA dfa_ret1(ret);
+			cout << "ret:" << dfa_ret1 << endl;
+		}
+		// That's all for current.
+	}
+
+	// Time to resynchronize the domain() of ret.S with ret.Q.size() :
+	ret.S.set_domain(ret.Q.size());
+	// Add the start State now.
+	ret.S.add(s);
+
+	/////////////////////////
+	DFA dfa_ret1(ret);
+	cout << "last ret:" << dfa_ret1 << endl;
+	cout << "=====names:\n";
+	int num = 0;
+	for (current = 0; current < ret.Q.size(); current++)
+	{
+		cout << names.lookup(current) << " "; num++;
+		if (num >= 6) { cout << "\n"; num = 0; }
+	}
+	cout << endl;
+	// Return, constructing the DFA on the way out.
+	cout << "======= construct_components()=============\n";
+	return(ret);
+}
+
+#else
 template<class T>
 DFA_components construct_components(const T& abs_start)
 {
@@ -146,7 +270,7 @@ DFA_components construct_components(const T& abs_start)
 	return(ret);
 }
 
-
+#endif // DFAseed_Debug
 
 #endif // !AUTOMATA_DFASEED_H
 

@@ -1058,7 +1058,7 @@ void minDFAT()
 	//minDFATest3();
 	//minDFATest3_1();
 	//minDFATest4();
-	//minDFATest5();
+	minDFATest5();
 
 	//minDFATest6(); // error, 非完全自动机，导致mini错误
 	//minDFATest7();   //  把minDFATest6的DFA 增加一个sink, 成为complete DFA, mini结果正确。
@@ -1074,7 +1074,7 @@ void minDFAT()
 
 	//minDFATest13();
 
-	minDFATest14();
+	//minDFATest14();
 
 #ifdef TO_FILE
 	// 恢复cout
