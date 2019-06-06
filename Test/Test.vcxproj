@@ -142,15 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ASUTest.cpp" />
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="AutomataTest.cpp" />
-    <ClCompile Include="BitVecTest.cpp" />
-    <ClCompile Include="BSTest.cpp" />
-    <ClCompile Include="CharRangeTest.cpp" />
-    <ClCompile Include="CRSetTest.cpp" />
-    <ClCompile Include="CRSetTest_New.cpp" />
-    <ClCompile Include="DFATest.cpp" />
     <ClCompile Include="djtTest\djtTest.cpp" />
     <ClCompile Include="djtTest\CRSetT.cpp" />
     <ClCompile Include="djtTest\DFAHopcroftT.cpp" />
@@ -163,26 +156,37 @@
     <ClCompile Include="djtTest\StateTo%28StateSet%29T.cpp" />
     <ClCompile Include="djtTest\ThompsonT.cpp" />
     <ClCompile Include="djtTest\TransT.cpp" />
-    <ClCompile Include="DTransRelTest.cpp" />
-    <ClCompile Include="DTransTest.cpp" />
-    <ClCompile Include="FATest.cpp" />
-    <ClCompile Include="FA_Add_Test.cpp" />
-    <ClCompile Include="MYGTest.cpp" />
-    <ClCompile Include="RETest.cpp" />
-    <ClCompile Include="RFATest.cpp" />
-    <ClCompile Include="StateEqRelTest.cpp" />
-    <ClCompile Include="StatePoolTest.cpp" />
-    <ClCompile Include="StateRelTest.cpp" />
-    <ClCompile Include="StateRelTest_New.cpp" />
-    <ClCompile Include="StateSetTest.cpp" />
-    <ClCompile Include="StateSetTest_New.cpp" />
-    <ClCompile Include="StateTo(State)Test.cpp" />
-    <ClCompile Include="StateTo(StateSet)Test.cpp" />
-    <ClCompile Include="SymRelTest.cpp" />
-    <ClCompile Include="ThompsonTest.cpp" />
-    <ClCompile Include="TransRelTest.cpp" />
-    <ClCompile Include="TransTest.cpp" />
-    <ClCompile Include="TransTest_New.cpp" />
+    <ClCompile Include="HuShuangPu\DFATest.cpp" />
+    <ClCompile Include="WangHaoYu\BitVecTest.cpp" />
+    <ClCompile Include="WangHaoYu\CharRangeTest.cpp" />
+    <ClCompile Include="WangHaoYu\CRSetTest.cpp" />
+    <ClCompile Include="WangHaoYu\CRSetTest_New.cpp" />
+    <ClCompile Include="WangHaoYu\DTransRelTest.cpp" />
+    <ClCompile Include="WangHaoYu\DTransTest.cpp" />
+    <ClCompile Include="WangHaoYu\FATest.cpp" />
+    <ClCompile Include="WangHaoYu\FA_Add_Test.cpp" />
+    <ClCompile Include="WangHaoYu\RETest.cpp" />
+    <ClCompile Include="WangHaoYu\RFATest.cpp" />
+    <ClCompile Include="WangHaoYu\StateEqRelTest.cpp" />
+    <ClCompile Include="WangHaoYu\StatePoolTest.cpp" />
+    <ClCompile Include="WangHaoYu\StateRelTest.cpp" />
+    <ClCompile Include="WangHaoYu\StateRelTest_New.cpp" />
+    <ClCompile Include="WangHaoYu\StateSetTest.cpp" />
+    <ClCompile Include="WangHaoYu\StateSetTest_New.cpp" />
+    <ClCompile Include="WangHaoYu\StateTo(State)Test.cpp" />
+    <ClCompile Include="WangHaoYu\StateTo(StateSet)Test.cpp" />
+    <ClCompile Include="WangHaoYu\SymRelTest.cpp" />
+    <ClCompile Include="WangHaoYu\TransRelTest.cpp" />
+    <ClCompile Include="WangHaoYu\TransTest.cpp" />
+    <ClCompile Include="WangHaoYu\TransTest_New.cpp" />
+    <ClCompile Include="ZhengHaoYu\ASUTest.cpp" />
+    <ClCompile Include="ZhengHaoYu\BSTest.cpp" />
+    <ClCompile Include="ZhengHaoYu\MYGTest.cpp" />
+    <ClCompile Include="ZhengHaoYu\ThompsonTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WangHaoYu\FA_Add.h" />
+    <ClInclude Include="WangHaoYu\StateToState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

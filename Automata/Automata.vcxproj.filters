@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="WangHaoYu">
-      <UniqueIdentifier>{c119b164-2c9a-4125-b530-8fa6751cb7fe}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitVec.cpp">
@@ -271,12 +268,6 @@
     </ClInclude>
     <ClInclude Include="TransRel.h">
       <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="WangHaoYu\FA_Add.h">
-      <Filter>WangHaoYu</Filter>
-    </ClInclude>
-    <ClInclude Include="WangHaoYu\StateToState.h">
-      <Filter>WangHaoYu</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>

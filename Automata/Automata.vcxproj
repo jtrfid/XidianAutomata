@@ -215,8 +215,6 @@
     <ClInclude Include="TransImpl.h" />
     <ClInclude Include="TransPair.h" />
     <ClInclude Include="TransRel.h" />
-    <ClInclude Include="WangHaoYu\FA_Add.h" />
-    <ClInclude Include="WangHaoYu\StateToState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Makefile" />
