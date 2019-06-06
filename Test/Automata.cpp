@@ -14,6 +14,8 @@ using namespace std;
 
 void AutomataTest();  // AutomataTest.cpp
 
+void djtTest();      // void djtTest.cpp
+
 void usage();
 
 void hint();
@@ -160,9 +162,17 @@ int main()
 		{
 			break;
 		}
+		else if (temp == "t" || temp == "7")
+		{
+			djtTest();
+			cout << "\nEnter any char for exist!";
+			cin.get(); // 消费上一cin的'\n'
+			cin.get();
+		    break;
+		}
 		else
 		{
-		usage();
+			usage();
 		}
 	}
 
@@ -173,16 +183,16 @@ void usage()
 {
 	system(CLSINFO);
 	std::cout << "#######################################################################################################" << std::endl;
-	std::cout << "##                                                                                                   ##\n" << std::flush;
-	std::cout << "##                                                                                                   ##\n" << std::flush;
-	std::cout << "##        g , type g or 1 to generate a standard data                                                ##\n" << std::flush;
-	std::cout << "##        c , type c or 2 compare with the standard data                                             ##\n" << std::flush;
-	std::cout << "##        f , type f or 3 to type in a DFA for TCT Tool and get a DFA's object for the FIRE engine   ##\n" << std::flush;
-	std::cout << "##        d , type d or 4 to generate a ADS file for TCT Tools(after step 3)                         ##\n" << std::flush;
-	std::cout << "##        r , type r or 5 to read in a ADS file to instant an object of DFA                          ##\n" << std::flush;
-	std::cout << "##        q , type q or 6 to quit                                                                    ##\n" << std::flush;
-	std::cout << "##                                                                                                   ##\n" << std::flush;
-	std::cout << "##                                                                                                   ##\n" << std::flush;
+	std::cout << "##                                                                                                    ##\n" << std::flush;
+	std::cout << "##                                                                                                    ##\n" << std::flush;
+	std::cout << "##        g , type g or 1 for generate a standard data (Standard_Data.txt)                            ##\n" << std::flush;
+	std::cout << "##        c , type c or 2 for compare with the standard data (Standard_Data.txt and Data.txt)         ##\n" << std::flush;
+	std::cout << "##        f , type f or 3 for type in a DFA for TCT Tool and get a DFA's object for the FIRE engine   ##\n" << std::flush;
+	std::cout << "##        d , type d or 4 for generate a ADS file for TCT Tools(after step 3)                         ##\n" << std::flush;
+	std::cout << "##        r , type r or 5 for read in a ADS file to instant an object of DFA                          ##\n" << std::flush;
+	std::cout << "##        q , type q or 6 for quit                                                                    ##\n" << std::flush;
+	std::cout << "##        t , type t or 7 for test                                                                    ##\n" << std::flush;
+	std::cout << "##                                                                                                    ##\n" << std::flush;
 	std::cout << "#######################################################################################################" << std::endl;
 }
 
