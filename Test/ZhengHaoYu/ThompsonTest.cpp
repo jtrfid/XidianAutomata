@@ -2,7 +2,7 @@
 #include "Sigma.h"
 #include "FA.h"
 #include "Constrs.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 using namespace std;
 
 /*******************************************************************
@@ -297,7 +297,7 @@ public:
 		cout << "fa6:" << fa6 << endl;
 		DFA ThompsonTest1_dfa1 = fa6.determinism();
 		cout << "————ThompsonTest1_dfa1:" << ThompsonTest1_dfa1 << endl;//——————————————————————成功转换成DFA
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(ThompsonTest1_dfa1, "ThompsonTest1_dfa1.ADS");
 		/**文档p22
 		Q = [0,10), S ={0}, F = {1}
@@ -344,7 +344,7 @@ public:
 		Transitions = 3->{ 'b'->1 }, 5->{ 'a'->2 },6->{ 'a'->7 }, 8->{ 'b'->9 }
 		E =	0->{ 6 8 },2->{ 3 },4->{ 5 },7->{ 4 }, 9->{ 4 }
 		**/
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(ThompsonTest1_dfa2, "ThompsonTest1_dfa2.ADS");
 
 		//  RE =  (* (a ∪ b)) ab
@@ -365,7 +365,7 @@ public:
 		Transitions = 3->{ 'b'->1 }, 5->{ 'a'->2 },8->{ 'a'->9 }, 10->{ 'b'->11 }
 		E =	0->{ 4 6 },2->{ 3 },4->{ 5 },6->{ 8 10 },7->{ 4 6 },9->{ 7 },11->{ 7 }
 		**/
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(ThompsonTest1_dfa3, "ThompsonTest1_dfa3.ADS");
 
 		//测试：新增正则表达式例子（书本p119）：(a|b)*a|(aa)*
@@ -390,7 +390,7 @@ public:
 		              11->{},12->{},13->{},14->{ 'a'->16 },15->{},16->{},17->{ 'a'->15 }
 		E =	0->{ 2 12 },1->{},2->{ 4  6 },3->{ 1 },1->{},6->{ 7 }, 7->{ 4 8 }, 9->{ 4 8 }, 11->{ 1 }
 		**/
-		FiniteAutomata ffa4;
+		TCTHelper ffa4;
 		ffa4.perform(ThompsonTest1_dfa4, "ThompsonTest1_dfa4.ADS");
 
 
@@ -425,7 +425,7 @@ public:
 			19->{ 3 18 },20->{},21->{ 1 }
 		**/
 		///////////////////////////////////////////////////
-		FiniteAutomata ffa5;
+		TCTHelper ffa5;
 		ffa5.perform(ThompsonTest1_dfa5, "ThompsonTest1_dfa5.ADS");
 	}
 
@@ -617,7 +617,7 @@ public:
 		Transitions = 0->{ 'a'->1 }, 6->{ 'b'->7 }
 		E =	1->{ 5 },2->{ 3 },3->{ 5 },4->{ 0 2 }, 5->{ 8 }, 7->{ 6 9 }, 8->{ 6 9 }
 		**/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(Thompson_sigmaTest1_dfa1, "Thompson_sigmaTest1_dfa1.ADS");
 
 		//  RE =  (a ∪ b) ab
@@ -638,7 +638,7 @@ public:
 		Transitions = 0->{ 'a'->1 }, 2->{ 'b'->3 },6->{ 'a'->7 }, 8->{ 'b'->9 }
 		E =	1->{ 5 },3->{ 5 },4->{ 0 2 },5->{ 6 }, 7->{ 8 }
 		**/
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(Thompson_sigmaTest1_dfa2, "Thompson_sigmaTest1_dfa2.ADS");
 
 		//  RE =  (* (a ∪ b)) ab
@@ -659,7 +659,7 @@ public:
 		Transitions = 0->{ 'a'->1 }, 2->{ 'b'->3 },8->{ 'a'->9 }, 10->{ 'b'->11 }
 		E =	1->{ 5 },3->{ 5 },4->{ 0 2 },5->{ 4 7 }, 6->{ 4 7 }, 7->{ 8 }, 9->{ 10 }
 		**/  
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(Thompson_sigmaTest1_dfa3, "Thompson_sigmaTest1_dfa3.ADS");
 
 
@@ -685,7 +685,7 @@ public:
 		E =	0->{},1->{ 5 },2->{},3->{ 5 },4->{ 0 2 },5->{ 4 7 },6->{ 4 7 },7->{ 8 },8->{},9->{ 17 },10->{},
 		11->{ 12 },12->{},13->{ 10 15 },14->{ 10 15 },15->{ 17 }, 16->{ 6 14 },17->{}
 		**/
-		FiniteAutomata ffa4;
+		TCTHelper ffa4;
 		ffa4.perform(Thompson_sigmaTest1_dfa4, "Thompson_sigmaTest1_dfa4.ADS");
 
 
@@ -717,7 +717,7 @@ public:
 			10->{ 8 11 },11->{ 12 },12->{},13->{ 16 },14->{},15->{ 14 17 },16->{ 14 17 },17->{ 21 },18->{},
 			19->{ 21 },20->{ 6 18 },21->{}
 		**/
-		FiniteAutomata ffa5;
+		TCTHelper ffa5;
 		ffa5.perform(Thompson_sigmaTest1_dfa5, "Thompson_sigmaTest1_dfa5.ADS");
 		///////////////////////////////////////////////////
 	}

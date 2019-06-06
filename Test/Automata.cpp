@@ -8,7 +8,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 
 using namespace std;
 
@@ -51,7 +51,7 @@ int main()
 #endif // _WIN32
 
 	std::string temp;
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	bool flag = false; // 用来标记 3 选项是否被执行过
 	usage();
 	while (cin>>temp)

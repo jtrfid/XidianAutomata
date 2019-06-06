@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 #include "DFA.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 
 using namespace std;
 
@@ -89,7 +89,7 @@ void DFATest1()
 	DFA dfares1(dfa_comresult1);
 	stringstream ss1;
 	ss1 << dfares1;
-	FiniteAutomata result1(ss1.str());
+	TCTHelper result1(ss1.str());
 	//cout << result1.FA() << endl;
 	result1.perform("A-1-c.ADS");
 
@@ -119,7 +119,7 @@ void DFATest1()
 	dfa_comresult2.T.add_transition(1, '0', 1);
 
 	DFA dfares2(dfa_comresult2);
-	FiniteAutomata result2(dfares2);
+	TCTHelper result2(dfares2);
 	//cout << result2.FA() << endl;
 	result2.perform("A-1-d.ADS");
 
@@ -163,7 +163,7 @@ void DFATest1()
 
 		stringstream ss;
 		/*string temp;*/
-		FiniteAutomata temp;
+		TCTHelper temp;
 
 		DFA dfa1;
 
@@ -275,7 +275,7 @@ void DFATest1()
 
 		stringstream ss;
 		/*string temp;*/
-		FiniteAutomata temp;
+		TCTHelper temp;
 
 		DFA dfa1;
 
@@ -378,7 +378,7 @@ void DFATest2()
 	dfa_comresult1.T.add_transition(1, '0', 1);
 
 	DFA dfares1(dfa_comresult1);
-	FiniteAutomata result1(dfares1);
+	TCTHelper result1(dfares1);
 	result1.perform("A-2-c.ADS");
 
 
@@ -410,7 +410,7 @@ void DFATest2()
 	dfa_comresult2.T.add_transition(2, '1', 1);
 
 	DFA dfares2(dfa_comresult2);
-	FiniteAutomata result2(dfares2);
+	TCTHelper result2(dfares2);
 	result2.perform("A-2-b.ADS");
 
 
@@ -445,7 +445,7 @@ void DFATest2()
 
 
 		stringstream ss;
-		FiniteAutomata temp;
+		TCTHelper temp;
 
 		DFA dfa1;
 
@@ -549,7 +549,7 @@ void DFATest2()
 
 		stringstream ss;
 		/*string temp;*/
-		FiniteAutomata temp;
+		TCTHelper temp;
 
 		DFA dfa1;
 
@@ -622,7 +622,7 @@ void DFATest2()
 
 void DFATest3()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.3(a) 预期结果为 A.3(c)
@@ -752,7 +752,7 @@ void DFATest3()
 
 void DFATest4()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.4(a) (完全自动机) 预期结果为 A.4(c)
@@ -885,7 +885,7 @@ void DFATest4()
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		ffa.perform(dfa1, "a-4-b-Hopcroft.ADS");
 
-		/*FiniteAutomata ffa;
+		/*TCTHelper ffa;
 		ffa.perform(dfa1, "A-4-b-min-hopcroft.ADS");*/
 	}
 
@@ -895,7 +895,7 @@ void DFATest4()
 // 不改变最小的 DFA 测试
 void DFATest5()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.5(a) (完全自动机) 预期结果为 A.5(a) 或 A.5(b)
@@ -1015,7 +1015,7 @@ void DFATest5()
 
 void DFATest6()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.6(a) (最小的DFA，含有开始不可达状态) 预期结果为 A.6(a) 或 A.6(b) 
@@ -1084,7 +1084,7 @@ void DFATest6()
 
 void DFATest7()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.7(a) (最小的DFA，含有开始不可达状态) 预期结果为 A.7(a) 或 A.7(b) 
@@ -1156,7 +1156,7 @@ void DFATest7()
 // 此测试专门针对 Hopcroft，验证构造完全自动机的算法的正确性
 void DFATest8()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.8(a) (最小的DFA) 预期结果为 A.8(a)
@@ -1388,7 +1388,7 @@ void DFATest8()
 
 void DFATest9()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	{
 		// A.9(a) (最小的DFA，含有开始不可达状态) 预期结果为 A.9(a) 或 A.9(b) 
@@ -1619,7 +1619,7 @@ void DFATest9()
 //此例是含有一个开始不可达的结束状态。
 void aspecialDFA()
 {
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 
 	DFA_components dfa_com1;
 
@@ -1705,7 +1705,7 @@ void aspecialDFA()
 //	dfa_comresult1.T.add_transition(4, '1', 4);
 //
 //	DFA dfares1(dfa_comresult1);
-//	FiniteAutomata result1(dfares1);
+//	TCTHelper result1(dfares1);
 //	cout << result1.FA() << endl;
 //	result1.perform("A-3-c.ADS");
 //
@@ -1744,7 +1744,7 @@ void aspecialDFA()
 //	dfa_comresult2.T.add_transition(8, '1', 4);
 //
 //	DFA dfares2(dfa_comresult2);
-//	FiniteAutomata result2(dfares2);
+//	TCTHelper result2(dfares2);
 //	cout << result2.FA() << endl;
 //	result2.perform("A-3-b.ADS");
 //
@@ -1786,7 +1786,7 @@ void aspecialDFA()
 //
 //
 //		stringstream ss;
-//		FiniteAutomata temp;
+//		TCTHelper temp;
 //
 //		DFA dfa1;
 //
@@ -1901,7 +1901,7 @@ void aspecialDFA()
 //
 //		stringstream ss;
 //		/*string temp;*/
-//		FiniteAutomata temp;
+//		TCTHelper temp;
 //
 //		DFA dfa1;
 //

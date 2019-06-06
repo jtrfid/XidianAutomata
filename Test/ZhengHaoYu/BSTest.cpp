@@ -4,7 +4,7 @@
 #include "Constrs.h"
 #include "LBFA.h"
 #include "RBFA.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 
 using namespace std;
 class BSTestClass
@@ -313,11 +313,11 @@ public:
 		Transitions = 0->{ 'a'->1  'b'->2 } 1->{ 'b'->2 } 2->{ 'b'->2 }
 		current = -1
 		**/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(BSTest1_dfa1, "BSTest1_dfa1.ADS");
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(BSTest1_dfa2, "BSTest1_dfa2.ADS");
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(BSTest1_dfa3, "BSTest1_dfa3.ADS");
 	}
 	void BSTest2()
@@ -374,11 +374,11 @@ public:
 	     Transitions = 0->{ 'a'->1  'b'->2 }  1->{ 'a'->3 }	2->{ 'a'->3 } 3->{ 'b'->4 }
 	     4->{} current = -1
 	     **/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(BSTest2_dfa1, "BSTest2_dfa1.ADS");
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(BSTest2_dfa2, "BSTest2_dfa2.ADS");
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(BSTest2_dfa3, "BSTest2_dfa3.ADS");
 	}
 	
@@ -443,11 +443,11 @@ public:
 		3->{ 'a'->1  'b'->2 }
 		current = -1
 		 **/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(BSTest3_dfa1, "BSTest3_dfa1.ADS");
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(BSTest3_dfa2, "BSTest3_dfa2.ADS");
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(BSTest3_dfa3, "BSTest3_dfa3.ADS");
       }
 	void BSTest4()
@@ -509,11 +509,11 @@ public:
 		4->{ 'a'->4  'b'->2 }
 		current = -1
 		 **/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(BSTest4_dfa1, "BSTest4_dfa1.ADS");
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(BSTest4_dfa2, "BSTest4_dfa2.ADS");
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(BSTest4_dfa3, "BSTest4_dfa3.ADS");
 	}
 	void BSTest5()
@@ -575,11 +575,11 @@ public:
 	     4->{ 'd'->4 }
 	     current = -1
 	      **/
-		FiniteAutomata ffa1;
+		TCTHelper ffa1;
 		ffa1.perform(BSTest5_dfa1, "BSTest5_dfa1.ADS");
-		FiniteAutomata ffa2;
+		TCTHelper ffa2;
 		ffa2.perform(BSTest5_dfa2, "BSTest5_dfa2.ADS");
-		FiniteAutomata ffa3;
+		TCTHelper ffa3;
 		ffa3.perform(BSTest5_dfa3, "BSTest5_dfa3.ADS");
 	}
 void BSTest()

@@ -3,7 +3,7 @@
 #include "FA.h"
 #include "Constrs.h"
 #include "LBFA.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 using namespace std;
 /**
 // Construction 4.39 (variation of McNaughton-Yamada-Glushkov)
@@ -285,7 +285,7 @@ void ASUTest1()
 	current = -1
 	两个函数出来的结果是一样的
 	**/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(ASUTest1_dfa1, "ASUTest1_dfa1.ADS");
 }
 void ASUTest2()
@@ -309,7 +309,7 @@ void ASUTest2()
 	 两个函数出来的结果是一样的
 	 **/
 
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(ASUTest2_dfa1, "ASUTest2_dfa1.ADS");
 	
 
@@ -337,7 +337,7 @@ void ASUTest3()
 	current = -1
 	两个函数出来的结果是一样的
 	 **/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(ASUTest3_dfa1, "ASUTest3_dfa1.ADS");
 }
 void ASUTest4()

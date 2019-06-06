@@ -1,19 +1,21 @@
-﻿#include "FiniteAutomata.h"
+﻿#include "TCTHelper.h"
 
 
-FiniteAutomata::FiniteAutomata()
+TCTHelper::TCTHelper()
 {
 	adsDirectory = "ADS/";
 	quite = false;
 }
 
-FiniteAutomata::FiniteAutomata(std::string str)
+// 通过str(通常为DFA的输出字符串)构造TCTHelper对象
+TCTHelper::TCTHelper(std::string str)
 {
 	adsDirectory = "ADS/";
 	analyze(str);
 }
 
-FiniteAutomata::FiniteAutomata(DFA & dfa)
+// 通过dfa构造TCTHelper对象
+TCTHelper::TCTHelper(DFA & dfa)
 {
 	adsDirectory = "ADS/";
 	std::stringstream ss;
@@ -24,11 +26,12 @@ FiniteAutomata::FiniteAutomata(DFA & dfa)
 }
 
 
-FiniteAutomata::~FiniteAutomata()
+TCTHelper::~TCTHelper()
 {
 }
 
-FiniteAutomata & FiniteAutomata::reconstruct(std::string str)
+// 通过str(通常为DFA的输出字符串)重新构造当前对象
+TCTHelper & TCTHelper::reconstruct(std::string str)
 {
 	this->Trans.clear();
 	this->F.clear();
@@ -40,19 +43,21 @@ FiniteAutomata & FiniteAutomata::reconstruct(std::string str)
 	return (*this);
 }
 
-size_t FiniteAutomata::size()
+// 状态数
+size_t TCTHelper::size()
 {
 	return num_state;
 }
 
-// 将 FIRE engine 的输出解析成为当前项目可以识别的格式。
-bool FiniteAutomata::analyze(std::string& str)
+// 将DFA的输出字符串解析成为本类可以识别的格式。
+// 开始状态编号均为整数0
+bool TCTHelper::analyze(std::string& str)
 {
 	theDFA = str;
 	size_t len = str.size();
 	size_t i = 0;
 	
-	// 解析状态数量
+	// 解析状态数量，Q = [0,状态数)
 	i = str.find("Q =");
 	assert(i != -1);
 	std::string temp;
@@ -73,7 +78,7 @@ bool FiniteAutomata::analyze(std::string& str)
 	temp = "";
 
 
-	// 解析结束状态集合
+	// 解析接受状态集合, F = { 1 2 }
 	i = str.find("F = {");
 	assert(i != -1);
 	i = i + 6;
@@ -99,7 +104,7 @@ bool FiniteAutomata::analyze(std::string& str)
 		i++;
 	}
 	
-	// 解析转移状态
+	// 解析转移状态, Transitions = 0->{ '1'->1  '0'->2 }  2->{ '1'->5 } 44->{}  2->{ ['0','1']->2 }
 	i = str.find("Transitions =");
 	assert(i != -1);
 	i = i + 14;
@@ -210,7 +215,8 @@ bool FiniteAutomata::analyze(std::string& str)
 	return false;
 }
 
-DFA_components FiniteAutomata::getDFA()
+// 当前对象生成DFA_components对象
+DFA_components TCTHelper::getDFA()
 {
 	
 	DFA_components ret;
@@ -258,7 +264,8 @@ DFA_components FiniteAutomata::getDFA()
 	return ret;
 }
 
-bool FiniteAutomata::adsToDFA(std::string adsfilename)
+// 依据.ADS文件，生成当前对象
+bool TCTHelper::adsToDFA(std::string adsfilename)
 {
 	std::ifstream ifile;
 	ifile.open(adsfilename.c_str(), std::ios::in);
@@ -291,7 +298,7 @@ bool FiniteAutomata::adsToDFA(std::string adsfilename)
 	}
 	num_state = n;
 
-	// 结束状态
+	// 接受状态
 	while (std::getline(ifile, temp))
 	{
 		if (temp == "# End marker list with blank line.")
@@ -348,22 +355,22 @@ bool FiniteAutomata::adsToDFA(std::string adsfilename)
 		T.stprime = stprime;
 		T.T = llb;
 		T.stdest = stdest;
-		Trans.push_back(T);
+		Trans.push_back(T); 
 	}
 
 	return true;
 }
 
-bool FiniteAutomata::perform()
+// 当前对象生成默认的DFA.ADS文件
+bool TCTHelper::perform()
 {
 	// 输出数据到默认的文件“DFA.ADS”
 	assert(num_state > 0);
 	return perform("DFA.ADS");
 }
 
-
-
-bool FiniteAutomata::perform(std::string filepath)
+// 当前对象生成.ADS文件
+bool TCTHelper::perform(std::string filepath)
 {
 	assert(num_state > 0);
 	filepath = adsDirectory + filepath;
@@ -379,7 +386,8 @@ bool FiniteAutomata::perform(std::string filepath)
 	return true;
 }
 
-bool FiniteAutomata::perform(DFA & dfa, std::string filepath)
+// DFA对象生成.ADS文件
+bool TCTHelper::perform(DFA & dfa, std::string filepath)
 {
 	clear();
 	std::string temp;
@@ -391,7 +399,7 @@ bool FiniteAutomata::perform(DFA & dfa, std::string filepath)
 	return true;
 }
 
-FiniteAutomata& FiniteAutomata::clear()
+TCTHelper& TCTHelper::clear()
 {
 	this->Trans.clear();
 	this->F.clear();
@@ -402,7 +410,7 @@ FiniteAutomata& FiniteAutomata::clear()
 	return (*this);
 }
 
-bool FiniteAutomata::operator==(FiniteAutomata & D)
+bool TCTHelper::operator==(TCTHelper & D)
 {
 	if (num_state != D.num_state)
 		return false;
@@ -424,7 +432,7 @@ bool FiniteAutomata::operator==(FiniteAutomata & D)
 	return true;
 }
 
-bool FiniteAutomata::check(const state& t)
+bool TCTHelper::check(const state& t)
 {
 	if (t < num_state && t >= 0)
 		return true;
@@ -433,7 +441,7 @@ bool FiniteAutomata::check(const state& t)
 }
 
 
-std::istream& operator>>(std::istream& input, FiniteAutomata& D)
+std::istream& operator>>(std::istream& input, TCTHelper& D)
 {
 	D.clear();
 	if (!D.quite)
@@ -518,7 +526,7 @@ std::istream& operator>>(std::istream& input, FiniteAutomata& D)
 	return input;
 }
 
-std::ostream & operator<<(std::ostream & output, FiniteAutomata & D)
+std::ostream & operator<<(std::ostream & output, TCTHelper & D)
 {
 	output << "# CTCT ADS auto-generated\n" << std::endl;
 	output << "FA\n" << std::endl;

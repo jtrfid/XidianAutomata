@@ -3,7 +3,7 @@
 #include "FA.h"
 #include "Constrs.h"
 #include "LBFA.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 using namespace std;
 /**
 // Construction 4.39 (variation of McNaughton-Yamada-Glushkov)
@@ -291,7 +291,7 @@ void MYGTest1()
 	current = -1
 	两个函数出来的结果是一样的
 	**/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(MYGTest1_dfa1, "MYGTest1_dfa1.ADS");
 }
 void MYGTest2()
@@ -313,7 +313,7 @@ void MYGTest2()
 	 4->{} current = -1
 	 两个函数出来的结果是一样的
 	 **/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(MYGTest2_dfa1, "MYGTest2_dfa1.ADS");
 }
 void MYGTest3()
@@ -339,7 +339,7 @@ void MYGTest3()
 	current = -1
 	两个函数出来的结果是一样的
 	 **/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(MYGTest3_dfa1, "MYGTest3_dfa1.ADS");
 }
 void MYGTest4()
@@ -366,7 +366,7 @@ void MYGTest4()
 	current = -1
 	两个函数出来的结果是一样的
 	 **/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(MYGTest4_dfa1, "MYGTest4_dfa1.ADS");
 }
 void MYGTest5()
@@ -393,7 +393,7 @@ void MYGTest5()
 	 current = -1
 	两个函数出来的结果是一样的
 	 **/
-	FiniteAutomata ffa;
+	TCTHelper ffa;
 	ffa.perform(MYGTest5_dfa1, "MYGTest5_dfa1.ADS");
 }
 void MYGTest()

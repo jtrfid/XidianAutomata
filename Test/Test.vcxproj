@@ -76,7 +76,7 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Automata;../FiniteAutomata</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Automata;../FiniteAutomata</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Automata;../TCTHelper</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Automata;../FiniteAutomata</IncludePath>
@@ -87,11 +87,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../FiniteAutomata;../Automata;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../TCTHelper;../Automata;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FiniteAutomata.lib;Automata.lib</AdditionalDependencies>
+      <AdditionalDependencies>TCTHelper.lib;Automata.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="AutomataTest.cpp" />
+    <ClCompile Include="djtTest\ADSTest.cpp" />
     <ClCompile Include="djtTest\djtTest.cpp" />
     <ClCompile Include="djtTest\CRSetT.cpp" />
     <ClCompile Include="djtTest\DFAHopcroftT.cpp" />

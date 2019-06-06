@@ -4,7 +4,7 @@
 #include "Constrs.h"
 #include "RFA.h"
 #include "LBFA.h"
-#include "FiniteAutomata.h"
+#include "TCTHelper.h"
 using namespace std;
 
 /*******************************************************************
@@ -302,11 +302,11 @@ void RFATest1()
 	current = -1
 	**/
 	//因为1-2DFA是完全一样的，3-4同理，所以只比较1,3,5的DFA，以下同理不再注释
-	FiniteAutomata ffa1;
+	TCTHelper ffa1;
 	ffa1.perform(RFATest1_dfa1, "RFATest1_dfa1.ADS");
-	FiniteAutomata ffa2;
+	TCTHelper ffa2;
 	ffa2.perform(RFATest1_dfa3, "RFATest1_dfa3.ADS");
-	FiniteAutomata ffa3;
+	TCTHelper ffa3;
 	ffa3.perform(RFATest1_dfa5, "RFATest1_dfa5.ADS");
 }
 
@@ -369,11 +369,11 @@ void RFATest2()
 	 Transitions = 0->{ 'a'->1  'b'->2 }  1->{ 'a'->3 }	2->{ 'a'->3 } 3->{ 'b'->4 }
 	 4->{} current = -1
 	 **/
-	FiniteAutomata ffa1;
+	TCTHelper ffa1;
 	ffa1.perform(RFATest2_dfa1, "RFATest2_dfa1.ADS");
-	FiniteAutomata ffa2;
+	TCTHelper ffa2;
 	ffa2.perform(RFATest2_dfa3, "RFATest2_dfa3.ADS");
-	FiniteAutomata ffa3;
+	TCTHelper ffa3;
 	ffa3.perform(RFATest2_dfa5, "RFATest2_dfa5.ADS");
 }
 
@@ -452,11 +452,11 @@ void RFATest3()
 	4->{ 'a'->1  'b'->2 }
 	current = -1
 	 **/
-	FiniteAutomata ffa1;
+	TCTHelper ffa1;
 	ffa1.perform(RFATest3_dfa1, "RFATest3_dfa1.ADS");
-	FiniteAutomata ffa2;
+	TCTHelper ffa2;
 	ffa2.perform(RFATest3_dfa3, "RFATest3_dfa3.ADS");
-	FiniteAutomata ffa3;
+	TCTHelper ffa3;
 	ffa3.perform(RFATest3_dfa5, "RFATest3_dfa5.ADS");
 }
 void RFATest4()
@@ -523,11 +523,11 @@ void RFATest4()
 	 4->{ 'a'->4  'b'->2 }
 	 current = -1
 	  **/
-	FiniteAutomata ffa1;
+	TCTHelper ffa1;
 	ffa1.perform(RFATest4_dfa1, "RFATest4_dfa1.ADS");
-	FiniteAutomata ffa2;
+	TCTHelper ffa2;
 	ffa2.perform(RFATest4_dfa3, "RFATest4_dfa3.ADS");
-	FiniteAutomata ffa3;
+	TCTHelper ffa3;
 	ffa3.perform(RFATest4_dfa5, "RFATest4_dfa5.ADS");
 }
 void RFATest5()
@@ -594,11 +594,11 @@ void RFATest5()
 	 4->{ 'd'->4 }
 	 current = -1
 	  **/
-	FiniteAutomata ffa1;
+	TCTHelper ffa1;
 	ffa1.perform(RFATest5_dfa1, "RFATest5_dfa1.ADS");
-	FiniteAutomata ffa2;
+	TCTHelper ffa2;
 	ffa2.perform(RFATest5_dfa3, "RFATest5_dfa3.ADS");
-	FiniteAutomata ffa3;
+	TCTHelper ffa3;
 	ffa3.perform(RFATest5_dfa5, "RFATest5_dfa5.ADS");
 }
 void RFATest()

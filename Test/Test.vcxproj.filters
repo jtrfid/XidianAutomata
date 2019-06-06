@@ -146,6 +146,9 @@
     <ClCompile Include="WangHaoYu\TransTest_New.cpp">
       <Filter>WangHaoYu</Filter>
     </ClCompile>
+    <ClCompile Include="djtTest\ADSTest.cpp">
+      <Filter>djtTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WangHaoYu\FA_Add.h">

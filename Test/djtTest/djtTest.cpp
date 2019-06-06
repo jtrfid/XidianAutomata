@@ -9,6 +9,7 @@ void DFAT();
 void minDFAT();
 void DFAHopcroftT();
 void reverseT();
+void ADSTest();
 
 void djtTest()
 {
@@ -22,5 +23,6 @@ void djtTest()
 	//DFAT();
 	//minDFAT();
 	//DFAHopcroftT();
-	reverseT();
+	//reverseT();
+	ADSTest();
 }
