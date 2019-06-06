@@ -24,6 +24,11 @@
 #include "DFA.h"
 #include "DFA_components.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif // _WIN32
+
+
 
 typedef int state;
 typedef int label;
@@ -83,6 +88,7 @@ private:
 	std::vector<state> Q;  // StatePool ，预留
 	std::vector<label> V;  // .为 [0,9] 的整数
 	std::string theDFA;     // 保存类DFA的输出
+	std::string adsDirectory;
 	size_t num_state;
 };
 

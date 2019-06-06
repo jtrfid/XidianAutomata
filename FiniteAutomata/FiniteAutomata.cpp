@@ -3,16 +3,19 @@
 
 FiniteAutomata::FiniteAutomata()
 {
+	adsDirectory = "ADS/";
 	quite = false;
 }
 
 FiniteAutomata::FiniteAutomata(std::string str)
 {
+	adsDirectory = "ADS/";
 	analyze(str);
 }
 
 FiniteAutomata::FiniteAutomata(DFA & dfa)
 {
+	adsDirectory = "ADS/";
 	std::stringstream ss;
 	ss << dfa;
 	std::string temp = ss.str();
@@ -353,18 +356,9 @@ bool FiniteAutomata::adsToDFA(std::string adsfilename)
 
 bool FiniteAutomata::perform()
 {
-	// 输出数据到默认的文件“FA.ADS”
+	// 输出数据到默认的文件“DFA.ADS”
 	assert(num_state > 0);
-	std::ofstream ofile;
-	ofile.open("FA.ADS");
-	if (!ofile.is_open())
-	{
-		std::cout << "Can't open file: FA.ADS" << std::endl;
-		return false;
-	}
-	ofile << (*this);
-	ofile.close();
-	return true;
+	return perform("DFA.ADS");
 }
 
 
@@ -372,6 +366,7 @@ bool FiniteAutomata::perform()
 bool FiniteAutomata::perform(std::string filepath)
 {
 	assert(num_state > 0);
+	filepath = adsDirectory + filepath;
 	std::ofstream ofile;
 	ofile.open(filepath.c_str());
 	if (!ofile.is_open())
@@ -431,14 +426,16 @@ bool FiniteAutomata::operator==(FiniteAutomata & D)
 
 bool FiniteAutomata::check(const state& t)
 {
-	if (t < 999 && t >= 0)
+	if (t < num_state && t >= 0)
 		return true;
 	else
 		return false;
 }
 
+
 std::istream& operator>>(std::istream& input, FiniteAutomata& D)
 {
+	D.clear();
 	if (!D.quite)
 	{
 		std::cout << "input the number of state of the FA (type: unsigned int):" << std::endl;
@@ -469,7 +466,7 @@ std::istream& operator>>(std::istream& input, FiniteAutomata& D)
 		}
 		else
 		{
-			std::cout << "Invalid argument: " << temp << std::endl;
+			std::cout << "Invalid value: " << temp << std::endl;
 		}
 
 	}

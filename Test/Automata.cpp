@@ -12,8 +12,6 @@
 
 using namespace std;
 
-void djtTest(); // djtTest.cpp
-
 void AutomataTest();  // AutomataTest.cpp
 
 void usage();
@@ -22,24 +20,43 @@ void hint();
 
 bool generatedata(std::string filename);
 
-struct CompareResult
-{
-	size_t n; 
-	std::string temp1; 
-	std::string temp2;
-};
+bool compare(std::string file1, std::string file2);
+
+#ifdef _WIN32
+#include<Windows.h>
+#include<fileapi.h>
+// 创建用于存放ADS文件的文件夹
+bool createADSdirectory();
+#endif // _WIN32
+
+// Windows 系统与 Linux 系统的清屏命令不一样
+#ifdef _WIN32
+#define CLSINFO "cls"
+#else
+#define CLSINFO "clear"
+#endif // _WIN32
+
 
 int main()
 {
+#ifdef _WIN32
+	if (!createADSdirectory())
+	{
+		std::cout << "Can't create directory \"ADS\" " << std::endl;
+		hint();
+		return 0;
+	}
+#endif // _WIN32
+
 	std::string temp;
 	FiniteAutomata ffa;
 	bool flag = false; // 用来标记 3 选项是否被执行过
 	usage();
 	while (cin>>temp)
 	{
-		if (temp=="g"||temp=="1")
+		if (temp=="g"||temp=="1")      //     选项 1，生成一个标准文件
 		{
-			system("cls");
+			system(CLSINFO);
 			std::cout << "\n\n\n\n             processing" << std::endl;
 			if (generatedata("Standard_Data.txt"))
 			{
@@ -48,93 +65,27 @@ int main()
 			hint();
 			usage();
 		}
-		else if (temp == "c" || temp == "2")
+		else if (temp == "c" || temp == "2")  //   选项 2 ，生成本次的数据，并与标准数据进行比较
 		{
-			system("cls");
+			system(CLSINFO);
 			std::cout << "\n\n\n\n             processing..." << std::endl;
 			if (!generatedata("Data.txt"))
 			{
 				continue;
 			}
 
-			std::ifstream sdata;  // Standard Data
-			sdata.open("Standard_Data.txt", ios::in);
-			if (sdata.eof())
-			{
-				cout << " no such a File : Standard_Data.txt" << endl;
-				hint();
-				continue;
-			}
-
-			std::ifstream data;  // Data
-			data.open("Data.txt", ios::in);
-			if (data.eof())
-			{
-				cout << " no such a File : Data.txt" << endl;
-				hint();
-				continue;
-			}
-			
 			std::cout << "             process done!" << endl;
 			std::cout << "             compare standard data and current data..." << endl;
 
-			std::vector<CompareResult> result;
-			CompareResult cr;
-			std::string temp1, temp2;
-			size_t counter = 0;
-			bool end1 = false;
-			bool end2 = false;
-			while (true)
-			{
-				if (!(getline(sdata, temp1)))
-				{
-					end1 = true;
-				}
+			compare("Standard_Data.txt", "Data.txt");
 
-				if (!(getline(data, temp2)))
-				{
-					end2 = true;
-				}
-
-				if (end1&&end2)
-				{
-					break;
-				}
-				counter++;
-				if (temp1 != temp2)
-				{
-					cr.n = counter;
-					cr.temp1 = temp1;
-					cr.temp2 = temp2;
-					result.push_back(cr);
-				}
-				temp1 = "";
-				temp2 = "";
-			}
-			
-			if (!result.empty())
-			{
-				std::cout << "something changed:" << std::endl;
-				for (auto iter = result.begin(); iter != result.end(); iter++)
-				{
-					std::cout << "\nline :" << iter->n << endl;
-					std::cout << "Standard data :" << iter->temp1 << endl;
-					std::cout << "current  data :" << iter->temp2 << endl;
-				}
-			}
-			else
-			{
-				std::cout << "             compare done!" << endl;
-				std::cout << "             Standard data = current  data\n             Nothing changed!" << std::endl;
-			}
 			hint();
-			result.clear();
 			usage();
 
 		}
-		else if (temp == "f" || temp == "3")
+		else if (temp == "f" || temp == "3")    // 选项  3，从键盘输入一个DFA
 		{
-			system("cls");
+			system(CLSINFO);
 			cin >> ffa;  // 通过控制台输入，简化 TCT 的输入过程。
 
 			// 生成的类 DFA 的对象
@@ -151,9 +102,9 @@ int main()
 			flag = true;
 			usage();
 		}
-		else if (temp == "d" || temp == "4")
+		else if (temp == "d" || temp == "4")   // 选项 4，把第三步生成的DFA转换成ADS文件。
 		{
-			system("cls");
+			system(CLSINFO);
 			if (!flag)
 			{
 				std::cout << "before execute this step, you must execute step 3(d)" << std::endl;
@@ -179,9 +130,9 @@ int main()
 			hint();
 			usage();
 		}
-		else if (temp == "r" || temp == "5")  // 读入一个ADS文件，实例化一个DFA对象
+		else if (temp == "r" || temp == "5")  // 选项5，读入一个ADS文件，实例化一个DFA对象
 		{
-			system("cls");
+			system(CLSINFO);
 			std::cout << "type in the .ADS file's name: " << std::flush;
 			std::string filename;
 			std::cin >> filename;
@@ -209,12 +160,6 @@ int main()
 		{
 			break;
 		}
-		else if (temp == "t" || temp == "7")
-		{
-		   djtTest();
-		   system("pause");
-		   break;
-        }
 		else
 		{
 		usage();
@@ -226,7 +171,7 @@ int main()
 
 void usage()
 {
-	system("cls");
+	system(CLSINFO);
 	std::cout << "#######################################################################################################" << std::endl;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
@@ -236,7 +181,6 @@ void usage()
 	std::cout << "##        d , type d or 4 to generate a ADS file for TCT Tools(after step 3)                         ##\n" << std::flush;
 	std::cout << "##        r , type r or 5 to read in a ADS file to instant an object of DFA                          ##\n" << std::flush;
 	std::cout << "##        q , type q or 6 to quit                                                                    ##\n" << std::flush;
-	std::cout << "##        t , type t or 7 to test                                                                    ##\n" << std::flush;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
 	std::cout << "##                                                                                                   ##\n" << std::flush;
 	std::cout << "#######################################################################################################" << std::endl;
@@ -281,4 +225,120 @@ bool generatedata(std::string filename)
 
 }
 
+bool compare(std::string file1, std::string file2)
+{
+
+	std::ifstream sdata;  // Standard Data
+	sdata.open(file1.c_str(), ios::in);
+	if (sdata.eof())
+	{
+		cout << " no such a File : " << file1 << endl;
+		hint();
+		return false;
+	}
+
+	std::ifstream data;  // Data
+	data.open(file2.c_str(), ios::in);
+	if (data.eof())
+	{
+		cout << " no such a File : "<< file2 << endl;
+		hint();
+		return false;
+	}
+
+	struct CompareResult
+	{
+		size_t n;
+		std::string temp1;
+		std::string temp2;
+	};
+
+	std::vector<CompareResult> result;
+	CompareResult cr;
+	std::string temp1, temp2;
+	size_t counter = 0;
+	bool end1 = false;
+	bool end2 = false;
+	while (true)
+	{
+		if (!(getline(sdata, temp1)))
+		{
+			end1 = true;
+		}
+
+		if (!(getline(data, temp2)))
+		{
+			end2 = true;
+		}
+
+		if (end1&&end2)
+		{
+			break;
+		}
+		counter++;
+		if (temp1 != temp2)
+		{
+			cr.n = counter;
+			cr.temp1 = temp1;
+			cr.temp2 = temp2;
+			result.push_back(cr);
+		}
+		temp1 = "";
+		temp2 = "";
+	}
+
+	if (!result.empty())
+	{
+		std::cout << "something changed:" << std::endl;
+		size_t i = 0;
+
+		std::ofstream resultlog;
+		resultlog.open("resultlog.txt", ios::out | ios::trunc);
+
+		for (auto iter = result.begin(); iter != result.end(); iter++)
+		{
+			i++;
+			if (i < 4)
+			{
+				std::cout << "\nline :" << iter->n << endl;
+				std::cout << "Standard data :" << iter->temp1 << endl;
+				std::cout << "current  data :" << iter->temp2 << endl;
+			}
+			resultlog << "\nline :" << iter->n << endl;
+			resultlog << "Standard data :" << iter->temp1 << endl;
+			resultlog << "current  data :" << iter->temp2 << endl;
+		}
+		if (i > 4)
+		{
+			std::cout << "See more info at resultlog.txt" << std::endl;
+		}
+		resultlog.close();
+	}
+	else
+	{
+		std::cout << "             compare done!" << endl;
+		std::cout << "             Standard data = current  data\n             Nothing changed!" << std::endl;
+	}
+	result.clear();
+	return true;
+}
+
+#ifdef _WIN32
+bool createADSdirectory()
+{
+	DWORD ftyp = GetFileAttributesA("ADS");
+	if (ftyp == INVALID_FILE_ATTRIBUTES) //检查文件夹是否存在
+	{
+		if (CreateDirectory("ADS", NULL))  //不存在则创建它
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
+#endif // _WIN32
 

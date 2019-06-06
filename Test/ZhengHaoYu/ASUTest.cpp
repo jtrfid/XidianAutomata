@@ -286,7 +286,7 @@ void ASUTest1()
 	两个函数出来的结果是一样的
 	**/
 	FiniteAutomata ffa;
-	ffa.perform(ASUTest1_dfa1, "ADS/ASUTest1_dfa1.ADS");
+	ffa.perform(ASUTest1_dfa1, "ASUTest1_dfa1.ADS");
 }
 void ASUTest2()
 {
@@ -310,7 +310,7 @@ void ASUTest2()
 	 **/
 
 	FiniteAutomata ffa;
-	ffa.perform(ASUTest2_dfa1, "ADS/ASUTest2_dfa1.ADS");
+	ffa.perform(ASUTest2_dfa1, "ASUTest2_dfa1.ADS");
 	
 
 }
@@ -338,7 +338,7 @@ void ASUTest3()
 	两个函数出来的结果是一样的
 	 **/
 	FiniteAutomata ffa;
-	ffa.perform(ASUTest3_dfa1, "ADS/ASUTest3_dfa1.ADS");
+	ffa.perform(ASUTest3_dfa1, "ASUTest3_dfa1.ADS");
 }
 void ASUTest4()
 {

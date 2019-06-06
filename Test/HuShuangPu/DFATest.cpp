@@ -91,7 +91,7 @@ void DFATest1()
 	ss1 << dfares1;
 	FiniteAutomata result1(ss1.str());
 	//cout << result1.FA() << endl;
-	result1.perform("ADS/A-1-c.ADS");
+	result1.perform("A-1-c.ADS");
 
 
 
@@ -121,7 +121,7 @@ void DFATest1()
 	DFA dfares2(dfa_comresult2);
 	FiniteAutomata result2(dfares2);
 	//cout << result2.FA() << endl;
-	result2.perform("ADS/A-1-d.ADS");
+	result2.perform("A-1-d.ADS");
 
 
 	// 测试数据
@@ -173,7 +173,7 @@ void DFATest1()
 		temp.reconstruct(ss.str());
 		ss.str("");
 		//cout << temp << endl;
-		temp.perform("ADS/A-1-a.ADS");
+		temp.perform("A-1-a.ADS");
 
 		//////////////////////////////////////////////////////////////////////////////
 		dfa1.reconstruct(dfa_com1);
@@ -183,7 +183,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-a-Brzozowski.ADS");
+		temp.perform("A-1-a-Brzozowski.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -195,7 +195,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-a-Hopcroft.ADS");
+		temp.perform("A-1-a-Hopcroft.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -206,7 +206,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-a-HopcroftUllman.ADS");
+		temp.perform("A-1-a-HopcroftUllman.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -218,7 +218,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-a-dragon.ADS");
+		temp.perform("A-1-a-dragon.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -229,7 +229,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-a-Watson.ADS");
+		temp.perform("A-1-a-Watson.ADS");
 		ss.str("");
 		temp.clear();
 	}
@@ -284,7 +284,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		ss.str("");
-		temp.perform("ADS/A-1-b.ADS");
+		temp.perform("A-1-b.ADS");
 
 		//////////////////////////////////////////////////////////////////////////////
 		dfa1.reconstruct(dfa_com1);
@@ -294,7 +294,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-b-Brzozowski.ADS");
+		temp.perform("A-1-b-Brzozowski.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -306,7 +306,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-b-Hopcroft.ADS");
+		temp.perform("A-1-b-Hopcroft.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -317,7 +317,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-b-HopcroftUllman.ADS");
+		temp.perform("A-1-b-HopcroftUllman.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -329,7 +329,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-b-dragon.ADS");
+		temp.perform("A-1-b-dragon.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -340,7 +340,7 @@ void DFATest1()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1 || temp == result2) << endl;
-		temp.perform("ADS/A-1-b-Watson.ADS");
+		temp.perform("A-1-b-Watson.ADS");
 		ss.str("");
 		temp.clear();
 	}
@@ -379,7 +379,7 @@ void DFATest2()
 
 	DFA dfares1(dfa_comresult1);
 	FiniteAutomata result1(dfares1);
-	result1.perform("ADS/A-2-c.ADS");
+	result1.perform("A-2-c.ADS");
 
 
 
@@ -411,7 +411,7 @@ void DFATest2()
 
 	DFA dfares2(dfa_comresult2);
 	FiniteAutomata result2(dfares2);
-	result2.perform("ADS/A-2-b.ADS");
+	result2.perform("A-2-b.ADS");
 
 
 	// 测试数据
@@ -454,7 +454,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		ss.str("");
-		temp.perform("ADS/A-2-a.ADS");
+		temp.perform("A-2-a.ADS");
 
 		//////////////////////////////////////////////////////////////////////////////
 		dfa1.reconstruct(dfa_com1);
@@ -464,7 +464,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1) << endl;
-		temp.perform("ADS/A-1-a-Brzozowski.ADS");
+		temp.perform("A-1-a-Brzozowski.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -476,7 +476,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1) << endl;
-		temp.perform("ADS/A-1-a-Hopcroft.ADS");
+		temp.perform("A-1-a-Hopcroft.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -487,7 +487,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1) << endl;
-		temp.perform("ADS/A-1-a-HopcroftUllman.ADS");
+		temp.perform("A-1-a-HopcroftUllman.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -499,7 +499,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1) << endl;
-		temp.perform("ADS/A-1-a-dragon.ADS");
+		temp.perform("A-1-a-dragon.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -510,7 +510,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result1) << endl;
-		temp.perform("ADS/A-1-a-Watson.ADS");
+		temp.perform("A-1-a-Watson.ADS");
 		ss.str("");
 		temp.clear();
 	}
@@ -563,7 +563,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result2) << endl;
-		temp.perform("ADS/A-2-a-Brzozowski.ADS");
+		temp.perform("A-2-a-Brzozowski.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -577,7 +577,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result2) << endl;
-		temp.perform("ADS/A-2-a-Hopcroft.ADS");
+		temp.perform("A-2-a-Hopcroft.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -588,7 +588,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result2) << endl;
-		temp.perform("ADS/A-2-a-HopcroftUllman.ADS");
+		temp.perform("A-2-a-HopcroftUllman.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -600,7 +600,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result2) << endl;
-		temp.perform("ADS/A-2-a-dragon.ADS");
+		temp.perform("A-2-a-dragon.ADS");
 		ss.str("");
 		temp.clear();
 
@@ -611,7 +611,7 @@ void DFATest2()
 		ss << dfa1;
 		temp.reconstruct(ss.str());
 		cout << "anwser is right?:  " << (temp == result2) << endl;
-		temp.perform("ADS/A-2-a-Watson.ADS");
+		temp.perform("A-2-a-Watson.ADS");
 		ss.str("");
 		temp.clear();
 	}
@@ -667,23 +667,23 @@ void DFATest3()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-3-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-3-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-3-a-dragon.ADS");
+		ffa.perform(dfa1, "a-3-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-3-a-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-3-a-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-3-a-Watson.ADS");
+		ffa.perform(dfa1, "a-3-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-3-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-3-a-Hopcroft.ADS");
 	}
 
 	{
@@ -729,23 +729,23 @@ void DFATest3()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-3-b-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-3-b-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-3-b-dragon.ADS");
+		ffa.perform(dfa1, "a-3-b-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-3-b-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-3-b-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-3-b-Watson.ADS");
+		ffa.perform(dfa1, "a-3-b-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-3-b-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-3-b-Hopcroft.ADS");
 	}
 
 }
@@ -801,23 +801,23 @@ void DFATest4()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-4-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-4-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-4-a-dragon.ADS");
+		ffa.perform(dfa1, "a-4-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-4-a-dragon.ADS");
+		ffa.perform(dfa1, "a-4-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-4-a-Watson.ADS");
+		ffa.perform(dfa1, "a-4-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-4-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-4-a-Hopcroft.ADS");
 	}
 
 	{
@@ -867,26 +867,26 @@ void DFATest4()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-4-b-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-4-b-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-4-b-dragon.ADS");
+		ffa.perform(dfa1, "a-4-b-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-4-b-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-4-b-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-4-b-Watson.ADS");
+		ffa.perform(dfa1, "a-4-b-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-4-b-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-4-b-Hopcroft.ADS");
 
 		/*FiniteAutomata ffa;
-		ffa.perform(dfa1, "ADS/A-4-b-min-hopcroft.ADS");*/
+		ffa.perform(dfa1, "A-4-b-min-hopcroft.ADS");*/
 	}
 
 }
@@ -933,27 +933,27 @@ void DFATest5()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-5-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-dragon.ADS");
+		ffa.perform(dfa1, "a-5-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-5-a-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-Watson.ADS");
+		ffa.perform(dfa1, "a-5-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-5-a-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------usefulf function" << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/a-5-a-usefulf.ADS");
+		ffa.perform(dfa1, "a-5-a-usefulf.ADS");
 	}
 
 	{
@@ -992,23 +992,23 @@ void DFATest5()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-5-b-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-5-b-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-5-b-dragon.ADS");
+		ffa.perform(dfa1, "a-5-b-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-5-b-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-5-b-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-5-b-Watson.ADS");
+		ffa.perform(dfa1, "a-5-b-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-5-b-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-5-b-Hopcroft.ADS");
 	}
 }
 
@@ -1057,27 +1057,27 @@ void DFATest6()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1,"ADS/a-6-Brzozowski.ADS");
+		ffa.perform(dfa1,"a-6-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-6-dragon.ADS");
+		ffa.perform(dfa1, "a-6-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-6-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-6-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-6-Watson.ADS");
+		ffa.perform(dfa1, "a-6-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-6-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-6-Hopcroft.ADS");
 		
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------usefuls function" << dfa1.usefuls() << endl;
-		ffa.perform(dfa1, "ADS/a-6-usefuls.ADS");
+		ffa.perform(dfa1, "a-6-usefuls.ADS");
 	}
 }
 
@@ -1129,27 +1129,27 @@ void DFATest7()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-7-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-7-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-7-a-dragon.ADS");
+		ffa.perform(dfa1, "a-7-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-6-dragon.ADS");
+		ffa.perform(dfa1, "a-6-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-7-a-Watson.ADS");
+		ffa.perform(dfa1, "a-7-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-7-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-7-a-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------usefuls function" << dfa1.usefuls() << endl;
-		ffa.perform(dfa1, "ADS/a-7-a-usefuls.ADS");
+		ffa.perform(dfa1, "a-7-a-usefuls.ADS");
 	}
 }
 
@@ -1196,13 +1196,13 @@ void DFATest8()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-default-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-default-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after complete " << dfa1.complete() << endl;
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		cout << "------------after usefulf " << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-complete-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-complete-Hopcroft.ADS");
 	}
 
 	{
@@ -1241,13 +1241,13 @@ void DFATest8()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-default-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-default-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after complete " << dfa1.complete() << endl;
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		cout << "------------after usefulf " << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-complete-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-complete-Hopcroft.ADS");
 	}
 
 	{
@@ -1284,13 +1284,13 @@ void DFATest8()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-default-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-default-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after complete " << dfa1.complete() << endl;
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		cout << "------------after usefulf " << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-complete-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-complete-Hopcroft.ADS");
 	}
 
 	{
@@ -1330,13 +1330,13 @@ void DFATest8()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-default-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-default-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after complete " << dfa1.complete() << endl;
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		cout << "------------after usefulf " << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-complete-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-complete-Hopcroft.ADS");
 	}
 
 	{
@@ -1375,13 +1375,13 @@ void DFATest8()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-default-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-default-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after complete " << dfa1.complete() << endl;
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
 		cout << "------------after usefulf " << dfa1.usefulf() << endl;
-		ffa.perform(dfa1, "ADS/A-8-a-complete-Hopcroft.ADS");
+		ffa.perform(dfa1, "A-8-a-complete-Hopcroft.ADS");
 	}
 }
 
@@ -1442,27 +1442,27 @@ void DFATest9()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1,"ADS/a-9-a-Brzozowski.ADS");
+		ffa.perform(dfa1,"a-9-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-dragon.ADS");
+		ffa.perform(dfa1, "a-9-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-9-a-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Watson.ADS");
+		ffa.perform(dfa1, "a-9-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-9-a-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after usefuls" << dfa1.usefuls() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-usefuls.ADS");
+		ffa.perform(dfa1, "a-9-a-usefuls.ADS");
 	}
 
 	{
@@ -1517,27 +1517,27 @@ void DFATest9()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-9-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-dragon.ADS");
+		ffa.perform(dfa1, "a-9-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-9-a-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Watson.ADS");
+		ffa.perform(dfa1, "a-9-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-9-a-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after usefuls" << dfa1.usefuls() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-usefuls.ADS");
+		ffa.perform(dfa1, "a-9-a-usefuls.ADS");
 	}
 
 	{
@@ -1592,27 +1592,27 @@ void DFATest9()
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Brzozowski" << dfa1.min_Brzozowski() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Brzozowski.ADS");
+		ffa.perform(dfa1, "a-9-a-Brzozowski.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by dragon" << dfa1.min_dragon() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-dragon.ADS");
+		ffa.perform(dfa1, "a-9-a-dragon.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by HopcroftUllman" << dfa1.min_HopcroftUllman() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-HopcroftUllman.ADS");
+		ffa.perform(dfa1, "a-9-a-HopcroftUllman.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Watson" << dfa1.min_Watson() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Watson.ADS");
+		ffa.perform(dfa1, "a-9-a-Watson.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------min by Hopcroft" << dfa1.min_Hopcroft() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-Hopcroft.ADS");
+		ffa.perform(dfa1, "a-9-a-Hopcroft.ADS");
 
 		dfa1.reconstruct(dfa_com1);
 		cout << "------------after usefuls" << dfa1.usefuls() << endl;
-		ffa.perform(dfa1, "ADS/a-9-a-usefuls.ADS");
+		ffa.perform(dfa1, "a-9-a-usefuls.ADS");
 	}
 }
 
@@ -1657,19 +1657,19 @@ void aspecialDFA()
 	cout << "\n************ DFA\n" << std::flush;
 	cout << "original DFA :" << endl;
 	cout << dfa1 << endl;
-	ffa.perform(dfa1, "ADS/special-original.ADS");
+	ffa.perform(dfa1, "special-original.ADS");
 
 	dfa1.usefuls();  // 
 	cout << "after usefuls " << dfa1 << endl;
-	ffa.perform(dfa1, "ADS/special-usefuls.ADS");
+	ffa.perform(dfa1, "special-usefuls.ADS");
 	dfa1.complete();
 	cout << "after complete " << dfa1 << endl;
-	ffa.perform(dfa1, "ADS/special-complete.ADS");
+	ffa.perform(dfa1, "special-complete.ADS");
 
 	dfa1.min_Hopcroft();
 	cout << "\n************ minDFA\n" << std::flush;
 	cout << dfa1 << endl;
-	ffa.perform(dfa1, "ADS/special-Hopcroft.ADS");
+	ffa.perform(dfa1, "special-Hopcroft.ADS");
 }
 
 

@@ -37,6 +37,7 @@ void DFATest();
 
 void AutomataTest()
 {
+	// 王浩宇
 	BitVecTest();
 	CharRangeTest();
 	CRSetTest();
@@ -55,11 +56,13 @@ void AutomataTest()
 	TransRelTest();
 	TransTest_New();
 
-
+	// 郑浩雨
 	ASUTest();
 	BSTest();
 	MYGTest();
 	ThompsonTest();
+	RFATest();
 
+	// 胡双朴
 	DFATest();
 }
