@@ -4,12 +4,44 @@
 本类接受DFA类的输出重定向函数【friend std::ostream& operator<<(std::ostream& os, const DFA& r)】的输出字符串，
 生成TCT接受的.ADS文件。
 
-这里还提供一个生成 FIRE engine 中的类 DFA 的方法，也即成员函数 getDFA()。
+DFA的字母V，接受字母'0' to '9'或'a' to 'z'或'A' to 'Z'。转换为TCT .ADS文件时，字母V的整数值约定如下：
+case 1: ['0','9'] ==> [0,9]
+case 2: ['a','z'] ==> [10,35]
+case 3: ['A','Z'] ==> [36,61]
+other case is illegal.
+本类数据成员Trans，V存储的字母对应的整数值，可通过两个函数转换：label toADS_V(char v); 或 char toDFA_V(label v);
 
-不过在执行这个函数之前，得先确保已经有了一个 TCTHelper 对象，无论是通过键盘键入，还是通过另外一个DFA对象进行解析。
+使用举例：
 
-因为类 DFA 要求label 为一个 char 变量，而 TCT tools 要求label 为正整数，所以使用这个类的要求是，label为[0,9]，算是一点妥协。
+    TCTHelper tct1;
+	// 由DFA对象生成ADS/test.ADS文件
+	tct1.perform(dfa1, "test.ads");
+	cout << "tct1:" << tct1 << endl;
 
+	// 当前对象转换为DFA
+	DFA_components dfa_com1 = tct1.getDFA();
+	DFA dfa2(dfa_com1);
+	cout << "dfa2:" << dfa2 << endl;
+
+	// 依据ADS/test.ADS文件，生成当前对象
+	TCTHelper tct2;
+	tct2.adsToDFA("test.ads");
+	cout << "tct2:" << tct2 << endl;
+
+	// 判断两个tct对象是否相同，即代表同样一个DFA
+	cout << "tct1 == tct2 ? " << (tct1 == tct2) << endl;
+	assert(tct1 == tct2);
+
+	// 键盘键入DFA，生成ADS文件
+	cout << "键盘键入DFA\n";
+	TCTHelper tct3;
+	cin >> tct3;
+	tct3.perform("DFATest.ADS"); //生成DFATest.ADS文件
+	cout << "tct3:" << tct3 << endl;
+
+	DFA_components dfa_com3 = tct3.getDFA();
+	DFA dfa3(dfa_com3);
+	cout << "dfa3:" << dfa3 << endl;
 
 ******************************************************************/
 
@@ -79,11 +111,11 @@ public:
 	size_t size();
 	// 当前对象生成DFA_components对象
 	DFA_components getDFA();
-	// 依据.ADS文件，生成当前对象
+	// 依据ADS/adsfilename.ADS文件，生成当前对象
 	bool adsToDFA(std::string adsfilename);
-	// 当前对象生成默认的DFA.ADS文件
+	// 当前对象生成默认的ADS/DFA.ADS文件
 	bool perform();
-	// 当前对象生成.ADS文件
+	// 当前对象生成ADS/filepath.ADS文件
 	bool perform(std::string filepath);
 	// DFA对象生成.ADS文件
 	bool perform(DFA &dfa, std::string filepath);
@@ -101,13 +133,34 @@ private:
 	//std::vector<state> initial;
 	std::vector<state> F;  // Final State Set. 正整数
 	std::vector<state> Q;  // StatePool ，预留
-	std::vector<label> V;  // .为 [0,9] 的整数
+	std::vector<label> V;  // 接受字母'0'至'z'。约定：如果'0' <= 所有字母 <= '9'，则V的整数值对应0 ~ 9; 如果'a' <= 所有字母 <= 'z'，则V的整数值对应10+0,10+1,...10+25; 
 	std::string theDFA;     // 保存类DFA的输出
 	std::string adsDirectory; // .ADS文件所在目录
-	size_t num_state;
+	size_t num_state;         // 状态数
+
+	/*******************************************
+	 按照约定，DFA转移表字母的整数值:
+	 case 1: ['0','9'] ==> [0,9]
+	 case 2: ['a','z'] ==> [10,35]
+	 case 3: ['A','Z'] ==> [36,61]
+	 other case is illegal.
+	 *******************************************/
+	label toADS_V(char v);
+	char toDFA_V(label v);
+	
+	/*******************************************
+	 按照约定，字母必须是['0','9'] || ['a','z'] || ['A','Z'].
+	 other case is illegal.
+	 *******************************************/
+	bool isV(char c);
+    
+	// 处理DFA输出的一行字符串
+	// 返回本行末尾字符'\n'的位置索引。如果处理结束，返回std::string::npos。
+	std::string::size_type processLine(const std::string &str, std::string::size_type pos1);
+	
+	// 记录处理DFA输出的transitions line行数，总行数与状态数(num_state)相同。
+	int transitionsLineNum;
 };
-
-
 
 #endif // !TCTHelper_H
 
